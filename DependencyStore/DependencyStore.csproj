@@ -63,9 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyStoreContainer.cs" />
-    <Compile Include="Domain\DependencyCollection.cs" />
-    <Compile Include="Domain\DependencyAsset.cs" />
-    <Compile Include="Domain\Dependency.cs" />
+    <Compile Include="Domain\BuildLocation.cs" />
+    <Compile Include="Domain\Future\DependencyCollection.cs" />
+    <Compile Include="Domain\Future\DependencyAsset.cs" />
+    <Compile Include="Domain\Future\Dependency.cs" />
     <Compile Include="Domain\FileAndDirectoryRules.cs" />
     <Compile Include="Domain\IncludeExcludeRules.cs" />
     <Compile Include="Domain\FileSystemDirectory.cs" />
@@ -73,10 +74,11 @@
     <Compile Include="Domain\FileSystemFile.cs" />
     <Compile Include="Domain\FileSystemPath.cs" />
     <Compile Include="Domain\LatestFiles.cs" />
-    <Compile Include="Domain\LocalWarehouse.cs" />
+    <Compile Include="Domain\Future\LocalWarehouse.cs" />
+    <Compile Include="Domain\LibraryLocation.cs" />
     <Compile Include="Domain\Location.cs" />
-    <Compile Include="Domain\Project.cs" />
-    <Compile Include="Domain\ProjectDirectory.cs" />
+    <Compile Include="Domain\Future\Project.cs" />
+    <Compile Include="Domain\Future\ProjectDirectory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Controller.cs" />
     <Compile Include="Services\DataAccess\DataAccessExceptions.cs" />

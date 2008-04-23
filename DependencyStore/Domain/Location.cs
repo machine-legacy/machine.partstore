@@ -32,36 +32,4 @@ namespace DependencyStore.Domain
       _path = path;
     }
   }
-  public class BuildLocation : Location
-  {
-    public override bool IsSource
-    {
-      get { return true; }
-    }
-
-    public BuildLocation(FileSystemPath path)
-     : base(path)
-    {
-    }
-
-    public BuildLocation()
-    {
-    }
-  }
-  public class LibraryLocation : Location
-  {
-    public override bool IsSource
-    {
-      get { return false; }
-    }
-
-    public LibraryLocation(FileSystemPath path)
-     : base(path)
-    {
-    }
-
-    public LibraryLocation()
-    {
-    }
-  }
 }

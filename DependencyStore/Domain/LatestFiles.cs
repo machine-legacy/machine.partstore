@@ -33,6 +33,14 @@ namespace DependencyStore.Domain
       }
     }
 
+    public void Add(IEnumerable<FileSystemFile> files)
+    {
+      foreach (FileSystemFile file in files)
+      {
+        Add(file);
+      }
+    }
+
     public IEnumerable<FileSystemFile> Files
     {
       get { return _files; }

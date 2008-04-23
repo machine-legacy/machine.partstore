@@ -29,10 +29,7 @@ namespace DependencyStore.Services
         FileSystemEntry entry = _fileSystemEntryRepository.FindEntry(location.Path, rules);
         if (entry != null)
         {
-          foreach (FileSystemFile child in entry.BreadthFirstFiles)
-          {
-            latest.Add(child);
-          }
+          latest.Add(entry.BreadthFirstFiles);
         }
       }
       foreach (Location location in _locationRepository.FindAllSinks())
@@ -49,10 +46,6 @@ namespace DependencyStore.Services
             }
           }
         }
-      }
-      foreach (FileSystemFile child in latest.Files)
-      {
-        //Console.WriteLine("{1} {0}", child.ModifiedAt, child.Name);
       }
     }
 
