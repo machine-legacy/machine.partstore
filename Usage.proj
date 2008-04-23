@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Show" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="DependencyStore.Tasks.DsShow" AssemblyFile="Build\Debug\DependencyStore.dll" />
+  <UsingTask TaskName="DependencyStore.Tasks.DsRefresh" AssemblyFile="Build\Debug\DependencyStore.dll" />
+
+  <Target Name="Show">
+    <DsShow ProjectName="DependencyStore" />
+  </Target>
+
+  <Target Name="Refresh">
+    <DsRefresh ProjectName="DependencyStore" />
+  </Target>
+</Project>

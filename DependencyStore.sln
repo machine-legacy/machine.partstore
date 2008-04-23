@@ -1,0 +1,26 @@
+
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyStore", "DependencyStore\DependencyStore.csproj", "{8D6BE035-80BC-40DA-8534-8DA0EFF55724}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyStore.Tests", "DependencyStore.Tests\DependencyStore.Tests.csproj", "{4043D05C-949E-485D-82B7-C738B27CEC5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D6BE035-80BC-40DA-8534-8DA0EFF55724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D6BE035-80BC-40DA-8534-8DA0EFF55724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D6BE035-80BC-40DA-8534-8DA0EFF55724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D6BE035-80BC-40DA-8534-8DA0EFF55724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4043D05C-949E-485D-82B7-C738B27CEC5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4043D05C-949E-485D-82B7-C738B27CEC5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4043D05C-949E-485D-82B7-C738B27CEC5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4043D05C-949E-485D-82B7-C738B27CEC5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
