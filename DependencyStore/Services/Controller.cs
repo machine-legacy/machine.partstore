@@ -8,27 +8,51 @@ namespace DependencyStore.Services
 {
   public class Controller : IController
   {
-    private readonly IFileSystemPathRepository _fileSystemPathRepository;
+    private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
+    private readonly ILocationRepository _locationRepository;
 
-    public Controller(IFileSystemEntryRepository fileSystemEntryRepository, IFileSystemPathRepository fileSystemPathRepository)
+    public Controller(IFileSystemEntryRepository fileSystemEntryRepository, ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository)
     {
       _fileSystemEntryRepository = fileSystemEntryRepository;
-      _fileSystemPathRepository = fileSystemPathRepository;
+      _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
+      _locationRepository = locationRepository;
     }
 
     #region IController Members
     public void Show()
     {
-      InclusionExclusionRules rules = new InclusionExclusionRules();
-      rules.AddExclusion(@"^.svn$");
-      rules.AddInclusion(@"^.*\.dll$");
-      rules.AddInclusion(@"^.*\.pdb$");
-      foreach (FileSystemPath path in _fileSystemPathRepository.FindAll())
+      LatestFiles latest = new LatestFiles();
+      FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
+      foreach (Location location in _locationRepository.FindAllSources())
       {
-        FileSystemEntry entry = _fileSystemEntryRepository.FindEntry(path);
-        Console.WriteLine(path);
-        Console.WriteLine(entry);
+        FileSystemEntry entry = _fileSystemEntryRepository.FindEntry(location.Path, rules);
+        if (entry != null)
+        {
+          foreach (FileSystemFile child in entry.BreadthFirstFiles)
+          {
+            latest.Add(child);
+          }
+        }
+      }
+      foreach (Location location in _locationRepository.FindAllSinks())
+      {
+        FileSystemEntry entry = _fileSystemEntryRepository.FindEntry(location.Path, rules);
+        if (entry != null)
+        {
+          foreach (FileSystemFile child in entry.BreadthFirstFiles)
+          {
+            FileSystemFile existing = latest.FindExistingByName(child);
+            if (existing != null && child.IsOlderThan(existing))
+            {
+              Console.WriteLine("Replace: {0} ({1} vs {2})", child, child.ModifiedAt, existing.ModifiedAt);
+            }
+          }
+        }
+      }
+      foreach (FileSystemFile child in latest.Files)
+      {
+        //Console.WriteLine("{1} {0}", child.ModifiedAt, child.Name);
       }
     }
 

@@ -34,24 +34,48 @@ namespace DependencyStore.Domain
       set { _modifiedAt = value; }
     }
 
-    public string Extension
-    {
-      get { return System.IO.Path.GetExtension(this.Path.Full); }
-    }
-
-    public string Directory
-    {
-      get { return System.IO.Path.GetDirectoryName((this.Path.Full)); }
-    }
-
     public string Name
     {
-      get { return System.IO.Path.GetFileName((this.Path.Full)); }
+      get { return this.Path.Name; }
     }
 
     public override string ToString()
     {
       return String.Format(@"File<{0}>", this.Path);
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (obj is FileSystemFile)
+      {
+        return ((FileSystemFile)obj).Path.Equals(this.Path);
+      }
+      return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+      return this.Path.GetHashCode();
+    }
+
+    public override IEnumerable<FileSystemFile> BreadthFirstFiles
+    {
+      get { yield return this; }
+    }
+
+    public bool IsNewerThan(FileSystemFile file)
+    {
+      return this.ModifiedAt > file.ModifiedAt;
+    }
+
+    public bool IsOlderThan(FileSystemFile file)
+    {
+      return this.ModifiedAt < file.ModifiedAt;
+    }
+
+    public bool IsSameAgeAs(FileSystemFile file)
+    {
+      return this.ModifiedAt == file.ModifiedAt;
     }
   }
 }

@@ -17,7 +17,7 @@ namespace DependencyStore.Services.DataAccess
     }
 
     #region IFileSystemEntryRepository Members
-    public FileSystemEntry FindEntry(FileSystemPath path)
+    public FileSystemEntry FindEntry(FileSystemPath path, FileAndDirectoryRules rules)
     {
       if (_fileSystem.IsFile(path.Full))
       {
@@ -25,22 +25,28 @@ namespace DependencyStore.Services.DataAccess
       }
       if (_fileSystem.IsDirectory(path.Full))
       {
-        return CreateDirectory(path.Full);
+        return CreateDirectory(path.Full, rules);
       }
-      throw new FileSystemEntryNotFoundException();
+      return null;
     }
     #endregion
 
-    private FileSystemDirectory CreateDirectory(string path)
+    private FileSystemDirectory CreateDirectory(string path, FileAndDirectoryRules rules)
     {
       List<FileSystemEntry> entries = new List<FileSystemEntry>();
       foreach (string entryPath in _fileSystem.GetDirectories(path))
       {
-        entries.Add(CreateDirectory(entryPath));
+        if (rules.IncludesDirectory(new FileSystemPath(entryPath)) != IncludeExclude.Exclude)
+        {
+          entries.Add(CreateDirectory(entryPath, rules));
+        }
       }
       foreach (string entryPath in _fileSystem.GetFiles(path))
       {
-        entries.Add(CreateFile(entryPath));
+        if (rules.IncludesFile(new FileSystemPath(entryPath)) != IncludeExclude.Exclude)
+        {
+          entries.Add(CreateFile(entryPath));
+        }
       }
       FileSystemDirectory entry = new FileSystemDirectory();
       entry.Path = new FileSystemPath(path);

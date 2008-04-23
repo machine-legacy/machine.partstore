@@ -8,7 +8,7 @@
     <ProjectGuid>{4043D05C-949E-485D-82B7-C738B27CEC5D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DependencyStore.Tests</RootNamespace>
+    <RootNamespace>DependencyStore</RootNamespace>
     <AssemblyName>DependencyStore.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -31,6 +31,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.DynamicProxy2, Version=2.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Testing\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Testing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Machine\Machine.Testing.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.4.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Testing\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.4.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Testing\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -45,17 +61,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\BuildLocationTests.cs" />
+    <Compile Include="Domain\FileAndDirectoryRulesTests.cs" />
+    <Compile Include="Domain\FileSystemPathTests.cs" />
+    <Compile Include="Domain\IncludeExcludeRulesTests.cs" />
+    <Compile Include="Domain\LatestFilesTests.cs" />
+    <Compile Include="Domain\LibraryLocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ControllerTests.cs" />
+    <Compile Include="Services\DataAccess\FileSystemEntryRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DependencyStore\DependencyStore.csproj">
       <Project>{8D6BE035-80BC-40DA-8534-8DA0EFF55724}</Project>
       <Name>DependencyStore</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

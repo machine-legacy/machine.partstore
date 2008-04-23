@@ -32,7 +32,7 @@ namespace DependencyStore.Domain
     {
       if (obj is FileSystemPath)
       {
-        return ((FileSystemPath)obj).Full.Equals(_full);
+        return ((FileSystemPath)obj).Full.Equals(_full, StringComparison.InvariantCultureIgnoreCase);
       }
       return base.Equals(obj);
     }

@@ -5,6 +5,12 @@ using System.Text.RegularExpressions;
 
 namespace DependencyStore.Domain
 {
+  public enum IncludeExclude
+  {
+    Unknown,
+    Include,
+    Exclude
+  }
   public interface IDecidesInclusion
   {
     IncludeExclude Includes(FileSystemPath path);
@@ -13,9 +19,9 @@ namespace DependencyStore.Domain
   {
     private readonly Regex _expression;
 
-    public Exclusion(Regex expression)
+    public Exclusion(string expression)
     {
-      _expression = expression;
+      _expression = new Regex(expression);
     }
 
     public virtual IncludeExclude Includes(FileSystemPath path)
@@ -31,9 +37,9 @@ namespace DependencyStore.Domain
   {
     private readonly Regex _expression;
 
-    public Inclusion(Regex expression)
+    public Inclusion(string expression)
     {
-      _expression = expression;
+      _expression = new Regex(expression);;
     }
 
     public virtual IncludeExclude Includes(FileSystemPath path)
@@ -45,12 +51,12 @@ namespace DependencyStore.Domain
       return IncludeExclude.Unknown;
     }
   }
-  public class InclusionExclusionRules : IDecidesInclusion
+  public class IncludeExcludeRules : IDecidesInclusion
   {
     private readonly List<IDecidesInclusion> _rules = new List<IDecidesInclusion>();
-    private bool _default = true;
+    private IncludeExclude _default = IncludeExclude.Unknown;
 
-    public bool Default
+    public IncludeExclude Default
     {
       get { return _default; }
       set { _default = value; }
@@ -59,6 +65,15 @@ namespace DependencyStore.Domain
     public List<IDecidesInclusion> Rules
     {
       get { return _rules; }
+    }
+
+    public IncludeExcludeRules()
+    {
+    }
+
+    public IncludeExcludeRules(IncludeExclude defaultValue)
+    {
+      _default = defaultValue;
     }
 
     #region IDecidesInclusion Members
@@ -76,24 +91,18 @@ namespace DependencyStore.Domain
             break;
         }
       }
-      return IncludeExclude.Unknown;
+      return _default;
     }
     #endregion
 
     public void AddExclusion(string pattern)
     {
-      _rules.Add(new Exclusion(new Regex(pattern)));
+      _rules.Add(new Exclusion(pattern));
     }
 
     public void AddInclusion(string pattern)
     {
-      _rules.Add(new Inclusion(new Regex(pattern)));
+      _rules.Add(new Inclusion(pattern));
     }
-  }
-  public enum IncludeExclude
-  {
-    Unknown,
-    Include,
-    Exclude
   }
 }

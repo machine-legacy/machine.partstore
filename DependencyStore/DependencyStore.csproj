@@ -63,27 +63,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyStoreContainer.cs" />
-    <Compile Include="Domain\BuildDirectoryPath.cs" />
     <Compile Include="Domain\DependencyCollection.cs" />
     <Compile Include="Domain\DependencyAsset.cs" />
     <Compile Include="Domain\Dependency.cs" />
-    <Compile Include="Domain\InclusionExclusionRules.cs" />
+    <Compile Include="Domain\FileAndDirectoryRules.cs" />
+    <Compile Include="Domain\IncludeExcludeRules.cs" />
     <Compile Include="Domain\FileSystemDirectory.cs" />
     <Compile Include="Domain\FileSystemEntry.cs" />
     <Compile Include="Domain\FileSystemFile.cs" />
     <Compile Include="Domain\FileSystemPath.cs" />
-    <Compile Include="Domain\LibraryDirectoryPath.cs" />
+    <Compile Include="Domain\LatestFiles.cs" />
     <Compile Include="Domain\LocalWarehouse.cs" />
+    <Compile Include="Domain\Location.cs" />
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\ProjectDirectory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Controller.cs" />
     <Compile Include="Services\DataAccess\DataAccessExceptions.cs" />
+    <Compile Include="Services\DataAccess\FileAndDirectoryRulesRepository.cs" />
+    <Compile Include="Services\DataAccess\IFileAndDirectoryRulesRepository.cs" />
+    <Compile Include="Services\DataAccess\ILocationRepository.cs" />
+    <Compile Include="Services\DataAccess\LocationRepository.cs" />
+    <Compile Include="Utility\FileSystemEntryPrinter.cs" />
     <Compile Include="Services\DataAccess\FileSystemEntryRepository.cs" />
-    <Compile Include="Services\DataAccess\FileSystemPathRepository.cs" />
     <Compile Include="Services\DataAccess\IFileSystemEntryRepository.cs" />
-    <Compile Include="Services\DataAccess\IFileSystemPathRepository.cs" />
-    <Compile Include="Services\DataAccess\ILocalWarehouseRepository.cs" />
     <Compile Include="Services\IController.cs" />
     <Compile Include="Tasks\DsAdd.cs" />
     <Compile Include="Tasks\DsClear.cs" />

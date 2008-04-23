@@ -5,8 +5,8 @@ using DependencyStore.Domain;
 
 namespace DependencyStore.Services.DataAccess
 {
-  public interface IFileSystemPathRepository
+  public interface IFileAndDirectoryRulesRepository
   {
-    IList<FileSystemPath> FindAll();
+    FileAndDirectoryRules FindDefault();
   }
 }

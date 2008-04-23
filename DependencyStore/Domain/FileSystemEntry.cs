@@ -12,5 +12,25 @@ namespace DependencyStore.Domain
       get { return _path; }
       set { _path = value; }
     }
+
+    public virtual IEnumerable<FileSystemEntry> Children
+    {
+      get { yield break; }
+    }
+
+    public virtual IEnumerable<FileSystemEntry> BreadthFirstTree
+    {
+      get { yield return this; }
+    }
+
+    public virtual IEnumerable<FileSystemEntry> DepthFirstTree
+    {
+      get { yield return this; }
+    }
+
+    public virtual IEnumerable<FileSystemFile> BreadthFirstFiles
+    {
+      get { yield break; }
+    }
   }
 }
