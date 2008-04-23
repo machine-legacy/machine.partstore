@@ -21,44 +21,45 @@ namespace DependencyStore.Services.DataAccess
     {
       if (_fileSystem.IsFile(path.Full))
       {
-        return CreateFile(path.Full);
+        if (rules.IncludesFile(path) != IncludeExclude.Exclude)
+        {
+          return CreateFile(path);
+        }
       }
-      if (_fileSystem.IsDirectory(path.Full))
+      else if (_fileSystem.IsDirectory(path.Full))
       {
-        return CreateDirectory(path.Full, rules);
+        if (rules.IncludesDirectory(path) != IncludeExclude.Exclude)
+        {
+          return CreateDirectory(path, rules);
+        }
       }
       return null;
     }
     #endregion
 
-    private FileSystemDirectory CreateDirectory(string path, FileAndDirectoryRules rules)
+    private FileSystemDirectory CreateDirectory(FileSystemPath path, FileAndDirectoryRules rules)
     {
       List<FileSystemEntry> entries = new List<FileSystemEntry>();
-      foreach (string entryPath in _fileSystem.GetDirectories(path))
+      foreach (string subPath in _fileSystem.GetEntries(path.Full))
       {
-        if (rules.IncludesDirectory(new FileSystemPath(entryPath)) != IncludeExclude.Exclude)
+        FileSystemPath entryPath = new FileSystemPath(subPath);
+        FileSystemEntry subEntry = FindEntry(entryPath, rules);
+        if (subEntry != null)
         {
-          entries.Add(CreateDirectory(entryPath, rules));
-        }
-      }
-      foreach (string entryPath in _fileSystem.GetFiles(path))
-      {
-        if (rules.IncludesFile(new FileSystemPath(entryPath)) != IncludeExclude.Exclude)
-        {
-          entries.Add(CreateFile(entryPath));
+          entries.Add(subEntry);
         }
       }
       FileSystemDirectory entry = new FileSystemDirectory();
-      entry.Path = new FileSystemPath(path);
+      entry.Path = path;
       entry.Entries = entries;
       return entry;
     }
 
-    private FileSystemFile CreateFile(string path)
+    private FileSystemFile CreateFile(FileSystemPath path)
     {
-      FileProperties properties = _fileSystem.GetFileProperties(path);
+      FileProperties properties = _fileSystem.GetFileProperties(path.Full);
       FileSystemFile entry = new FileSystemFile();
-      entry.Path = new FileSystemPath(path);
+      entry.Path = path;
       entry.Length = properties.Length;
       entry.CreatedAt = properties.CreationTime;
       entry.ModifiedAt = properties.LastWriteTime;
