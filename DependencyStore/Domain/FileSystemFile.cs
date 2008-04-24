@@ -44,20 +44,6 @@ namespace DependencyStore.Domain
       return String.Format(@"File<{0}>", this.Path);
     }
 
-    public override bool Equals(object obj)
-    {
-      if (obj is FileSystemFile)
-      {
-        return ((FileSystemFile)obj).Path.Equals(this.Path);
-      }
-      return base.Equals(obj);
-    }
-
-    public override int GetHashCode()
-    {
-      return this.Path.GetHashCode();
-    }
-
     public override IEnumerable<FileSystemFile> BreadthFirstFiles
     {
       get { yield return this; }
@@ -76,6 +62,15 @@ namespace DependencyStore.Domain
     public bool IsSameAgeAs(FileSystemFile file)
     {
       return this.ModifiedAt == file.ModifiedAt;
+    }
+
+    public FileSystemFile()
+    {
+    }
+
+    public FileSystemFile(FileSystemPath path)
+     : base(path)
+    {
     }
   }
 }

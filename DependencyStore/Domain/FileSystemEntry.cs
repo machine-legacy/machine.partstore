@@ -23,14 +23,18 @@ namespace DependencyStore.Domain
       get { yield return this; }
     }
 
-    public virtual IEnumerable<FileSystemEntry> DepthFirstTree
-    {
-      get { yield return this; }
-    }
-
     public virtual IEnumerable<FileSystemFile> BreadthFirstFiles
     {
       get { yield break; }
+    }
+
+    public FileSystemEntry()
+    {
+    }
+
+    public FileSystemEntry(FileSystemPath path)
+    {
+      _path = path;
     }
   }
 }

@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Domain\BuildLocationTests.cs" />
     <Compile Include="Domain\FileAndDirectoryRulesTests.cs" />
+    <Compile Include="Domain\FileSystemDirectoryTests.cs" />
     <Compile Include="Domain\FileSystemPathTests.cs" />
     <Compile Include="Domain\IncludeExcludeRulesTests.cs" />
     <Compile Include="Domain\LatestFilesTests.cs" />

@@ -39,27 +39,23 @@ namespace DependencyStore.Services.DataAccess
 
     private FileSystemDirectory CreateDirectory(FileSystemPath path, FileAndDirectoryRules rules)
     {
-      List<FileSystemEntry> entries = new List<FileSystemEntry>();
+      FileSystemDirectory entry = new FileSystemDirectory(path);
       foreach (string subPath in _fileSystem.GetEntries(path.Full))
       {
         FileSystemPath entryPath = new FileSystemPath(subPath);
         FileSystemEntry subEntry = FindEntry(entryPath, rules);
         if (subEntry != null)
         {
-          entries.Add(subEntry);
+          entry.Entries.Add(subEntry);
         }
       }
-      FileSystemDirectory entry = new FileSystemDirectory();
-      entry.Path = path;
-      entry.Entries = entries;
       return entry;
     }
 
     private FileSystemFile CreateFile(FileSystemPath path)
     {
       FileProperties properties = _fileSystem.GetFileProperties(path.Full);
-      FileSystemFile entry = new FileSystemFile();
-      entry.Path = path;
+      FileSystemFile entry = new FileSystemFile(path);
       entry.Length = properties.Length;
       entry.CreatedAt = properties.CreationTime;
       entry.ModifiedAt = properties.LastWriteTime;

@@ -5,12 +5,11 @@ namespace DependencyStore.Domain
 {
   public class FileSystemDirectory : FileSystemEntry
   {
-    private List<FileSystemEntry> _entries = new List<FileSystemEntry>();
+    private readonly List<FileSystemEntry> _entries = new List<FileSystemEntry>();
 
     public List<FileSystemEntry> Entries
     {
       get { return _entries; }
-      set { _entries = value; }
     }
 
     public string Name
@@ -49,21 +48,6 @@ namespace DependencyStore.Domain
       }
     }
 
-    public override IEnumerable<FileSystemEntry> DepthFirstTree
-    {
-      get
-      {
-        foreach (FileSystemEntry entry in this.Children)
-        {
-          foreach (FileSystemEntry child in entry.DepthFirstTree)
-          {
-            yield return child;
-          }
-        }
-        yield return this;
-      }
-    }
-
     public override IEnumerable<FileSystemFile> BreadthFirstFiles
     {
       get
@@ -76,6 +60,15 @@ namespace DependencyStore.Domain
           }
         }
       }
+    }
+
+    public FileSystemDirectory()
+    {
+    }
+
+    public FileSystemDirectory(FileSystemPath path) 
+     : base(path)
+    {
     }
   }
 }

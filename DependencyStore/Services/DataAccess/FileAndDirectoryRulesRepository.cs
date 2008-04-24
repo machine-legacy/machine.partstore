@@ -11,12 +11,12 @@ namespace DependencyStore.Services.DataAccess
     public FileAndDirectoryRules FindDefault()
     {
       FileAndDirectoryRules rules = new FileAndDirectoryRules();
-      rules.DirectoryRules.AddExclusion(@"^.svn$");
-      rules.DirectoryRules.AddExclusion(@"^pt$");
-      rules.DirectoryRules.AddExclusion(@"^obj$");
-      rules.FileRules.AddInclusion(@"^.*\.dll$");
-      rules.FileRules.AddInclusion(@"^.*\.pdb$");
-      rules.FileRules.AddInclusion(@"^.*\.config$");
+      rules.DirectoryRules.AddExclusion(DefaultInclusionRules.SubversionDirectory);
+      rules.DirectoryRules.AddExclusion(DefaultInclusionRules.PtDirectory);
+      rules.DirectoryRules.AddExclusion(DefaultInclusionRules.ObjDirectory);
+      rules.FileRules.AddInclusion(DefaultInclusionRules.DllFile);
+      rules.FileRules.AddInclusion(DefaultInclusionRules.PdbFile);
+      rules.FileRules.AddInclusion(DefaultInclusionRules.ConfigFile);
       return rules;
     }
     #endregion

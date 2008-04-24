@@ -105,4 +105,13 @@ namespace DependencyStore.Domain
       _rules.Add(new Inclusion(pattern));
     }
   }
+  public static class DefaultInclusionRules
+  {
+    public static string SubversionDirectory = @"^\.svn$";
+    public static string PtDirectory = @"^pt$";
+    public static string ObjDirectory = @"^obj$";
+    public static string DllFile = @"^.+\.dll$";
+    public static string PdbFile = @"^.+\.pdb$";
+    public static string ConfigFile = @"^.+\.config$";
+  }
 }
