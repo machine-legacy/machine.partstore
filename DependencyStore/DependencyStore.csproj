@@ -65,6 +65,7 @@
     <Compile Include="DependencyStoreContainer.cs" />
     <Compile Include="Domain\BuildLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
+    <Compile Include="Domain\DomainEvents.cs" />
     <Compile Include="Domain\Future\DependencyCollection.cs" />
     <Compile Include="Domain\Future\DependencyAsset.cs" />
     <Compile Include="Domain\Future\Dependency.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Services\DataAccess\IFileAndDirectoryRulesRepository.cs" />
     <Compile Include="Services\DataAccess\ILocationRepository.cs" />
     <Compile Include="Services\DataAccess\LocationRepository.cs" />
+    <Compile Include="Services\ISinkUpdater.cs" />
     <Compile Include="Utility\FileSystemEntryPrinter.cs" />
     <Compile Include="Services\DataAccess\FileSystemEntryRepository.cs" />
     <Compile Include="Services\DataAccess\IFileSystemEntryRepository.cs" />

@@ -18,5 +18,9 @@ namespace DependencyStore.Domain
     public LibraryLocation()
     {
     }
+
+    public void Update(LatestFiles files)
+    {
+    }
   }
 }

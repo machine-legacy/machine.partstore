@@ -52,8 +52,10 @@ namespace DependencyStore.Services
             FileSystemFile existing = latest.FindExistingByName(child);
             if (existing != null && child.IsOlderThan(existing))
             {
-              Console.WriteLine("+ {0} {1}", child.Path.Chroot(location.Path).Full, TimeSpanHelper.ToPrettyString(existing.ModifiedAt - child.ModifiedAt));
-              _fileSystem.CopyFile(existing.Path.Full, child.Path.Full, true);
+              TimeSpan age = existing.ModifiedAt - child.ModifiedAt;
+              FileSystemPath chrooted = child.Path.Chroot(location.Path);
+              Console.WriteLine("+ {0} {1}", chrooted.Full, TimeSpanHelper.ToPrettyString(age));
+              // _fileSystem.CopyFile(existing.Path.Full, child.Path.Full, true);
             }
           }
         }
