@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using DependencyStore.Domain;
 using DependencyStore.Services.DataAccess;
 
+using Machine.Core.Utility;
+using Machine.Core.Services;
+
 namespace DependencyStore.Services
 {
   public class Controller : IController
@@ -11,10 +14,12 @@ namespace DependencyStore.Services
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
     private readonly ILocationRepository _locationRepository;
+    private readonly IFileSystem _fileSystem;
 
-    public Controller(IFileSystemEntryRepository fileSystemEntryRepository, ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository)
+    public Controller(IFileSystemEntryRepository fileSystemEntryRepository, ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IFileSystem fileSystem)
     {
       _fileSystemEntryRepository = fileSystemEntryRepository;
+      _fileSystem = fileSystem;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _locationRepository = locationRepository;
     }
@@ -31,9 +36,14 @@ namespace DependencyStore.Services
         {
           latest.Add(entry.BreadthFirstFiles);
         }
+        else
+        {
+          Console.WriteLine("Missing: {0}", location.Path);  
+        }
       }
       foreach (Location location in _locationRepository.FindAllSinks())
       {
+        Console.WriteLine("Under: {0}", location.Path);
         FileSystemEntry entry = _fileSystemEntryRepository.FindEntry(location.Path, rules);
         if (entry != null)
         {
@@ -42,9 +52,14 @@ namespace DependencyStore.Services
             FileSystemFile existing = latest.FindExistingByName(child);
             if (existing != null && child.IsOlderThan(existing))
             {
-              Console.WriteLine("Replace: {0} ({1} vs {2})", child, child.ModifiedAt, existing.ModifiedAt);
+              Console.WriteLine("+ {0} {1}", child.Path.Chroot(location.Path).Full, TimeSpanHelper.ToPrettyString(existing.ModifiedAt - child.ModifiedAt));
+              _fileSystem.CopyFile(existing.Path.Full, child.Path.Full, true);
             }
           }
+        }
+        else
+        {
+          Console.WriteLine("Missing: {0}", location.Path);  
         }
       }
     }

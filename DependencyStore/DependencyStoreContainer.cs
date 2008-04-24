@@ -18,6 +18,7 @@ namespace DependencyStore
       AddService<Clock>();
       AddService<FileSystemEntryRepository>();
       AddService<FileAndDirectoryRulesRepository>();
+      AddService<ConfigurationRepository>();
       AddService<LocationRepository>();
       AddService<Controller>();
     }

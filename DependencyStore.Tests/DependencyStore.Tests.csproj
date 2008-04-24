@@ -35,6 +35,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libraries\Testing\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
+    <Reference Include="Machine.Container, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Machine\Machine.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5c474de7a495cff1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Machine\Machine.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Machine.Testing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libraries\Machine\Machine.Testing.dll</HintPath>
@@ -70,6 +78,8 @@
     <Compile Include="Domain\LibraryLocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ControllerTests.cs" />
+    <Compile Include="Services\DataAccess\ConfigurationRepositoryTests.cs" />
+    <Compile Include="Services\DataAccess\FileAndDirectoryRulesRepositoryTests.cs" />
     <Compile Include="Services\DataAccess\FileSystemEntryRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
