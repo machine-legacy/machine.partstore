@@ -23,7 +23,7 @@ namespace DependencyStore.Services.DataAccess
         MemoryStream stream = new MemoryStream(Encoding.ASCII.GetBytes(text));
         SetupResult.For(The<IFileSystem>().OpenText("DependencyStore.config")).Return(new StreamReader(stream));
       }
-      Assert.IsNotNull(Target.FindConfiguration());
+      Assert.IsNotNull(Target.FindConfiguration("DependencyStore.config"));
     }
 
     [Test]
@@ -36,7 +36,7 @@ namespace DependencyStore.Services.DataAccess
         MemoryStream stream = new MemoryStream(Encoding.ASCII.GetBytes(text));
         SetupResult.For(The<IFileSystem>().OpenText("DependencyStore.config")).Return(new StreamReader(stream));
       }
-      Target.FindConfiguration();
+      Target.FindConfiguration("DependencyStore.config");
     }
   }
 }

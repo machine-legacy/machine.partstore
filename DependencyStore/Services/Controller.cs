@@ -14,13 +14,11 @@ namespace DependencyStore.Services
   {
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly IConfigurationRepository _configurationRepository;
-    private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
     private readonly ILocationRepository _locationRepository;
     private readonly IFileSystem _fileSystem;
 
-    public Controller(IFileSystemEntryRepository fileSystemEntryRepository, ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IFileSystem fileSystem, IConfigurationRepository configurationRepository)
+    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IFileSystem fileSystem, IConfigurationRepository configurationRepository)
     {
-      _fileSystemEntryRepository = fileSystemEntryRepository;
       _configurationRepository = configurationRepository;
       _fileSystem = fileSystem;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
@@ -43,14 +41,15 @@ namespace DependencyStore.Services
 
     private void CheckForNewerFiles()
     {
-      DependencyStoreConfiguration configuration = _configurationRepository.FindConfiguration();
+      DependencyStoreConfiguration configuration = _configurationRepository.FindConfiguration("DependencyStore.config");
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
-      IList<SourceLocation> sources = _locationRepository.FindAllSources(rules);
-      IList<SinkLocation> sinks = _locationRepository.FindAllSinks(rules);
+      IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
+      IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
       LatestFiles latest = new LatestFiles();
       latest.AddAll(sources);
       foreach (SinkLocation location in sinks)
       {
+        Console.WriteLine("Under {0}", location.Path.Full);
         location.CheckForNewerFiles(latest);
       }
     }
@@ -59,7 +58,7 @@ namespace DependencyStore.Services
     {
       TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
       FileSystemPath chrooted = e.SinkFile.Path.Chroot(e.SinkLocation.Path);
-      Console.WriteLine("+ {0} {1}", chrooted.Full, TimeSpanHelper.ToPrettyString(age));
+      Console.WriteLine("  {0} ({1} ago)", chrooted.Full, TimeSpanHelper.ToPrettyString(age));
     }
 
     private void UpdateOutdatedFile(object sender, OutdatedSinkFileEventArgs e)

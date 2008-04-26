@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyStoreContainer.cs" />
+    <Compile Include="Domain\Configuration\BuildDirectoryConfiguration.cs" />
+    <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\DomainEvents.cs" />

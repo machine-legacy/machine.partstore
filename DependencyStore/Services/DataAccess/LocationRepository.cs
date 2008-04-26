@@ -9,19 +9,16 @@ namespace DependencyStore.Services.DataAccess
 {
   public class LocationRepository : ILocationRepository
   {
-    private readonly IConfigurationRepository _configurationRepository;
     private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
 
-    public LocationRepository(IConfigurationRepository configurationRepository, IFileSystemEntryRepository fileSystemEntryRepository)
+    public LocationRepository(IFileSystemEntryRepository fileSystemEntryRepository)
     {
-      _configurationRepository = configurationRepository;
       _fileSystemEntryRepository = fileSystemEntryRepository;
     }
 
     #region ILocationRepository Members
-    public IList<Location> FindAll(FileAndDirectoryRules rules)
+    private IList<Location> FindAll(DependencyStoreConfiguration configuration, FileAndDirectoryRules rules)
     {
-      DependencyStoreConfiguration configuration = _configurationRepository.FindConfiguration();
       List<Location> locations = new List<Location>();
       foreach (BuildDirectoryConfiguration build in configuration.BuildDirectories)
       {
@@ -44,20 +41,20 @@ namespace DependencyStore.Services.DataAccess
       return locations;
     }
 
-    public IList<SourceLocation> FindAllSources(FileAndDirectoryRules rules)
+    public IList<SourceLocation> FindAllSources(DependencyStoreConfiguration configuration, FileAndDirectoryRules rules)
     {
       List<SourceLocation> locations = new List<SourceLocation>();
-      foreach (Location location in FindAll(rules))
+      foreach (Location location in FindAll(configuration, rules))
       {
         if (location.IsSource) locations.Add((SourceLocation)location);
       }
       return locations;
     }
 
-    public IList<SinkLocation> FindAllSinks(FileAndDirectoryRules rules)
+    public IList<SinkLocation> FindAllSinks(DependencyStoreConfiguration configuration, FileAndDirectoryRules rules)
     {
       List<SinkLocation> locations = new List<SinkLocation>();
-      foreach (Location location in FindAll(rules))
+      foreach (Location location in FindAll(configuration, rules))
       {
         if (location.IsSink) locations.Add((SinkLocation)location);
       }

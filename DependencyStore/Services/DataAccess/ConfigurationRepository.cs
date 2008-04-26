@@ -13,13 +13,6 @@ namespace DependencyStore.Services.DataAccess
   public class ConfigurationRepository : IConfigurationRepository
   {
     private readonly IFileSystem _fileSystem;
-    private string _configurationFile = @"DependencyStore.config";
-
-    public string ConfigurationFile
-    {
-      get { return _configurationFile; }
-      set { _configurationFile = value; }
-    }
 
     public ConfigurationRepository(IFileSystem fileSystem)
     {
@@ -27,11 +20,11 @@ namespace DependencyStore.Services.DataAccess
     }
 
     #region IConfigurationRepository Members
-    public DependencyStoreConfiguration FindConfiguration()
+    public DependencyStoreConfiguration FindConfiguration(string configurationFile)
     {
       try
       {
-        using (StreamReader reader = _fileSystem.OpenText(this.ConfigurationFile))
+        using (StreamReader reader = _fileSystem.OpenText(configurationFile))
         {
           return XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
         }
