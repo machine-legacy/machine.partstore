@@ -9,6 +9,7 @@ namespace DependencyStore.Domain.Configuration
   {
     private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
     private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
+    private FileAndDirectoryRules _fileAndDirectoryRules;
 
     public List<BuildDirectoryConfiguration> BuildDirectories
     {
@@ -18,6 +19,13 @@ namespace DependencyStore.Domain.Configuration
     public List<LibraryDirectoryConfiguration> LibraryDirectories
     {
       get { return _libraryDirectories; }
+    }
+
+    [XmlIgnore]
+    public FileAndDirectoryRules FileAndDirectoryRules
+    {
+      get { return _fileAndDirectoryRules; }
+      set { _fileAndDirectoryRules = value; }
     }
   }
 }

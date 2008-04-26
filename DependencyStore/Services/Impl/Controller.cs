@@ -13,35 +13,32 @@ namespace DependencyStore.Services.Impl
   public class Controller : IController
   {
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
-    private readonly IConfigurationRepository _configurationRepository;
     private readonly ILocationRepository _locationRepository;
     private readonly IFileSystem _fileSystem;
 
-    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IFileSystem fileSystem, IConfigurationRepository configurationRepository)
+    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IFileSystem fileSystem)
     {
-      _configurationRepository = configurationRepository;
       _fileSystem = fileSystem;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _locationRepository = locationRepository;
     }
 
     #region IController Members
-    public void Show()
+    public void Show(DependencyStoreConfiguration configuration)
     {
       DomainEvents.EncounteredOutdatedSinkFile += ReportOutdatedFile;
-      CheckForNewerFiles();
+      CheckForNewerFiles(configuration);
     }
 
-    public void Update()
+    public void Update(DependencyStoreConfiguration configuration)
     {
       DomainEvents.EncounteredOutdatedSinkFile += UpdateOutdatedFile;
-      CheckForNewerFiles();
+      CheckForNewerFiles(configuration);
     }
     #endregion
 
-    private void CheckForNewerFiles()
+    private void CheckForNewerFiles(DependencyStoreConfiguration configuration)
     {
-      DependencyStoreConfiguration configuration = _configurationRepository.FindConfiguration("DependencyStore.config");
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
@@ -58,7 +55,7 @@ namespace DependencyStore.Services.Impl
     {
       TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
       FileSystemPath chrooted = e.SinkFile.Path.Chroot(e.SinkLocation.Path);
-      Console.WriteLine("  {0} ({1} ago)", chrooted.Full, TimeSpanHelper.ToPrettyString(age));
+      Console.WriteLine("  {0} ({1} old)", chrooted.Full, TimeSpanHelper.ToPrettyString(age));
     }
 
     private void UpdateOutdatedFile(object sender, OutdatedSinkFileEventArgs e)

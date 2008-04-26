@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Services;
-
+using DependencyStore.Services.DataAccess;
 using Microsoft.Build.Framework;
 
 namespace DependencyStore.Tasks
@@ -22,13 +22,15 @@ namespace DependencyStore.Tasks
     {
       DependencyStoreContainer container = new DependencyStoreContainer();
       container.Initialize();
+      IConfigurationRepository configurationRepository = container.Resolve<IConfigurationRepository>();
+      IController controller = container.Resolve<IController>();
       if (_dryRun)
       {
-        container.Resolve<IController>().Show();
+        controller.Show(configurationRepository.FindConfiguration("DependencyStore.config"));
       }
       else
       {
-        container.Resolve<IController>().Update();
+        controller.Update(configurationRepository.FindConfiguration("DependencyStore.config"));
       }
       return true;
     }

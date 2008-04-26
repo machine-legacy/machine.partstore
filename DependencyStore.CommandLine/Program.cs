@@ -13,12 +13,31 @@ namespace DependencyStore.CommandLine
     {
       DependencyStoreContainer container = new DependencyStoreContainer();
       container.Initialize();
+
+      IConfigurationRepository configurationRepository = container.Resolve<IConfigurationRepository>();
+      bool dryRun = false;
       foreach (string arg in args)
       {
-        IConfigurationRepository configurationRepository = container.Resolve<IConfigurationRepository>();
-        DependencyStoreConfiguration configuration = configurationRepository.FindConfiguration(arg);
+        if (arg == "--dry")
+        {
+          dryRun = true;
+        }
+        /*
+        else
+        {
+          DependencyStoreConfiguration configuration = configurationRepository.FindConfiguration(arg);
+        }
+        */
       }
-      container.Resolve<IController>().Show();
+      IController controller = container.Resolve<IController>();
+      if (dryRun)
+      {
+        controller.Show(configurationRepository.FindConfiguration("DependencyStore.config"));
+      }
+      else
+      {
+        controller.Update(configurationRepository.FindConfiguration("DependencyStore.config"));
+      }
     }
   }
 }
