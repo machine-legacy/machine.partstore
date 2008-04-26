@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain;
 using DependencyStore.Domain.Configuration;
-using Machine.Core.Utility;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Services.DataAccess.Impl
 {
   public class LocationRepository : ILocationRepository
   {

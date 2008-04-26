@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Services.DataAccess.Impl
 {
   public class FileSystemEntryNotFoundException : ApplicationException
   {

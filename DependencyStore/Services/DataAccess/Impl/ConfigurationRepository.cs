@@ -8,7 +8,7 @@ using DependencyStore.Domain.Configuration;
 using Machine.Core.Services;
 using Machine.Core.Utility;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Services.DataAccess.Impl
 {
   public class ConfigurationRepository : IConfigurationRepository
   {

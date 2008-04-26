@@ -5,7 +5,7 @@ using Machine.Core.Services;
 
 using DependencyStore.Domain;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Services.DataAccess.Impl
 {
   public class FileSystemEntryRepository : IFileSystemEntryRepository
   {

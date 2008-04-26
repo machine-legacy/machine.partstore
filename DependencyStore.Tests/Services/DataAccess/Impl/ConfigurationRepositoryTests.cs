@@ -9,7 +9,7 @@ using Machine.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Services.DataAccess.Impl
 {
   [TestFixture]
   public class ConfigurationRepositoryTests : TestsFor<ConfigurationRepository>

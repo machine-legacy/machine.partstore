@@ -8,7 +8,7 @@ using DependencyStore.Services.DataAccess;
 using Machine.Core.Utility;
 using Machine.Core.Services;
 
-namespace DependencyStore.Services
+namespace DependencyStore.Services.Impl
 {
   public class Controller : IController
   {

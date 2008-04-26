@@ -5,7 +5,7 @@ using Machine.Testing;
 
 using NUnit.Framework;
 
-namespace DependencyStore.Services
+namespace DependencyStore.Services.Impl
 {
   [TestFixture]
   public class ControllerTests : TestsFor<Controller>
