@@ -6,11 +6,18 @@ namespace DependencyStore.Domain
   public abstract class Location
   {
     private FileSystemPath _path;
+    private FileSystemEntry _fileEntry;
 
     public FileSystemPath Path
     {
       get { return _path; }
       set { _path = value; }
+    }
+
+    public FileSystemEntry FileEntry
+    {
+      get { return _fileEntry; }
+      set { _fileEntry = value; }
     }
 
     public abstract bool IsSource
@@ -27,9 +34,10 @@ namespace DependencyStore.Domain
     {
     }
 
-    protected Location(FileSystemPath path)
+    protected Location(FileSystemPath path, FileSystemEntry fileEntry)
     {
       _path = path;
+      _fileEntry = fileEntry;
     }
   }
 }

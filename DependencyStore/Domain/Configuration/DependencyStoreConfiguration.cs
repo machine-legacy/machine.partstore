@@ -32,6 +32,12 @@ namespace DependencyStore.Domain.Configuration
       set { _path = value; }
     }
 
+    [XmlIgnore]
+    public FileSystemPath AsFileSystemPath
+    {
+      get { return new FileSystemPath(_path); }
+    }
+
     public BuildDirectoryConfiguration()
     {
     }
@@ -51,6 +57,12 @@ namespace DependencyStore.Domain.Configuration
     {
       get { return _path; }
       set { _path = value; }
+    }
+
+    [XmlIgnore]
+    public FileSystemPath AsFileSystemPath
+    {
+      get { return new FileSystemPath(_path); }
     }
 
     public LibraryDirectoryConfiguration()

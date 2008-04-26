@@ -11,14 +11,14 @@ namespace DependencyStore.Domain
     [Test]
     public void GetIsSink_Always_IsTrue()
     {
-      LibraryLocation location = new LibraryLocation();
+      SinkLocation location = new SinkLocation();
       Assert.IsTrue(location.IsSink);
     }
 
     [Test]
     public void GetIsSource_Always_IsFalse()
     {
-      LibraryLocation location = new LibraryLocation();
+      SinkLocation location = new SinkLocation();
       Assert.IsFalse(location.IsSource);
     }
   }

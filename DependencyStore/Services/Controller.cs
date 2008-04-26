@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain;
+using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
 
 using Machine.Core.Utility;
@@ -12,13 +13,15 @@ namespace DependencyStore.Services
   public class Controller : IController
   {
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
+    private readonly IConfigurationRepository _configurationRepository;
     private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
     private readonly ILocationRepository _locationRepository;
     private readonly IFileSystem _fileSystem;
 
-    public Controller(IFileSystemEntryRepository fileSystemEntryRepository, ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IFileSystem fileSystem)
+    public Controller(IFileSystemEntryRepository fileSystemEntryRepository, ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IFileSystem fileSystem, IConfigurationRepository configurationRepository)
     {
       _fileSystemEntryRepository = fileSystemEntryRepository;
+      _configurationRepository = configurationRepository;
       _fileSystem = fileSystem;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _locationRepository = locationRepository;
@@ -27,52 +30,42 @@ namespace DependencyStore.Services
     #region IController Members
     public void Show()
     {
-      LatestFiles latest = new LatestFiles();
-      FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
-      foreach (Location location in _locationRepository.FindAllSources())
-      {
-        FileSystemEntry entry = _fileSystemEntryRepository.FindEntry(location.Path, rules);
-        if (entry != null)
-        {
-          latest.Add(entry.BreadthFirstFiles);
-        }
-        else
-        {
-          Console.WriteLine("Missing: {0}", location.Path);  
-        }
-      }
-      foreach (Location location in _locationRepository.FindAllSinks())
-      {
-        Console.WriteLine("Under: {0}", location.Path);
-        FileSystemEntry entry = _fileSystemEntryRepository.FindEntry(location.Path, rules);
-        if (entry != null)
-        {
-          foreach (FileSystemFile child in entry.BreadthFirstFiles)
-          {
-            FileSystemFile existing = latest.FindExistingByName(child);
-            if (existing != null && child.IsOlderThan(existing))
-            {
-              TimeSpan age = existing.ModifiedAt - child.ModifiedAt;
-              FileSystemPath chrooted = child.Path.Chroot(location.Path);
-              Console.WriteLine("+ {0} {1}", chrooted.Full, TimeSpanHelper.ToPrettyString(age));
-              // _fileSystem.CopyFile(existing.Path.Full, child.Path.Full, true);
-            }
-          }
-        }
-        else
-        {
-          Console.WriteLine("Missing: {0}", location.Path);  
-        }
-      }
+      DomainEvents.EncounteredOutdatedSinkFile += ReportOutdatedFile;
+      CheckForNewerFiles();
     }
 
-    public void Clear()
+    public void Update()
     {
-    }
-
-    public void Refresh()
-    {
+      DomainEvents.EncounteredOutdatedSinkFile += UpdateOutdatedFile;
+      CheckForNewerFiles();
     }
     #endregion
+
+    private void CheckForNewerFiles()
+    {
+      DependencyStoreConfiguration configuration = _configurationRepository.FindConfiguration();
+      FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
+      IList<SourceLocation> sources = _locationRepository.FindAllSources(rules);
+      IList<SinkLocation> sinks = _locationRepository.FindAllSinks(rules);
+      LatestFiles latest = new LatestFiles();
+      latest.AddAll(sources);
+      foreach (SinkLocation location in sinks)
+      {
+        location.CheckForNewerFiles(latest);
+      }
+    }
+
+    private static void ReportOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
+    {
+      TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
+      FileSystemPath chrooted = e.SinkFile.Path.Chroot(e.SinkLocation.Path);
+      Console.WriteLine("+ {0} {1}", chrooted.Full, TimeSpanHelper.ToPrettyString(age));
+    }
+
+    private void UpdateOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
+    {
+      ReportOutdatedFile(sender, e);
+      _fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
+    }
   }
 }

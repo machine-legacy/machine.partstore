@@ -6,7 +6,6 @@ namespace DependencyStore.Services
   public interface IController
   {
     void Show();
-    void Clear();
-    void Refresh();
+    void Update();
   }
 }

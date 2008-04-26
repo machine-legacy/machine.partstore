@@ -10,52 +10,56 @@ namespace DependencyStore.Services.DataAccess
   public class LocationRepository : ILocationRepository
   {
     private readonly IConfigurationRepository _configurationRepository;
+    private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
 
-    public LocationRepository(IConfigurationRepository configurationRepository)
+    public LocationRepository(IConfigurationRepository configurationRepository, IFileSystemEntryRepository fileSystemEntryRepository)
     {
       _configurationRepository = configurationRepository;
+      _fileSystemEntryRepository = fileSystemEntryRepository;
     }
 
     #region ILocationRepository Members
-    public IList<Location> FindAll()
+    public IList<Location> FindAll(FileAndDirectoryRules rules)
     {
       DependencyStoreConfiguration configuration = _configurationRepository.FindConfiguration();
       List<Location> locations = new List<Location>();
       foreach (BuildDirectoryConfiguration build in configuration.BuildDirectories)
       {
-        locations.Add(new BuildLocation(new FileSystemPath(build.Path)));
+        FileSystemPath path = new FileSystemPath(build.Path);
+        FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, rules);
+        if (fileSystemEntry != null)
+        {
+          locations.Add(new SourceLocation(path, fileSystemEntry));
+        }
       }
       foreach (LibraryDirectoryConfiguration library in configuration.LibraryDirectories)
       {
-        locations.Add(new LibraryLocation(new FileSystemPath(library.Path)));
-      }
-      return locations;
-      return new Location[] {
-        new BuildLocation(new FileSystemPath(@"C:\Home\Source\Machine\Build")),
-        new LibraryLocation(new FileSystemPath(@"C:\Home\Source\JL\DependencyStore\Libraries")),
-        new BuildLocation(new FileSystemPath(@"D:\Home\Source\Machine\Build")),
-        new LibraryLocation(new FileSystemPath(@"D:\Home\Source\JL\DependencyStore\Libraries")),
-        new BuildLocation(new FileSystemPath(@"D:\Home\Source\Projects\Whiteboard\Build")),
-        new LibraryLocation(new FileSystemPath(@"D:\Home\Source\Projects\Whiteboard\Libraries")),
-      };
-    }
-
-    public IList<Location> FindAllSources()
-    {
-      List<Location> locations = new List<Location>();
-      foreach (Location location in FindAll())
-      {
-        if (location.IsSource) locations.Add(location);
+        FileSystemPath path = new FileSystemPath(library.Path);
+        FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, rules);
+        if (fileSystemEntry != null)
+        {
+          locations.Add(new SinkLocation(path, fileSystemEntry));
+        }
       }
       return locations;
     }
 
-    public IList<Location> FindAllSinks()
+    public IList<SourceLocation> FindAllSources(FileAndDirectoryRules rules)
     {
-      List<Location> locations = new List<Location>();
-      foreach (Location location in FindAll())
+      List<SourceLocation> locations = new List<SourceLocation>();
+      foreach (Location location in FindAll(rules))
       {
-        if (location.IsSink) locations.Add(location);
+        if (location.IsSource) locations.Add((SourceLocation)location);
+      }
+      return locations;
+    }
+
+    public IList<SinkLocation> FindAllSinks(FileAndDirectoryRules rules)
+    {
+      List<SinkLocation> locations = new List<SinkLocation>();
+      foreach (Location location in FindAll(rules))
+      {
+        if (location.IsSink) locations.Add((SinkLocation)location);
       }
       return locations;
     }

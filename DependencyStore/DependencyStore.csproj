@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyStoreContainer.cs" />
-    <Compile Include="Domain\BuildLocation.cs" />
+    <Compile Include="Domain\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\DomainEvents.cs" />
     <Compile Include="Domain\Future\DependencyCollection.cs" />
@@ -77,7 +77,7 @@
     <Compile Include="Domain\FileSystemPath.cs" />
     <Compile Include="Domain\LatestFiles.cs" />
     <Compile Include="Domain\Future\LocalWarehouse.cs" />
-    <Compile Include="Domain\LibraryLocation.cs" />
+    <Compile Include="Domain\SinkLocation.cs" />
     <Compile Include="Domain\Location.cs" />
     <Compile Include="Domain\Future\Project.cs" />
     <Compile Include="Domain\Future\ProjectDirectory.cs" />
@@ -90,15 +90,11 @@
     <Compile Include="Services\DataAccess\IFileAndDirectoryRulesRepository.cs" />
     <Compile Include="Services\DataAccess\ILocationRepository.cs" />
     <Compile Include="Services\DataAccess\LocationRepository.cs" />
-    <Compile Include="Services\ISinkUpdater.cs" />
     <Compile Include="Utility\FileSystemEntryPrinter.cs" />
     <Compile Include="Services\DataAccess\FileSystemEntryRepository.cs" />
     <Compile Include="Services\DataAccess\IFileSystemEntryRepository.cs" />
     <Compile Include="Services\IController.cs" />
-    <Compile Include="Tasks\DsAdd.cs" />
-    <Compile Include="Tasks\DsClear.cs" />
     <Compile Include="Tasks\DsRefresh.cs" />
-    <Compile Include="Tasks\DsShow.cs" />
     <Compile Include="Tasks\DsTask.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

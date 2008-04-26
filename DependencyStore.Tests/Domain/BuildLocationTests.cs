@@ -11,14 +11,14 @@ namespace DependencyStore.Domain
     [Test]
     public void GetIsSink_Always_IsFalse()
     {
-      BuildLocation location = new BuildLocation();
+      SourceLocation location = new SourceLocation();
       Assert.IsFalse(location.IsSink);
     }
 
     [Test]
     public void GetIsSource_Always_IsTrue()
     {
-      BuildLocation location = new BuildLocation();
+      SourceLocation location = new SourceLocation();
       Assert.IsTrue(location.IsSource);
     }
   }

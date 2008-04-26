@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Show" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="DependencyStore.Tasks.DsShow" AssemblyFile="Build\Debug\DependencyStore.dll" />
+<Project DefaultTargets="Refresh" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="DependencyStore.Tasks.DsRefresh" AssemblyFile="Build\Debug\DependencyStore.dll" />
 
-  <Target Name="Show">
-    <DsShow ProjectName="DependencyStore" />
-  </Target>
+  <PropertyGroup>
+    <DryRun Condition="'$(DryRun)'==''">True</DryRun>
+  </PropertyGroup>
 
   <Target Name="Refresh">
-    <DsRefresh ProjectName="DependencyStore" />
+    <DsRefresh ProjectName="DependencyStore" DryRun="$(DryRun)" />
   </Target>
 </Project>

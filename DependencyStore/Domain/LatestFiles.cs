@@ -33,11 +33,19 @@ namespace DependencyStore.Domain
       }
     }
 
-    public void Add(IEnumerable<FileSystemFile> files)
+    public void AddAll(IEnumerable<FileSystemFile> files)
     {
       foreach (FileSystemFile file in files)
       {
         Add(file);
+      }
+    }
+
+    public void AddAll(IEnumerable<SourceLocation> sources)
+    {
+      foreach (SourceLocation location in sources)
+      {
+        AddAll(location.FileEntry.BreadthFirstFiles);
       }
     }
 
