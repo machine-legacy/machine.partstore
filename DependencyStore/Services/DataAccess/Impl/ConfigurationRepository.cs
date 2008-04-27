@@ -29,6 +29,10 @@ namespace DependencyStore.Services.DataAccess.Impl
           return XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
         }
       }
+      catch (InvalidOperationException e)
+      {
+        throw new InvalidConfigurationException("Error reading configuration", e);
+      }
       catch (XmlException e)
       {
         throw new InvalidConfigurationException("Error reading configuration", e);

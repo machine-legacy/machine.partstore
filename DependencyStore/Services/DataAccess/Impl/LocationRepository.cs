@@ -27,6 +27,10 @@ namespace DependencyStore.Services.DataAccess.Impl
         {
           locations.Add(new SourceLocation(path, fileSystemEntry));
         }
+        else
+        {
+          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(build.AsFileSystemPath));
+        }
       }
       foreach (LibraryDirectoryConfiguration library in configuration.LibraryDirectories)
       {
@@ -35,6 +39,10 @@ namespace DependencyStore.Services.DataAccess.Impl
         if (fileSystemEntry != null)
         {
           locations.Add(new SinkLocation(path, fileSystemEntry));
+        }
+        else
+        {
+          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(library.AsFileSystemPath));
         }
       }
       return locations;

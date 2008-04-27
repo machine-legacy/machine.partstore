@@ -27,12 +27,14 @@ namespace DependencyStore.Services.Impl
     public void Show(DependencyStoreConfiguration configuration)
     {
       DomainEvents.EncounteredOutdatedSinkFile += ReportOutdatedFile;
+      DomainEvents.LocationNotFound += LocationNotFound;
       CheckForNewerFiles(configuration);
     }
 
     public void Update(DependencyStoreConfiguration configuration)
     {
       DomainEvents.EncounteredOutdatedSinkFile += UpdateOutdatedFile;
+      DomainEvents.LocationNotFound += LocationNotFound;
       CheckForNewerFiles(configuration);
     }
     #endregion
@@ -49,6 +51,11 @@ namespace DependencyStore.Services.Impl
         Console.WriteLine("Under {0}", location.Path.Full);
         location.CheckForNewerFiles(latest);
       }
+    }
+
+    private static void LocationNotFound(object sender, LocationNotFoundEventArgs e)
+    {
+      Console.WriteLine("Missing Location: {0}", e.Path);
     }
 
     private static void ReportOutdatedFile(object sender, OutdatedSinkFileEventArgs e)

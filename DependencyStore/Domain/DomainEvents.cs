@@ -14,6 +14,14 @@ namespace DependencyStore.Domain
       if (EncounteredOutdatedSinkFile == null) return;
       EncounteredOutdatedSinkFile(sender, e);
     }
+
+    public static event EventHandler<LocationNotFoundEventArgs> LocationNotFound;
+
+    public static void OnLocationNotFound(object sender, LocationNotFoundEventArgs e)
+    {
+      if (LocationNotFound == null) return;
+      LocationNotFound(sender, e);
+    }
   }
   public class OutdatedSinkFileEventArgs : EventArgs
   {
@@ -41,6 +49,20 @@ namespace DependencyStore.Domain
       _sinkLocation = sinkLocation;
       _sinkFile = sinkFile;
       _sourceFile = sourceFile;
+    }
+  }
+  public class LocationNotFoundEventArgs : EventArgs
+  {
+    private readonly FileSystemPath _path;
+
+    public FileSystemPath Path
+    {
+      get { return _path; }
+    }
+
+    public LocationNotFoundEventArgs(FileSystemPath path)
+    {
+      _path = path;
     }
   }
 }
