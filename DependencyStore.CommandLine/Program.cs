@@ -22,14 +22,9 @@ namespace DependencyStore.CommandLine
         {
           dryRun = true;
         }
-        /*
-        else
-        {
-          DependencyStoreConfiguration configuration = configurationRepository.FindConfiguration(arg);
-        }
-        */
       }
       IController controller = container.Resolve<IController>();
+      ConfigurationPaths configurationPaths = new ConfigurationPaths();
       if (dryRun)
       {
         controller.Show(configurationRepository.FindConfiguration("DependencyStore.config"));
@@ -38,6 +33,17 @@ namespace DependencyStore.CommandLine
       {
         controller.Update(configurationRepository.FindConfiguration("DependencyStore.config"));
       }
+    }
+  }
+  public class ConfigurationPaths
+  {
+    public string[] FindAllPossiblePaths()
+    {
+      List<string> paths = new List<string>();
+      paths.Add(@"DependencyStore.config");
+      paths.Add(@"C:\DependencyStore.config");
+      paths.Add(@"C:\DependencyStore.config");
+      return paths.ToArray();
     }
   }
 }
