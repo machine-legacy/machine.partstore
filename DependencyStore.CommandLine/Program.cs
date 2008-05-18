@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 using DependencyStore.Services;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
@@ -13,6 +10,7 @@ namespace DependencyStore.CommandLine
     {
       DependencyStoreContainer container = new DependencyStoreContainer();
       container.Initialize();
+      container.AddService<ConfigurationPaths>();
 
       IConfigurationRepository configurationRepository = container.Resolve<IConfigurationRepository>();
       bool dryRun = false;
@@ -24,26 +22,16 @@ namespace DependencyStore.CommandLine
         }
       }
       IController controller = container.Resolve<IController>();
-      ConfigurationPaths configurationPaths = new ConfigurationPaths();
+      ConfigurationPaths configuration = container.Resolve<ConfigurationPaths>();
+      string path = configuration.FindConfigurationPath();
       if (dryRun)
       {
-        controller.Show(configurationRepository.FindConfiguration("DependencyStore.config"));
+        controller.Show(configurationRepository.FindConfiguration(path));
       }
       else
       {
-        controller.Update(configurationRepository.FindConfiguration("DependencyStore.config"));
+        controller.Update(configurationRepository.FindConfiguration(path));
       }
-    }
-  }
-  public class ConfigurationPaths
-  {
-    public string[] FindAllPossiblePaths()
-    {
-      List<string> paths = new List<string>();
-      paths.Add(@"DependencyStore.config");
-      paths.Add(@"C:\DependencyStore.config");
-      paths.Add(@"C:\DependencyStore.config");
-      return paths.ToArray();
     }
   }
 }
