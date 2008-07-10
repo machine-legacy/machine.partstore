@@ -13,16 +13,16 @@ namespace DependencyStore
 {
   public class DependencyStoreContainer : MachineContainer
   {
-    public override void Initialize()
+    public override void ReadyForServices()
     {
       base.Initialize();
-      AddService<FileSystem>();
-      AddService<Clock>();
-      AddService<FileSystemEntryRepository>();
-      AddService<FileAndDirectoryRulesRepository>();
-      AddService<ConfigurationRepository>();
-      AddService<LocationRepository>();
-      AddService<Controller>();
+      Add<FileSystem>();
+      Add<Clock>();
+      Add<FileSystemEntryRepository>();
+      Add<FileAndDirectoryRulesRepository>();
+      Add<ConfigurationRepository>();
+      Add<LocationRepository>();
+      Add<Controller>();
     }
   }
 }

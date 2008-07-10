@@ -10,9 +10,9 @@ namespace DependencyStore.CommandLine
     {
       DependencyStoreContainer container = new DependencyStoreContainer();
       container.Initialize();
-      container.AddService<ConfigurationPaths>();
+      container.Add<ConfigurationPaths>();
 
-      IConfigurationRepository configurationRepository = container.Resolve<IConfigurationRepository>();
+      IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
       bool dryRun = false;
       foreach (string arg in args)
       {
@@ -21,8 +21,8 @@ namespace DependencyStore.CommandLine
           dryRun = true;
         }
       }
-      IController controller = container.Resolve<IController>();
-      ConfigurationPaths configuration = container.Resolve<ConfigurationPaths>();
+      IController controller = container.Resolve.Object<IController>();
+      ConfigurationPaths configuration = container.Resolve.Object<ConfigurationPaths>();
       string path = configuration.FindConfigurationPath();
       if (dryRun)
       {

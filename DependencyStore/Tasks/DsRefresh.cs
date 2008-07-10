@@ -22,8 +22,8 @@ namespace DependencyStore.Tasks
     {
       DependencyStoreContainer container = new DependencyStoreContainer();
       container.Initialize();
-      IConfigurationRepository configurationRepository = container.Resolve<IConfigurationRepository>();
-      IController controller = container.Resolve<IController>();
+      IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
+      IController controller = container.Resolve.Object<IController>();
       if (_dryRun)
       {
         controller.Show(configurationRepository.FindConfiguration("DependencyStore.config"));
