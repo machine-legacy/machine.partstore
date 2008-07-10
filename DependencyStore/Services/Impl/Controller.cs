@@ -67,8 +67,15 @@ namespace DependencyStore.Services.Impl
 
     private void UpdateOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
     {
-      ReportOutdatedFile(sender, e);
-      _fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
+      try
+      {
+        ReportOutdatedFile(sender, e);
+        _fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
+      }
+      catch (Exception error)
+      {
+        Console.WriteLine("Error copying {0}: {1}", e.SinkFile.Path.Full, error.Message);
+      }
     }
   }
 }
