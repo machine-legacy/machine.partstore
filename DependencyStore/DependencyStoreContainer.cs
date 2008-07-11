@@ -15,7 +15,7 @@ namespace DependencyStore
   {
     public override void ReadyForServices()
     {
-      base.Initialize();
+      base.ReadyForServices();
       Add<FileSystem>();
       Add<Clock>();
       Add<FileSystemEntryRepository>();

@@ -28,6 +28,15 @@ namespace DependencyStore.Domain
       _full = uri;
     }
 
+    public FileSystemPath Chroot(FileSystemPath root)
+    {
+      if (!this.Full.StartsWith(root.Full))
+      {
+        throw new InvalidOperationException(String.Format("Can't chroot {0} with {1}", this, root));
+      }
+      return new FileSystemPath(this.Full.Substring(root.Full.Length + 1));
+    }
+
     public override bool Equals(object obj)
     {
       if (obj is FileSystemPath)
@@ -45,15 +54,6 @@ namespace DependencyStore.Domain
     public override string ToString()
     {
       return String.Format("Path<{0}>", this.Full);
-    }
-
-    public FileSystemPath Chroot(FileSystemPath root)
-    {
-      if (!this.Full.StartsWith(root.Full))
-      {
-        throw new InvalidOperationException(String.Format("Can't chroot {0} with {1}", this, root));
-      }
-      return new FileSystemPath(this.Full.Substring(root.Full.Length + 1));
     }
   }
 }

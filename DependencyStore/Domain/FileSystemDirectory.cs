@@ -17,11 +17,6 @@ namespace DependencyStore.Domain
       get { return this.Path.Name; }
     }
 
-    public override string ToString()
-    {
-      return String.Format(@"Directory<{0}, {1}>", this.Path, this.Entries.Count);
-    }
-
     public override IEnumerable<FileSystemEntry> Children
     {
       get
@@ -69,6 +64,11 @@ namespace DependencyStore.Domain
     public FileSystemDirectory(FileSystemPath path) 
      : base(path)
     {
+    }
+
+    public override string ToString()
+    {
+      return String.Format(@"Directory<{0}, {1}>", this.Path, this.Entries.Count);
     }
   }
 }

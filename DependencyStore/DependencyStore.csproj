@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.1.271, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\ICSharpCode\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libraries\log4net.dll</HintPath>
@@ -63,8 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyStoreContainer.cs" />
+    <Compile Include="Domain\Archiving\Archive.cs" />
+    <Compile Include="Domain\Archiving\ManifestEntry.cs" />
     <Compile Include="Domain\Configuration\BuildDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
+    <Compile Include="Domain\Configuration\PackageDirectoryConfiguration.cs" />
+    <Compile Include="Domain\FileSet.cs" />
     <Compile Include="Domain\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\DomainEvents.cs" />
@@ -86,8 +94,6 @@
     <Compile Include="Services\DataAccess\IFileAndDirectoryRulesRepository.cs" />
     <Compile Include="Services\DataAccess\ILocationRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\LocationRepository.cs" />
-    <Compile Include="Services\Impl\VersionProvider.cs" />
-    <Compile Include="Services\IVersionProvider.cs" />
     <Compile Include="Utility\FileSystemEntryPrinter.cs" />
     <Compile Include="Services\DataAccess\Impl\FileSystemEntryRepository.cs" />
     <Compile Include="Services\DataAccess\IFileSystemEntryRepository.cs" />

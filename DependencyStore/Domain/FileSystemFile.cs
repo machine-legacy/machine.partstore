@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace DependencyStore.Domain
 {
@@ -39,14 +40,18 @@ namespace DependencyStore.Domain
       get { return this.Path.Name; }
     }
 
-    public override string ToString()
-    {
-      return String.Format(@"File<{0}>", this.Path);
-    }
-
     public override IEnumerable<FileSystemFile> BreadthFirstFiles
     {
       get { yield return this; }
+    }
+
+    public FileSystemFile()
+    {
+    }
+
+    public FileSystemFile(FileSystemPath path)
+     : base(path)
+    {
     }
 
     public bool IsNewerThan(FileSystemFile file)
@@ -64,13 +69,14 @@ namespace DependencyStore.Domain
       return this.ModifiedAt == file.ModifiedAt;
     }
 
-    public FileSystemFile()
+    public Stream OpenForReading()
     {
+      return File.OpenRead(this.Path.Full);
     }
 
-    public FileSystemFile(FileSystemPath path)
-     : base(path)
+    public override string ToString()
     {
+      return String.Format(@"File<{0}>", this.Path);
     }
   }
 }

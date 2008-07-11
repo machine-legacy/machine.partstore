@@ -8,30 +8,35 @@ namespace DependencyStore.CommandLine
   {
     public static void Main(string[] args)
     {
-      DependencyStoreContainer container = new DependencyStoreContainer();
-      container.Initialize();
-      container.Add<ConfigurationPaths>();
-
-      IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
-      bool dryRun = false;
-      foreach (string arg in args)
+      using (DependencyStoreContainer container = new DependencyStoreContainer())
       {
-        if (arg == "--dry")
+        container.Initialize();
+        container.PrepareForServices();
+        container.Start();
+        container.Add<ConfigurationPaths>();
+
+        IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
+        bool dryRun = false;
+        foreach (string arg in args)
         {
-          dryRun = true;
+          if (arg == "--dry")
+          {
+            dryRun = true;
+          }
+        }
+        IController controller = container.Resolve.Object<IController>();
+        ConfigurationPaths configuration = container.Resolve.Object<ConfigurationPaths>();
+        string path = configuration.FindConfigurationPath();
+        if (dryRun)
+        {
+          controller.Show(configurationRepository.FindConfiguration(path));
+        }
+        else
+        {
+          controller.Update(configurationRepository.FindConfiguration(path));
         }
       }
-      IController controller = container.Resolve.Object<IController>();
-      ConfigurationPaths configuration = container.Resolve.Object<ConfigurationPaths>();
-      string path = configuration.FindConfigurationPath();
-      if (dryRun)
-      {
-        controller.Show(configurationRepository.FindConfiguration(path));
-      }
-      else
-      {
-        controller.Update(configurationRepository.FindConfiguration(path));
-      }
+      System.Console.ReadKey();
     }
   }
 }

@@ -46,6 +46,9 @@ namespace DependencyStore.Services.Impl
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
       LatestFiles latest = new LatestFiles();
       latest.AddAll(sources);
+      foreach (SourceLocation location in sources)
+      {
+      }
       foreach (SinkLocation location in sinks)
       {
         Console.WriteLine("Under {0}", location.Path.Full);
@@ -70,7 +73,7 @@ namespace DependencyStore.Services.Impl
       try
       {
         ReportOutdatedFile(sender, e);
-        _fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
+        //_fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
       }
       catch (Exception error)
       {

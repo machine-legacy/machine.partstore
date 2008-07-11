@@ -1,57 +1,37 @@
 using System;
 using System.Collections.Generic;
+using Machine.Container;
 
 namespace DependencyStore.Domain
 {
-  public class LatestFiles
+  public class LatestFiles : FileSet
   {
-    private readonly List<FileSystemFile> _files = new List<FileSystemFile>();
-    
     public FileSystemFile FindExistingByName(FileSystemFile file)
     {
-      foreach (FileSystemFile member in _files)
+      List<FileSystemFile> files = new List<FileSystemFile>(FindFilesNamed(file.Name));
+      if (files.Count > 1)
       {
-        if (member.Name == file.Name)
-        {
-          return member;
-        }
+        throw new YouFoundABugException("How did a LatestFiles object get multiple files with the same name: " + file);
       }
-      return null;
+      if (files.Count != 1)
+      {
+        return null;
+      }
+      return files[0];
     }
 
-    public void Add(FileSystemFile file)
+    public override void Add(FileSystemFile file)
     {
       FileSystemFile existing = FindExistingByName(file);
       if (existing == null)
       {
-        _files.Add(file);
+        base.Add(file);
       }
       else if (file.IsNewerThan(existing))
       {
-        _files.Remove(existing);
-        _files.Add(file);
+        Remove(existing);
+        base.Add(file);
       }
-    }
-
-    public void AddAll(IEnumerable<FileSystemFile> files)
-    {
-      foreach (FileSystemFile file in files)
-      {
-        Add(file);
-      }
-    }
-
-    public void AddAll(IEnumerable<SourceLocation> sources)
-    {
-      foreach (SourceLocation location in sources)
-      {
-        AddAll(location.FileEntry.BreadthFirstFiles);
-      }
-    }
-
-    public IEnumerable<FileSystemFile> Files
-    {
-      get { return _files; }
     }
   }
 }
