@@ -39,5 +39,12 @@ namespace DependencyStore.Domain
       _path = path;
       _fileEntry = fileEntry;
     }
+
+    public FileSet ToFileSet()
+    {
+      FileSet fileSet = new FileSet();
+      fileSet.Add(this);
+      return fileSet;
+    }
   }
 }

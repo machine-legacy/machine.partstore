@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
-using Machine.Container;
+
+using DependencyStore.Utility;
 
 namespace DependencyStore.Domain
 {
@@ -24,11 +24,16 @@ namespace DependencyStore.Domain
       }
     }
 
-    public void AddAll(IEnumerable<SourceLocation> sources)
+    public void Add(Location location)
     {
-      foreach (SourceLocation location in sources)
+      AddAll(location.FileEntry.BreadthFirstFiles);
+    }
+
+    public void AddAll<TL>(IEnumerable<TL> locations) where TL : Location
+    {
+      foreach (TL location in locations)
       {
-        AddAll(location.FileEntry.BreadthFirstFiles);
+        Add(location);
       }
     }
 
@@ -58,34 +63,14 @@ namespace DependencyStore.Domain
       get { return _files; }
     }
 
-    public string FindLongestCommonPrefix()
+    public FileSystemPath FindCommonDirectory()
     {
-      if (_files.Count == 0)
-      {
-        throw new YouFoundABugException("Can't find longest common prefix of empty set!");
-      }
-      if (_files.Count == 1)
-      {
-        return _files[0].Path.Full;
-      }
-      List<string> names = new List<string>();
+      List<string> strings = new List<string>();
       foreach (FileSystemFile file in _files)
       {
-        names.Add(file.Path.Full);
+        strings.Add(file.Path.Full);
       }
-      names.Sort(delegate(string x, string y) { return x.Length.CompareTo(y.Length); });
-      for (int i = 0; i < names[0].Length; ++i)
-      {
-        char c = names[0][i];
-        for  (int j = 1; j < names.Count; ++j)
-        {
-          if (c != names[j][i])
-          {
-            return names[0].Substring(0, i);
-          }
-        }
-      }
-      return String.Empty;
+      return new FileSystemPath(StringHelper.FindLongestCommonPrefix(strings));
     }
   }
 }

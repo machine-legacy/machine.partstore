@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using DependencyStore.Utility;
 
 namespace DependencyStore.Domain
 {
@@ -34,7 +35,8 @@ namespace DependencyStore.Domain
       {
         throw new InvalidOperationException(String.Format("Can't chroot {0} with {1}", this, root));
       }
-      return new FileSystemPath(this.Full.Substring(root.Full.Length + 1));
+      string rootPath = PathHelper.NormalizeDirectorySlashes(root.Full);
+      return new FileSystemPath(this.Full.Substring(rootPath.Length));
     }
 
     public override bool Equals(object obj)

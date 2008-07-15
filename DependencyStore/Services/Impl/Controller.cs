@@ -46,9 +46,18 @@ namespace DependencyStore.Services.Impl
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
       LatestFiles latest = new LatestFiles();
       latest.AddAll(sources);
+      /*
       foreach (SourceLocation location in sources)
       {
+        FileSet fileSet = location.ToFileSet();
+        FileSystemPath prefix = fileSet.FindCommonDirectory();
+        Console.WriteLine("{0} {1}", location, prefix);
+        foreach (FileSystemFile file in fileSet.Files)
+        {
+          Console.WriteLine("  {0}", file.Path.Chroot(prefix));
+        }
       }
+      */
       foreach (SinkLocation location in sinks)
       {
         Console.WriteLine("Under {0}", location.Path.Full);
