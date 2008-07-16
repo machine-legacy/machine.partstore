@@ -19,14 +19,14 @@ namespace DependencyStore.Services.DataAccess.Impl
     #region IFileSystemEntryRepository Members
     public FileSystemEntry FindEntry(FileSystemPath path, FileAndDirectoryRules rules)
     {
-      if (_fileSystem.IsFile(path.Full))
+      if (_fileSystem.IsFile(path.AsString))
       {
         if (rules.IncludesFile(path) != IncludeExclude.Exclude)
         {
           return CreateFile(path);
         }
       }
-      else if (_fileSystem.IsDirectory(path.Full))
+      else if (_fileSystem.IsDirectory(path.AsString))
       {
         if (rules.IncludesDirectory(path) != IncludeExclude.Exclude)
         {
@@ -40,7 +40,7 @@ namespace DependencyStore.Services.DataAccess.Impl
     private FileSystemDirectory CreateDirectory(FileSystemPath path, FileAndDirectoryRules rules)
     {
       FileSystemDirectory entry = new FileSystemDirectory(path);
-      foreach (string subPath in _fileSystem.GetEntries(path.Full))
+      foreach (string subPath in _fileSystem.GetEntries(path.AsString))
       {
         FileSystemPath entryPath = new FileSystemPath(subPath);
         FileSystemEntry subEntry = FindEntry(entryPath, rules);
@@ -54,7 +54,7 @@ namespace DependencyStore.Services.DataAccess.Impl
 
     private FileSystemFile CreateFile(FileSystemPath path)
     {
-      FileProperties properties = _fileSystem.GetFileProperties(path.Full);
+      FileProperties properties = _fileSystem.GetFileProperties(path.AsString);
       FileSystemFile entry = new FileSystemFile(path);
       entry.Length = properties.Length;
       entry.CreatedAt = properties.CreationTime;

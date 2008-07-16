@@ -15,7 +15,7 @@ namespace DependencyStore.Domain
     [Test]
     public void GetFull_Always_FullPath()
     {
-      Assert.AreEqual(@"C:\WINDOWS\SYSTEM32\Notepad.exe", _target.Full);
+      Assert.AreEqual(@"C:\WINDOWS\SYSTEM32\Notepad.exe", _target.AsString);
     }
 
     [Test]
@@ -33,7 +33,7 @@ namespace DependencyStore.Domain
     [Test]
     public void Equals_SamePath_IsTrue()
     {
-      FileSystemPath other = new FileSystemPath(_target.Full);
+      FileSystemPath other = new FileSystemPath(_target.AsString);
       Assert.IsTrue(_target.Equals(other));
     }
 
@@ -47,7 +47,7 @@ namespace DependencyStore.Domain
     [Test]
     public void Equals_SamePathDifferentCase_IsTrue()
     {
-      FileSystemPath other = new FileSystemPath(_target.Full.ToLower());
+      FileSystemPath other = new FileSystemPath(_target.AsString.ToLower());
       Assert.IsTrue(_target.Equals(other));
     }
 

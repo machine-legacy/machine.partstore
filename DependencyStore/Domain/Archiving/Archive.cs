@@ -27,7 +27,7 @@ namespace DependencyStore.Domain.Archiving
         {
           using (Stream source = entry.File.OpenForReading())
           {
-            ZipEntry zipEntry = new ZipEntry(entry.ArchivePath.Full);
+            ZipEntry zipEntry = new ZipEntry(entry.ArchivePath.AsString);
             zip.PutNextEntry(zipEntry);
             StreamHelper.Copy(source, zip);
             zip.CloseEntry();

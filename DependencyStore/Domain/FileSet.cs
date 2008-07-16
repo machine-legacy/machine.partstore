@@ -68,7 +68,7 @@ namespace DependencyStore.Domain
       List<string> strings = new List<string>();
       foreach (FileSystemFile file in _files)
       {
-        strings.Add(file.Path.Full);
+        strings.Add(file.Path.AsString);
       }
       return new FileSystemPath(StringHelper.FindLongestCommonPrefix(strings));
     }

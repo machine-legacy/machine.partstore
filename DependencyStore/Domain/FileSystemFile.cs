@@ -71,7 +71,7 @@ namespace DependencyStore.Domain
 
     public Stream OpenForReading()
     {
-      return File.OpenRead(this.Path.Full);
+      return File.OpenRead(this.Path.AsString);
     }
 
     public override string ToString()

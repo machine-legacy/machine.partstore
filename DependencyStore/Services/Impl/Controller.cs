@@ -47,23 +47,22 @@ namespace DependencyStore.Services.Impl
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
-      /*
+      
       foreach (SourceLocation location in sources)
       {
         FileSet fileSet = location.ToFileSet();
         FileSystemPath fileRootDirectory = fileSet.FindCommonDirectory();
         Archive archive = new Archive();
-        Console.WriteLine("{0} {1}", location, fileRootDirectory);
         foreach (FileSystemFile file in fileSet.Files)
         {
           archive.Add(file, file.Path.Chroot(fileRootDirectory));
         }
         archive.WriteZip(location.Path.Join("Test.zip"));
       }
-      */
+
       foreach (SinkLocation location in sinks)
       {
-        Console.WriteLine("Under {0}", location.Path.Full);
+        Console.WriteLine("Under {0}", location.Path.AsString);
         location.CheckForNewerFiles(latestFiles);
       }
     }
@@ -72,7 +71,7 @@ namespace DependencyStore.Services.Impl
     {
       TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
       FileSystemPath chrooted = e.SinkFile.Path.Chroot(e.SinkLocation.Path);
-      Console.WriteLine("  {0} ({1} old)", chrooted.Full, TimeSpanHelper.ToPrettyString(age));
+      Console.WriteLine("  {0} ({1} old)", chrooted.AsString, TimeSpanHelper.ToPrettyString(age));
     }
 
     private void UpdateOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
@@ -80,11 +79,11 @@ namespace DependencyStore.Services.Impl
       try
       {
         ReportOutdatedFile(sender, e);
-        _fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
+        // _fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
       }
       catch (Exception error)
       {
-        Console.WriteLine("Error copying {0}: {1}", e.SinkFile.Path.Full, error.Message);
+        Console.WriteLine("Error copying {0}: {1}", e.SinkFile.Path.AsString, error.Message);
       }
     }
 
