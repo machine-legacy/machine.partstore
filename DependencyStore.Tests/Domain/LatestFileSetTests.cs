@@ -8,9 +8,9 @@ using NUnit.Framework;
 namespace DependencyStore.Domain
 {
   [TestFixture]
-  public class LatestFilesTests : TestsFor<LatestFiles>
+  public class LatestFileSetTests : TestsFor<LatestFileSet>
   {
-    private LatestFiles _target;
+    private LatestFileSet _target;
 
     [Test]
     public void FindByExistingName_Nothing_IsNull()
@@ -93,7 +93,7 @@ namespace DependencyStore.Domain
     public override void BeforeEachTest()
     {
       base.BeforeEachTest();
-      _target = new LatestFiles();
+      _target = new LatestFileSet();
     }
   }
 }

@@ -4,7 +4,7 @@ using Machine.Container;
 
 namespace DependencyStore.Domain
 {
-  public class LatestFiles : FileSet
+  public class LatestFileSet : FileSet
   {
     public FileSystemFile FindExistingByName(FileSystemFile file)
     {

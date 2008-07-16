@@ -74,7 +74,7 @@
     <Compile Include="Domain\FileSystemDirectoryTests.cs" />
     <Compile Include="Domain\FileSystemPathTests.cs" />
     <Compile Include="Domain\IncludeExcludeRulesTests.cs" />
-    <Compile Include="Domain\LatestFilesTests.cs" />
+    <Compile Include="Domain\LatestFileSetTests.cs" />
     <Compile Include="Domain\LibraryLocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Impl\ControllerTests.cs" />

@@ -82,7 +82,7 @@
     <Compile Include="Domain\FileSystemEntry.cs" />
     <Compile Include="Domain\FileSystemFile.cs" />
     <Compile Include="Domain\FileSystemPath.cs" />
-    <Compile Include="Domain\LatestFiles.cs" />
+    <Compile Include="Domain\LatestFileSet.cs" />
     <Compile Include="Domain\SinkLocation.cs" />
     <Compile Include="Domain\Location.cs" />
     <Compile Include="Utility\PathHelper.cs" />

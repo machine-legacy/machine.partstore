@@ -19,11 +19,11 @@ namespace DependencyStore.Domain
     {
     }
 
-    public void CheckForNewerFiles(LatestFiles files)
+    public void CheckForNewerFiles(LatestFileSet latestFileSet)
     {
       foreach (FileSystemFile file in this.FileEntry.BreadthFirstFiles)
       {
-        FileSystemFile possiblyNewer = files.FindExistingByName(file);
+        FileSystemFile possiblyNewer = latestFileSet.FindExistingByName(file);
         if (possiblyNewer != null && possiblyNewer.IsNewerThan(file))
         {
           DomainEvents.OnEncounteredOutdatedSinkFile(this, new OutdatedSinkFileEventArgs(this, file, possiblyNewer));

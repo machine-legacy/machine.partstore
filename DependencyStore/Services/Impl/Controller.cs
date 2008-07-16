@@ -44,7 +44,7 @@ namespace DependencyStore.Services.Impl
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
-      LatestFiles latest = new LatestFiles();
+      LatestFileSet latest = new LatestFileSet();
       latest.AddAll(sources);
       /*
       foreach (SourceLocation location in sources)
@@ -65,11 +65,6 @@ namespace DependencyStore.Services.Impl
       }
     }
 
-    private static void LocationNotFound(object sender, LocationNotFoundEventArgs e)
-    {
-      Console.WriteLine("Missing Location: {0}", e.Path);
-    }
-
     private static void ReportOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
     {
       TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
@@ -88,6 +83,11 @@ namespace DependencyStore.Services.Impl
       {
         Console.WriteLine("Error copying {0}: {1}", e.SinkFile.Path.Full, error.Message);
       }
+    }
+
+    private static void LocationNotFound(object sender, LocationNotFoundEventArgs e)
+    {
+      Console.WriteLine("Missing Location: {0}", e.Path);
     }
   }
 }
