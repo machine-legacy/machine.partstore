@@ -57,5 +57,15 @@ namespace DependencyStore.Domain
     {
       return String.Format("Path<{0}>", this.Full);
     }
+
+    public FileSystemPath Join(string path)
+    {
+      return new FileSystemPath(Path.Combine(_full, path));
+    }
+
+    public FileSystemPath Join(FileSystemPath path)
+    {
+      return Join(path.Full);
+    }
   }
 }
