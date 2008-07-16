@@ -82,7 +82,7 @@ namespace DependencyStore.Services.Impl
       try
       {
         ReportOutdatedFile(sender, e);
-        //_fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
+        _fileSystem.CopyFile(e.SourceFile.Path.Full, e.SinkFile.Path.Full, true);
       }
       catch (Exception error)
       {
