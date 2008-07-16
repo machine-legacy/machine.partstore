@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain;
+using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
 
@@ -44,24 +45,26 @@ namespace DependencyStore.Services.Impl
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
-      LatestFileSet latest = new LatestFileSet();
-      latest.AddAll(sources);
+      LatestFileSet latestFiles = new LatestFileSet();
+      latestFiles.AddAll(sources);
       /*
       foreach (SourceLocation location in sources)
       {
         FileSet fileSet = location.ToFileSet();
-        FileSystemPath prefix = fileSet.FindCommonDirectory();
-        Console.WriteLine("{0} {1}", location, prefix);
+        FileSystemPath fileRootDirectory = fileSet.FindCommonDirectory();
+        Archive archive = new Archive();
+        Console.WriteLine("{0} {1}", location, fileRootDirectory);
         foreach (FileSystemFile file in fileSet.Files)
         {
-          Console.WriteLine("  {0}", file.Path.Chroot(prefix));
+          archive.Add(file, file.Path.Chroot(fileRootDirectory));
         }
+        archive.WriteZip(location.Path.Join("Test.zip"));
       }
       */
       foreach (SinkLocation location in sinks)
       {
         Console.WriteLine("Under {0}", location.Path.Full);
-        location.CheckForNewerFiles(latest);
+        location.CheckForNewerFiles(latestFiles);
       }
     }
 

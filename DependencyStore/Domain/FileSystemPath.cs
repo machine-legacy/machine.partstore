@@ -67,5 +67,10 @@ namespace DependencyStore.Domain
     {
       return Join(path.Full);
     }
+
+    public Stream CreateFile()
+    {
+      return File.Create(this.Full);
+    }
   }
 }
