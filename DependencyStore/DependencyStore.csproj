@@ -73,6 +73,7 @@
     <Compile Include="Domain\Configuration\ConfigurationException.cs" />
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\PackageDirectoryConfiguration.cs" />
+    <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
     <Compile Include="Domain\FileSet.cs" />
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\SourceLocation.cs" />

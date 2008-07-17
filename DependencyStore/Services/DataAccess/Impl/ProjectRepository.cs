@@ -19,19 +19,19 @@ namespace DependencyStore.Services.DataAccess.Impl
     public IList<Project> FindAllProjects(DependencyStoreConfiguration configuration, FileAndDirectoryRules rules)
     {
       List<Project> projects = new List<Project>();
-      foreach (BuildDirectoryConfiguration directoryConfiguration in configuration.BuildDirectories)
+      foreach (ProjectConfiguration projectConfiguration in configuration.ProjectConfigurations)
       {
-        FileSystemPath path = new FileSystemPath(directoryConfiguration.Path);
+        FileSystemPath path = new FileSystemPath(projectConfiguration.Build.Path);
         FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, rules);
         if (fileSystemEntry != null)
         {
           SourceLocation location = new SourceLocation(path, fileSystemEntry);
-          Project project = new Project(directoryConfiguration.Name, location);
+          Project project = new Project(projectConfiguration.Name, location);
           projects.Add(project);
         }
         else
         {
-          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(directoryConfiguration.AsFileSystemPath));
+          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(projectConfiguration.Build.AsFileSystemPath));
         }
       }
       return projects;

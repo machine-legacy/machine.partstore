@@ -9,6 +9,7 @@ namespace DependencyStore.Domain.Configuration
   {
     private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
     private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
+    private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
     private string _packageDirectory;
 
@@ -20,6 +21,11 @@ namespace DependencyStore.Domain.Configuration
     public List<LibraryDirectoryConfiguration> LibraryDirectories
     {
       get { return _libraryDirectories; }
+    }
+
+    public List<ProjectConfiguration> ProjectConfigurations
+    {
+      get { return _projectConfigurations; }
     }
 
     [XmlAttribute]
@@ -53,6 +59,10 @@ namespace DependencyStore.Domain.Configuration
         configuration.EnsureValid();
       }
       foreach (LibraryDirectoryConfiguration configuration in _libraryDirectories)
+      {
+        configuration.EnsureValid();
+      }
+      foreach (ProjectConfiguration configuration in _projectConfigurations)
       {
         configuration.EnsureValid();
       }
