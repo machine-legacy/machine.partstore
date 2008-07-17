@@ -36,6 +36,7 @@ namespace DependencyStore.CommandLine
           controller.Update(configurationRepository.FindConfiguration(path));
         }
       }
+      System.Console.WriteLine("Press any key...");
       System.Console.ReadKey();
     }
   }
