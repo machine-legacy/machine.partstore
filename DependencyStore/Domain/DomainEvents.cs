@@ -76,19 +76,7 @@ namespace DependencyStore.Domain
   }
   public class ProgressEventArgs : EventArgs
   {
-    private readonly string _task;
-    private readonly string _details;
     private readonly double _percentComplete;
-
-    public string Task
-    {
-      get { return _task; }
-    }
-
-    public string Details
-    {
-      get { return _details; }
-    }
 
     public double PercentComplete
     {
@@ -96,15 +84,23 @@ namespace DependencyStore.Domain
     }
 
     public ProgressEventArgs(double percentComplete)
-     : this(null, null, percentComplete)
     {
+      _percentComplete = percentComplete;
+    }
+  }
+  public class ZipFileProgressEventArgs : ProgressEventArgs
+  {
+    private readonly ManifestEntry _zipFileEntry;
+
+    public ManifestEntry ZipFileEntry
+    {
+      get { return _zipFileEntry; }
     }
 
-    public ProgressEventArgs(string details, string task, double percentComplete)
+    public ZipFileProgressEventArgs(double percentComplete, ManifestEntry zipFileEntry)
+     : base(percentComplete)
     {
-      _details = details;
-      _task = task;
-      _percentComplete = percentComplete;
+      _zipFileEntry = zipFileEntry;
     }
   }
   public class ZipFileProgressEventArgs : ProgressEventArgs
