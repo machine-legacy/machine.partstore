@@ -22,6 +22,14 @@ namespace DependencyStore.Domain
       if (LocationNotFound == null) return;
       LocationNotFound(sender, e);
     }
+
+    public static event EventHandler<ProgressEventArgs> Progress;
+
+    public static void OnProgress(object sender, ProgressEventArgs e)
+    {
+      if (Progress == null) return;
+      Progress(sender, e);
+    }
   }
   public class OutdatedSinkFileEventArgs : EventArgs
   {
@@ -63,6 +71,39 @@ namespace DependencyStore.Domain
     public LocationNotFoundEventArgs(FileSystemPath path)
     {
       _path = path;
+    }
+  }
+  public class ProgressEventArgs : EventArgs
+  {
+    private readonly string _task;
+    private readonly string _details;
+    private readonly double _percentComplete;
+
+    public string Task
+    {
+      get { return _task; }
+    }
+
+    public string Details
+    {
+      get { return _details; }
+    }
+
+    public double PercentComplete
+    {
+      get { return _percentComplete; }
+    }
+
+    public ProgressEventArgs(double percentComplete)
+     : this(null, null, percentComplete)
+    {
+    }
+
+    public ProgressEventArgs(string details, string task, double percentComplete)
+    {
+      _details = details;
+      _task = task;
+      _percentComplete = percentComplete;
     }
   }
 }

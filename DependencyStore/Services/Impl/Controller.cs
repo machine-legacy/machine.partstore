@@ -29,6 +29,7 @@ namespace DependencyStore.Services.Impl
     {
       DomainEvents.EncounteredOutdatedSinkFile += ReportOutdatedFile;
       DomainEvents.LocationNotFound += LocationNotFound;
+      DomainEvents.Progress += Progress;
       CheckForNewerFiles(configuration);
     }
 
@@ -36,6 +37,7 @@ namespace DependencyStore.Services.Impl
     {
       DomainEvents.EncounteredOutdatedSinkFile += UpdateOutdatedFile;
       DomainEvents.LocationNotFound += LocationNotFound;
+      DomainEvents.Progress += Progress;
       CheckForNewerFiles(configuration);
     }
     #endregion
@@ -90,6 +92,11 @@ namespace DependencyStore.Services.Impl
     private static void LocationNotFound(object sender, LocationNotFoundEventArgs e)
     {
       Console.WriteLine("Missing Location: {0}", e.Path);
+    }
+    
+    private static void Progress(object sender, ProgressEventArgs e)
+    {
+      Console.Write("Archiving: {0}%\r", e.PercentComplete * 100);
     }
   }
 }

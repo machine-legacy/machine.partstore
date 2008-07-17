@@ -18,6 +18,11 @@ namespace DependencyStore.Domain.Archiving
       get { return _archivePath; }
     }
 
+    public long UncompressedLength
+    {
+      get { return _file.Length; }
+    }
+
     public ManifestEntry(FileSystemFile file, FileSystemPath archivePath)
     {
       _file = file;

@@ -12,6 +12,19 @@ namespace DependencyStore.Domain.Archiving
   {
     private readonly List<ManifestEntry> _entries = new List<ManifestEntry>();
 
+    public long UncompressedBytes
+    {
+      get
+      {
+        long total = 0;
+        foreach (ManifestEntry entry in _entries)
+        {
+          total += entry.UncompressedLength;
+        }
+        return total;
+      }
+    }
+
     public void Add(FileSystemFile file, FileSystemPath archivePath)
     {
       _entries.Add(new ManifestEntry(file, archivePath));
@@ -19,6 +32,8 @@ namespace DependencyStore.Domain.Archiving
 
     public FileSystemFile WriteZip(FileSystemPath path)
     {
+      long totalBytes = this.UncompressedBytes;
+      long otherBytesSoFar = 0;
       using (Stream stream = path.CreateFile())
       {
         ZipOutputStream zip = new ZipOutputStream(stream);
@@ -29,8 +44,12 @@ namespace DependencyStore.Domain.Archiving
           {
             ZipEntry zipEntry = new ZipEntry(entry.ArchivePath.AsString);
             zip.PutNextEntry(zipEntry);
-            StreamHelper.Copy(source, zip);
+            StreamHelper.Copy(source, zip, delegate(long bytesSoFar) {
+              double progress = (otherBytesSoFar + bytesSoFar) / (double)totalBytes;
+              DomainEvents.OnProgress(this, new ProgressEventArgs("Writing Zip", "", progress));
+            });
             zip.CloseEntry();
+            otherBytesSoFar += entry.UncompressedLength;
           }
         }
       }
