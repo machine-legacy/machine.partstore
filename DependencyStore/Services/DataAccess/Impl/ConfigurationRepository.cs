@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-
+using DependencyStore.Domain;
 using DependencyStore.Domain.Configuration;
 
 using Machine.Core.Services;
@@ -26,7 +26,9 @@ namespace DependencyStore.Services.DataAccess.Impl
       {
         using (StreamReader reader = _fileSystem.OpenText(configurationFile))
         {
-          return XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
+          DependencyStoreConfiguration configuration = XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
+          configuration.PackageDirectory = new FileSystemPath(@"D:\Home\Source\Packages");
+          return configuration;
         }
       }
       catch (InvalidOperationException e)
