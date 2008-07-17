@@ -33,7 +33,6 @@ namespace DependencyStore.Services.Impl
       DomainEvents.LocationNotFound += LocationNotFound;
       DomainEvents.Progress += Progress;
       CheckForNewerFiles(configuration);
-      BuildProjectArchives(configuration);
     }
 
     public void Update(DependencyStoreConfiguration configuration)
@@ -42,6 +41,12 @@ namespace DependencyStore.Services.Impl
       DomainEvents.LocationNotFound += LocationNotFound;
       DomainEvents.Progress += Progress;
       CheckForNewerFiles(configuration);
+    }
+
+    public void ArchiveProjects(DependencyStoreConfiguration configuration)
+    {
+      DomainEvents.Progress += Progress;
+      BuildProjectArchives(configuration);
     }
     #endregion
 

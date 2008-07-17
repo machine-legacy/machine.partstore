@@ -17,8 +17,13 @@ namespace DependencyStore.CommandLine
 
         IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
         bool dryRun = false;
+        bool archiving = false;
         foreach (string arg in args)
         {
+          if (arg == "--archive")
+          {
+            archiving = true;
+          }
           if (arg == "--dry")
           {
             dryRun = true;
@@ -27,13 +32,20 @@ namespace DependencyStore.CommandLine
         IController controller = container.Resolve.Object<IController>();
         ConfigurationPaths configuration = container.Resolve.Object<ConfigurationPaths>();
         string path = configuration.FindConfigurationPath();
-        if (dryRun)
+        if (archiving)
         {
-          controller.Show(configurationRepository.FindConfiguration(path));
+          controller.ArchiveProjects(configurationRepository.FindConfiguration(path));
         }
         else
         {
-          controller.Update(configurationRepository.FindConfiguration(path));
+          if (dryRun)
+          {
+            controller.Show(configurationRepository.FindConfiguration(path));
+          }
+          else
+          {
+            controller.Update(configurationRepository.FindConfiguration(path));
+          }
         }
       }
       System.Console.WriteLine("Press any key...");

@@ -9,5 +9,6 @@ namespace DependencyStore.Services
   {
     void Show(DependencyStoreConfiguration configuration);
     void Update(DependencyStoreConfiguration configuration);
+    void ArchiveProjects(DependencyStoreConfiguration configuration);
   }
 }
