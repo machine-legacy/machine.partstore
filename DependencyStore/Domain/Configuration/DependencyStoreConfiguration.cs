@@ -10,7 +10,7 @@ namespace DependencyStore.Domain.Configuration
     private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
     private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
-    private FileSystemPath _packageDirectory;
+    private string _packageDirectory;
 
     public List<BuildDirectoryConfiguration> BuildDirectories
     {
@@ -22,11 +22,16 @@ namespace DependencyStore.Domain.Configuration
       get { return _libraryDirectories; }
     }
 
-    [XmlIgnore]
-    public FileSystemPath PackageDirectory
+    public string Packages
     {
       get { return _packageDirectory; }
       set { _packageDirectory = value; }
+    }
+
+    [XmlIgnore]
+    public FileSystemPath PackageDirectory
+    {
+      get { return new FileSystemPath(_packageDirectory); }
     }
 
     [XmlIgnore]

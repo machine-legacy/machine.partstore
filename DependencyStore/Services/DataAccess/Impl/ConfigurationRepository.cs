@@ -27,7 +27,6 @@ namespace DependencyStore.Services.DataAccess.Impl
         using (StreamReader reader = _fileSystem.OpenText(configurationFile))
         {
           DependencyStoreConfiguration configuration = XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
-          configuration.PackageDirectory = new FileSystemPath(@"D:\Home\Source\Packages");
           configuration.EnsureValid();
           return configuration;
         }
