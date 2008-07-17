@@ -22,6 +22,7 @@ namespace DependencyStore
       Add<FileAndDirectoryRulesRepository>();
       Add<ConfigurationRepository>();
       Add<LocationRepository>();
+      Add<ProjectRepository>();
       Add<Controller>();
     }
   }

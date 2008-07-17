@@ -14,14 +14,16 @@ namespace DependencyStore.Services.Impl
   public class Controller : IController
   {
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
+    private readonly IProjectRepository _projectRepository;
     private readonly ILocationRepository _locationRepository;
     private readonly IFileSystem _fileSystem;
 
-    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IFileSystem fileSystem)
+    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IProjectRepository projectRepository, IFileSystem fileSystem)
     {
-      _fileSystem = fileSystem;
+      _projectRepository = projectRepository;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _locationRepository = locationRepository;
+      _fileSystem = fileSystem;
     }
 
     #region IController Members
@@ -47,19 +49,20 @@ namespace DependencyStore.Services.Impl
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
+      IList<Project> projects = _projectRepository.FindAllProjects(configuration, rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
       
-      foreach (SourceLocation location in sources)
+      foreach (Project project in projects)
       {
-        FileSet fileSet = location.ToFileSet();
+        FileSet fileSet = project.Location.ToFileSet();
         FileSystemPath fileRootDirectory = fileSet.FindCommonDirectory();
         Archive archive = new Archive();
         foreach (FileSystemFile file in fileSet.Files)
         {
           archive.Add(file, file.Path.Chroot(fileRootDirectory));
         }
-        archive.WriteZip(location.Path.Join("Test.zip"));
+        archive.WriteZip(configuration.PackageDirectory.Join(project.Name + ".zip"));
       }
 
       foreach (SinkLocation location in sinks)

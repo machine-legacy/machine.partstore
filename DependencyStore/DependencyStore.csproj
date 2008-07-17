@@ -74,6 +74,7 @@
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\PackageDirectoryConfiguration.cs" />
     <Compile Include="Domain\FileSet.cs" />
+    <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\DomainEvents.cs" />
@@ -86,6 +87,8 @@
     <Compile Include="Domain\LatestFileSet.cs" />
     <Compile Include="Domain\SinkLocation.cs" />
     <Compile Include="Domain\Location.cs" />
+    <Compile Include="Services\DataAccess\Impl\ProjectRepository.cs" />
+    <Compile Include="Services\DataAccess\IProjectRepository.cs" />
     <Compile Include="Utility\PathHelper.cs" />
     <Compile Include="Utility\StreamHelper.cs" />
     <Compile Include="Utility\StringHelper.cs" />
