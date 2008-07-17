@@ -10,6 +10,7 @@ namespace DependencyStore.Domain.Archiving
 {
   public class Archive
   {
+    public const string ZipExtension = ".zip";
     private readonly List<ManifestEntry> _entries = new List<ManifestEntry>();
 
     public long UncompressedBytes
@@ -34,10 +35,8 @@ namespace DependencyStore.Domain.Archiving
     {
       long totalBytes = this.UncompressedBytes;
       long otherBytesSoFar = 0;
-      using (Stream stream = path.CreateFile())
+      using (ZipOutputStream zip = OpenZipStream(path))
       {
-        ZipOutputStream zip = new ZipOutputStream(stream);
-        zip.SetLevel(5);
         foreach (ManifestEntry entry in _entries)
         {
           using (Stream source = entry.File.OpenForReading())
@@ -46,7 +45,7 @@ namespace DependencyStore.Domain.Archiving
             zip.PutNextEntry(zipEntry);
             StreamHelper.Copy(source, zip, delegate(long bytesSoFar) {
               double progress = (otherBytesSoFar + bytesSoFar) / (double)totalBytes;
-              DomainEvents.OnProgress(this, new ProgressEventArgs("Writing Zip", "", progress));
+              DomainEvents.OnProgress(this, new ZipFileProgressEventArgs(progress, entry));
             });
             zip.CloseEntry();
             otherBytesSoFar += entry.UncompressedLength;
@@ -54,6 +53,14 @@ namespace DependencyStore.Domain.Archiving
         }
       }
       return new FileSystemFile(path);
+    }
+
+    private static ZipOutputStream OpenZipStream(FileSystemPath path)
+    {
+      Stream stream = path.CreateFile();
+      ZipOutputStream zip = new ZipOutputStream(stream);
+      zip.SetLevel(5);
+      return zip;
     }
   }
 }

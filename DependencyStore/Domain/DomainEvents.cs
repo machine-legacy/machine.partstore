@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain;
+using DependencyStore.Domain.Archiving;
 
 namespace DependencyStore.Domain
 {
@@ -104,6 +105,21 @@ namespace DependencyStore.Domain
       _details = details;
       _task = task;
       _percentComplete = percentComplete;
+    }
+  }
+  public class ZipFileProgressEventArgs : ProgressEventArgs
+  {
+    private readonly ManifestEntry _manifestEntry;
+
+    public ManifestEntry ManifestEntry
+    {
+      get { return _manifestEntry; }
+    }
+
+    public ZipFileProgressEventArgs(double percentComplete, ManifestEntry manifestEntry)
+     : base(percentComplete)
+    {
+      _manifestEntry = manifestEntry;
     }
   }
 }

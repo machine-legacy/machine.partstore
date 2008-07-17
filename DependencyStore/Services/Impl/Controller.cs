@@ -33,6 +33,7 @@ namespace DependencyStore.Services.Impl
       DomainEvents.LocationNotFound += LocationNotFound;
       DomainEvents.Progress += Progress;
       CheckForNewerFiles(configuration);
+      BuildProjectArchives(configuration);
     }
 
     public void Update(DependencyStoreConfiguration configuration)
@@ -49,26 +50,25 @@ namespace DependencyStore.Services.Impl
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
-      IList<Project> projects = _projectRepository.FindAllProjects(configuration, rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
-      
-      foreach (Project project in projects)
-      {
-        FileSet fileSet = project.Location.ToFileSet();
-        FileSystemPath fileRootDirectory = fileSet.FindCommonDirectory();
-        Archive archive = new Archive();
-        foreach (FileSystemFile file in fileSet.Files)
-        {
-          archive.Add(file, file.Path.Chroot(fileRootDirectory));
-        }
-        archive.WriteZip(configuration.PackageDirectory.Join(project.Name + ".zip"));
-      }
 
       foreach (SinkLocation location in sinks)
       {
         Console.WriteLine("Under {0}", location.Path.AsString);
         location.CheckForNewerFiles(latestFiles);
+      }
+    }
+
+    private void BuildProjectArchives(DependencyStoreConfiguration configuration)
+    {
+      FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
+      IList<Project> projects = _projectRepository.FindAllProjects(configuration, rules);
+      
+      foreach (Project project in projects)
+      {
+        Archive archive = project.MakeArchive();
+        archive.WriteZip(configuration.PackageDirectory.Join(project.Name + Archive.ZipExtension));
       }
     }
 

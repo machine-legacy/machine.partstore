@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DependencyStore.Domain.Archiving;
 
 namespace DependencyStore.Domain
 {
@@ -22,6 +23,18 @@ namespace DependencyStore.Domain
     {
       _name = name;
       _location = location;
+    }
+
+    public Archive MakeArchive()
+    {
+      FileSet fileSet = this.Location.ToFileSet();
+      FileSystemPath fileRootDirectory = fileSet.FindCommonDirectory();
+      Archive archive = new Archive();
+      foreach (FileSystemFile file in fileSet.Files)
+      {
+        archive.Add(file, file.Path.Chroot(fileRootDirectory));
+      }
+      return archive;
     }
   }
 }
