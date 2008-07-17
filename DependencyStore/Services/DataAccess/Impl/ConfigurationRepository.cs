@@ -28,6 +28,7 @@ namespace DependencyStore.Services.DataAccess.Impl
         {
           DependencyStoreConfiguration configuration = XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
           configuration.PackageDirectory = new FileSystemPath(@"D:\Home\Source\Packages");
+          configuration.EnsureValid();
           return configuration;
         }
       }

@@ -9,7 +9,6 @@ namespace DependencyStore.Domain.Configuration
   {
     private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
     private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
-    private readonly List<PackageDirectoryConfiguration> _packageDirectories = new List<PackageDirectoryConfiguration>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
     private FileSystemPath _packageDirectory;
 
@@ -21,11 +20,6 @@ namespace DependencyStore.Domain.Configuration
     public List<LibraryDirectoryConfiguration> LibraryDirectories
     {
       get { return _libraryDirectories; }
-    }
-
-    public List<PackageDirectoryConfiguration> PackageDirectories
-    {
-      get { return _packageDirectories; }
     }
 
     [XmlIgnore]
@@ -40,6 +34,18 @@ namespace DependencyStore.Domain.Configuration
     {
       get { return _fileAndDirectoryRules; }
       set { _fileAndDirectoryRules = value; }
+    }
+
+    public void EnsureValid()
+    {
+      foreach (BuildDirectoryConfiguration configuration in _buildDirectories)
+      {
+        configuration.EnsureValid();
+      }
+      foreach (LibraryDirectoryConfiguration configuration in _libraryDirectories)
+      {
+        configuration.EnsureValid();
+      }
     }
   }
 }

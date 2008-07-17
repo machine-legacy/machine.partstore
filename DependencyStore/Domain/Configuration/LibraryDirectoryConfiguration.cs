@@ -1,3 +1,4 @@
+using System;
 using System.Xml.Serialization;
 
 namespace DependencyStore.Domain.Configuration
@@ -27,6 +28,14 @@ namespace DependencyStore.Domain.Configuration
     public LibraryDirectoryConfiguration(string path)
     {
       _path = path;
+    }
+
+    public void EnsureValid()
+    {
+      if (String.IsNullOrEmpty(_path))
+      {
+        throw new ConfigurationException("Missing Path!");
+      }
     }
   }
 }

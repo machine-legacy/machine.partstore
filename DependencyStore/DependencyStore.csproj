@@ -70,6 +70,7 @@
     <Compile Include="Domain\Archiving\Archive.cs" />
     <Compile Include="Domain\Archiving\ManifestEntry.cs" />
     <Compile Include="Domain\Configuration\BuildDirectoryConfiguration.cs" />
+    <Compile Include="Domain\Configuration\ConfigurationException.cs" />
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\PackageDirectoryConfiguration.cs" />
     <Compile Include="Domain\FileSet.cs" />
