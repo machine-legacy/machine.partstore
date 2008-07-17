@@ -22,6 +22,7 @@ namespace DependencyStore.Domain.Configuration
       get { return _libraryDirectories; }
     }
 
+    [XmlAttribute]
     public string Packages
     {
       get { return _packageDirectory; }
@@ -43,6 +44,10 @@ namespace DependencyStore.Domain.Configuration
 
     public void EnsureValid()
     {
+      if (String.IsNullOrEmpty(_packageDirectory))
+      {
+        throw new ConfigurationException("Invalid Package Directory!");
+      }
       foreach (BuildDirectoryConfiguration configuration in _buildDirectories)
       {
         configuration.EnsureValid();
