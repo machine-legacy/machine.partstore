@@ -107,6 +107,7 @@ namespace DependencyStore.Domain
   }
   public static class DefaultInclusionRules
   {
+    public static string GitDirectory = @"^\.git$";
     public static string SubversionDirectory = @"^\.svn$";
     public static string PtDirectory = @"^pt$";
     public static string ObjDirectory = @"^obj$";

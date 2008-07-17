@@ -11,6 +11,7 @@ namespace DependencyStore.Services.DataAccess.Impl
     public FileAndDirectoryRules FindDefault()
     {
       FileAndDirectoryRules rules = new FileAndDirectoryRules();
+      rules.DirectoryRules.AddExclusion(DefaultInclusionRules.GitDirectory);
       rules.DirectoryRules.AddExclusion(DefaultInclusionRules.SubversionDirectory);
       rules.DirectoryRules.AddExclusion(DefaultInclusionRules.PtDirectory);
       rules.DirectoryRules.AddExclusion(DefaultInclusionRules.ObjDirectory);
