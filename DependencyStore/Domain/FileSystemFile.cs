@@ -49,7 +49,7 @@ namespace DependencyStore.Domain
     {
     }
 
-    public FileSystemFile(FileSystemPath path)
+    public FileSystemFile(Purl path)
      : base(path)
     {
     }

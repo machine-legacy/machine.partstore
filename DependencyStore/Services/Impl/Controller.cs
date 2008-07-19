@@ -74,7 +74,7 @@ namespace DependencyStore.Services.Impl
       
       foreach (Project project in projects)
       {
-        FileSystemPath path = configuration.PackageDirectory.Join(project.Name + Archive.ZipExtension);
+        Purl path = configuration.PackageDirectory.Join(project.Name + Archive.ZipExtension);
         FileSystemFile entry = (FileSystemFile)_fileSystemEntryRepository.FindEntry(path, rules);
         Archive archive = Archive.ReadZip(path);
         Console.WriteLine("{0}", archive.UncompressedBytes);
@@ -91,7 +91,7 @@ namespace DependencyStore.Services.Impl
     private static void ReportOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
     {
       TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
-      FileSystemPath chrooted = e.SinkFile.Path.ChangeRoot(e.SinkLocation.Path);
+      Purl chrooted = e.SinkFile.Path.ChangeRoot(e.SinkLocation.Path);
       Console.WriteLine("  {0} ({1} old)", chrooted.AsString, TimeSpanHelper.ToPrettyString(age));
     }
 

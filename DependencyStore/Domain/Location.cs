@@ -5,10 +5,10 @@ namespace DependencyStore.Domain
 {
   public abstract class Location
   {
-    private FileSystemPath _path;
+    private Purl _path;
     private FileSystemEntry _fileEntry;
 
-    public FileSystemPath Path
+    public Purl Path
     {
       get { return _path; }
       set { _path = value; }
@@ -34,7 +34,7 @@ namespace DependencyStore.Domain
     {
     }
 
-    protected Location(FileSystemPath path, FileSystemEntry fileEntry)
+    protected Location(Purl path, FileSystemEntry fileEntry)
     {
       _path = path;
       _fileEntry = fileEntry;

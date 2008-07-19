@@ -8,9 +8,9 @@ using NUnit.Framework;
 namespace DependencyStore.Domain
 {
   [TestFixture]
-  public class FileSystemPathTests : TestsFor<FileSystemPath>
+  public class FileSystemPathTests : TestsFor<Purl>
   {
-    private FileSystemPath _target;
+    private Purl _target;
 
     [Test]
     public void GetFull_Always_FullPath()
@@ -33,36 +33,36 @@ namespace DependencyStore.Domain
     [Test]
     public void Equals_SamePath_IsTrue()
     {
-      FileSystemPath other = new FileSystemPath(_target.AsString);
+      Purl other = new Purl(_target.AsString);
       Assert.IsTrue(_target.Equals(other));
     }
 
     [Test]
     public void Equals_DifferentPath_IsFalse()
     {
-      FileSystemPath other = new FileSystemPath(@"C:\WINDOWS");
+      Purl other = new Purl(@"C:\WINDOWS");
       Assert.IsFalse(_target.Equals(other));
     }
 
     [Test]
     public void Equals_SamePathDifferentCase_IsTrue()
     {
-      FileSystemPath other = new FileSystemPath(_target.AsString.ToLower());
+      Purl other = new Purl(_target.AsString.ToLower());
       Assert.IsTrue(_target.Equals(other));
     }
 
     [Test]
     public void Equals_SamePathWithVaryingIndirection_IsFalse()
     {
-      FileSystemPath a = new FileSystemPath(@"C:\WINDOWS\SYSTEM32");
-      FileSystemPath b = new FileSystemPath(@"C:\WINDOWS\..\WINDOWS\SYSTEM32");
+      Purl a = new Purl(@"C:\WINDOWS\SYSTEM32");
+      Purl b = new Purl(@"C:\WINDOWS\..\WINDOWS\SYSTEM32");
       Assert.IsFalse(a.Equals(b));
     }
 
     public override void BeforeEachTest()
     {
       base.BeforeEachTest();
-      _target = new FileSystemPath(@"C:\WINDOWS\SYSTEM32\Notepad.exe");
+      _target = new Purl(@"C:\WINDOWS\SYSTEM32\Notepad.exe");
     }
   }
 }

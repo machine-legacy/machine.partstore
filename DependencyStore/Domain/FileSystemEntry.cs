@@ -5,9 +5,9 @@ namespace DependencyStore.Domain
 {
   public class FileSystemEntry
   {
-    private FileSystemPath _path;
+    private Purl _path;
 
-    public FileSystemPath Path
+    public Purl Path
     {
       get { return _path; }
       set { _path = value; }
@@ -32,7 +32,7 @@ namespace DependencyStore.Domain
     {
     }
 
-    public FileSystemEntry(FileSystemPath path)
+    public FileSystemEntry(Purl path)
     {
       _path = path;
     }

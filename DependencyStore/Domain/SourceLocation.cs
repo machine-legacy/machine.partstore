@@ -10,7 +10,7 @@ namespace DependencyStore.Domain
       get { return true; }
     }
 
-    public SourceLocation(FileSystemPath path, FileSystemEntry entry)
+    public SourceLocation(Purl path, FileSystemEntry entry)
       : base(path, entry)
     {
     }

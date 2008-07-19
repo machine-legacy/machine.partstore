@@ -73,10 +73,10 @@ namespace DependencyStore.Domain
     public override void BeforeEachTest()
     {
       base.BeforeEachTest();
-      _target = new FileSystemDirectory(new FileSystemPath(@"C:\Windows"));
-      _aFile = new FileSystemFile(new FileSystemPath(@"C:\Boot.ini"));
-      _aDirectoryWithFiles = new FileSystemDirectory(new FileSystemPath(@"C:\Windows\System32"));
-      _aDirectoryWithFiles.Entries.Add(new FileSystemFile(new FileSystemPath(@"C:\Windows\System32\Notepad.exe")));
+      _target = new FileSystemDirectory(new Purl(@"C:\Windows"));
+      _aFile = new FileSystemFile(new Purl(@"C:\Boot.ini"));
+      _aDirectoryWithFiles = new FileSystemDirectory(new Purl(@"C:\Windows\System32"));
+      _aDirectoryWithFiles.Entries.Add(new FileSystemFile(new Purl(@"C:\Windows\System32\Notepad.exe")));
     }
   }
 }

@@ -21,7 +21,7 @@ namespace DependencyStore.Services.DataAccess.Impl
       List<Location> locations = new List<Location>();
       foreach (BuildDirectoryConfiguration build in configuration.BuildDirectories)
       {
-        FileSystemPath path = new FileSystemPath(build.Path);
+        Purl path = new Purl(build.Path);
         FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, rules);
         if (fileSystemEntry != null)
         {
@@ -29,12 +29,12 @@ namespace DependencyStore.Services.DataAccess.Impl
         }
         else
         {
-          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(build.AsFileSystemPath));
+          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(build.AsPurl));
         }
       }
       foreach (LibraryDirectoryConfiguration library in configuration.LibraryDirectories)
       {
-        FileSystemPath path = new FileSystemPath(library.Path);
+        Purl path = new Purl(library.Path);
         FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, rules);
         if (fileSystemEntry != null)
         {
@@ -42,7 +42,7 @@ namespace DependencyStore.Services.DataAccess.Impl
         }
         else
         {
-          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(library.AsFileSystemPath));
+          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(library.AsPurl));
         }
       }
       return locations;

@@ -28,7 +28,7 @@ namespace DependencyStore.Domain
     public Archive MakeArchive()
     {
       FileSet fileSet = this.Location.ToFileSet();
-      FileSystemPath fileRootDirectory = fileSet.FindCommonDirectory();
+      Purl fileRootDirectory = fileSet.FindCommonDirectory();
       Archive archive = new Archive();
       foreach (FileSystemFile file in fileSet.Files)
       {

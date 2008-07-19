@@ -62,14 +62,14 @@ namespace DependencyStore.Domain
   }
   public class LocationNotFoundEventArgs : EventArgs
   {
-    private readonly FileSystemPath _path;
+    private readonly Purl _path;
 
-    public FileSystemPath Path
+    public Purl Path
     {
       get { return _path; }
     }
 
-    public LocationNotFoundEventArgs(FileSystemPath path)
+    public LocationNotFoundEventArgs(Purl path)
     {
       _path = path;
     }

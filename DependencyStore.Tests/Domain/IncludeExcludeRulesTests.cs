@@ -11,11 +11,11 @@ namespace DependencyStore.Domain
   public class IncludeExcludeRulesTests : TestsFor<IncludeExcludeRules>
   {
     private IncludeExcludeRules _target;
-    private FileSystemPath _simpleFileA = new FileSystemPath(@"C:\Windows\System32\Notepad.exe");
-    private FileSystemPath _simpleFileB = new FileSystemPath(@"C:\Windows\System32\Notepad.dll");
-    private FileSystemPath _simpleFileC = new FileSystemPath(@"C:\Windows\System32\Notepad.pdb");
-    private FileSystemPath _subversionDir = new FileSystemPath(@"C:\Home\Source\.svn");
-    private FileSystemPath _mightLookLikeSubversionDir = new FileSystemPath(@"C:\Home\Source\Asvn");
+    private Purl _simpleFileA = new Purl(@"C:\Windows\System32\Notepad.exe");
+    private Purl _simpleFileB = new Purl(@"C:\Windows\System32\Notepad.dll");
+    private Purl _simpleFileC = new Purl(@"C:\Windows\System32\Notepad.pdb");
+    private Purl _subversionDir = new Purl(@"C:\Home\Source\.svn");
+    private Purl _mightLookLikeSubversionDir = new Purl(@"C:\Home\Source\Asvn");
 
     public override void BeforeEachTest()
     {

@@ -21,7 +21,7 @@ namespace DependencyStore.Services.DataAccess.Impl
       List<Project> projects = new List<Project>();
       foreach (ProjectConfiguration projectConfiguration in configuration.ProjectConfigurations)
       {
-        FileSystemPath path = new FileSystemPath(projectConfiguration.Build.Path);
+        Purl path = new Purl(projectConfiguration.Build.Path);
         FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, rules);
         if (fileSystemEntry != null)
         {
@@ -31,7 +31,7 @@ namespace DependencyStore.Services.DataAccess.Impl
         }
         else
         {
-          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(projectConfiguration.Build.AsFileSystemPath));
+          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(projectConfiguration.Build.AsPurl));
         }
       }
       return projects;

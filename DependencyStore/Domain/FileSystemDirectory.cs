@@ -61,7 +61,7 @@ namespace DependencyStore.Domain
     {
     }
 
-    public FileSystemDirectory(FileSystemPath path) 
+    public FileSystemDirectory(Purl path) 
      : base(path)
     {
     }

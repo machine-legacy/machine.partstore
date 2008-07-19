@@ -6,9 +6,9 @@ namespace DependencyStore.Domain.Archiving
 {
   public abstract class ManifestEntry
   {
-    private readonly FileSystemPath _archivePath;
+    private readonly Purl _archivePath;
 
-    public FileSystemPath ArchivePath
+    public Purl ArchivePath
     {
       get { return _archivePath; }
     }
@@ -18,7 +18,7 @@ namespace DependencyStore.Domain.Archiving
       get;
     }
 
-    protected ManifestEntry(FileSystemPath archivePath)
+    protected ManifestEntry(Purl archivePath)
     {
       _archivePath = archivePath;
     }
@@ -57,7 +57,7 @@ namespace DependencyStore.Domain.Archiving
       get { return _entry.Size; }
     }
 
-    public CompressedManifestEntry(FileSystemPath archivePath, ZipEntry entry)
+    public CompressedManifestEntry(Purl archivePath, ZipEntry entry)
       : base(archivePath)
     {
       _entry = entry;
@@ -78,7 +78,7 @@ namespace DependencyStore.Domain.Archiving
       get { return _file.Length; }
     }
 
-    public LocalManifestEntry(FileSystemPath archivePath, FileSystemFile file)
+    public LocalManifestEntry(Purl archivePath, FileSystemFile file)
      : base(archivePath)
     {
       _file = file;

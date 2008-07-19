@@ -17,7 +17,7 @@ namespace DependencyStore.Services.DataAccess.Impl
     }
 
     #region IFileSystemEntryRepository Members
-    public FileSystemEntry FindEntry(FileSystemPath path, FileAndDirectoryRules rules)
+    public FileSystemEntry FindEntry(Purl path, FileAndDirectoryRules rules)
     {
       if (_fileSystem.IsFile(path.AsString))
       {
@@ -37,12 +37,12 @@ namespace DependencyStore.Services.DataAccess.Impl
     }
     #endregion
 
-    private FileSystemDirectory CreateDirectory(FileSystemPath path, FileAndDirectoryRules rules)
+    private FileSystemDirectory CreateDirectory(Purl path, FileAndDirectoryRules rules)
     {
       FileSystemDirectory entry = new FileSystemDirectory(path);
       foreach (string subPath in _fileSystem.GetEntries(path.AsString))
       {
-        FileSystemPath entryPath = new FileSystemPath(subPath);
+        Purl entryPath = new Purl(subPath);
         FileSystemEntry subEntry = FindEntry(entryPath, rules);
         if (subEntry != null)
         {
@@ -52,7 +52,7 @@ namespace DependencyStore.Services.DataAccess.Impl
       return entry;
     }
 
-    private FileSystemFile CreateFile(FileSystemPath path)
+    private FileSystemFile CreateFile(Purl path)
     {
       FileProperties properties = _fileSystem.GetFileProperties(path.AsString);
       FileSystemFile entry = new FileSystemFile(path);

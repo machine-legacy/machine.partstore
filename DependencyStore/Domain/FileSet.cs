@@ -63,14 +63,14 @@ namespace DependencyStore.Domain
       get { return _files; }
     }
 
-    public FileSystemPath FindCommonDirectory()
+    public Purl FindCommonDirectory()
     {
       List<string> strings = new List<string>();
       foreach (FileSystemFile file in _files)
       {
         strings.Add(file.Path.AsString);
       }
-      return new FileSystemPath(StringHelper.FindLongestCommonPrefix(strings));
+      return new Purl(StringHelper.FindLongestCommonPrefix(strings));
     }
   }
 }

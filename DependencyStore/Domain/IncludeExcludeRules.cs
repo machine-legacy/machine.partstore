@@ -13,7 +13,7 @@ namespace DependencyStore.Domain
   }
   public interface IDecidesInclusion
   {
-    IncludeExclude Includes(FileSystemPath path);
+    IncludeExclude Includes(Purl path);
   }
   public class Exclusion : IDecidesInclusion
   {
@@ -24,7 +24,7 @@ namespace DependencyStore.Domain
       _expression = new Regex(expression);
     }
 
-    public virtual IncludeExclude Includes(FileSystemPath path)
+    public virtual IncludeExclude Includes(Purl path)
     {
       if (_expression.IsMatch(path.Name))
       {
@@ -42,7 +42,7 @@ namespace DependencyStore.Domain
       _expression = new Regex(expression);;
     }
 
-    public virtual IncludeExclude Includes(FileSystemPath path)
+    public virtual IncludeExclude Includes(Purl path)
     {
       if (_expression.IsMatch(path.Name))
       {
@@ -77,7 +77,7 @@ namespace DependencyStore.Domain
     }
 
     #region IDecidesInclusion Members
-    public IncludeExclude Includes(FileSystemPath path)
+    public IncludeExclude Includes(Purl path)
     {
       foreach (IDecidesInclusion child in _rules)
       {

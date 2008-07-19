@@ -16,9 +16,9 @@ namespace DependencyStore.Domain.Configuration
     }
 
     [XmlIgnore]
-    public FileSystemPath AsFileSystemPath
+    public Purl AsPurl
     {
-      get { return new FileSystemPath(_path); }
+      get { return new Purl(_path); }
     }
 
     public LibraryDirectoryConfiguration()

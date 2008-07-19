@@ -6,7 +6,7 @@ using DependencyStore.Utility;
 
 namespace DependencyStore.Domain
 {
-  public class FileSystemPath
+  public class Purl
   {
     private readonly string _path;
 
@@ -25,31 +25,31 @@ namespace DependencyStore.Domain
       get { return Path.GetDirectoryName(_path); }
     }
 
-    public FileSystemPath(string uri)
+    public Purl(string uri)
     {
       _path = uri;
     }
 
-    public bool IsARoot(FileSystemPath path)
+    public bool IsARoot(Purl path)
     {
       return this.AsString.StartsWith(path.AsString);
     }
 
-    public FileSystemPath ChangeRoot(FileSystemPath root)
+    public Purl ChangeRoot(Purl root)
     {
       if (!IsARoot(root))
       {
         throw new InvalidOperationException(String.Format("Unable to change root of {0} to {1}", this, root));
       }
       string rootPath = PathHelper.NormalizeDirectorySlashes(root.AsString);
-      return new FileSystemPath(this.AsString.Substring(rootPath.Length));
+      return new Purl(this.AsString.Substring(rootPath.Length));
     }
 
     public override bool Equals(object obj)
     {
-      if (obj is FileSystemPath)
+      if (obj is Purl)
       {
-        return ((FileSystemPath)obj).AsString.Equals(_path, StringComparison.InvariantCultureIgnoreCase);
+        return ((Purl)obj).AsString.Equals(_path, StringComparison.InvariantCultureIgnoreCase);
       }
       return base.Equals(obj);
     }
@@ -64,12 +64,12 @@ namespace DependencyStore.Domain
       return String.Format("Path<{0}>", this.AsString);
     }
 
-    public FileSystemPath Join(string path)
+    public Purl Join(string path)
     {
-      return new FileSystemPath(Path.Combine(_path, path));
+      return new Purl(Path.Combine(_path, path));
     }
 
-    public FileSystemPath Join(FileSystemPath path)
+    public Purl Join(Purl path)
     {
       return Join(path.AsString);
     }

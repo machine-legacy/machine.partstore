@@ -10,7 +10,7 @@ namespace DependencyStore.Domain
       get { return false; }
     }
 
-    public SinkLocation(FileSystemPath path, FileSystemEntry entry)
+    public SinkLocation(Purl path, FileSystemEntry entry)
       : base(path, entry)
     {
     }

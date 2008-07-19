@@ -36,9 +36,9 @@ namespace DependencyStore.Domain.Configuration
     }
 
     [XmlIgnore]
-    public FileSystemPath PackageDirectory
+    public Purl PackageDirectory
     {
-      get { return new FileSystemPath(_packageDirectory); }
+      get { return new Purl(_packageDirectory); }
     }
 
     [XmlIgnore]

@@ -26,17 +26,17 @@ namespace DependencyStore.Domain.Archiving
       }
     }
 
-    public void Add(FileSystemPath archivePath, FileSystemFile file)
+    public void Add(Purl archivePath, FileSystemFile file)
     {
       _entries.Add(new LocalManifestEntry(archivePath, file));
     }
 
     public void Add(ZipEntry zipEntry)
     {
-      _entries.Add(new CompressedManifestEntry(new FileSystemPath(zipEntry.Name), zipEntry));
+      _entries.Add(new CompressedManifestEntry(new Purl(zipEntry.Name), zipEntry));
     }
 
-    public FileSystemFile WriteZip(FileSystemPath path)
+    public FileSystemFile WriteZip(Purl path)
     {
       long totalBytes = this.UncompressedBytes;
       long otherBytesSoFar = 0;
@@ -60,7 +60,7 @@ namespace DependencyStore.Domain.Archiving
       return new FileSystemFile(path);
     }
 
-    private static ZipOutputStream OpenZipStream(FileSystemPath path)
+    private static ZipOutputStream OpenZipStream(Purl path)
     {
       Stream stream = path.CreateFile();
       ZipOutputStream zip = new ZipOutputStream(stream);
@@ -78,7 +78,7 @@ namespace DependencyStore.Domain.Archiving
       return fileSet;
     }
 
-    public static Archive ReadZip(FileSystemPath path)
+    public static Archive ReadZip(Purl path)
     {
       Archive archive = new Archive();
       using (ZipFile zip = new ZipFile(path.AsString))

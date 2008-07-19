@@ -18,12 +18,12 @@ namespace DependencyStore.Domain
       get { return _directoryRules; }
     }
 
-    public IncludeExclude IncludesFile(FileSystemPath path)
+    public IncludeExclude IncludesFile(Purl path)
     {
       return _fileRules.Includes(path);
     }
 
-    public IncludeExclude IncludesDirectory(FileSystemPath path)
+    public IncludeExclude IncludesDirectory(Purl path)
     {
       return _directoryRules.Includes(path);
     }
