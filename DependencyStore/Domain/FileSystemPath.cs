@@ -30,16 +30,16 @@ namespace DependencyStore.Domain
       _path = uri;
     }
 
-    public bool IsSubPath(FileSystemPath subPath)
+    public bool IsARoot(FileSystemPath path)
     {
-      return this.AsString.StartsWith(subPath.AsString);
+      return this.AsString.StartsWith(path.AsString);
     }
 
-    public FileSystemPath Chroot(FileSystemPath root)
+    public FileSystemPath ChangeRoot(FileSystemPath root)
     {
-      if (!IsSubPath(root))
+      if (!IsARoot(root))
       {
-        throw new InvalidOperationException(String.Format("Can't chroot {0} with {1}", this, root));
+        throw new InvalidOperationException(String.Format("Unable to change root of {0} to {1}", this, root));
       }
       string rootPath = PathHelper.NormalizeDirectorySlashes(root.AsString);
       return new FileSystemPath(this.AsString.Substring(rootPath.Length));

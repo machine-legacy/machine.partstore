@@ -80,7 +80,7 @@ namespace DependencyStore.Services.Impl
     private static void ReportOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
     {
       TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
-      FileSystemPath chrooted = e.SinkFile.Path.Chroot(e.SinkLocation.Path);
+      FileSystemPath chrooted = e.SinkFile.Path.ChangeRoot(e.SinkLocation.Path);
       Console.WriteLine("  {0} ({1} old)", chrooted.AsString, TimeSpanHelper.ToPrettyString(age));
     }
 
