@@ -17,7 +17,7 @@ namespace DependencyStore.Services.DataAccess.Impl
     [Test]
     public void FindConfiguration_Always_HitsFileAndLoads()
     {
-      string text = @"<DependencyStore><BuildDirectories><Build Path='C:\'/></BuildDirectories></DependencyStore>";
+      string text = @"<DependencyStore Packages='C:\'><BuildDirectories><Build Path='C:\'/></BuildDirectories></DependencyStore>";
       using (Record)
       {
         MemoryStream stream = new MemoryStream(Encoding.ASCII.GetBytes(text));
