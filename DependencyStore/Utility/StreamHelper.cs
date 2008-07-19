@@ -20,7 +20,10 @@ namespace DependencyStore.Utility
           callback(bytesSoFar);
           break;
         }
-        if (bytesSoFar % 13 == 0) callback(bytesSoFar);
+        if (bytesSoFar % 13 == 0)
+        {
+           callback(bytesSoFar);
+        }
         destiny.Write(buffer, 0, bytes);
       }
     }
