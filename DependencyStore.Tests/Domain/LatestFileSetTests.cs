@@ -68,7 +68,7 @@ namespace DependencyStore.Domain
     public void Add_IsCollidingFileButSecondIsOlder_KeepsFirst()
     {
       FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"), 0, DateTime.Now, DateTime.Now, DateTime.Now);
-      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\File1.txt"), 0, DateTime.Now, file1.ModifiedAt - TimeSpan.FromDays(1.0), DateTime.Now);
+      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\File1.txt"), 0, DateTime.Now, DateTime.Now, file1.ModifiedAt - TimeSpan.FromDays(1.0));
       _target.Add(file1);
       _target.Add(file2);
       CollectionAssert.AreEqual(new FileSystemFile[] { file1 }, new List<FileAsset>(_target.Files));
@@ -78,7 +78,7 @@ namespace DependencyStore.Domain
     public void Add_IsCollidingFileButSecondIsNewer_ReplacesFirst()
     {
       FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"), 0, DateTime.Now, DateTime.Now, DateTime.Now);
-      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\OtherPlace\File1.txt"), 0, DateTime.Now, file1.ModifiedAt + TimeSpan.FromDays(1.0), DateTime.Now);
+      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\OtherPlace\File1.txt"), 0, DateTime.Now, DateTime.Now, file1.ModifiedAt + TimeSpan.FromDays(1.0));
       _target.Add(file1);
       _target.Add(file2);
       CollectionAssert.AreEqual(new FileSystemFile[] { file2 }, new List<FileAsset>(_target.Files));

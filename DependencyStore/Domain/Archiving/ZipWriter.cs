@@ -34,6 +34,7 @@ namespace DependencyStore.Domain.Archiving
           {
             _currentEntry = entry;
             ZipEntry zipEntry = new ZipEntry(entry.ArchivePath.AsString);
+            zipEntry.DateTime = entry.FileAsset.ModifiedAt;
             zip.PutNextEntry(zipEntry);
             StreamHelper.Copy(source, zip, ReportProgress);
             zip.CloseEntry();
