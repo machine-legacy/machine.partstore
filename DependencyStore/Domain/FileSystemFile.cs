@@ -69,9 +69,14 @@ namespace DependencyStore.Domain
       return this.ModifiedAt == file.ModifiedAt;
     }
 
-    public Stream OpenForReading()
+    public override Stream OpenForReading()
     {
       return File.OpenRead(this.Path.AsString);
+    }
+
+    public override long LengthInBytes
+    {
+      get { return this.Length; }
     }
 
     public override string ToString()

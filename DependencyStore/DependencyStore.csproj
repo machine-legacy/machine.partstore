@@ -69,7 +69,10 @@
     <Compile Include="DependencyStoreContainer.cs" />
     <Compile Include="Domain\Archiving\Archive.cs" />
     <Compile Include="Domain\Archiving\ArchivedFile.cs" />
+    <Compile Include="Domain\Archiving\ArchivedFileInZip.cs" />
+    <Compile Include="Domain\Archiving\ArchiveFactory.cs" />
     <Compile Include="Domain\Archiving\ManifestEntry.cs" />
+    <Compile Include="Domain\Archiving\ZipWriter.cs" />
     <Compile Include="Domain\Configuration\BuildDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ConfigurationException.cs" />
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />

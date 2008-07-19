@@ -1,26 +1,32 @@
 using System;
 using System.Collections.Generic;
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace DependencyStore.Domain.Archiving
 {
-  public abstract class ManifestEntry
+  public class ManifestEntry
   {
     private readonly Purl _archivePath;
+    private readonly FileAsset _fileAsset;
 
     public Purl ArchivePath
     {
       get { return _archivePath; }
     }
 
-    public abstract long UncompressedLength
+    public FileAsset FileAsset
     {
-      get;
+      get { return _fileAsset; }
     }
 
-    protected ManifestEntry(Purl archivePath)
+    public virtual long UncompressedLength
+    {
+      get { return _fileAsset.LengthInBytes; }
+    }
+
+    public ManifestEntry(Purl archivePath, FileAsset fileAsset)
     {
       _archivePath = archivePath;
+      _fileAsset = fileAsset;
     }
 
     public override bool Equals(object obj)
@@ -40,67 +46,6 @@ namespace DependencyStore.Domain.Archiving
     public override string ToString()
     {
       return String.Format("Entry<{0}, {1}>", this.ArchivePath);
-    }
-  }
-
-  public class CompressedManifestEntry : ManifestEntry
-  {
-    private readonly ZipEntry _entry;
-
-    public ZipEntry Entry
-    {
-      get { return _entry; }
-    }
-
-    public override long UncompressedLength
-    {
-      get { return _entry.Size; }
-    }
-
-    public CompressedManifestEntry(Purl archivePath, ZipEntry entry)
-      : base(archivePath)
-    {
-      _entry = entry;
-    }
-  }
-
-  public class LocalManifestEntry : ManifestEntry
-  {
-    private readonly FileSystemFile _file;
-
-    public FileSystemFile File
-    {
-      get { return _file; }
-    }
-
-    public override long UncompressedLength
-    {
-      get { return _file.Length; }
-    }
-
-    public LocalManifestEntry(Purl archivePath, FileSystemFile file)
-     : base(archivePath)
-    {
-      _file = file;
-    }
-
-    public override bool Equals(object obj)
-    {
-      if (obj is LocalManifestEntry)
-      {
-        return ((LocalManifestEntry)obj).File.Equals(this.File) && base.Equals(this);
-      }
-      return false;
-    }
-
-    public override Int32 GetHashCode()
-    {
-      return this.File.GetHashCode() ^ this.ArchivePath.GetHashCode();
-    }
-
-    public override string ToString()
-    {
-      return String.Format("Entry<{0}, {1}>", this.File, this.ArchivePath);
     }
   }
 }

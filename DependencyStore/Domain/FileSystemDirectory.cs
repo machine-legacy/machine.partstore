@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+
+using Machine.Container;
 
 namespace DependencyStore.Domain
 {
@@ -69,6 +72,16 @@ namespace DependencyStore.Domain
     public override string ToString()
     {
       return String.Format(@"Directory<{0}, {1}>", this.Path, this.Entries.Count);
+    }
+
+    public override Stream OpenForReading()
+    {
+      throw new YouFoundABugException();
+    }
+
+    public override long LengthInBytes
+    {
+      get { throw new YouFoundABugException(); }
     }
   }
 }

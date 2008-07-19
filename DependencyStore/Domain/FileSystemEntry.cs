@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DependencyStore.Domain
 {
-  public class FileSystemEntry
+  public abstract class FileSystemEntry : FileAsset
   {
     private Purl _path;
 
@@ -11,6 +11,11 @@ namespace DependencyStore.Domain
     {
       get { return _path; }
       set { _path = value; }
+    }
+
+    public override Purl Purl
+    {
+      get { return _path; }
     }
 
     public virtual IEnumerable<FileSystemEntry> Children
