@@ -80,7 +80,7 @@ namespace DependencyStore.Services.Impl
         {
           Console.WriteLine("{0}", archive.UncompressedBytes);
           FileSet fileSet = archive.ToFileSet();
-          foreach (FileSystemFile file in fileSet.Files)
+          foreach (FileAsset file in fileSet.Files)
           {
             Console.WriteLine("{0}", file);
           }

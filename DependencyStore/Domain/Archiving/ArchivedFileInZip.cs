@@ -32,5 +32,10 @@ namespace DependencyStore.Domain.Archiving
     {
       get { return _zipEntry.DateTime; }
     }
+
+    public override string ToString()
+    {
+      return String.Format(@"ArchivedFile<{0}>", this.Purl);
+    }
   }
 }

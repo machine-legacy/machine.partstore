@@ -6,10 +6,10 @@ namespace DependencyStore.Domain
 {
   public class FileSystemFile : FileSystemEntry
   {
+    private readonly DateTime _createdAt;
+    private readonly DateTime _accessedAt;
+    private readonly DateTime _modifiedAt;
     private long _length;
-    private DateTime _createdAt;
-    private DateTime _accessedAt;
-    private DateTime _modifiedAt;
 
     public long Length
     {

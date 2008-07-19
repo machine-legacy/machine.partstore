@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
+
 using ICSharpCode.SharpZipLib.Zip;
-using Machine.Container;
 
 namespace DependencyStore.Domain.Archiving
 {
   public class Archive : IDisposable
   {
     private readonly List<ManifestEntry> _entries = new List<ManifestEntry>();
-    private ZipFile _zipFile;
+    private readonly ZipFile _zipFile;
 
     public long UncompressedBytes
     {
