@@ -13,6 +13,9 @@ namespace DependencyStore.Domain.Archiving
     public const string ZipExtension = ".zip";
 
     private readonly Archive _archive;
+    private long _totalBytes;
+    private long _otherBytesSoFar;
+    private ManifestEntry _currentEntry;
 
     public ZipArchiveWriter(Archive archive)
     {
@@ -21,26 +24,30 @@ namespace DependencyStore.Domain.Archiving
 
     public FileSystemFile WriteZip(Purl path)
     {
-      long totalBytes = _archive.UncompressedBytes;
-      long otherBytesSoFar = 0;
+      _totalBytes = _archive.UncompressedBytes;
+      _otherBytesSoFar = 0;
       using (ZipOutputStream zip = OpenZipStream(path))
       {
         foreach (ManifestEntry entry in _archive.Entries)
         {
           using (Stream source = entry.FileAsset.OpenForReading())
           {
+            _currentEntry = entry;
             ZipEntry zipEntry = new ZipEntry(entry.ArchivePath.AsString);
             zip.PutNextEntry(zipEntry);
-            StreamHelper.Copy(source, zip, delegate(long bytesSoFar) {
-                                                                       double progress = (otherBytesSoFar + bytesSoFar) / (double)totalBytes;
-                                                                       DomainEvents.OnProgress(this, new ZipFileProgressEventArgs(progress, entry));
-            });
+            StreamHelper.Copy(source, zip, ReportProgress);
             zip.CloseEntry();
-            otherBytesSoFar += entry.UncompressedLength;
+            _otherBytesSoFar += entry.UncompressedLength;
           }
         }
       }
       return new FileSystemFile(path);
+    }
+
+    private void ReportProgress(long bytesSoFar)
+    {
+      double progress = (_otherBytesSoFar + bytesSoFar) / (double)_totalBytes;
+      DomainEvents.OnProgress(this, new ZipFileProgressEventArgs(progress, _currentEntry));
     }
 
     private static ZipOutputStream OpenZipStream(Purl path)
