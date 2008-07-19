@@ -96,7 +96,7 @@ namespace DependencyStore.Services.Impl
     private static void ReportOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
     {
       TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
-      Purl chrooted = e.SinkFile.Path.ChangeRoot(e.SinkLocation.Path);
+      Purl chrooted = e.SinkFile.Purl.ChangeRoot(e.SinkLocation.Path);
       Console.WriteLine("  {0} ({1} old)", chrooted.AsString, TimeSpanHelper.ToPrettyString(age));
     }
 
@@ -105,11 +105,11 @@ namespace DependencyStore.Services.Impl
       try
       {
         ReportOutdatedFile(sender, e);
-        _fileSystem.CopyFile(e.SourceFile.Path.AsString, e.SinkFile.Path.AsString, true);
+        _fileSystem.CopyFile(e.SourceFile.Purl.AsString, e.SinkFile.Purl.AsString, true);
       }
       catch (Exception error)
       {
-        Console.WriteLine("Error copying {0}: {1}", e.SinkFile.Path.AsString, error.Message);
+        Console.WriteLine("Error copying {0}: {1}", e.SinkFile.Purl.AsString, error.Message);
       }
     }
 

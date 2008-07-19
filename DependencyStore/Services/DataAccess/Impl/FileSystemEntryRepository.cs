@@ -55,12 +55,7 @@ namespace DependencyStore.Services.DataAccess.Impl
     private FileSystemFile CreateFile(Purl path)
     {
       FileProperties properties = _fileSystem.GetFileProperties(path.AsString);
-      FileSystemFile entry = new FileSystemFile(path);
-      entry.Length = properties.Length;
-      entry.CreatedAt = properties.CreationTime;
-      entry.ModifiedAt = properties.LastWriteTime;
-      entry.AccessedAt = properties.LastAccessTime;
-      return entry;
+      return new FileSystemFile(path, properties.Length, properties.CreationTime, properties.LastWriteTime, properties.LastAccessTime);
     }
   }
 }

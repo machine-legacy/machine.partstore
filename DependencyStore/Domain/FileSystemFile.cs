@@ -20,19 +20,16 @@ namespace DependencyStore.Domain
     public DateTime CreatedAt
     {
       get { return _createdAt; }
-      set { _createdAt = value; }
     }
 
     public DateTime AccessedAt
     {
       get { return _accessedAt; }
-      set { _accessedAt = value; }
     }
 
-    public DateTime ModifiedAt
+    public override DateTime ModifiedAt
     {
       get { return _modifiedAt; }
-      set { _modifiedAt = value; }
     }
 
     public string Name
@@ -54,19 +51,13 @@ namespace DependencyStore.Domain
     {
     }
 
-    public bool IsNewerThan(FileSystemFile file)
+    public FileSystemFile(Purl path, long length, DateTime createdAt, DateTime accessedAt, DateTime modifiedAt)
+     : base(path)
     {
-      return this.ModifiedAt > file.ModifiedAt;
-    }
-
-    public bool IsOlderThan(FileSystemFile file)
-    {
-      return this.ModifiedAt < file.ModifiedAt;
-    }
-
-    public bool IsSameAgeAs(FileSystemFile file)
-    {
-      return this.ModifiedAt == file.ModifiedAt;
+      _length = length;
+      _createdAt = createdAt;
+      _accessedAt = accessedAt;
+      _modifiedAt = modifiedAt;
     }
 
     public override Stream OpenForReading()

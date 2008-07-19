@@ -17,5 +17,25 @@ namespace DependencyStore.Domain
     {
       get;
     }
+
+    public abstract DateTime ModifiedAt
+    {
+      get;
+    }
+
+    public bool IsNewerThan(FileAsset file)
+    {
+      return this.ModifiedAt > file.ModifiedAt;
+    }
+
+    public bool IsOlderThan(FileAsset file)
+    {
+      return this.ModifiedAt < file.ModifiedAt;
+    }
+
+    public bool IsSameAgeAs(FileAsset file)
+    {
+      return this.ModifiedAt == file.ModifiedAt;
+    }
   }
 }

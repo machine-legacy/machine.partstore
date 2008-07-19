@@ -51,43 +51,37 @@ namespace DependencyStore.Domain
     {
       FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"));
       _target.Add(file1);
-      CollectionAssert.AreEqual(new FileSystemFile[] { file1 }, new List<FileSystemFile>(_target.Files));
+      CollectionAssert.AreEqual(new FileSystemFile[] { file1 }, new List<FileAsset>(_target.Files));
     }
 
     [Test]
     public void Add_SecondFile_HasThoseFile()
     {
-      FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"));
-      file1.ModifiedAt = DateTime.Now;
-      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\File2.txt"));
-      file2.ModifiedAt = DateTime.Now;
+      FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"), 0, DateTime.Now, DateTime.Now, DateTime.Now);
+      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\File2.txt"), 0, DateTime.Now, DateTime.Now, DateTime.Now);
       _target.Add(file1);
       _target.Add(file2);
-      CollectionAssert.AreEqual(new FileSystemFile[] { file1, file2 }, new List<FileSystemFile>(_target.Files));
+      CollectionAssert.AreEqual(new FileSystemFile[] { file1, file2 }, new List<FileAsset>(_target.Files));
     }
 
     [Test]
     public void Add_IsCollidingFileButSecondIsOlder_KeepsFirst()
     {
-      FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"));
-      file1.ModifiedAt = DateTime.Now;
-      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\File1.txt"));
-      file2.ModifiedAt = file1.ModifiedAt - TimeSpan.FromDays(1.0);
+      FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"), 0, DateTime.Now, DateTime.Now, DateTime.Now);
+      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\File1.txt"), 0, DateTime.Now, file1.ModifiedAt - TimeSpan.FromDays(1.0), DateTime.Now);
       _target.Add(file1);
       _target.Add(file2);
-      CollectionAssert.AreEqual(new FileSystemFile[] { file1 }, new List<FileSystemFile>(_target.Files));
+      CollectionAssert.AreEqual(new FileSystemFile[] { file1 }, new List<FileAsset>(_target.Files));
     }
 
     [Test]
     public void Add_IsCollidingFileButSecondIsNewer_ReplacesFirst()
     {
-      FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"));
-      file1.ModifiedAt = DateTime.Now;
-      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\OtherPlace\File1.txt"));
-      file2.ModifiedAt = file1.ModifiedAt + TimeSpan.FromDays(1.0);
+      FileSystemFile file1 = new FileSystemFile(new Purl(@"C:\File1.txt"), 0, DateTime.Now, DateTime.Now, DateTime.Now);
+      FileSystemFile file2 = new FileSystemFile(new Purl(@"C:\OtherPlace\File1.txt"), 0, DateTime.Now, file1.ModifiedAt + TimeSpan.FromDays(1.0), DateTime.Now);
       _target.Add(file1);
       _target.Add(file2);
-      CollectionAssert.AreEqual(new FileSystemFile[] { file2 }, new List<FileSystemFile>(_target.Files));
+      CollectionAssert.AreEqual(new FileSystemFile[] { file2 }, new List<FileAsset>(_target.Files));
     }
 
     public override void BeforeEachTest()

@@ -35,25 +35,25 @@ namespace DependencyStore.Domain
   public class OutdatedSinkFileEventArgs : EventArgs
   {
     private readonly SinkLocation _sinkLocation;
-    private readonly FileSystemFile _sourceFile;
-    private readonly FileSystemFile _sinkFile;
+    private readonly FileAsset _sourceFile;
+    private readonly FileAsset _sinkFile;
 
     public SinkLocation SinkLocation
     {
       get { return _sinkLocation; }
     }
 
-    public FileSystemFile SourceFile
+    public FileAsset SourceFile
     {
       get { return _sourceFile; }
     }
 
-    public FileSystemFile SinkFile
+    public FileAsset SinkFile
     {
       get { return _sinkFile; }
     }
 
-    public OutdatedSinkFileEventArgs(SinkLocation sinkLocation, FileSystemFile sinkFile, FileSystemFile sourceFile)
+    public OutdatedSinkFileEventArgs(SinkLocation sinkLocation, FileAsset sinkFile, FileAsset sourceFile)
     {
       _sinkLocation = sinkLocation;
       _sinkFile = sinkFile;

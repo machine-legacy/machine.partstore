@@ -27,5 +27,10 @@ namespace DependencyStore.Domain.Archiving
     {
       get { return _zipEntry.Size; }
     }
+
+    public override DateTime ModifiedAt
+    {
+      get { return _zipEntry.DateTime; }
+    }
   }
 }

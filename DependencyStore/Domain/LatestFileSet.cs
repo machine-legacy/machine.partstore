@@ -6,9 +6,9 @@ namespace DependencyStore.Domain
 {
   public class LatestFileSet : FileSet
   {
-    public FileSystemFile FindExistingByName(FileSystemFile file)
+    public FileAsset FindExistingByName(FileAsset file)
     {
-      List<FileSystemFile> files = new List<FileSystemFile>(FindFilesNamed(file.Name));
+      List<FileAsset> files = new List<FileAsset>(FindFilesNamed(file.Purl.Name));
       if (files.Count > 1)
       {
         throw new YouFoundABugException("How did a LatestFiles object get multiple files with the same name: " + file);
@@ -20,9 +20,9 @@ namespace DependencyStore.Domain
       return files[0];
     }
 
-    public override void Add(FileSystemFile file)
+    public override void Add(FileAsset file)
     {
-      FileSystemFile existing = FindExistingByName(file);
+      FileAsset existing = FindExistingByName(file);
       if (existing == null)
       {
         base.Add(file);

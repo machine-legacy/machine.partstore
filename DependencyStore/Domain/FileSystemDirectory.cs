@@ -79,6 +79,11 @@ namespace DependencyStore.Domain
       throw new YouFoundABugException();
     }
 
+    public override DateTime ModifiedAt
+    {
+      get { throw new YouFoundABugException(); }
+    }
+
     public override long LengthInBytes
     {
       get { throw new YouFoundABugException(); }

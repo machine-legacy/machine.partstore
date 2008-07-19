@@ -23,7 +23,7 @@ namespace DependencyStore.Domain
     {
       foreach (FileSystemFile file in this.FileEntry.BreadthFirstFiles)
       {
-        FileSystemFile possiblyNewer = latestFileSet.FindExistingByName(file);
+        FileAsset possiblyNewer = latestFileSet.FindExistingByName(file);
         if (possiblyNewer != null && possiblyNewer.IsNewerThan(file))
         {
           DomainEvents.OnEncounteredOutdatedSinkFile(this, new OutdatedSinkFileEventArgs(this, file, possiblyNewer));

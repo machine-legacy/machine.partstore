@@ -6,9 +6,9 @@ namespace DependencyStore.Domain
 {
   public class FileSet
   {
-    private readonly List<FileSystemFile> _files = new List<FileSystemFile>();
+    private readonly List<FileAsset> _files = new List<FileAsset>();
 
-    public virtual void Add(FileSystemFile file)
+    public virtual void Add(FileAsset file)
     {
       if (!Contains(file))
       {
@@ -19,6 +19,14 @@ namespace DependencyStore.Domain
     public void AddAll(IEnumerable<FileSystemFile> files)
     {
       foreach (FileSystemFile file in files)
+      {
+        Add(file);
+      }
+    }
+
+    public void AddAll(IEnumerable<FileAsset> files)
+    {
+      foreach (FileAsset file in files)
       {
         Add(file);
       }
@@ -37,28 +45,28 @@ namespace DependencyStore.Domain
       }
     }
 
-    public void Remove(FileSystemFile file)
+    public void Remove(FileAsset file)
     {
       _files.Remove(file);
     }
 
-    public bool Contains(FileSystemFile file)
+    public bool Contains(FileAsset file)
     {
       return _files.Contains(file);
     }
     
-    public IEnumerable<FileSystemFile> FindFilesNamed(string name)
+    public IEnumerable<FileAsset> FindFilesNamed(string name)
     {
-      foreach (FileSystemFile member in _files)
+      foreach (FileAsset member in _files)
       {
-        if (member.Name == name)
+        if (member.Purl.Name == name)
         {
           yield return member;
         }
       }
     }
 
-    public IEnumerable<FileSystemFile> Files
+    public IEnumerable<FileAsset> Files
     {
       get { return _files; }
     }
@@ -66,9 +74,9 @@ namespace DependencyStore.Domain
     public Purl FindCommonDirectory()
     {
       List<string> strings = new List<string>();
-      foreach (FileSystemFile file in _files)
+      foreach (FileAsset file in _files)
       {
-        strings.Add(file.Path.AsString);
+        strings.Add(file.Purl.AsString);
       }
       return new Purl(StringHelper.FindLongestCommonPrefix(strings));
     }

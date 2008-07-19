@@ -29,6 +29,17 @@ namespace DependencyStore.Domain.Archiving
       get { return _entries; }
     }
 
+    public IEnumerable<FileAsset> FileAssets
+    {
+      get
+      {
+        foreach (ManifestEntry entry in _entries)
+        {
+          yield return entry.FileAsset;
+        }
+      }
+    }
+
     public Archive()
     {
     }
@@ -51,9 +62,9 @@ namespace DependencyStore.Domain.Archiving
     public FileSet ToFileSet()
     {
       FileSet fileSet = new FileSet();
-      foreach (ManifestEntry entry in _entries)
+      foreach (FileAsset file in this.FileAssets)
       {
-        fileSet.Add(new FileSystemFile(entry.ArchivePath));
+        fileSet.Add(file);
       }
       return fileSet;
     }
