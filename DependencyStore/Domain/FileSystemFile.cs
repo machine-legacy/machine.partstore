@@ -9,13 +9,7 @@ namespace DependencyStore.Domain
     private readonly DateTime _createdAt;
     private readonly DateTime _accessedAt;
     private readonly DateTime _modifiedAt;
-    private long _length;
-
-    public long Length
-    {
-      get { return _length; }
-      set { _length = value; }
-    }
+    private readonly long _length;
 
     public DateTime CreatedAt
     {
@@ -67,7 +61,7 @@ namespace DependencyStore.Domain
 
     public override long LengthInBytes
     {
-      get { return this.Length; }
+      get { return _length; }
     }
 
     public override string ToString()
