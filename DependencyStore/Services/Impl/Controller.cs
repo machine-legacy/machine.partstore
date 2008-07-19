@@ -33,7 +33,6 @@ namespace DependencyStore.Services.Impl
       DomainEvents.LocationNotFound += LocationNotFound;
       DomainEvents.Progress += Progress;
       CheckForNewerFiles(configuration);
-      BuildProjectArchives(configuration);
     }
 
     public void Update(DependencyStoreConfiguration configuration)
