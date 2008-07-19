@@ -103,19 +103,4 @@ namespace DependencyStore.Domain
       _zipFileEntry = zipFileEntry;
     }
   }
-  public class ZipFileProgressEventArgs : ProgressEventArgs
-  {
-    private readonly ManifestEntry _manifestEntry;
-
-    public ManifestEntry ManifestEntry
-    {
-      get { return _manifestEntry; }
-    }
-
-    public ZipFileProgressEventArgs(double percentComplete, ManifestEntry manifestEntry)
-     : base(percentComplete)
-    {
-      _manifestEntry = manifestEntry;
-    }
-  }
 }
