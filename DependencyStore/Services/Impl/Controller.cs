@@ -55,8 +55,21 @@ namespace DependencyStore.Services.Impl
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
+      IList<Project> projects = _projectRepository.FindAllProjects(configuration, rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
+      
+      foreach (Project project in projects)
+      {
+        FileSet fileSet = project.Location.ToFileSet();
+        FileSystemPath fileRootDirectory = fileSet.FindCommonDirectory();
+        Archive archive = new Archive();
+        foreach (FileSystemFile file in fileSet.Files)
+        {
+          archive.Add(file, file.Path.Chroot(fileRootDirectory));
+        }
+        archive.WriteZip(configuration.PackageDirectory.Join(project.Name + ".zip"));
+      }
 
       foreach (SinkLocation location in sinks)
       {
