@@ -32,7 +32,7 @@ namespace DependencyStore.Domain
       Archive archive = new Archive();
       foreach (FileSystemFile file in fileSet.Files)
       {
-        archive.Add(file, file.Path.ChangeRoot(fileRootDirectory));
+        archive.Add(file.Path.ChangeRoot(fileRootDirectory), file);
       }
       return archive;
     }

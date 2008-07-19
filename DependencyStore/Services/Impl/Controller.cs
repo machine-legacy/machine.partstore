@@ -15,12 +15,14 @@ namespace DependencyStore.Services.Impl
   {
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly IProjectRepository _projectRepository;
+    private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
     private readonly ILocationRepository _locationRepository;
     private readonly IFileSystem _fileSystem;
 
-    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IProjectRepository projectRepository, IFileSystem fileSystem)
+    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IProjectRepository projectRepository, IFileSystem fileSystem, IFileSystemEntryRepository fileSystemEntryRepository)
     {
       _projectRepository = projectRepository;
+      _fileSystemEntryRepository = fileSystemEntryRepository;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _locationRepository = locationRepository;
       _fileSystem = fileSystem;
@@ -72,8 +74,17 @@ namespace DependencyStore.Services.Impl
       
       foreach (Project project in projects)
       {
-        Archive archive = project.MakeArchive();
-        archive.WriteZip(configuration.PackageDirectory.Join(project.Name + Archive.ZipExtension));
+        FileSystemPath path = configuration.PackageDirectory.Join(project.Name + Archive.ZipExtension);
+        FileSystemFile entry = (FileSystemFile)_fileSystemEntryRepository.FindEntry(path, rules);
+        Archive archive = Archive.ReadZip(path);
+        Console.WriteLine("{0}", archive.UncompressedBytes);
+        FileSet fileSet = archive.ToFileSet();
+        foreach (FileSystemFile file in fileSet.Files)
+        {
+          Console.WriteLine("{0}", file);
+        }
+        // Archive archive = project.MakeArchive();
+        // archive.WriteZip(path);
       }
     }
 
