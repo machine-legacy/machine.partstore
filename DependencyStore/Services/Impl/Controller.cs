@@ -74,20 +74,10 @@ namespace DependencyStore.Services.Impl
       
       foreach (Project project in projects)
       {
-        Purl path = configuration.PackageDirectory.Join(project.Name + ZipArchiveWriter.ZipExtension);
-        FileSystemFile entry = (FileSystemFile)_fileSystemEntryRepository.FindEntry(path, rules);
-        using (Archive archive = ArchiveFactory.ReadZip(path))
+        using (Archive archive = project.MakeArchive())
         {
-          Console.WriteLine("{0}", archive.UncompressedBytes);
-          FileSet fileSet = archive.ToFileSet();
-          foreach (FileAsset file in fileSet.Files)
-          {
-            Console.WriteLine("{0}", file);
-          }
-        }
-        using (Archive newArchive = project.MakeArchive())
-        {
-          ZipArchiveWriter writer = new ZipArchiveWriter(newArchive);
+          ZipArchiveWriter writer = new ZipArchiveWriter(archive);
+          Purl path = configuration.PackageDirectory.Join(project.ArchiveName);
           writer.WriteZip(path);
         }
       }

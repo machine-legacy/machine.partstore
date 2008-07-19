@@ -14,6 +14,11 @@ namespace DependencyStore.Domain
       get { return _name; }
     }
 
+    public string ArchiveName
+    {
+      get { return _name + ZipArchiveWriter.ZipExtension; }
+    }
+
     public SourceLocation Location
     {
       get { return _location; }
