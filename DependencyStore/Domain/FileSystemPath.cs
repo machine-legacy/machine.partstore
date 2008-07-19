@@ -6,6 +6,10 @@ using DependencyStore.Utility;
 
 namespace DependencyStore.Domain
 {
+  /**
+   * file:///c/Source/Project/File.cs
+   * file:///c/Source/Project/File.zip/SomeFile.cs
+   */
   public class Purl
   {
     private readonly string _path;
@@ -17,17 +21,17 @@ namespace DependencyStore.Domain
 
     public string Name
     {
-      get { return Path.GetFileName(_path); }
+      get { return Path.GetFileName(this.AsString); }
     }
 
     public string Directory
     {
-      get { return Path.GetDirectoryName(_path); }
+      get { return Path.GetDirectoryName(this.AsString); }
     }
 
-    public Purl(string uri)
+    public Purl(string path)
     {
-      _path = uri;
+      _path = path;
     }
 
     public bool IsARoot(Purl path)
@@ -49,7 +53,7 @@ namespace DependencyStore.Domain
     {
       if (obj is Purl)
       {
-        return ((Purl)obj).AsString.Equals(_path, StringComparison.InvariantCultureIgnoreCase);
+        return ((Purl)obj).AsString.Equals(this.AsString, StringComparison.InvariantCultureIgnoreCase);
       }
       return base.Equals(obj);
     }
