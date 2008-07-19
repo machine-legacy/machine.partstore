@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using DependencyStore.Domain;
+
 using DependencyStore.Domain.Configuration;
 
 using Machine.Core.Services;
