@@ -48,7 +48,7 @@ namespace DependencyStore.Domain.Archiving
     private void ReportProgress(long bytesSoFar)
     {
       double progress = (_otherBytesSoFar + bytesSoFar) / (double)_totalBytes;
-      DomainEvents.OnProgress(this, new ZipFileProgressEventArgs(progress, _currentEntry));
+      DomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _currentEntry));
     }
 
     private static ZipOutputStream OpenZipStream(Purl path)

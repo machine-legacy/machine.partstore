@@ -88,19 +88,19 @@ namespace DependencyStore.Domain
       _percentComplete = percentComplete;
     }
   }
-  public class ZipFileProgressEventArgs : ProgressEventArgs
+  public class ArchiveFileProgressEventArgs : ProgressEventArgs
   {
-    private readonly ManifestEntry _zipFileEntry;
+    private readonly ManifestEntry _manifestEntry;
 
-    public ManifestEntry ZipFileEntry
+    public ManifestEntry ManifestEntry
     {
-      get { return _zipFileEntry; }
+      get { return _manifestEntry; }
     }
 
-    public ZipFileProgressEventArgs(double percentComplete, ManifestEntry zipFileEntry)
+    public ArchiveFileProgressEventArgs(double percentComplete, ManifestEntry manifestEntry)
      : base(percentComplete)
     {
-      _zipFileEntry = zipFileEntry;
+      _manifestEntry = manifestEntry;
     }
   }
 }
