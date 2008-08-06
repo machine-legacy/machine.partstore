@@ -81,6 +81,12 @@ namespace DependencyStore.Gui
 
     private void AddSynchronizationPlanToView()
     {
+      if (_synchronizationPlan.IsEmpty)
+      {
+        _noPlan.Visible = true;
+        _planView.Visible = false;
+        return;
+      }
       _planView.Items.Clear();
       _planView.Groups.Clear();
       Dictionary<SinkLocation, ListViewGroup> groups = new Dictionary<SinkLocation, ListViewGroup>();
@@ -97,6 +103,8 @@ namespace DependencyStore.Gui
         _planView.Items.Add(item);
       }
       _planView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+      _noPlan.Visible = false;
+      _planView.Visible = true;
     }
 
     private bool IsDifferentEnoughToRedisplay(SynchronizationPlan newestPlan)
