@@ -31,29 +31,40 @@ namespace DependencyStore.Gui
 
     public void UpdateView()
     {
-      DependencyStoreConfiguration configuration = GetConfiguration();
+      LatestFileSet latestFiles = GetLatestFiles();
+      _view.LatestFiles = GetLatestFiles();
+      _view.SynchronizationPlan = GetSynchronizationPlan(latestFiles);
+    }
+
+    private void OnSynchronize(object sender, EventArgs e)
+    {
+    }
+
+    private LatestFileSet GetLatestFiles()
+    {
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
-      SynchronizationPlan plan = new SynchronizationPlan();
-      IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
       IList<SourceLocation> sources = _locationRepository.FindAllSources(GetConfiguration(), rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
+      return latestFiles;
+    }
+
+    private SynchronizationPlan GetSynchronizationPlan(LatestFileSet latestFiles)
+    {
+      FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
+      SynchronizationPlan plan = new SynchronizationPlan();
+      IList<SinkLocation> sinks = _locationRepository.FindAllSinks(GetConfiguration(), rules);
       foreach (SinkLocation location in sinks)
       {
         plan.Merge(location.CreateSynchronizationPlan(latestFiles));
       }
-      _view.LatestFiles = latestFiles;
-      _view.SynchronizationPlan = plan;
+      return plan;
     }
 
     private DependencyStoreConfiguration GetConfiguration()
     {
       string path = _configurationPaths.FindConfigurationPath();
       return _configurationRepository.FindConfiguration(path);
-    }
-
-    private void OnSynchronize(object sender, EventArgs e)
-    {
     }
   }
 }
