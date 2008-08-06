@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DependencyStore.Domain;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
+using Machine.Core.Services;
 
 namespace DependencyStore.Gui
 {
@@ -14,10 +15,12 @@ namespace DependencyStore.Gui
     private readonly IConfigurationRepository _configurationRepository;
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly ILocationRepository _locationRepository;
+    private readonly IFileSystem _fileSystem;
 
-    public StatusController(IStatusView view, ConfigurationPaths configurationPaths, IConfigurationRepository configurationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, ILocationRepository locationRepository)
+    public StatusController(IStatusView view, ConfigurationPaths configurationPaths, IConfigurationRepository configurationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, ILocationRepository locationRepository, IFileSystem fileSystem)
     {
       _view = view;
+      _fileSystem = fileSystem;
       _locationRepository = locationRepository;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _configurationRepository = configurationRepository;
@@ -38,6 +41,12 @@ namespace DependencyStore.Gui
 
     private void OnSynchronize(object sender, EventArgs e)
     {
+      LatestFileSet latestFiles = GetLatestFiles();
+      SynchronizationPlan plan = GetSynchronizationPlan(latestFiles);
+      foreach (UpdateOutOfDateFile update in plan)
+      {
+        _fileSystem.CopyFile(update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString, true);
+      }
     }
 
     private LatestFileSet GetLatestFiles()
