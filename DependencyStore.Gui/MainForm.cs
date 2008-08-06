@@ -82,10 +82,18 @@ namespace DependencyStore.Gui
     private void AddSynchronizationPlanToView()
     {
       _planView.Items.Clear();
+      _planView.Groups.Clear();
+      Dictionary<SinkLocation, ListViewGroup> groups = new Dictionary<SinkLocation, ListViewGroup>();
       foreach (UpdateOutOfDateFile update in _synchronizationPlan)
       {
-        ListViewItem item = new ListViewItem(update.SinkFile.Purl.AsString);
+        if (!groups.ContainsKey(update.SinkLocation))
+        {
+          groups[update.SinkLocation] = new ListViewGroup(update.SinkLocation.Path.AsString);
+          _planView.Groups.Add(groups[update.SinkLocation]);
+        }
+        ListViewItem item = new ListViewItem(update.SinkFile.Purl.ChangeRoot(update.SinkLocation.Path).AsString);
         item.SubItems.Add(new ListViewItem.ListViewSubItem(item, update.SourceFile.Purl.AsString));
+        item.Group = groups[update.SinkLocation];
         _planView.Items.Add(item);
       }
       _planView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
