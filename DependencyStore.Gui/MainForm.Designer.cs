@@ -42,9 +42,9 @@ namespace DependencyStore.Gui
       // _bottom
       // 
       this._bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this._bottom.Location = new System.Drawing.Point(0, 321);
+      this._bottom.Location = new System.Drawing.Point(0, 345);
       this._bottom.Name = "_bottom";
-      this._bottom.Size = new System.Drawing.Size(491, 73);
+      this._bottom.Size = new System.Drawing.Size(573, 79);
       this._bottom.TabIndex = 1;
       // 
       // _latestFilesList
@@ -53,9 +53,11 @@ namespace DependencyStore.Gui
             this._latestColumnFile,
             this._latestColumnModifiedAt});
       this._latestFilesList.Dock = System.Windows.Forms.DockStyle.Fill;
+      this._latestFilesList.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this._latestFilesList.FullRowSelect = true;
       this._latestFilesList.Location = new System.Drawing.Point(3, 3);
       this._latestFilesList.Name = "_latestFilesList";
-      this._latestFilesList.Size = new System.Drawing.Size(477, 289);
+      this._latestFilesList.Size = new System.Drawing.Size(559, 312);
       this._latestFilesList.TabIndex = 2;
       this._latestFilesList.UseCompatibleStateImageBehavior = false;
       this._latestFilesList.View = System.Windows.Forms.View.Details;
@@ -68,16 +70,16 @@ namespace DependencyStore.Gui
       this._tabs.Location = new System.Drawing.Point(0, 0);
       this._tabs.Name = "_tabs";
       this._tabs.SelectedIndex = 0;
-      this._tabs.Size = new System.Drawing.Size(491, 321);
+      this._tabs.Size = new System.Drawing.Size(573, 345);
       this._tabs.TabIndex = 3;
       // 
       // _latestFilesTab
       // 
       this._latestFilesTab.Controls.Add(this._latestFilesList);
-      this._latestFilesTab.Location = new System.Drawing.Point(4, 22);
+      this._latestFilesTab.Location = new System.Drawing.Point(4, 23);
       this._latestFilesTab.Name = "_latestFilesTab";
       this._latestFilesTab.Padding = new System.Windows.Forms.Padding(3);
-      this._latestFilesTab.Size = new System.Drawing.Size(483, 295);
+      this._latestFilesTab.Size = new System.Drawing.Size(565, 318);
       this._latestFilesTab.TabIndex = 0;
       this._latestFilesTab.Text = "Latest Files";
       this._latestFilesTab.UseVisualStyleBackColor = true;
@@ -87,7 +89,7 @@ namespace DependencyStore.Gui
       this._updatePlanTab.Location = new System.Drawing.Point(4, 22);
       this._updatePlanTab.Name = "_updatePlanTab";
       this._updatePlanTab.Padding = new System.Windows.Forms.Padding(3);
-      this._updatePlanTab.Size = new System.Drawing.Size(483, 295);
+      this._updatePlanTab.Size = new System.Drawing.Size(565, 320);
       this._updatePlanTab.TabIndex = 1;
       this._updatePlanTab.Text = "Plan";
       this._updatePlanTab.UseVisualStyleBackColor = true;
@@ -104,12 +106,12 @@ namespace DependencyStore.Gui
       // 
       // MainForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(491, 394);
+      this.ClientSize = new System.Drawing.Size(573, 424);
       this.Controls.Add(this._tabs);
       this.Controls.Add(this._bottom);
-      this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.Name = "MainForm";
       this.Text = "DependencyStore";
       this._tabs.ResumeLayout(false);
