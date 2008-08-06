@@ -8,6 +8,11 @@ namespace DependencyStore.Domain
   {
     private readonly List<FileAsset> _files = new List<FileAsset>();
 
+    public bool IsEmpty
+    {
+      get { return _files.Count == 0; }
+    }
+
     public virtual void Add(FileAsset file)
     {
       if (!Contains(file))

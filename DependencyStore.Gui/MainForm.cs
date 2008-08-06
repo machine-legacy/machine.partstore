@@ -26,8 +26,11 @@ namespace DependencyStore.Gui
           Invoke(new MethodInvoker(delegate() { this.LatestFiles = value; }));
           return;
         }
-        _latestFiles = value;
-        AddLatestFilesToList();
+        if (IsDifferentEnoughToRedisplay(value))
+        {
+          _latestFiles = value;
+          AddLatestFilesToList();
+        }
       }
     }
     #endregion
@@ -42,6 +45,17 @@ namespace DependencyStore.Gui
         _latestFilesList.Items.Add(item);
       }
       _latestFilesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+    }
+
+    private bool IsDifferentEnoughToRedisplay(LatestFileSet newest)
+    {
+      if (_latestFiles == null)
+      {
+        return true;
+      }
+      FileSetComparer fileSetComparer = new FileSetComparer();
+      FileSet changes = fileSetComparer.Compare(_latestFiles, newest);
+      return !changes.IsEmpty;
     }
   }
 }
