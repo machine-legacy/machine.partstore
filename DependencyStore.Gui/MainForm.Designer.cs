@@ -49,9 +49,9 @@ namespace DependencyStore.Gui
       // 
       this._bottom.Controls.Add(this._synchronizeButton);
       this._bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this._bottom.Location = new System.Drawing.Point(0, 374);
+      this._bottom.Location = new System.Drawing.Point(0, 390);
       this._bottom.Name = "_bottom";
-      this._bottom.Size = new System.Drawing.Size(573, 50);
+      this._bottom.Size = new System.Drawing.Size(573, 34);
       this._bottom.TabIndex = 1;
       // 
       // _latestFilesView
@@ -64,7 +64,7 @@ namespace DependencyStore.Gui
       this._latestFilesView.FullRowSelect = true;
       this._latestFilesView.Location = new System.Drawing.Point(3, 3);
       this._latestFilesView.Name = "_latestFilesView";
-      this._latestFilesView.Size = new System.Drawing.Size(559, 312);
+      this._latestFilesView.Size = new System.Drawing.Size(559, 358);
       this._latestFilesView.TabIndex = 2;
       this._latestFilesView.UseCompatibleStateImageBehavior = false;
       this._latestFilesView.View = System.Windows.Forms.View.Details;
@@ -72,7 +72,7 @@ namespace DependencyStore.Gui
       // _latestColumnFile
       // 
       this._latestColumnFile.Text = "File";
-      this._latestColumnFile.Width = 317;
+      this._latestColumnFile.Width = 278;
       // 
       // _latestColumnModifiedAt
       // 
@@ -84,19 +84,20 @@ namespace DependencyStore.Gui
       this._tabs.Controls.Add(this._latestFilesTab);
       this._tabs.Controls.Add(this._updatePlanTab);
       this._tabs.Dock = System.Windows.Forms.DockStyle.Fill;
+      this._tabs.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._tabs.Location = new System.Drawing.Point(0, 0);
       this._tabs.Name = "_tabs";
       this._tabs.SelectedIndex = 0;
-      this._tabs.Size = new System.Drawing.Size(573, 374);
+      this._tabs.Size = new System.Drawing.Size(573, 390);
       this._tabs.TabIndex = 3;
       // 
       // _latestFilesTab
       // 
       this._latestFilesTab.Controls.Add(this._latestFilesView);
-      this._latestFilesTab.Location = new System.Drawing.Point(4, 23);
+      this._latestFilesTab.Location = new System.Drawing.Point(4, 22);
       this._latestFilesTab.Name = "_latestFilesTab";
       this._latestFilesTab.Padding = new System.Windows.Forms.Padding(3);
-      this._latestFilesTab.Size = new System.Drawing.Size(565, 318);
+      this._latestFilesTab.Size = new System.Drawing.Size(565, 364);
       this._latestFilesTab.TabIndex = 0;
       this._latestFilesTab.Text = "Latest Files";
       this._latestFilesTab.UseVisualStyleBackColor = true;
@@ -137,7 +138,7 @@ namespace DependencyStore.Gui
       // 
       // _synchronizeButton
       // 
-      this._synchronizeButton.Location = new System.Drawing.Point(12, 15);
+      this._synchronizeButton.Location = new System.Drawing.Point(7, 6);
       this._synchronizeButton.Name = "_synchronizeButton";
       this._synchronizeButton.Size = new System.Drawing.Size(99, 23);
       this._synchronizeButton.TabIndex = 0;
