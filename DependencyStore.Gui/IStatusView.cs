@@ -12,5 +12,11 @@ namespace DependencyStore.Gui
       get;
       set;
     }
+
+    SynchronizationPlan SynchronizationPlan
+    {
+      get;
+      set;
+    }
   }
 }

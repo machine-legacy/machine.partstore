@@ -19,16 +19,18 @@ namespace DependencyStore.Domain
     {
     }
 
-    public IEnumerable<SynchronizationOperation> CreateSynchronizationPlan(LatestFileSet latestFiles)
+    public SynchronizationPlan CreateSynchronizationPlan(LatestFileSet latestFiles)
     {
+      SynchronizationPlan plan = new SynchronizationPlan();
       foreach (FileSystemFile file in this.FileEntry.BreadthFirstFiles)
       {
         FileAsset possiblyNewer = latestFiles.FindExistingByName(file);
         if (possiblyNewer != null && possiblyNewer.IsNewerThan(file))
         {
-          yield return new UpdateOutOfDateFile(this, file, possiblyNewer);
+          plan.AddOperation(new UpdateOutOfDateFile(this, file, possiblyNewer));
         }
       }
+      return plan;
     }
 
     public void CheckForNewerFiles(LatestFileSet latestFiles)

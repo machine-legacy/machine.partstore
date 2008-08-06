@@ -9,6 +9,7 @@ namespace DependencyStore.Gui
   public partial class MainForm : Form, IStatusView
   {
     private LatestFileSet _latestFiles;
+    private SynchronizationPlan _synchronizationPlan;
 
     public MainForm()
     {
@@ -31,6 +32,20 @@ namespace DependencyStore.Gui
           _latestFiles = value;
           AddLatestFilesToList();
         }
+      }
+    }
+
+    public SynchronizationPlan SynchronizationPlan
+    {
+      get { return _synchronizationPlan; }
+      set
+      {
+        if (this.InvokeRequired)
+        {
+          Invoke(new MethodInvoker(delegate() { this.SynchronizationPlan = value; }));
+          return;
+        }
+        _synchronizationPlan = value;
       }
     }
     #endregion

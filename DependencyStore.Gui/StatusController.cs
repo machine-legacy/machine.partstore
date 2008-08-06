@@ -26,19 +26,25 @@ namespace DependencyStore.Gui
 
     public void UpdateView()
     {
-      LatestFileSet latestFiles = GetLatestFiles();
-      _view.LatestFiles = latestFiles;
-    }
-
-    private LatestFileSet GetLatestFiles()
-    {
-      string path = _configurationPaths.FindConfigurationPath();
-      DependencyStoreConfiguration configuration = _configurationRepository.FindConfiguration(path);
+      DependencyStoreConfiguration configuration = GetConfiguration();
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
-      IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
+      SynchronizationPlan plan = new SynchronizationPlan();
+      IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
+      IList<SourceLocation> sources = _locationRepository.FindAllSources(GetConfiguration(), rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
-      return latestFiles;
+      foreach (SinkLocation location in sinks)
+      {
+        plan.Merge(location.CreateSynchronizationPlan(latestFiles));
+      }
+      _view.LatestFiles = latestFiles;
+      _view.SynchronizationPlan = plan;
+    }
+
+    private DependencyStoreConfiguration GetConfiguration()
+    {
+      string path = _configurationPaths.FindConfigurationPath();
+      return _configurationRepository.FindConfiguration(path);
     }
   }
 }
