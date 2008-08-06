@@ -33,11 +33,11 @@ namespace DependencyStore.Domain
       get { yield break; }
     }
 
-    public FileSystemEntry()
+    protected FileSystemEntry()
     {
     }
 
-    public FileSystemEntry(Purl path)
+    protected FileSystemEntry(Purl path)
     {
       _path = path;
     }
