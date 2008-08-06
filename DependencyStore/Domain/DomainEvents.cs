@@ -53,11 +53,11 @@ namespace DependencyStore.Domain
       get { return _sinkFile; }
     }
 
-    public OutdatedSinkFileEventArgs(SinkLocation sinkLocation, FileAsset sinkFile, FileAsset sourceFile)
+    public OutdatedSinkFileEventArgs(UpdateOutOfDateFile updateOperation)
     {
-      _sinkLocation = sinkLocation;
-      _sinkFile = sinkFile;
-      _sourceFile = sourceFile;
+      _sinkLocation = updateOperation.SinkLocation;
+      _sinkFile = updateOperation.SinkFile;
+      _sourceFile = updateOperation.SourceFile;
     }
   }
   public class LocationNotFoundEventArgs : EventArgs

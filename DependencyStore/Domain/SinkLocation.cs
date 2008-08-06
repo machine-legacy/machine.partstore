@@ -19,15 +19,23 @@ namespace DependencyStore.Domain
     {
     }
 
-    public void CheckForNewerFiles(LatestFileSet latestFileSet)
+    public IEnumerable<SynchronizationOperation> CreateSynchronizationPlan(LatestFileSet latestFiles)
     {
       foreach (FileSystemFile file in this.FileEntry.BreadthFirstFiles)
       {
-        FileAsset possiblyNewer = latestFileSet.FindExistingByName(file);
+        FileAsset possiblyNewer = latestFiles.FindExistingByName(file);
         if (possiblyNewer != null && possiblyNewer.IsNewerThan(file))
         {
-          DomainEvents.OnEncounteredOutdatedSinkFile(this, new OutdatedSinkFileEventArgs(this, file, possiblyNewer));
+          yield return new UpdateOutOfDateFile(this, file, possiblyNewer);
         }
+      }
+    }
+
+    public void CheckForNewerFiles(LatestFileSet latestFiles)
+    {
+      foreach (UpdateOutOfDateFile update in CreateSynchronizationPlan(latestFiles))
+      {
+        DomainEvents.OnEncounteredOutdatedSinkFile(this, new OutdatedSinkFileEventArgs(update));
       }
     }
   }
