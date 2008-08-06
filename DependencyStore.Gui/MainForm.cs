@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace DependencyStore.Gui
 {
-  public partial class MainForm : Form
+  public partial class MainForm : Form, IStatusView
   {
     public MainForm()
     {
