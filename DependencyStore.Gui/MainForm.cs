@@ -30,7 +30,7 @@ namespace DependencyStore.Gui
         if (IsDifferentEnoughToRedisplay(value))
         {
           _latestFiles = value;
-          AddLatestFilesToList();
+          AddLatestFilesToView();
         }
       }
     }
@@ -45,12 +45,16 @@ namespace DependencyStore.Gui
           Invoke(new MethodInvoker(delegate() { this.SynchronizationPlan = value; }));
           return;
         }
-        _synchronizationPlan = value;
+        if (IsDifferentEnoughToRedisplay(value))
+        {
+          _synchronizationPlan = value;
+          AddSynchronizationPlanToView();
+        }
       }
     }
     #endregion
 
-    private void AddLatestFilesToList()
+    private void AddLatestFilesToView()
     {
       _latestFilesView.Items.Clear();
       foreach (FileAsset file in _latestFiles.Files)
@@ -71,6 +75,27 @@ namespace DependencyStore.Gui
       FileSetComparer fileSetComparer = new FileSetComparer();
       FileSet changes = fileSetComparer.Compare(_latestFiles, newest);
       return !changes.IsEmpty;
+    }
+
+    private void AddSynchronizationPlanToView()
+    {
+      _planView.Items.Clear();
+      foreach (UpdateOutOfDateFile update in _synchronizationPlan)
+      {
+        ListViewItem item = new ListViewItem(update.SinkFile.Purl.AsString);
+        item.SubItems.Add(new ListViewItem.ListViewSubItem(item, update.SourceFile.Purl.AsString));
+        _planView.Items.Add(item);
+      }
+      _planView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+    }
+
+    private bool IsDifferentEnoughToRedisplay(SynchronizationPlan newestPlan)
+    {
+      if (_synchronizationPlan == null)
+      {
+        return true;
+      }
+      return true;
     }
   }
 }
