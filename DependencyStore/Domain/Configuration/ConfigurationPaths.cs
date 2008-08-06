@@ -4,7 +4,7 @@ using System.IO;
 
 using Machine.Core.Services;
 
-namespace DependencyStore.CommandLine
+namespace DependencyStore.Domain.Configuration
 {
   public class ConfigurationPaths
   {
