@@ -85,5 +85,13 @@ namespace DependencyStore.Domain
       }
       return new Purl(StringHelper.FindLongestCommonPrefix(strings));
     }
+
+    public void SortByModifiedAt()
+    {
+      /* Most recently modified first... */
+      _files.Sort(delegate(FileAsset a, FileAsset b) {
+        return b.ModifiedAt.CompareTo(a.ModifiedAt);
+      });
+    }
   }
 }

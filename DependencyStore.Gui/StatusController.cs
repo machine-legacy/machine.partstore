@@ -35,7 +35,7 @@ namespace DependencyStore.Gui
     public void UpdateView()
     {
       LatestFileSet latestFiles = GetLatestFiles();
-      _view.LatestFiles = GetLatestFiles();
+      _view.LatestFiles = latestFiles;
       _view.SynchronizationPlan = GetSynchronizationPlan(latestFiles);
     }
 
@@ -55,6 +55,7 @@ namespace DependencyStore.Gui
       IList<SourceLocation> sources = _locationRepository.FindAllSources(GetConfiguration(), rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
+      latestFiles.SortByModifiedAt();
       return latestFiles;
     }
 
