@@ -52,14 +52,14 @@ namespace DependencyStore.Gui
 
     private void AddLatestFilesToList()
     {
-      _latestFilesList.Items.Clear();
+      _latestFilesView.Items.Clear();
       foreach (FileAsset file in _latestFiles.Files)
       {
         ListViewItem item = new ListViewItem(file.Purl.AsString);
         item.SubItems.Add(new ListViewItem.ListViewSubItem(item, file.ModifiedAt.ToString()));
-        _latestFilesList.Items.Add(item);
+        _latestFilesView.Items.Add(item);
       }
-      _latestFilesList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+      _latestFilesView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
     }
 
     private bool IsDifferentEnoughToRedisplay(LatestFileSet newest)

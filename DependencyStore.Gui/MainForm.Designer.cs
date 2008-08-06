@@ -29,14 +29,18 @@ namespace DependencyStore.Gui
     private void InitializeComponent()
     {
       this._bottom = new System.Windows.Forms.Panel();
-      this._latestFilesList = new System.Windows.Forms.ListView();
+      this._latestFilesView = new System.Windows.Forms.ListView();
+      this._latestColumnFile = new System.Windows.Forms.ColumnHeader();
+      this._latestColumnModifiedAt = new System.Windows.Forms.ColumnHeader();
       this._tabs = new System.Windows.Forms.TabControl();
       this._latestFilesTab = new System.Windows.Forms.TabPage();
       this._updatePlanTab = new System.Windows.Forms.TabPage();
-      this._latestColumnFile = new System.Windows.Forms.ColumnHeader();
-      this._latestColumnModifiedAt = new System.Windows.Forms.ColumnHeader();
+      this._planView = new System.Windows.Forms.ListView();
+      this._planColumn1 = new System.Windows.Forms.ColumnHeader();
+      this._planColumn2 = new System.Windows.Forms.ColumnHeader();
       this._tabs.SuspendLayout();
       this._latestFilesTab.SuspendLayout();
+      this._updatePlanTab.SuspendLayout();
       this.SuspendLayout();
       // 
       // _bottom
@@ -47,20 +51,30 @@ namespace DependencyStore.Gui
       this._bottom.Size = new System.Drawing.Size(573, 79);
       this._bottom.TabIndex = 1;
       // 
-      // _latestFilesList
+      // _latestFilesView
       // 
-      this._latestFilesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+      this._latestFilesView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this._latestColumnFile,
             this._latestColumnModifiedAt});
-      this._latestFilesList.Dock = System.Windows.Forms.DockStyle.Fill;
-      this._latestFilesList.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this._latestFilesList.FullRowSelect = true;
-      this._latestFilesList.Location = new System.Drawing.Point(3, 3);
-      this._latestFilesList.Name = "_latestFilesList";
-      this._latestFilesList.Size = new System.Drawing.Size(559, 312);
-      this._latestFilesList.TabIndex = 2;
-      this._latestFilesList.UseCompatibleStateImageBehavior = false;
-      this._latestFilesList.View = System.Windows.Forms.View.Details;
+      this._latestFilesView.Dock = System.Windows.Forms.DockStyle.Fill;
+      this._latestFilesView.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this._latestFilesView.FullRowSelect = true;
+      this._latestFilesView.Location = new System.Drawing.Point(3, 3);
+      this._latestFilesView.Name = "_latestFilesView";
+      this._latestFilesView.Size = new System.Drawing.Size(559, 312);
+      this._latestFilesView.TabIndex = 2;
+      this._latestFilesView.UseCompatibleStateImageBehavior = false;
+      this._latestFilesView.View = System.Windows.Forms.View.Details;
+      // 
+      // _latestColumnFile
+      // 
+      this._latestColumnFile.Text = "File";
+      this._latestColumnFile.Width = 317;
+      // 
+      // _latestColumnModifiedAt
+      // 
+      this._latestColumnModifiedAt.Text = "Last Modified";
+      this._latestColumnModifiedAt.Width = 156;
       // 
       // _tabs
       // 
@@ -75,7 +89,7 @@ namespace DependencyStore.Gui
       // 
       // _latestFilesTab
       // 
-      this._latestFilesTab.Controls.Add(this._latestFilesList);
+      this._latestFilesTab.Controls.Add(this._latestFilesView);
       this._latestFilesTab.Location = new System.Drawing.Point(4, 23);
       this._latestFilesTab.Name = "_latestFilesTab";
       this._latestFilesTab.Padding = new System.Windows.Forms.Padding(3);
@@ -86,23 +100,37 @@ namespace DependencyStore.Gui
       // 
       // _updatePlanTab
       // 
-      this._updatePlanTab.Location = new System.Drawing.Point(4, 22);
+      this._updatePlanTab.Controls.Add(this._planView);
+      this._updatePlanTab.Location = new System.Drawing.Point(4, 23);
       this._updatePlanTab.Name = "_updatePlanTab";
       this._updatePlanTab.Padding = new System.Windows.Forms.Padding(3);
-      this._updatePlanTab.Size = new System.Drawing.Size(565, 320);
+      this._updatePlanTab.Size = new System.Drawing.Size(565, 318);
       this._updatePlanTab.TabIndex = 1;
       this._updatePlanTab.Text = "Plan";
       this._updatePlanTab.UseVisualStyleBackColor = true;
       // 
-      // _latestColumnFile
+      // _planView
       // 
-      this._latestColumnFile.Text = "File";
-      this._latestColumnFile.Width = 317;
+      this._planView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this._planColumn1,
+            this._planColumn2});
+      this._planView.Dock = System.Windows.Forms.DockStyle.Fill;
+      this._planView.Location = new System.Drawing.Point(3, 3);
+      this._planView.Name = "_planView";
+      this._planView.Size = new System.Drawing.Size(559, 312);
+      this._planView.TabIndex = 0;
+      this._planView.UseCompatibleStateImageBehavior = false;
+      this._planView.View = System.Windows.Forms.View.Details;
       // 
-      // _latestColumnModifiedAt
+      // _planColumn1
       // 
-      this._latestColumnModifiedAt.Text = "Last Modified";
-      this._latestColumnModifiedAt.Width = 156;
+      this._planColumn1.Text = "Out of Date";
+      this._planColumn1.Width = 285;
+      // 
+      // _planColumn2
+      // 
+      this._planColumn2.Text = "Updated From";
+      this._planColumn2.Width = 249;
       // 
       // MainForm
       // 
@@ -116,6 +144,7 @@ namespace DependencyStore.Gui
       this.Text = "DependencyStore";
       this._tabs.ResumeLayout(false);
       this._latestFilesTab.ResumeLayout(false);
+      this._updatePlanTab.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -123,12 +152,15 @@ namespace DependencyStore.Gui
     #endregion
 
     private System.Windows.Forms.Panel _bottom;
-    private System.Windows.Forms.ListView _latestFilesList;
+    private System.Windows.Forms.ListView _latestFilesView;
     private System.Windows.Forms.TabControl _tabs;
     private System.Windows.Forms.TabPage _latestFilesTab;
     private System.Windows.Forms.TabPage _updatePlanTab;
     private System.Windows.Forms.ColumnHeader _latestColumnFile;
     private System.Windows.Forms.ColumnHeader _latestColumnModifiedAt;
+    private System.Windows.Forms.ListView _planView;
+    private System.Windows.Forms.ColumnHeader _planColumn1;
+    private System.Windows.Forms.ColumnHeader _planColumn2;
   }
 }
 
