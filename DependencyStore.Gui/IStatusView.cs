@@ -18,5 +18,7 @@ namespace DependencyStore.Gui
       get;
       set;
     }
+
+    event EventHandler<EventArgs> Synchronize;
   }
 }

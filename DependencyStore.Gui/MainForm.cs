@@ -52,6 +52,8 @@ namespace DependencyStore.Gui
         }
       }
     }
+
+    public event EventHandler<EventArgs> Synchronize;
     #endregion
 
     private void AddLatestFilesToView()
@@ -96,6 +98,12 @@ namespace DependencyStore.Gui
         return true;
       }
       return true;
+    }
+
+    private void OnClickSynchronize(object sender, EventArgs e)
+    {
+      if (this.Synchronize == null) return;
+      this.Synchronize(sender, e);
     }
   }
 }

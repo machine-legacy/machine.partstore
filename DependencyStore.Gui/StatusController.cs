@@ -24,6 +24,11 @@ namespace DependencyStore.Gui
       _configurationPaths = configurationPaths;
     }
 
+    public void Start()
+    {
+      _view.Synchronize += OnSynchronize;
+    }
+
     public void UpdateView()
     {
       DependencyStoreConfiguration configuration = GetConfiguration();
@@ -45,6 +50,10 @@ namespace DependencyStore.Gui
     {
       string path = _configurationPaths.FindConfigurationPath();
       return _configurationRepository.FindConfiguration(path);
+    }
+
+    private void OnSynchronize(object sender, EventArgs e)
+    {
     }
   }
 }

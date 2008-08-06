@@ -23,6 +23,7 @@ namespace DependencyStore.Gui
       _running = true;
       _thread = _threadManager.CreateThread(this);
       _thread.Start();
+      _statusController.Start();
       return this;
     }
 
