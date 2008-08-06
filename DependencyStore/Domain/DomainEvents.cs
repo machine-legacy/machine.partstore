@@ -8,14 +8,6 @@ namespace DependencyStore.Domain
 {
   public static class DomainEvents
   {
-    public static event EventHandler<OutdatedSinkFileEventArgs> EncounteredOutdatedSinkFile;
-
-    public static void OnEncounteredOutdatedSinkFile(object sender, OutdatedSinkFileEventArgs e)
-    {
-      if (EncounteredOutdatedSinkFile == null) return;
-      EncounteredOutdatedSinkFile(sender, e);
-    }
-
     public static event EventHandler<LocationNotFoundEventArgs> LocationNotFound;
 
     public static void OnLocationNotFound(object sender, LocationNotFoundEventArgs e)
@@ -30,34 +22,6 @@ namespace DependencyStore.Domain
     {
       if (Progress == null) return;
       Progress(sender, e);
-    }
-  }
-  public class OutdatedSinkFileEventArgs : EventArgs
-  {
-    private readonly SinkLocation _sinkLocation;
-    private readonly FileAsset _sourceFile;
-    private readonly FileAsset _sinkFile;
-
-    public SinkLocation SinkLocation
-    {
-      get { return _sinkLocation; }
-    }
-
-    public FileAsset SourceFile
-    {
-      get { return _sourceFile; }
-    }
-
-    public FileAsset SinkFile
-    {
-      get { return _sinkFile; }
-    }
-
-    public OutdatedSinkFileEventArgs(UpdateOutOfDateFile updateOperation)
-    {
-      _sinkLocation = updateOperation.SinkLocation;
-      _sinkFile = updateOperation.SinkFile;
-      _sourceFile = updateOperation.SourceFile;
     }
   }
   public class LocationNotFoundEventArgs : EventArgs

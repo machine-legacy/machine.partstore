@@ -32,13 +32,5 @@ namespace DependencyStore.Domain
       }
       return plan;
     }
-
-    public void CheckForNewerFiles(LatestFileSet latestFiles)
-    {
-      foreach (UpdateOutOfDateFile update in CreateSynchronizationPlan(latestFiles))
-      {
-        DomainEvents.OnEncounteredOutdatedSinkFile(this, new OutdatedSinkFileEventArgs(update));
-      }
-    }
   }
 }

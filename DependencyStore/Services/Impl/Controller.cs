@@ -15,14 +15,12 @@ namespace DependencyStore.Services.Impl
   {
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly IProjectRepository _projectRepository;
-    private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
     private readonly ILocationRepository _locationRepository;
     private readonly IFileSystem _fileSystem;
 
-    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IProjectRepository projectRepository, IFileSystem fileSystem, IFileSystemEntryRepository fileSystemEntryRepository)
+    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IProjectRepository projectRepository, IFileSystem fileSystem)
     {
       _projectRepository = projectRepository;
-      _fileSystemEntryRepository = fileSystemEntryRepository;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _locationRepository = locationRepository;
       _fileSystem = fileSystem;
@@ -31,18 +29,24 @@ namespace DependencyStore.Services.Impl
     #region IController Members
     public void Show(DependencyStoreConfiguration configuration)
     {
-      DomainEvents.EncounteredOutdatedSinkFile += ReportOutdatedFile;
       DomainEvents.LocationNotFound += LocationNotFound;
       DomainEvents.Progress += Progress;
-      CheckForNewerFiles(configuration);
+      SynchronizationPlan plan = CreatePlan(configuration);
+      foreach (UpdateOutOfDateFile update in plan)
+      {
+        ReportOutdatedFile(update);
+      }
     }
 
     public void Update(DependencyStoreConfiguration configuration)
     {
-      DomainEvents.EncounteredOutdatedSinkFile += UpdateOutdatedFile;
       DomainEvents.LocationNotFound += LocationNotFound;
       DomainEvents.Progress += Progress;
-      CheckForNewerFiles(configuration);
+      SynchronizationPlan plan = CreatePlan(configuration);
+      foreach (UpdateOutOfDateFile update in plan)
+      {
+        UpdateOutdatedFile(update);
+      }
     }
 
     public void ArchiveProjects(DependencyStoreConfiguration configuration)
@@ -52,19 +56,19 @@ namespace DependencyStore.Services.Impl
     }
     #endregion
 
-    private void CheckForNewerFiles(DependencyStoreConfiguration configuration)
+    private SynchronizationPlan CreatePlan(DependencyStoreConfiguration configuration)
     {
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
       IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
-
+      SynchronizationPlan plan = new SynchronizationPlan();
       foreach (SinkLocation location in sinks)
       {
-        Console.WriteLine("Under {0}", location.Path.AsString);
-        location.CheckForNewerFiles(latestFiles);
+        plan.Merge(location.CreateSynchronizationPlan(latestFiles));
       }
+      return plan;
     }
 
     private void BuildProjectArchives(DependencyStoreConfiguration configuration)
@@ -83,23 +87,23 @@ namespace DependencyStore.Services.Impl
       }
     }
 
-    private static void ReportOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
+    private static void ReportOutdatedFile(UpdateOutOfDateFile update)
     {
-      TimeSpan age = e.SourceFile.ModifiedAt - e.SinkFile.ModifiedAt;
-      Purl chrooted = e.SinkFile.Purl.ChangeRoot(e.SinkLocation.Path);
+      TimeSpan age = update.SourceFile.ModifiedAt - update.SinkFile.ModifiedAt;
+      Purl chrooted = update.SinkFile.Purl.ChangeRoot(update.SinkLocation.Path);
       Console.WriteLine("  {0} ({1} old)", chrooted.AsString, TimeSpanHelper.ToPrettyString(age));
     }
 
-    private void UpdateOutdatedFile(object sender, OutdatedSinkFileEventArgs e)
+    private void UpdateOutdatedFile(UpdateOutOfDateFile update)
     {
       try
       {
-        ReportOutdatedFile(sender, e);
-        _fileSystem.CopyFile(e.SourceFile.Purl.AsString, e.SinkFile.Purl.AsString, true);
+        ReportOutdatedFile(update);
+        _fileSystem.CopyFile(update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString, true);
       }
       catch (Exception error)
       {
-        Console.WriteLine("Error copying {0}: {1}", e.SinkFile.Purl.AsString, error.Message);
+        Console.WriteLine("Error copying {0}: {1}", update.SinkFile.Purl.AsString, error.Message);
       }
     }
 
