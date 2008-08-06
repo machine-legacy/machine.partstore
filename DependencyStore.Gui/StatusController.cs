@@ -26,13 +26,19 @@ namespace DependencyStore.Gui
 
     public void UpdateView()
     {
+      LatestFileSet latestFiles = GetLatestFiles();
+      _view.LatestFiles = latestFiles;
+    }
+
+    private LatestFileSet GetLatestFiles()
+    {
       string path = _configurationPaths.FindConfigurationPath();
       DependencyStoreConfiguration configuration = _configurationRepository.FindConfiguration(path);
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
       LatestFileSet latestFiles = new LatestFileSet();
       latestFiles.AddAll(sources);
-      _view.LatestFiles = latestFiles;
+      return latestFiles;
     }
   }
 }
