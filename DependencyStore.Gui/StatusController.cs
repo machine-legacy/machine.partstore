@@ -43,6 +43,7 @@ namespace DependencyStore.Gui
         _fileSystem.CopyFile(update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString, true);
       }
       _view.Log("Synchronized at {0}", DateTime.Now);
+      UpdateView();
     }
 
     private void OnRescan(object sender, EventArgs e)
