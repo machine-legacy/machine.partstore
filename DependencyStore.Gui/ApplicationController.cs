@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using System.Threading;
 using Machine.Core.Services;
 
 namespace DependencyStore.Gui
@@ -9,6 +9,7 @@ namespace DependencyStore.Gui
   {
     private readonly StatusController _statusController;
     private readonly IThreadManager _threadManager;
+    private readonly object _lock = new object();
     private IThread _thread;
     private bool _running;
 
@@ -35,6 +36,10 @@ namespace DependencyStore.Gui
     #region IDisposable Members
     public void Dispose()
     {
+      lock (_lock)
+      {
+        Monitor.Pulse(_lock);
+      }
       _running = false;
       _thread.Join();
     }
@@ -46,7 +51,13 @@ namespace DependencyStore.Gui
       while (_running)
       {
         Refresh();
-        _threadManager.Sleep(TimeSpan.FromSeconds(60.0));
+        if (_running)
+        {
+          lock (_lock)
+          {
+            Monitor.Wait(_lock, TimeSpan.FromSeconds(60.0));
+          }
+        }
       }
     }
     #endregion
