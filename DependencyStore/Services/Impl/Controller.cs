@@ -31,7 +31,7 @@ namespace DependencyStore.Services.Impl
     {
       WireDomainEvents();
       _state.Refresh();
-      foreach (UpdateOutOfDateFile update in _state.SynchronizationPlan)
+      foreach (UpdateOutOfDateFile update in _state.CreatePlanForEverything())
       {
         ReportOutdatedFile(update);
       }
@@ -41,7 +41,7 @@ namespace DependencyStore.Services.Impl
     {
       WireDomainEvents();
       _state.Refresh();
-      foreach (UpdateOutOfDateFile update in _state.SynchronizationPlan)
+      foreach (UpdateOutOfDateFile update in _state.CreatePlanForEverything())
       {
         UpdateOutdatedFile(update);
       }

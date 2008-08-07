@@ -39,19 +39,6 @@ namespace DependencyStore.Services.Impl
       get { return FileSetGroupedByLocation.GroupFileSetIntoLocations(_sources, _latestFiles); }
     }
 
-    public SynchronizationPlan SynchronizationPlan
-    {
-      get
-      {
-        SynchronizationPlan plan = new SynchronizationPlan();
-        foreach (SinkLocation location in _sinks)
-        {
-          plan.Merge(location.CreateSynchronizationPlan(this.LatestFiles));
-        }
-        return plan;
-      }
-    }
-
     public DependencyState(ILocationRepository locationRepository, IConfigurationRepository configurationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, ConfigurationPaths configurationPaths)
     {
       _locationRepository = locationRepository;
@@ -70,6 +57,21 @@ namespace DependencyStore.Services.Impl
       _latestFiles = new LatestFileSet();
       _latestFiles.AddAll(_sources);
       _latestFiles.SortByModifiedAt();
+    }
+
+    public SynchronizationPlan CreatePlanForEverything()
+    {
+      SynchronizationPlan plan = new SynchronizationPlan();
+      foreach (SinkLocation location in _sinks)
+      {
+        plan.Merge(location.CreateSynchronizationPlan(this.LatestFiles));
+      }
+      return plan;
+    }
+
+    public SynchronizationPlan CreatePlanFor(SinkLocation location)
+    {
+      return location.CreateSynchronizationPlan(this.LatestFiles);
     }
   }
 }
