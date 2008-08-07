@@ -64,6 +64,8 @@ namespace DependencyStore.Gui
         return;
       }
       _log.Text += String.Format(message, args) + Environment.NewLine;
+      _log.SelectionStart = _log.TextLength;
+      _log.ScrollToCaret();
     }
     #endregion
 
