@@ -28,8 +28,7 @@ namespace DependencyStore.Gui
     /// </summary>
     private void InitializeComponent()
     {
-      this._bottom = new System.Windows.Forms.Panel();
-      this._synchronizeButton = new System.Windows.Forms.Button();
+      this.components = new System.ComponentModel.Container();
       this._latestFilesView = new System.Windows.Forms.ListView();
       this._latestColumnFile = new System.Windows.Forms.ColumnHeader();
       this._latestColumnModifiedAt = new System.Windows.Forms.ColumnHeader();
@@ -40,41 +39,27 @@ namespace DependencyStore.Gui
       this._planColumn2 = new System.Windows.Forms.ColumnHeader();
       this._noPlan = new System.Windows.Forms.Label();
       this._filesTab = new System.Windows.Forms.TabPage();
-      this._bottom.SuspendLayout();
+      this._menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this._menuSynchronize = new System.Windows.Forms.ToolStripMenuItem();
+      this._menuRefresh = new System.Windows.Forms.ToolStripMenuItem();
+      this._menuClose = new System.Windows.Forms.ToolStripMenuItem();
       this._tabs.SuspendLayout();
       this._synchronizationPlanTab.SuspendLayout();
       this._filesTab.SuspendLayout();
+      this._menu.SuspendLayout();
       this.SuspendLayout();
-      // 
-      // _bottom
-      // 
-      this._bottom.Controls.Add(this._synchronizeButton);
-      this._bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this._bottom.Location = new System.Drawing.Point(0, 375);
-      this._bottom.Name = "_bottom";
-      this._bottom.Size = new System.Drawing.Size(643, 32);
-      this._bottom.TabIndex = 1;
-      // 
-      // _synchronizeButton
-      // 
-      this._synchronizeButton.Location = new System.Drawing.Point(6, 6);
-      this._synchronizeButton.Name = "_synchronizeButton";
-      this._synchronizeButton.Size = new System.Drawing.Size(85, 21);
-      this._synchronizeButton.TabIndex = 0;
-      this._synchronizeButton.Text = "Synchronize";
-      this._synchronizeButton.UseVisualStyleBackColor = true;
-      this._synchronizeButton.Click += new System.EventHandler(this.OnClickSynchronize);
       // 
       // _latestFilesView
       // 
       this._latestFilesView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this._latestColumnFile,
             this._latestColumnModifiedAt});
+      this._latestFilesView.ContextMenuStrip = this._menu;
       this._latestFilesView.Dock = System.Windows.Forms.DockStyle.Fill;
       this._latestFilesView.FullRowSelect = true;
       this._latestFilesView.Location = new System.Drawing.Point(3, 3);
       this._latestFilesView.Name = "_latestFilesView";
-      this._latestFilesView.Size = new System.Drawing.Size(629, 343);
+      this._latestFilesView.Size = new System.Drawing.Size(629, 375);
       this._latestFilesView.TabIndex = 2;
       this._latestFilesView.UseCompatibleStateImageBehavior = false;
       this._latestFilesView.View = System.Windows.Forms.View.Details;
@@ -82,7 +67,7 @@ namespace DependencyStore.Gui
       // _latestColumnFile
       // 
       this._latestColumnFile.Text = "File";
-      this._latestColumnFile.Width = 410;
+      this._latestColumnFile.Width = 467;
       // 
       // _latestColumnModifiedAt
       // 
@@ -91,13 +76,14 @@ namespace DependencyStore.Gui
       // 
       // _tabs
       // 
+      this._tabs.ContextMenuStrip = this._menu;
       this._tabs.Controls.Add(this._synchronizationPlanTab);
       this._tabs.Controls.Add(this._filesTab);
       this._tabs.Dock = System.Windows.Forms.DockStyle.Fill;
       this._tabs.Location = new System.Drawing.Point(0, 0);
       this._tabs.Name = "_tabs";
       this._tabs.SelectedIndex = 0;
-      this._tabs.Size = new System.Drawing.Size(643, 375);
+      this._tabs.Size = new System.Drawing.Size(643, 407);
       this._tabs.TabIndex = 3;
       // 
       // _synchronizationPlanTab
@@ -107,7 +93,7 @@ namespace DependencyStore.Gui
       this._synchronizationPlanTab.Location = new System.Drawing.Point(4, 22);
       this._synchronizationPlanTab.Name = "_synchronizationPlanTab";
       this._synchronizationPlanTab.Padding = new System.Windows.Forms.Padding(3);
-      this._synchronizationPlanTab.Size = new System.Drawing.Size(483, 336);
+      this._synchronizationPlanTab.Size = new System.Drawing.Size(635, 381);
       this._synchronizationPlanTab.TabIndex = 1;
       this._synchronizationPlanTab.Text = "Synchronization Plan";
       this._synchronizationPlanTab.UseVisualStyleBackColor = true;
@@ -117,10 +103,11 @@ namespace DependencyStore.Gui
       this._planView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this._planColumn1,
             this._planColumn2});
+      this._planView.ContextMenuStrip = this._menu;
       this._planView.Dock = System.Windows.Forms.DockStyle.Fill;
       this._planView.Location = new System.Drawing.Point(3, 3);
       this._planView.Name = "_planView";
-      this._planView.Size = new System.Drawing.Size(477, 330);
+      this._planView.Size = new System.Drawing.Size(629, 375);
       this._planView.TabIndex = 0;
       this._planView.UseCompatibleStateImageBehavior = false;
       this._planView.View = System.Windows.Forms.View.Details;
@@ -142,7 +129,7 @@ namespace DependencyStore.Gui
       this._noPlan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._noPlan.Location = new System.Drawing.Point(3, 3);
       this._noPlan.Name = "_noPlan";
-      this._noPlan.Size = new System.Drawing.Size(477, 330);
+      this._noPlan.Size = new System.Drawing.Size(629, 375);
       this._noPlan.TabIndex = 1;
       this._noPlan.Text = "Everything is up to date.";
       this._noPlan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -153,10 +140,39 @@ namespace DependencyStore.Gui
       this._filesTab.Location = new System.Drawing.Point(4, 22);
       this._filesTab.Name = "_filesTab";
       this._filesTab.Padding = new System.Windows.Forms.Padding(3);
-      this._filesTab.Size = new System.Drawing.Size(635, 349);
+      this._filesTab.Size = new System.Drawing.Size(635, 381);
       this._filesTab.TabIndex = 0;
       this._filesTab.Text = "Latest Files";
       this._filesTab.UseVisualStyleBackColor = true;
+      // 
+      // _menu
+      // 
+      this._menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._menuSynchronize,
+            this._menuRefresh,
+            this._menuClose});
+      this._menu.Name = "_menu";
+      this._menu.Size = new System.Drawing.Size(144, 70);
+      // 
+      // _menuSynchronize
+      // 
+      this._menuSynchronize.Name = "_menuSynchronize";
+      this._menuSynchronize.Size = new System.Drawing.Size(152, 22);
+      this._menuSynchronize.Text = "&Synchronize";
+      this._menuSynchronize.Click += new System.EventHandler(this.OnClickSynchronize);
+      // 
+      // _menuRefresh
+      // 
+      this._menuRefresh.Name = "_menuRefresh";
+      this._menuRefresh.Size = new System.Drawing.Size(152, 22);
+      this._menuRefresh.Text = "&Refresh";
+      // 
+      // _menuClose
+      // 
+      this._menuClose.Name = "_menuClose";
+      this._menuClose.Size = new System.Drawing.Size(152, 22);
+      this._menuClose.Text = "&Close";
+      this._menuClose.Click += new System.EventHandler(this.OnClickClose);
       // 
       // MainForm
       // 
@@ -164,20 +180,18 @@ namespace DependencyStore.Gui
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(643, 407);
       this.Controls.Add(this._tabs);
-      this.Controls.Add(this._bottom);
       this.Name = "MainForm";
       this.Text = "DependencyStore";
-      this._bottom.ResumeLayout(false);
       this._tabs.ResumeLayout(false);
       this._synchronizationPlanTab.ResumeLayout(false);
       this._filesTab.ResumeLayout(false);
+      this._menu.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
 
     #endregion
 
-    private System.Windows.Forms.Panel _bottom;
     private System.Windows.Forms.ListView _latestFilesView;
     private System.Windows.Forms.TabControl _tabs;
     private System.Windows.Forms.TabPage _filesTab;
@@ -187,8 +201,11 @@ namespace DependencyStore.Gui
     private System.Windows.Forms.ListView _planView;
     private System.Windows.Forms.ColumnHeader _planColumn1;
     private System.Windows.Forms.ColumnHeader _planColumn2;
-    private System.Windows.Forms.Button _synchronizeButton;
     private System.Windows.Forms.Label _noPlan;
+    private System.Windows.Forms.ContextMenuStrip _menu;
+    private System.Windows.Forms.ToolStripMenuItem _menuSynchronize;
+    private System.Windows.Forms.ToolStripMenuItem _menuRefresh;
+    private System.Windows.Forms.ToolStripMenuItem _menuClose;
   }
 }
 

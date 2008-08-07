@@ -126,5 +126,10 @@ namespace DependencyStore.Gui
       if (this.Synchronize == null) return;
       this.Synchronize(sender, e);
     }
+
+    private void OnClickClose(object sender, EventArgs e)
+    {
+      Close();
+    }
   }
 }
