@@ -46,5 +46,15 @@ namespace DependencyStore.Domain
       fileSet.Add(this);
       return fileSet;
     }
+
+    public bool HasFile(FileAsset file)
+    {
+      return ToFileSet().Contains(file);
+    }
+
+    public override string ToString()
+    {
+      return "Location<" + this.Path + ">";
+    }
   }
 }

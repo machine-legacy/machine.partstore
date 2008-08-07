@@ -8,7 +8,7 @@ namespace DependencyStore.Gui
 {
   public partial class MainForm : Form, IStatusView
   {
-    private LatestFileSet _latestFiles;
+    private FileSetGroupedByLocation _latestFiles;
     private SynchronizationPlan _synchronizationPlan;
 
     public MainForm()
@@ -17,7 +17,7 @@ namespace DependencyStore.Gui
     }
 
     #region IStatusView Members
-    public LatestFileSet LatestFiles
+    public FileSetGroupedByLocation LatestFiles
     {
       get { return _latestFiles; }
       set
@@ -59,23 +59,30 @@ namespace DependencyStore.Gui
     private void AddLatestFilesToView()
     {
       _latestFilesView.Items.Clear();
-      foreach (FileAsset file in _latestFiles.Files)
+      _latestFilesView.Items.Clear();
+      foreach (KeyValuePair<Location, FileSet> locationAndFiles in _latestFiles.LocationsAndFiles)
       {
-        ListViewItem item = new ListViewItem(file.Purl.AsString);
-        item.SubItems.Add(new ListViewItem.ListViewSubItem(item, file.ModifiedAt.ToString()));
-        _latestFilesView.Items.Add(item);
+        ListViewGroup group = new ListViewGroup(locationAndFiles.Key.Path.AsString);
+        _latestFilesView.Groups.Add(group);
+        foreach (FileAsset file in locationAndFiles.Value.Files)
+        {
+          ListViewItem item = new ListViewItem(file.Purl.ChangeRoot(locationAndFiles.Key.Path).AsString);
+          item.SubItems.Add(new ListViewItem.ListViewSubItem(item, file.ModifiedAt.ToString()));
+          item.Group = group;
+          _latestFilesView.Items.Add(item);
+        }
       }
       _latestFilesView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
     }
 
-    private bool IsDifferentEnoughToRedisplay(LatestFileSet newest)
+    private bool IsDifferentEnoughToRedisplay(FileSetGroupedByLocation newest)
     {
       if (_latestFiles == null)
       {
         return true;
       }
       FileSetComparer fileSetComparer = new FileSetComparer();
-      FileSet changes = fileSetComparer.Compare(_latestFiles, newest);
+      FileSet changes = fileSetComparer.Compare(_latestFiles.AllFiles, newest.AllFiles);
       return !changes.IsEmpty;
     }
 

@@ -75,6 +75,7 @@
     <Compile Include="Domain\FileAsset.cs" />
     <Compile Include="Domain\FileSet.cs" />
     <Compile Include="Domain\FileSetComparer.cs" />
+    <Compile Include="Domain\FileSetGroupedByLocation.cs" />
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />

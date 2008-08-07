@@ -35,7 +35,10 @@ namespace DependencyStore.Gui
     public void UpdateView()
     {
       LatestFileSet latestFiles = GetLatestFiles();
-      _view.LatestFiles = latestFiles;
+      FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
+      IList<SourceLocation> sources = _locationRepository.FindAllSources(GetConfiguration(), rules);
+      FileSetGroupedByLocation groupedByLocation = FileSetGroupedByLocation.GroupFileSetIntoLocations(sources, latestFiles);
+      _view.LatestFiles = groupedByLocation;
       _view.SynchronizationPlan = GetSynchronizationPlan(latestFiles);
     }
 

@@ -7,7 +7,7 @@ namespace DependencyStore.Gui
 {
   public interface IStatusView
   {
-    LatestFileSet LatestFiles
+    FileSetGroupedByLocation LatestFiles
     {
       get;
       set;
