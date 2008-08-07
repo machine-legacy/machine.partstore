@@ -15,24 +15,23 @@ namespace DependencyStore.Services.Impl
   {
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly IProjectRepository _projectRepository;
-    private readonly ILocationRepository _locationRepository;
     private readonly IFileSystem _fileSystem;
+    private readonly DependencyState _state;
 
-    public Controller(ILocationRepository locationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IProjectRepository projectRepository, IFileSystem fileSystem)
+    public Controller(IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IProjectRepository projectRepository, IFileSystem fileSystem, DependencyState state)
     {
       _projectRepository = projectRepository;
+      _state = state;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
-      _locationRepository = locationRepository;
       _fileSystem = fileSystem;
     }
 
     #region IController Members
     public void Show(DependencyStoreConfiguration configuration)
     {
-      DomainEvents.LocationNotFound += LocationNotFound;
-      DomainEvents.Progress += Progress;
-      SynchronizationPlan plan = CreatePlan(configuration);
-      foreach (UpdateOutOfDateFile update in plan)
+      WireDomainEvents();
+      _state.Refresh();
+      foreach (UpdateOutOfDateFile update in _state.SynchronizationPlan)
       {
         ReportOutdatedFile(update);
       }
@@ -40,10 +39,9 @@ namespace DependencyStore.Services.Impl
 
     public void Update(DependencyStoreConfiguration configuration)
     {
-      DomainEvents.LocationNotFound += LocationNotFound;
-      DomainEvents.Progress += Progress;
-      SynchronizationPlan plan = CreatePlan(configuration);
-      foreach (UpdateOutOfDateFile update in plan)
+      WireDomainEvents();
+      _state.Refresh();
+      foreach (UpdateOutOfDateFile update in _state.SynchronizationPlan)
       {
         UpdateOutdatedFile(update);
       }
@@ -55,21 +53,6 @@ namespace DependencyStore.Services.Impl
       BuildProjectArchives(configuration);
     }
     #endregion
-
-    private SynchronizationPlan CreatePlan(DependencyStoreConfiguration configuration)
-    {
-      FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
-      IList<SourceLocation> sources = _locationRepository.FindAllSources(configuration, rules);
-      IList<SinkLocation> sinks = _locationRepository.FindAllSinks(configuration, rules);
-      LatestFileSet latestFiles = new LatestFileSet();
-      latestFiles.AddAll(sources);
-      SynchronizationPlan plan = new SynchronizationPlan();
-      foreach (SinkLocation location in sinks)
-      {
-        plan.Merge(location.CreateSynchronizationPlan(latestFiles));
-      }
-      return plan;
-    }
 
     private void BuildProjectArchives(DependencyStoreConfiguration configuration)
     {
@@ -115,6 +98,12 @@ namespace DependencyStore.Services.Impl
     private static void Progress(object sender, ProgressEventArgs e)
     {
       Console.Write("Archiving: {0}%\r", e.PercentComplete * 100);
+    }
+
+    private static void WireDomainEvents()
+    {
+      DomainEvents.LocationNotFound += LocationNotFound;
+      DomainEvents.Progress += Progress;
     }
   }
 }

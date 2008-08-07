@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using Machine.Container;
 using Machine.Core.Services.Impl;
 
+using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess.Impl;
-using DependencyStore.Services.DataAccess;
 using DependencyStore.Services.Impl;
-using DependencyStore.Services;
 
 namespace DependencyStore
 {
@@ -24,6 +23,8 @@ namespace DependencyStore
       Add<LocationRepository>();
       Add<ProjectRepository>();
       Add<Controller>();
+      Add<DependencyState>();
+      Add<ConfigurationPaths>();
     }
   }
 }
