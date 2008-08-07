@@ -146,6 +146,7 @@ namespace DependencyStore.Gui
       this._planView.UseCompatibleStateImageBehavior = false;
       this._planView.View = System.Windows.Forms.View.Details;
       this._planView.Visible = false;
+      this._planView.DoubleClick += new System.EventHandler(this.OnDoubleClickPlan);
       // 
       // _planColumn1
       // 

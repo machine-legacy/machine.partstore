@@ -18,6 +18,7 @@ namespace DependencyStore.Gui
 
     #region IStatusView Members
     public event EventHandler<EventArgs> SynchronizeAll;
+    public event EventHandler<LocationEventArgs> Synchronize;
     public event EventHandler<EventArgs> Rescan;
 
     public FileSetGroupedByLocation LatestFiles
@@ -115,6 +116,7 @@ namespace DependencyStore.Gui
         if (!groups.ContainsKey(update.SinkLocation))
         {
           groups[update.SinkLocation] = new ListViewGroup(update.SinkLocation.Path.AsString);
+          groups[update.SinkLocation].Tag = update.SinkLocation;
           _planView.Groups.Add(groups[update.SinkLocation]);
         }
         ListViewItem item = new ListViewItem(update.SinkFile.Purl.ChangeRoot(update.SinkLocation.Path).AsString);
@@ -150,6 +152,20 @@ namespace DependencyStore.Gui
     private void OnClickClose(object sender, EventArgs e)
     {
       Close();
+    }
+
+    private void OnDoubleClickPlan(object sender, EventArgs e)
+    {
+      if (this.Synchronize == null) return;
+      if (_planView.SelectedItems.Count == 0)
+      {
+        return;
+      }
+      foreach (ListViewItem item in _planView.SelectedItems)
+      {
+        SinkLocation location = (SinkLocation)item.Group.Tag;
+        this.Synchronize(sender, new LocationEventArgs(location));
+      }
     }
   }
 }

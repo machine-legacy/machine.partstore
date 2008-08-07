@@ -8,6 +8,7 @@ namespace DependencyStore.Gui
   public interface IStatusView
   {
     event EventHandler<EventArgs> SynchronizeAll;
+    event EventHandler<LocationEventArgs> Synchronize;
     event EventHandler<EventArgs> Rescan;
 
     FileSetGroupedByLocation LatestFiles
@@ -23,5 +24,19 @@ namespace DependencyStore.Gui
     }
 
     void Log(string message, params object[] args);
+  }
+  public class LocationEventArgs : EventArgs
+  {
+    private readonly Location _location;
+
+    public Location Location
+    {
+      get { return _location; }
+    }
+
+    public LocationEventArgs(Location location)
+    {
+      _location = location;
+    }
   }
 }

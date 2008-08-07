@@ -10,8 +10,8 @@ namespace DependencyStore.Gui
   public class StatusController
   {
     private readonly IStatusView _view;
-    private readonly DependencyState _state;
     private readonly IFileSystem _fileSystem;
+    private readonly DependencyState _state;
 
     public StatusController(IStatusView view, IFileSystem fileSystem, DependencyState state)
     {
@@ -23,6 +23,7 @@ namespace DependencyStore.Gui
     public void Start()
     {
       _view.SynchronizeAll += OnSynchronizeAll;
+      _view.Synchronize += OnSynchronize;
       _view.Rescan += OnRescan;
     }
 
@@ -36,14 +37,25 @@ namespace DependencyStore.Gui
 
     private void OnSynchronizeAll(object sender, EventArgs e)
     {
-      _state.Refresh();
-      foreach (UpdateOutOfDateFile update in _state.SynchronizationPlan)
-      {
-        _view.Log("Copying {0} to {1}", update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString);
-        _fileSystem.CopyFile(update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString, true);
-      }
-      _view.Log("Synchronized at {0}", DateTime.Now);
-      UpdateView();
+      ThreadPool.QueueUserWorkItem((object ignored) => {
+        _state.Refresh();
+        foreach (UpdateOutOfDateFile update in _state.SynchronizationPlan)
+        {
+          _view.Log("Copying {0} to {1}", update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString);
+          _fileSystem.CopyFile(update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString, true);
+        }
+        _view.Log("Synchronized at {0}", DateTime.Now);
+        UpdateView();
+      });
+    }
+
+    private void OnSynchronize(object sender, LocationEventArgs e)
+    {
+      ThreadPool.QueueUserWorkItem((object ignored) => {
+        _state.Refresh();
+        _view.Log("Synchronized {0} at {1}", e.Location, DateTime.Now);
+        UpdateView();
+      });
     }
 
     private void OnRescan(object sender, EventArgs e)
