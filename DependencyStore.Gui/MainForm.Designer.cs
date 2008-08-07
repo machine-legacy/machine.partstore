@@ -50,16 +50,16 @@ namespace DependencyStore.Gui
       // 
       this._bottom.Controls.Add(this._synchronizeButton);
       this._bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this._bottom.Location = new System.Drawing.Point(0, 390);
+      this._bottom.Location = new System.Drawing.Point(0, 375);
       this._bottom.Name = "_bottom";
-      this._bottom.Size = new System.Drawing.Size(573, 34);
+      this._bottom.Size = new System.Drawing.Size(643, 32);
       this._bottom.TabIndex = 1;
       // 
       // _synchronizeButton
       // 
-      this._synchronizeButton.Location = new System.Drawing.Point(7, 6);
+      this._synchronizeButton.Location = new System.Drawing.Point(6, 6);
       this._synchronizeButton.Name = "_synchronizeButton";
-      this._synchronizeButton.Size = new System.Drawing.Size(99, 23);
+      this._synchronizeButton.Size = new System.Drawing.Size(85, 21);
       this._synchronizeButton.TabIndex = 0;
       this._synchronizeButton.Text = "Synchronize";
       this._synchronizeButton.UseVisualStyleBackColor = true;
@@ -71,11 +71,10 @@ namespace DependencyStore.Gui
             this._latestColumnFile,
             this._latestColumnModifiedAt});
       this._latestFilesView.Dock = System.Windows.Forms.DockStyle.Fill;
-      this._latestFilesView.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._latestFilesView.FullRowSelect = true;
       this._latestFilesView.Location = new System.Drawing.Point(3, 3);
       this._latestFilesView.Name = "_latestFilesView";
-      this._latestFilesView.Size = new System.Drawing.Size(559, 358);
+      this._latestFilesView.Size = new System.Drawing.Size(629, 343);
       this._latestFilesView.TabIndex = 2;
       this._latestFilesView.UseCompatibleStateImageBehavior = false;
       this._latestFilesView.View = System.Windows.Forms.View.Details;
@@ -95,11 +94,10 @@ namespace DependencyStore.Gui
       this._tabs.Controls.Add(this._synchronizationPlanTab);
       this._tabs.Controls.Add(this._filesTab);
       this._tabs.Dock = System.Windows.Forms.DockStyle.Fill;
-      this._tabs.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._tabs.Location = new System.Drawing.Point(0, 0);
       this._tabs.Name = "_tabs";
       this._tabs.SelectedIndex = 0;
-      this._tabs.Size = new System.Drawing.Size(573, 390);
+      this._tabs.Size = new System.Drawing.Size(643, 375);
       this._tabs.TabIndex = 3;
       // 
       // _synchronizationPlanTab
@@ -109,7 +107,7 @@ namespace DependencyStore.Gui
       this._synchronizationPlanTab.Location = new System.Drawing.Point(4, 22);
       this._synchronizationPlanTab.Name = "_synchronizationPlanTab";
       this._synchronizationPlanTab.Padding = new System.Windows.Forms.Padding(3);
-      this._synchronizationPlanTab.Size = new System.Drawing.Size(565, 364);
+      this._synchronizationPlanTab.Size = new System.Drawing.Size(483, 336);
       this._synchronizationPlanTab.TabIndex = 1;
       this._synchronizationPlanTab.Text = "Synchronization Plan";
       this._synchronizationPlanTab.UseVisualStyleBackColor = true;
@@ -122,7 +120,7 @@ namespace DependencyStore.Gui
       this._planView.Dock = System.Windows.Forms.DockStyle.Fill;
       this._planView.Location = new System.Drawing.Point(3, 3);
       this._planView.Name = "_planView";
-      this._planView.Size = new System.Drawing.Size(559, 358);
+      this._planView.Size = new System.Drawing.Size(477, 330);
       this._planView.TabIndex = 0;
       this._planView.UseCompatibleStateImageBehavior = false;
       this._planView.View = System.Windows.Forms.View.Details;
@@ -141,10 +139,10 @@ namespace DependencyStore.Gui
       // _noPlan
       // 
       this._noPlan.Dock = System.Windows.Forms.DockStyle.Fill;
-      this._noPlan.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this._noPlan.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this._noPlan.Location = new System.Drawing.Point(3, 3);
       this._noPlan.Name = "_noPlan";
-      this._noPlan.Size = new System.Drawing.Size(559, 358);
+      this._noPlan.Size = new System.Drawing.Size(477, 330);
       this._noPlan.TabIndex = 1;
       this._noPlan.Text = "Everything is up to date.";
       this._noPlan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,19 +153,18 @@ namespace DependencyStore.Gui
       this._filesTab.Location = new System.Drawing.Point(4, 22);
       this._filesTab.Name = "_filesTab";
       this._filesTab.Padding = new System.Windows.Forms.Padding(3);
-      this._filesTab.Size = new System.Drawing.Size(565, 364);
+      this._filesTab.Size = new System.Drawing.Size(635, 349);
       this._filesTab.TabIndex = 0;
       this._filesTab.Text = "Latest Files";
       this._filesTab.UseVisualStyleBackColor = true;
       // 
       // MainForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(573, 424);
+      this.ClientSize = new System.Drawing.Size(643, 407);
       this.Controls.Add(this._tabs);
       this.Controls.Add(this._bottom);
-      this.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.Name = "MainForm";
       this.Text = "DependencyStore";
       this._bottom.ResumeLayout(false);
