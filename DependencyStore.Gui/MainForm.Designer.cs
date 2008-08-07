@@ -33,20 +33,23 @@ namespace DependencyStore.Gui
       this._latestColumnFile = new System.Windows.Forms.ColumnHeader();
       this._latestColumnModifiedAt = new System.Windows.Forms.ColumnHeader();
       this._tabs = new System.Windows.Forms.TabControl();
-      this._synchronizationPlanTab = new System.Windows.Forms.TabPage();
+      this._tabPlan = new System.Windows.Forms.TabPage();
       this._planView = new System.Windows.Forms.ListView();
       this._planColumn1 = new System.Windows.Forms.ColumnHeader();
       this._planColumn2 = new System.Windows.Forms.ColumnHeader();
       this._noPlan = new System.Windows.Forms.Label();
-      this._filesTab = new System.Windows.Forms.TabPage();
+      this._tabFiles = new System.Windows.Forms.TabPage();
       this._menu = new System.Windows.Forms.ContextMenuStrip(this.components);
       this._menuSynchronize = new System.Windows.Forms.ToolStripMenuItem();
       this._menuRefresh = new System.Windows.Forms.ToolStripMenuItem();
       this._menuClose = new System.Windows.Forms.ToolStripMenuItem();
+      this._tabLog = new System.Windows.Forms.TabPage();
+      this._log = new System.Windows.Forms.RichTextBox();
       this._tabs.SuspendLayout();
-      this._synchronizationPlanTab.SuspendLayout();
-      this._filesTab.SuspendLayout();
+      this._tabPlan.SuspendLayout();
+      this._tabFiles.SuspendLayout();
       this._menu.SuspendLayout();
+      this._tabLog.SuspendLayout();
       this.SuspendLayout();
       // 
       // _latestFilesView
@@ -77,8 +80,9 @@ namespace DependencyStore.Gui
       // _tabs
       // 
       this._tabs.ContextMenuStrip = this._menu;
-      this._tabs.Controls.Add(this._synchronizationPlanTab);
-      this._tabs.Controls.Add(this._filesTab);
+      this._tabs.Controls.Add(this._tabPlan);
+      this._tabs.Controls.Add(this._tabFiles);
+      this._tabs.Controls.Add(this._tabLog);
       this._tabs.Dock = System.Windows.Forms.DockStyle.Fill;
       this._tabs.Location = new System.Drawing.Point(0, 0);
       this._tabs.Name = "_tabs";
@@ -86,17 +90,17 @@ namespace DependencyStore.Gui
       this._tabs.Size = new System.Drawing.Size(643, 407);
       this._tabs.TabIndex = 3;
       // 
-      // _synchronizationPlanTab
+      // _tabPlan
       // 
-      this._synchronizationPlanTab.Controls.Add(this._planView);
-      this._synchronizationPlanTab.Controls.Add(this._noPlan);
-      this._synchronizationPlanTab.Location = new System.Drawing.Point(4, 22);
-      this._synchronizationPlanTab.Name = "_synchronizationPlanTab";
-      this._synchronizationPlanTab.Padding = new System.Windows.Forms.Padding(3);
-      this._synchronizationPlanTab.Size = new System.Drawing.Size(635, 381);
-      this._synchronizationPlanTab.TabIndex = 1;
-      this._synchronizationPlanTab.Text = "Synchronization Plan";
-      this._synchronizationPlanTab.UseVisualStyleBackColor = true;
+      this._tabPlan.Controls.Add(this._planView);
+      this._tabPlan.Controls.Add(this._noPlan);
+      this._tabPlan.Location = new System.Drawing.Point(4, 22);
+      this._tabPlan.Name = "_tabPlan";
+      this._tabPlan.Padding = new System.Windows.Forms.Padding(3);
+      this._tabPlan.Size = new System.Drawing.Size(635, 381);
+      this._tabPlan.TabIndex = 1;
+      this._tabPlan.Text = "Synchronization Plan";
+      this._tabPlan.UseVisualStyleBackColor = true;
       // 
       // _planView
       // 
@@ -134,16 +138,16 @@ namespace DependencyStore.Gui
       this._noPlan.Text = "Everything is up to date.";
       this._noPlan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       // 
-      // _filesTab
+      // _tabFiles
       // 
-      this._filesTab.Controls.Add(this._latestFilesView);
-      this._filesTab.Location = new System.Drawing.Point(4, 22);
-      this._filesTab.Name = "_filesTab";
-      this._filesTab.Padding = new System.Windows.Forms.Padding(3);
-      this._filesTab.Size = new System.Drawing.Size(635, 381);
-      this._filesTab.TabIndex = 0;
-      this._filesTab.Text = "Latest Files";
-      this._filesTab.UseVisualStyleBackColor = true;
+      this._tabFiles.Controls.Add(this._latestFilesView);
+      this._tabFiles.Location = new System.Drawing.Point(4, 22);
+      this._tabFiles.Name = "_tabFiles";
+      this._tabFiles.Padding = new System.Windows.Forms.Padding(3);
+      this._tabFiles.Size = new System.Drawing.Size(635, 381);
+      this._tabFiles.TabIndex = 0;
+      this._tabFiles.Text = "Latest Files";
+      this._tabFiles.UseVisualStyleBackColor = true;
       // 
       // _menu
       // 
@@ -157,22 +161,41 @@ namespace DependencyStore.Gui
       // _menuSynchronize
       // 
       this._menuSynchronize.Name = "_menuSynchronize";
-      this._menuSynchronize.Size = new System.Drawing.Size(152, 22);
+      this._menuSynchronize.Size = new System.Drawing.Size(143, 22);
       this._menuSynchronize.Text = "&Synchronize";
       this._menuSynchronize.Click += new System.EventHandler(this.OnClickSynchronize);
       // 
       // _menuRefresh
       // 
       this._menuRefresh.Name = "_menuRefresh";
-      this._menuRefresh.Size = new System.Drawing.Size(152, 22);
+      this._menuRefresh.Size = new System.Drawing.Size(143, 22);
       this._menuRefresh.Text = "&Refresh";
       // 
       // _menuClose
       // 
       this._menuClose.Name = "_menuClose";
-      this._menuClose.Size = new System.Drawing.Size(152, 22);
+      this._menuClose.Size = new System.Drawing.Size(143, 22);
       this._menuClose.Text = "&Close";
       this._menuClose.Click += new System.EventHandler(this.OnClickClose);
+      // 
+      // _tabLog
+      // 
+      this._tabLog.Controls.Add(this._log);
+      this._tabLog.Location = new System.Drawing.Point(4, 22);
+      this._tabLog.Name = "_tabLog";
+      this._tabLog.Size = new System.Drawing.Size(635, 381);
+      this._tabLog.TabIndex = 2;
+      this._tabLog.Text = "Log";
+      this._tabLog.UseVisualStyleBackColor = true;
+      // 
+      // _log
+      // 
+      this._log.Dock = System.Windows.Forms.DockStyle.Fill;
+      this._log.Location = new System.Drawing.Point(0, 0);
+      this._log.Name = "_log";
+      this._log.Size = new System.Drawing.Size(635, 381);
+      this._log.TabIndex = 0;
+      this._log.Text = "";
       // 
       // MainForm
       // 
@@ -183,9 +206,10 @@ namespace DependencyStore.Gui
       this.Name = "MainForm";
       this.Text = "DependencyStore";
       this._tabs.ResumeLayout(false);
-      this._synchronizationPlanTab.ResumeLayout(false);
-      this._filesTab.ResumeLayout(false);
+      this._tabPlan.ResumeLayout(false);
+      this._tabFiles.ResumeLayout(false);
       this._menu.ResumeLayout(false);
+      this._tabLog.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -194,8 +218,8 @@ namespace DependencyStore.Gui
 
     private System.Windows.Forms.ListView _latestFilesView;
     private System.Windows.Forms.TabControl _tabs;
-    private System.Windows.Forms.TabPage _filesTab;
-    private System.Windows.Forms.TabPage _synchronizationPlanTab;
+    private System.Windows.Forms.TabPage _tabFiles;
+    private System.Windows.Forms.TabPage _tabPlan;
     private System.Windows.Forms.ColumnHeader _latestColumnFile;
     private System.Windows.Forms.ColumnHeader _latestColumnModifiedAt;
     private System.Windows.Forms.ListView _planView;
@@ -206,6 +230,8 @@ namespace DependencyStore.Gui
     private System.Windows.Forms.ToolStripMenuItem _menuSynchronize;
     private System.Windows.Forms.ToolStripMenuItem _menuRefresh;
     private System.Windows.Forms.ToolStripMenuItem _menuClose;
+    private System.Windows.Forms.TabPage _tabLog;
+    private System.Windows.Forms.RichTextBox _log;
   }
 }
 
