@@ -7,6 +7,9 @@ namespace DependencyStore.Gui
 {
   public interface IStatusView
   {
+    event EventHandler<EventArgs> Synchronize;
+    event EventHandler<EventArgs> Rescan;
+
     FileSetGroupedByLocation LatestFiles
     {
       get;
@@ -18,8 +21,6 @@ namespace DependencyStore.Gui
       get;
       set;
     }
-
-    event EventHandler<EventArgs> Synchronize;
 
     void Log(string message, params object[] args);
   }

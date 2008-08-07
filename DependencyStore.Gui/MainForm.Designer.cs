@@ -84,25 +84,26 @@ namespace DependencyStore.Gui
             this._menuRefresh,
             this._menuClose});
       this._menu.Name = "_menu";
-      this._menu.Size = new System.Drawing.Size(144, 70);
+      this._menu.Size = new System.Drawing.Size(153, 92);
       // 
       // _menuSynchronize
       // 
       this._menuSynchronize.Name = "_menuSynchronize";
-      this._menuSynchronize.Size = new System.Drawing.Size(143, 22);
+      this._menuSynchronize.Size = new System.Drawing.Size(152, 22);
       this._menuSynchronize.Text = "&Synchronize";
       this._menuSynchronize.Click += new System.EventHandler(this.OnClickSynchronize);
       // 
       // _menuRefresh
       // 
       this._menuRefresh.Name = "_menuRefresh";
-      this._menuRefresh.Size = new System.Drawing.Size(143, 22);
+      this._menuRefresh.Size = new System.Drawing.Size(152, 22);
       this._menuRefresh.Text = "&Refresh";
+      this._menuRefresh.Click += new System.EventHandler(this.OnClickRefresh);
       // 
       // _menuClose
       // 
       this._menuClose.Name = "_menuClose";
-      this._menuClose.Size = new System.Drawing.Size(143, 22);
+      this._menuClose.Size = new System.Drawing.Size(152, 22);
       this._menuClose.Text = "&Close";
       this._menuClose.Click += new System.EventHandler(this.OnClickClose);
       // 

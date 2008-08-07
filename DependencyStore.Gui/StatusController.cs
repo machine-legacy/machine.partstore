@@ -1,5 +1,5 @@
 using System;
-
+using System.Threading;
 using Machine.Core.Services;
 
 using DependencyStore.Domain;
@@ -23,6 +23,7 @@ namespace DependencyStore.Gui
     public void Start()
     {
       _view.Synchronize += OnSynchronize;
+      _view.Rescan += OnRescan;
     }
 
     public void UpdateView()
@@ -42,6 +43,11 @@ namespace DependencyStore.Gui
         _fileSystem.CopyFile(update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString, true);
       }
       _view.Log("Synchronized at {0}", DateTime.Now);
+    }
+
+    private void OnRescan(object sender, EventArgs e)
+    {
+      ThreadPool.QueueUserWorkItem((object ignored) => { UpdateView(); });
     }
   }
 }

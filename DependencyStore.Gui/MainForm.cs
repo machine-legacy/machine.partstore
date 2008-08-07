@@ -17,6 +17,9 @@ namespace DependencyStore.Gui
     }
 
     #region IStatusView Members
+    public event EventHandler<EventArgs> Synchronize;
+    public event EventHandler<EventArgs> Rescan;
+
     public FileSetGroupedByLocation LatestFiles
     {
       get { return _latestFiles; }
@@ -52,8 +55,6 @@ namespace DependencyStore.Gui
         }
       }
     }
-
-    public event EventHandler<EventArgs> Synchronize;
 
     public void Log(string message, params object[] args)
     {
@@ -135,6 +136,12 @@ namespace DependencyStore.Gui
     {
       if (this.Synchronize == null) return;
       this.Synchronize(sender, e);
+    }
+
+    private void OnClickRefresh(object sender, EventArgs e)
+    {
+      if (this.Rescan == null) return;
+      this.Rescan(sender, e);
     }
 
     private void OnClickClose(object sender, EventArgs e)

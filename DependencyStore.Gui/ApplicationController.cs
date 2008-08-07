@@ -46,7 +46,7 @@ namespace DependencyStore.Gui
       while (_running)
       {
         Refresh();
-        _threadManager.Sleep(TimeSpan.FromSeconds(2.0));
+        _threadManager.Sleep(TimeSpan.FromSeconds(60.0));
       }
     }
     #endregion
