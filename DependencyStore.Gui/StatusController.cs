@@ -22,7 +22,7 @@ namespace DependencyStore.Gui
 
     public void Start()
     {
-      _view.Synchronize += OnSynchronize;
+      _view.SynchronizeAll += OnSynchronizeAll;
       _view.Rescan += OnRescan;
     }
 
@@ -34,7 +34,7 @@ namespace DependencyStore.Gui
       _view.Log("Refreshed at {0}", DateTime.Now);
     }
 
-    private void OnSynchronize(object sender, EventArgs e)
+    private void OnSynchronizeAll(object sender, EventArgs e)
     {
       _state.Refresh();
       foreach (UpdateOutOfDateFile update in _state.SynchronizationPlan)

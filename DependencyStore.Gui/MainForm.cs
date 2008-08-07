@@ -17,7 +17,7 @@ namespace DependencyStore.Gui
     }
 
     #region IStatusView Members
-    public event EventHandler<EventArgs> Synchronize;
+    public event EventHandler<EventArgs> SynchronizeAll;
     public event EventHandler<EventArgs> Rescan;
 
     public FileSetGroupedByLocation LatestFiles
@@ -137,8 +137,8 @@ namespace DependencyStore.Gui
 
     private void OnClickSynchronize(object sender, EventArgs e)
     {
-      if (this.Synchronize == null) return;
-      this.Synchronize(sender, e);
+      if (this.SynchronizeAll == null) return;
+      this.SynchronizeAll(sender, e);
     }
 
     private void OnClickRefresh(object sender, EventArgs e)
