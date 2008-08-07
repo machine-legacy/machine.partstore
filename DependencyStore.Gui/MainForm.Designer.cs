@@ -32,6 +32,10 @@ namespace DependencyStore.Gui
       this._latestFilesView = new System.Windows.Forms.ListView();
       this._latestColumnFile = new System.Windows.Forms.ColumnHeader();
       this._latestColumnModifiedAt = new System.Windows.Forms.ColumnHeader();
+      this._menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this._menuSynchronize = new System.Windows.Forms.ToolStripMenuItem();
+      this._menuRefresh = new System.Windows.Forms.ToolStripMenuItem();
+      this._menuClose = new System.Windows.Forms.ToolStripMenuItem();
       this._tabs = new System.Windows.Forms.TabControl();
       this._tabPlan = new System.Windows.Forms.TabPage();
       this._planView = new System.Windows.Forms.ListView();
@@ -39,16 +43,12 @@ namespace DependencyStore.Gui
       this._planColumn2 = new System.Windows.Forms.ColumnHeader();
       this._noPlan = new System.Windows.Forms.Label();
       this._tabFiles = new System.Windows.Forms.TabPage();
-      this._menu = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this._menuSynchronize = new System.Windows.Forms.ToolStripMenuItem();
-      this._menuRefresh = new System.Windows.Forms.ToolStripMenuItem();
-      this._menuClose = new System.Windows.Forms.ToolStripMenuItem();
       this._tabLog = new System.Windows.Forms.TabPage();
       this._log = new System.Windows.Forms.RichTextBox();
+      this._menu.SuspendLayout();
       this._tabs.SuspendLayout();
       this._tabPlan.SuspendLayout();
       this._tabFiles.SuspendLayout();
-      this._menu.SuspendLayout();
       this._tabLog.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -76,6 +76,35 @@ namespace DependencyStore.Gui
       // 
       this._latestColumnModifiedAt.Text = "Last Modified";
       this._latestColumnModifiedAt.Width = 138;
+      // 
+      // _menu
+      // 
+      this._menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._menuSynchronize,
+            this._menuRefresh,
+            this._menuClose});
+      this._menu.Name = "_menu";
+      this._menu.Size = new System.Drawing.Size(144, 70);
+      // 
+      // _menuSynchronize
+      // 
+      this._menuSynchronize.Name = "_menuSynchronize";
+      this._menuSynchronize.Size = new System.Drawing.Size(143, 22);
+      this._menuSynchronize.Text = "&Synchronize";
+      this._menuSynchronize.Click += new System.EventHandler(this.OnClickSynchronize);
+      // 
+      // _menuRefresh
+      // 
+      this._menuRefresh.Name = "_menuRefresh";
+      this._menuRefresh.Size = new System.Drawing.Size(143, 22);
+      this._menuRefresh.Text = "&Refresh";
+      // 
+      // _menuClose
+      // 
+      this._menuClose.Name = "_menuClose";
+      this._menuClose.Size = new System.Drawing.Size(143, 22);
+      this._menuClose.Text = "&Close";
+      this._menuClose.Click += new System.EventHandler(this.OnClickClose);
       // 
       // _tabs
       // 
@@ -149,35 +178,6 @@ namespace DependencyStore.Gui
       this._tabFiles.Text = "Latest Files";
       this._tabFiles.UseVisualStyleBackColor = true;
       // 
-      // _menu
-      // 
-      this._menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._menuSynchronize,
-            this._menuRefresh,
-            this._menuClose});
-      this._menu.Name = "_menu";
-      this._menu.Size = new System.Drawing.Size(144, 70);
-      // 
-      // _menuSynchronize
-      // 
-      this._menuSynchronize.Name = "_menuSynchronize";
-      this._menuSynchronize.Size = new System.Drawing.Size(143, 22);
-      this._menuSynchronize.Text = "&Synchronize";
-      this._menuSynchronize.Click += new System.EventHandler(this.OnClickSynchronize);
-      // 
-      // _menuRefresh
-      // 
-      this._menuRefresh.Name = "_menuRefresh";
-      this._menuRefresh.Size = new System.Drawing.Size(143, 22);
-      this._menuRefresh.Text = "&Refresh";
-      // 
-      // _menuClose
-      // 
-      this._menuClose.Name = "_menuClose";
-      this._menuClose.Size = new System.Drawing.Size(143, 22);
-      this._menuClose.Text = "&Close";
-      this._menuClose.Click += new System.EventHandler(this.OnClickClose);
-      // 
       // _tabLog
       // 
       this._tabLog.Controls.Add(this._log);
@@ -195,7 +195,7 @@ namespace DependencyStore.Gui
       this._log.Name = "_log";
       this._log.Size = new System.Drawing.Size(635, 381);
       this._log.TabIndex = 0;
-      this._log.Text = "";
+      this._log.Text = "Started\n";
       // 
       // MainForm
       // 
@@ -205,10 +205,10 @@ namespace DependencyStore.Gui
       this.Controls.Add(this._tabs);
       this.Name = "MainForm";
       this.Text = "DependencyStore";
+      this._menu.ResumeLayout(false);
       this._tabs.ResumeLayout(false);
       this._tabPlan.ResumeLayout(false);
       this._tabFiles.ResumeLayout(false);
-      this._menu.ResumeLayout(false);
       this._tabLog.ResumeLayout(false);
       this.ResumeLayout(false);
 

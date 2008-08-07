@@ -54,6 +54,16 @@ namespace DependencyStore.Gui
     }
 
     public event EventHandler<EventArgs> Synchronize;
+
+    public void Log(string message, params object[] args)
+    {
+      if (this.InvokeRequired)
+      {
+        Invoke(new MethodInvoker(delegate() { Log(message, args); }));
+        return;
+      }
+      _log.Text += String.Format(message, args) + Environment.NewLine;
+    }
     #endregion
 
     private void AddLatestFilesToView()

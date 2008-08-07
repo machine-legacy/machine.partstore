@@ -104,6 +104,7 @@ namespace DependencyStore.Gui
       _state.Refresh();
       _view.LatestFiles = _state.LatestFilesGroupByLocation;
       _view.SynchronizationPlan = _state.SynchronizationPlan;
+      _view.Log("Refreshed at {0}", DateTime.Now);
     }
 
     private void OnSynchronize(object sender, EventArgs e)
@@ -111,8 +112,10 @@ namespace DependencyStore.Gui
       _state.Refresh();
       foreach (UpdateOutOfDateFile update in _state.SynchronizationPlan)
       {
+        _view.Log("Copying {0} to {1}", update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString);
         _fileSystem.CopyFile(update.SourceFile.Purl.AsString, update.SinkFile.Purl.AsString, true);
       }
+      _view.Log("Synchronized at {0}", DateTime.Now);
     }
   }
 }

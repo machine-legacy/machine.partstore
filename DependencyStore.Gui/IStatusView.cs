@@ -20,5 +20,7 @@ namespace DependencyStore.Gui
     }
 
     event EventHandler<EventArgs> Synchronize;
+
+    void Log(string message, params object[] args);
   }
 }
