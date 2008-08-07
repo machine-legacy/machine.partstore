@@ -72,7 +72,6 @@ namespace DependencyStore.Gui
           _latestFilesView.Items.Add(item);
         }
       }
-      _latestFilesView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
     }
 
     private bool IsDifferentEnoughToRedisplay(FileSetGroupedByLocation newest)
@@ -109,7 +108,6 @@ namespace DependencyStore.Gui
         item.Group = groups[update.SinkLocation];
         _planView.Items.Add(item);
       }
-      _planView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
       _noPlan.Visible = false;
       _planView.Visible = true;
     }

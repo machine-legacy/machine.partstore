@@ -34,16 +34,16 @@ namespace DependencyStore.Gui
       this._latestColumnFile = new System.Windows.Forms.ColumnHeader();
       this._latestColumnModifiedAt = new System.Windows.Forms.ColumnHeader();
       this._tabs = new System.Windows.Forms.TabControl();
-      this._filesTab = new System.Windows.Forms.TabPage();
       this._synchronizationPlanTab = new System.Windows.Forms.TabPage();
       this._planView = new System.Windows.Forms.ListView();
       this._planColumn1 = new System.Windows.Forms.ColumnHeader();
       this._planColumn2 = new System.Windows.Forms.ColumnHeader();
       this._noPlan = new System.Windows.Forms.Label();
+      this._filesTab = new System.Windows.Forms.TabPage();
       this._bottom.SuspendLayout();
       this._tabs.SuspendLayout();
-      this._filesTab.SuspendLayout();
       this._synchronizationPlanTab.SuspendLayout();
+      this._filesTab.SuspendLayout();
       this.SuspendLayout();
       // 
       // _bottom
@@ -83,12 +83,12 @@ namespace DependencyStore.Gui
       // _latestColumnFile
       // 
       this._latestColumnFile.Text = "File";
-      this._latestColumnFile.Width = 278;
+      this._latestColumnFile.Width = 410;
       // 
       // _latestColumnModifiedAt
       // 
       this._latestColumnModifiedAt.Text = "Last Modified";
-      this._latestColumnModifiedAt.Width = 156;
+      this._latestColumnModifiedAt.Width = 138;
       // 
       // _tabs
       // 
@@ -101,17 +101,6 @@ namespace DependencyStore.Gui
       this._tabs.SelectedIndex = 0;
       this._tabs.Size = new System.Drawing.Size(573, 390);
       this._tabs.TabIndex = 3;
-      // 
-      // _filesTab
-      // 
-      this._filesTab.Controls.Add(this._latestFilesView);
-      this._filesTab.Location = new System.Drawing.Point(4, 22);
-      this._filesTab.Name = "_filesTab";
-      this._filesTab.Padding = new System.Windows.Forms.Padding(3);
-      this._filesTab.Size = new System.Drawing.Size(565, 364);
-      this._filesTab.TabIndex = 0;
-      this._filesTab.Text = "Latest Files";
-      this._filesTab.UseVisualStyleBackColor = true;
       // 
       // _synchronizationPlanTab
       // 
@@ -142,7 +131,7 @@ namespace DependencyStore.Gui
       // _planColumn1
       // 
       this._planColumn1.Text = "Out of Date";
-      this._planColumn1.Width = 285;
+      this._planColumn1.Width = 302;
       // 
       // _planColumn2
       // 
@@ -159,7 +148,17 @@ namespace DependencyStore.Gui
       this._noPlan.TabIndex = 1;
       this._noPlan.Text = "Everything is up to date.";
       this._noPlan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      this._noPlan.Visible = true;
+      // 
+      // _filesTab
+      // 
+      this._filesTab.Controls.Add(this._latestFilesView);
+      this._filesTab.Location = new System.Drawing.Point(4, 22);
+      this._filesTab.Name = "_filesTab";
+      this._filesTab.Padding = new System.Windows.Forms.Padding(3);
+      this._filesTab.Size = new System.Drawing.Size(565, 364);
+      this._filesTab.TabIndex = 0;
+      this._filesTab.Text = "Latest Files";
+      this._filesTab.UseVisualStyleBackColor = true;
       // 
       // MainForm
       // 
@@ -173,8 +172,8 @@ namespace DependencyStore.Gui
       this.Text = "DependencyStore";
       this._bottom.ResumeLayout(false);
       this._tabs.ResumeLayout(false);
-      this._filesTab.ResumeLayout(false);
       this._synchronizationPlanTab.ResumeLayout(false);
+      this._filesTab.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
