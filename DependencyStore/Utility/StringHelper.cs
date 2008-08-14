@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using Machine.Container;
+using Machine.Core;
 
 namespace DependencyStore.Utility
 {

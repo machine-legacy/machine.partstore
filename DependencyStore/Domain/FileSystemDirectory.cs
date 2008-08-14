@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using Machine.Container;
+using Machine.Core;
 
 namespace DependencyStore.Domain
 {
