@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-
+using Machine.Container;
 using Machine.Core.Services.Impl;
 
 using DependencyStore.Domain.Configuration;
@@ -16,10 +16,12 @@ namespace DependencyStore.Gui
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
 
-      using (DependencyStoreContainer container = new DependencyStoreContainer())
+      using (MachineContainer container = new MachineContainer())
       {
         container.Initialize();
         container.PrepareForServices();
+        ContainerRegistrationHelper helper = new ContainerRegistrationHelper(container);
+        helper.AddServiceCollectionsFrom(typeof(DependencyStoreServices).Assembly);
         container.Start();
         container.Add<ThreadManager>();
         container.Add<ConfigurationPaths>();

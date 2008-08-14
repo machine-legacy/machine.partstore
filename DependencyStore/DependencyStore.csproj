@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyStoreContainer.cs" />
+    <Compile Include="DependencyStoreServices.cs" />
     <Compile Include="Domain\Archiving\Archive.cs" />
     <Compile Include="Domain\Archiving\ArchivedFile.cs" />
     <Compile Include="Domain\Archiving\ArchivedFileInZip.cs" />

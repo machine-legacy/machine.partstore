@@ -11,12 +11,13 @@ namespace DependencyStore.CommandLine
   {
     public static void Main(string[] args)
     {
-      using (DependencyStoreContainer container = new DependencyStoreContainer())
+      using (MachineContainer container = new MachineContainer())
       {
         container.Initialize();
         container.PrepareForServices();
+        ContainerRegistrationHelper helper = new ContainerRegistrationHelper(container);
+        helper.AddServiceCollectionsFrom(typeof(DependencyStoreServices).Assembly);
         container.Start();
-        container.Add<ConfigurationPaths>();
         IoC.Container = container;
 
         IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();

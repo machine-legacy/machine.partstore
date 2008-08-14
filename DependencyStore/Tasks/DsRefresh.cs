@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 
+using Microsoft.Build.Framework;
+
+using Machine.Container;
+
 using DependencyStore.Services;
 using DependencyStore.Services.DataAccess;
-using Microsoft.Build.Framework;
 
 namespace DependencyStore.Tasks
 {
@@ -20,8 +23,12 @@ namespace DependencyStore.Tasks
 
     public override bool Execute()
     {
-      DependencyStoreContainer container = new DependencyStoreContainer();
+      MachineContainer container = new MachineContainer();
       container.Initialize();
+      container.PrepareForServices();
+      ContainerRegistrationHelper helper = new ContainerRegistrationHelper(container);
+      helper.AddServiceCollectionsFrom(typeof(DependencyStoreServices).Assembly);
+      container.Start();
       IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
       IController controller = container.Resolve.Object<IController>();
       if (_dryRun)
