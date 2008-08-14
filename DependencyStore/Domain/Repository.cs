@@ -12,6 +12,11 @@ namespace DependencyStore.Domain
       get { return _projects; }
     }
 
+    public bool IsEmpty
+    {
+      get { return _projects.Count == 0; }
+    }
+
     public ArchivedProject FindProject(string name)
     {
       foreach (ArchivedProject existing in _projects)
