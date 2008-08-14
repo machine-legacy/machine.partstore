@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DependencyStore.Domain;
 using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Configuration;
+using DependencyStore.Domain.Services;
 using DependencyStore.Services.DataAccess;
 
 using Machine.Core.Utility;
@@ -58,19 +59,8 @@ namespace DependencyStore.Services.Impl
     {
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<Project> projects = _projectRepository.FindAllProjects(configuration, rules);
-      
-      foreach (Project project in projects)
-      {
-        ArchivedProject archivedProject = repository.FindOrCreateProject(project);
-        ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject);
-        using (Archive archive = project.MakeArchive())
-        {
-          ZipArchiveWriter writer = new ZipArchiveWriter(archive);
-          Purl path = configuration.RepositoryDirectory.Join(version.ArchiveFileName);
-          writer.WriteZip(path);
-          archivedProject.AddVersion(version);
-        }
-      }
+      AddProjectsToRepository adder = new AddProjectsToRepository(configuration);
+      adder.AddProjects(projects, repository);
     }
 
     private static void ReportOutdatedFile(UpdateOutOfDateFile update)
