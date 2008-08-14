@@ -138,6 +138,10 @@ namespace DependencyStore.Domain
       set { _archiveFile = value; }
     }
 
+    protected ArchivedProjectVersion()
+    {
+    }
+
     protected ArchivedProjectVersion(DateTime createdAt, string version)
     {
       _createdAt = createdAt;
