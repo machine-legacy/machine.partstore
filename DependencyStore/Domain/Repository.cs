@@ -80,11 +80,11 @@ namespace DependencyStore.Domain
       _name = name;
     }
 
-    public ArchivedProjectVersion FindVersion(string version)
+    protected ArchivedProjectVersion FindVersion(DateTime createdAt)
     {
       foreach (ArchivedProjectVersion existing in _versions)
       {
-        if (existing.Version.Equals(version))
+        if (existing.CreatedAt.Equals(createdAt))
         {
           return existing;
         }
@@ -94,9 +94,9 @@ namespace DependencyStore.Domain
 
     public void AddVersion(ArchivedProjectVersion version)
     {
-      if (FindVersion(version.Version) != null)
+      if (FindVersion(version.CreatedAt) != null)
       {
-        throw new InvalidOperationException();
+        throw new InvalidOperationException("Duplicate project versions: " + this.Name + "-" + version.CreatedAt);
       }
       _versions.Add(version);
     }
@@ -104,6 +104,7 @@ namespace DependencyStore.Domain
   public class ArchivedProjectVersion
   {
     private string _version;
+    private string _packager;
     private DateTime _createdAt;
     private Purl _archiveFile;
 
@@ -111,6 +112,17 @@ namespace DependencyStore.Domain
     {
       get { return _version; }
       set { _version = value; }
+    }
+
+    public string Packager
+    {
+      get { return _packager; }
+      set { _packager = value; }
+    }
+
+    public string CreatedAtVersion
+    {
+      get { return _createdAt.ToString("yyyyMMdd-HHmmssf"); }
     }
 
     public DateTime CreatedAt
@@ -126,15 +138,15 @@ namespace DependencyStore.Domain
       set { _archiveFile = value; }
     }
 
-    public ArchivedProjectVersion()
-    {
-      _createdAt = DateTime.Now;
-    }
-
-    public ArchivedProjectVersion(DateTime createdAt, string version)
+    protected ArchivedProjectVersion(DateTime createdAt, string version)
     {
       _createdAt = createdAt;
       _version = version;
+    }
+
+    public static ArchivedProjectVersion Create()
+    {
+      return new ArchivedProjectVersion(DateTime.Now, "unknown");
     }
   }
 }
