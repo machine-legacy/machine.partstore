@@ -40,12 +40,6 @@ namespace DependencyStore.Domain
     {
     }
 
-    public FileSystemFile(Purl path)
-     : base(path)
-    {
-      throw new NotImplementedException("You should really call the FileSystemRepository to get this object...");
-    }
-
     public FileSystemFile(Purl path, long length, DateTime createdAt, DateTime accessedAt, DateTime modifiedAt)
      : base(path)
     {

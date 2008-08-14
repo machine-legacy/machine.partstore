@@ -74,9 +74,9 @@ namespace DependencyStore.Domain
     {
       base.BeforeEachTest();
       _target = new FileSystemDirectory(new Purl(@"C:\Windows"));
-      _aFile = new FileSystemFile(new Purl(@"C:\Boot.ini"));
+      _aFile = new FileSystemFile(new Purl(@"C:\Boot.ini"), 0, DateTime.Now, DateTime.Now, DateTime.Now);
       _aDirectoryWithFiles = new FileSystemDirectory(new Purl(@"C:\Windows\System32"));
-      _aDirectoryWithFiles.Entries.Add(new FileSystemFile(new Purl(@"C:\Windows\System32\Notepad.exe")));
+      _aDirectoryWithFiles.Entries.Add(new FileSystemFile(new Purl(@"C:\Windows\System32\Notepad.exe"), 0, DateTime.Now, DateTime.Now, DateTime.Now));
     }
   }
 }

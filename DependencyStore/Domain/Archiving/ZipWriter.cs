@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
+using DependencyStore.Services.DataAccess.Impl;
 using DependencyStore.Utility;
 
 using ICSharpCode.SharpZipLib.Zip;
@@ -42,7 +42,7 @@ namespace DependencyStore.Domain.Archiving
           }
         }
       }
-      return new FileSystemFile(path);
+      return FileSystemFileFactory.CreateFile(path);
     }
 
     private void ReportProgress(long bytesSoFar)

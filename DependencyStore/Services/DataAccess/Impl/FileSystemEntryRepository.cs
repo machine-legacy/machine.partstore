@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using Machine.Container;
 using Machine.Core.Services;
 
 using DependencyStore.Domain;
@@ -52,9 +52,21 @@ namespace DependencyStore.Services.DataAccess.Impl
       return entry;
     }
 
-    private FileSystemFile CreateFile(Purl path)
+    private static FileSystemFile CreateFile(Purl path)
     {
-      FileProperties properties = _fileSystem.GetFileProperties(path.AsString);
+      return FileSystemFileFactory.CreateFile(path);
+    }
+  }
+  public static class FileSystemFileFactory
+  {
+    private static IFileSystem FileSystem
+    {
+      get { return IoC.Container.Resolve.Object<IFileSystem>(); }
+    }
+
+    public static FileSystemFile CreateFile(Purl path)
+    {
+      FileProperties properties = FileSystem.GetFileProperties(path.AsString);
       return new FileSystemFile(path, properties.Length, properties.CreationTime, properties.LastAccessTime, properties.LastWriteTime);
     }
   }
