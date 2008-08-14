@@ -26,11 +26,11 @@ namespace DependencyStore.Tasks
       IController controller = container.Resolve.Object<IController>();
       if (_dryRun)
       {
-        controller.Show(configurationRepository.FindConfiguration("DependencyStore.config"));
+        controller.Show(configurationRepository.FindDefaultConfiguration());
       }
       else
       {
-        controller.Update(configurationRepository.FindConfiguration("DependencyStore.config"));
+        controller.Update(configurationRepository.FindDefaultConfiguration());
       }
       return true;
     }

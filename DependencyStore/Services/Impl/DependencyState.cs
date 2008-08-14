@@ -12,7 +12,6 @@ namespace DependencyStore.Services.Impl
     private readonly ILocationRepository _locationRepository;
     private readonly IConfigurationRepository _configurationRepository;
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
-    private readonly ConfigurationPaths _configurationPaths;
     private DependencyStoreConfiguration _configuration;
     private FileAndDirectoryRules _rules;
     private IList<SourceLocation> _sources;
@@ -39,18 +38,16 @@ namespace DependencyStore.Services.Impl
       get { return FileSetGroupedByLocation.GroupFileSetIntoLocations(_sources, _latestFiles); }
     }
 
-    public DependencyState(ILocationRepository locationRepository, IConfigurationRepository configurationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, ConfigurationPaths configurationPaths)
+    public DependencyState(ILocationRepository locationRepository, IConfigurationRepository configurationRepository, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository)
     {
       _locationRepository = locationRepository;
-      _configurationPaths = configurationPaths;
       _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _configurationRepository = configurationRepository;
     }
 
     public void Refresh()
     {
-      string path = _configurationPaths.FindConfigurationPath();
-      _configuration = _configurationRepository.FindConfiguration(path);
+      _configuration = _configurationRepository.FindDefaultConfiguration();
       _rules = _fileAndDirectoryRulesRepository.FindDefault();
       _sinks = _locationRepository.FindAllSinks(_configuration, _rules);
       _sources = _locationRepository.FindAllSources(_configuration, _rules);
