@@ -1,4 +1,5 @@
 using System;
+using DependencyStore.Domain.Services;
 using Machine.Container;
 
 using DependencyStore.Domain;
@@ -51,14 +52,9 @@ namespace DependencyStore.CommandLine
         }
         else if (unpack)
         {
-          foreach (Project project in container.Resolve.Object<IProjectRepository>().FindAllProjects(configuration))
-          {
-            Console.WriteLine(project);
-            foreach (ProjectManifest manifest in container.Resolve.Object<IProjectManifestRepository>().FindProjectManifests(project))
-            {
-              Console.WriteLine(manifest);
-            }
-          }
+          IRepositoryRepository repositoryRepository = container.Resolve.Object<IRepositoryRepository>();
+          Repository repository = repositoryRepository.FindDefaultRepository(configuration);
+          container.Resolve.Object<UnpackageProjectManifest>(configuration).Unpack(repository);
         }
         else
         {
