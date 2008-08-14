@@ -103,16 +103,9 @@ namespace DependencyStore.Domain
   }
   public class ArchivedProjectVersion
   {
-    private string _version;
     private string _packager;
     private DateTime _createdAt;
     private Purl _archiveFile;
-
-    public string Version
-    {
-      get { return _version; }
-      set { _version = value; }
-    }
 
     public string Packager
     {
@@ -142,15 +135,15 @@ namespace DependencyStore.Domain
     {
     }
 
-    protected ArchivedProjectVersion(DateTime createdAt, string version)
+    protected ArchivedProjectVersion(DateTime createdAt, string packager)
     {
       _createdAt = createdAt;
-      _version = version;
+      _packager = packager;
     }
 
     public static ArchivedProjectVersion Create()
     {
-      return new ArchivedProjectVersion(DateTime.Now, "unknown");
+      return new ArchivedProjectVersion(DateTime.Now, "Nobody");
     }
   }
 }
