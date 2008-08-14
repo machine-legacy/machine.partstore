@@ -13,11 +13,13 @@ namespace DependencyStore.Services.DataAccess.Impl
   public class ConfigurationRepository : IConfigurationRepository
   {
     private readonly IFileSystem _fileSystem;
+    private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly ConfigurationPaths _paths;
 
-    public ConfigurationRepository(IFileSystem fileSystem, ConfigurationPaths paths)
+    public ConfigurationRepository(IFileSystem fileSystem, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, ConfigurationPaths paths)
     {
       _fileSystem = fileSystem;
+      _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _paths = paths;
     }
 
@@ -30,6 +32,7 @@ namespace DependencyStore.Services.DataAccess.Impl
         {
           DependencyStoreConfiguration configuration = XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
           configuration.EnsureValid();
+          configuration.FileAndDirectoryRules = _fileAndDirectoryRulesRepository.FindDefault();
           return configuration;
         }
       }

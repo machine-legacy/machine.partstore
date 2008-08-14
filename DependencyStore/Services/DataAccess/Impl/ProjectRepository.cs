@@ -16,13 +16,13 @@ namespace DependencyStore.Services.DataAccess.Impl
     }
 
     #region IProjectRepository Members
-    public IList<Project> FindAllProjects(DependencyStoreConfiguration configuration, FileAndDirectoryRules rules)
+    public IList<Project> FindAllProjects(DependencyStoreConfiguration configuration)
     {
       List<Project> projects = new List<Project>();
       foreach (ProjectConfiguration projectConfiguration in configuration.ProjectConfigurations)
       {
         Purl path = new Purl(projectConfiguration.Build.Path);
-        FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, rules);
+        FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, configuration.FileAndDirectoryRules);
         if (fileSystemEntry != null)
         {
           SourceLocation location = new SourceLocation(path, fileSystemEntry);

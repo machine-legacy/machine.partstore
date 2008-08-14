@@ -14,16 +14,14 @@ namespace DependencyStore.Services.Impl
 {
   public class Controller : IController
   {
-    private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly IProjectRepository _projectRepository;
     private readonly IFileSystem _fileSystem;
     private readonly DependencyState _state;
 
-    public Controller(IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository, IProjectRepository projectRepository, IFileSystem fileSystem, DependencyState state)
+    public Controller(IProjectRepository projectRepository, IFileSystem fileSystem, DependencyState state)
     {
       _projectRepository = projectRepository;
       _state = state;
-      _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
       _fileSystem = fileSystem;
     }
 
@@ -57,8 +55,7 @@ namespace DependencyStore.Services.Impl
 
     private void BuildProjectArchives(DependencyStoreConfiguration configuration, Repository repository)
     {
-      FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
-      IList<Project> projects = _projectRepository.FindAllProjects(configuration, rules);
+      IList<Project> projects = _projectRepository.FindAllProjects(configuration);
       AddProjectsToRepository adder = new AddProjectsToRepository(configuration);
       adder.AddProjects(projects, repository);
     }

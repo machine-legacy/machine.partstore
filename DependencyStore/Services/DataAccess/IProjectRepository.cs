@@ -8,6 +8,6 @@ namespace DependencyStore.Services.DataAccess
 {
   public interface IProjectRepository
   {
-    IList<Project> FindAllProjects(DependencyStoreConfiguration configuration, FileAndDirectoryRules rules);
+    IList<Project> FindAllProjects(DependencyStoreConfiguration configuration);
   }
 }
