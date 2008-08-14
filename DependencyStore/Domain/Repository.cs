@@ -18,6 +18,22 @@ namespace DependencyStore.Domain
       get { return _projects.Count == 0; }
     }
 
+    public ArchivedProject FindOrCreateProject(Project project)
+    {
+      ArchivedProject archived = FindProject(project.Name);
+      if (archived == null)
+      {
+        archived = new ArchivedProject(project.Name);
+        AddProject(archived);
+      }
+      return archived;
+    }
+
+    public ArchivedProject FindProject(Project project)
+    {
+      return FindProject(project.Name);
+    }
+
     public ArchivedProject FindProject(string name)
     {
       foreach (ArchivedProject existing in _projects)
