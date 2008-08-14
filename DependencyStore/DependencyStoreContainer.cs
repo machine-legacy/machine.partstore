@@ -25,6 +25,7 @@ namespace DependencyStore
       Add<Controller>();
       Add<DependencyState>();
       Add<ConfigurationPaths>();
+      Add<RepositoryRepository>();
     }
   }
 }
