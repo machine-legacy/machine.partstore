@@ -64,7 +64,7 @@ namespace DependencyStore.Services.Impl
         using (Archive archive = project.MakeArchive())
         {
           ZipArchiveWriter writer = new ZipArchiveWriter(archive);
-          Purl path = configuration.PackageDirectory.Join(project.ArchiveName);
+          Purl path = configuration.RepositoryDirectory.Join(project.ArchiveName);
           writer.WriteZip(path);
         }
       }

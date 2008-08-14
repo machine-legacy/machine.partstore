@@ -11,7 +11,7 @@ namespace DependencyStore.Domain.Configuration
     private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
     private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
-    private string _packageDirectory;
+    private string _repositoryDirectory;
 
     public List<BuildDirectoryConfiguration> BuildDirectories
     {
@@ -29,16 +29,16 @@ namespace DependencyStore.Domain.Configuration
     }
 
     [XmlAttribute]
-    public string Packages
+    public string Repository
     {
-      get { return _packageDirectory; }
-      set { _packageDirectory = value; }
+      get { return _repositoryDirectory; }
+      set { _repositoryDirectory = value; }
     }
 
     [XmlIgnore]
-    public Purl PackageDirectory
+    public Purl RepositoryDirectory
     {
-      get { return new Purl(_packageDirectory); }
+      get { return new Purl(_repositoryDirectory); }
     }
 
     [XmlIgnore]
@@ -50,9 +50,9 @@ namespace DependencyStore.Domain.Configuration
 
     public void EnsureValid()
     {
-      if (String.IsNullOrEmpty(_packageDirectory))
+      if (String.IsNullOrEmpty(_repositoryDirectory))
       {
-        throw new ConfigurationException("Invalid Package Directory!");
+        throw new ConfigurationException("Invalid Repository Directory!");
       }
       foreach (BuildDirectoryConfiguration configuration in _buildDirectories)
       {
