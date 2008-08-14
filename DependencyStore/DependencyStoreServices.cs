@@ -21,6 +21,7 @@ namespace DependencyStore
       register.Type<FileSystemEntryRepository>();
       register.Type<FileAndDirectoryRulesRepository>();
       register.Type<ConfigurationRepository>();
+      register.Type<ProjectManifestRepository>();
       register.Type<LocationRepository>();
       register.Type<ProjectRepository>();
       register.Type<Controller>();

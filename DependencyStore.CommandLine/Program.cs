@@ -1,3 +1,4 @@
+using System;
 using Machine.Container;
 
 using DependencyStore.Domain;
@@ -23,11 +24,16 @@ namespace DependencyStore.CommandLine
         IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
         bool dryRun = false;
         bool archiving = false;
+        bool unpack = false;
         foreach (string arg in args)
         {
           if (arg == "--archive")
           {
             archiving = true;
+          }
+          if (arg == "--unpack")
+          {
+            unpack = true;
           }
           if (arg == "--dry")
           {
@@ -42,6 +48,17 @@ namespace DependencyStore.CommandLine
           Repository repository = repositoryRepository.FindDefaultRepository(configuration);
           controller.ArchiveProjects(configuration, repository);
           repositoryRepository.SaveRepository(repository, configuration);
+        }
+        else if (unpack)
+        {
+          foreach (Project project in container.Resolve.Object<IProjectRepository>().FindAllProjects(configuration))
+          {
+            Console.WriteLine(project);
+            foreach (ProjectManifest manifest in container.Resolve.Object<IProjectManifestRepository>().FindProjectManifests(project))
+            {
+              Console.WriteLine(manifest);
+            }
+          }
         }
         else
         {

@@ -8,27 +8,32 @@ namespace DependencyStore.Domain
   public class Project
   {
     private readonly string _name;
-    private readonly SourceLocation _location;
+    private readonly SourceLocation _buildDirectory;
 
     public string Name
     {
       get { return _name; }
     }
 
-    public SourceLocation Location
+    public SourceLocation BuildDirectory
     {
-      get { return _location; }
+      get { return _buildDirectory; }
     }
 
-    public Project(string name, SourceLocation location)
+    public Purl LibraryDirectory
+    {
+      get { return _buildDirectory.Path.Join(@"..\Libraries"); }
+    }
+
+    public Project(string name, SourceLocation buildDirectory)
     {
       _name = name;
-      _location = location;
+      _buildDirectory = buildDirectory;
     }
 
     public Archive MakeArchive()
     {
-      FileSet fileSet = this.Location.ToFileSet();
+      FileSet fileSet = this.BuildDirectory.ToFileSet();
       Purl fileRootDirectory = fileSet.FindCommonDirectory();
       Archive archive = new Archive();
       foreach (FileSystemFile file in fileSet.Files)
@@ -36,6 +41,11 @@ namespace DependencyStore.Domain
         archive.Add(file.Path.ChangeRoot(fileRootDirectory), file);
       }
       return archive;
+    }
+
+    public override string ToString()
+    {
+      return "Project<" + this.Name + ">";
     }
   }
 }
