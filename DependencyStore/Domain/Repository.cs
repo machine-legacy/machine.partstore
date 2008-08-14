@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace DependencyStore.Domain
 {
@@ -88,6 +89,7 @@ namespace DependencyStore.Domain
   {
     private string _version;
     private DateTime _createdAt;
+    private Purl _archiveFile;
 
     public string Version
     {
@@ -101,8 +103,16 @@ namespace DependencyStore.Domain
       set { _createdAt = value; }
     }
 
+    [XmlIgnore]
+    public Purl ArchiveFile
+    {
+      get { return _archiveFile; }
+      set { _archiveFile = value; }
+    }
+
     public ArchivedProjectVersion()
     {
+      _createdAt = DateTime.Now;
     }
 
     public ArchivedProjectVersion(DateTime createdAt, string version)
