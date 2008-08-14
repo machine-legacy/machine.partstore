@@ -8,5 +8,6 @@ namespace DependencyStore.Services.DataAccess
   public interface IConfigurationRepository
   {
     DependencyStoreConfiguration FindConfiguration(string configurationFile);
+    DependencyStoreConfiguration FindDefaultConfiguration();
   }
 }

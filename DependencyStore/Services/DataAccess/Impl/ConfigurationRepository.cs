@@ -13,10 +13,12 @@ namespace DependencyStore.Services.DataAccess.Impl
   public class ConfigurationRepository : IConfigurationRepository
   {
     private readonly IFileSystem _fileSystem;
+    private readonly ConfigurationPaths _paths;
 
-    public ConfigurationRepository(IFileSystem fileSystem)
+    public ConfigurationRepository(IFileSystem fileSystem, ConfigurationPaths paths)
     {
       _fileSystem = fileSystem;
+      _paths = paths;
     }
 
     #region IConfigurationRepository Members
@@ -39,6 +41,11 @@ namespace DependencyStore.Services.DataAccess.Impl
       {
         throw new InvalidConfigurationException("Error reading configuration", e);
       }
+    }
+
+    public DependencyStoreConfiguration FindDefaultConfiguration()
+    {
+      return FindConfiguration(_paths.FindConfigurationPath());
     }
     #endregion
   }
