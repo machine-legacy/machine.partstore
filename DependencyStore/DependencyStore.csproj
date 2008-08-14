@@ -94,8 +94,10 @@
     <Compile Include="Domain\SynchronizationOperation.cs" />
     <Compile Include="Domain\SynchronizationPlan.cs" />
     <Compile Include="Services\DataAccess\Impl\ProjectRepository.cs" />
+    <Compile Include="Services\DataAccess\Impl\RepositoryRepository.cs" />
     <Compile Include="Services\DataAccess\IProjectRepository.cs" />
     <Compile Include="Domain\Configuration\ConfigurationPaths.cs" />
+    <Compile Include="Services\DataAccess\IRepositoryRepository.cs" />
     <Compile Include="Services\Impl\DependencyState.cs" />
     <Compile Include="Utility\PathHelper.cs" />
     <Compile Include="Utility\StreamHelper.cs" />
