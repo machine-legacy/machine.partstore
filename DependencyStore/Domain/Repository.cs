@@ -55,6 +55,16 @@ namespace DependencyStore.Domain
       }
       _projects.Add(project);
     }
+
+    public ArchivedProjectVersion FindProjectVersion(ProjectManifest manifest)
+    {
+      ArchivedProject project = FindProject(manifest.Name);
+      if (project == null)
+      {
+        return null;
+      }
+      return project.FindVersionByCreatedAt(manifest.VersionCreatedAt);
+    }
   }
   public class ArchivedProject
   {
@@ -81,7 +91,7 @@ namespace DependencyStore.Domain
       _name = name;
     }
 
-    protected ArchivedProjectVersion FindVersion(DateTime createdAt)
+    public ArchivedProjectVersion FindVersionByCreatedAt(DateTime createdAt)
     {
       foreach (ArchivedProjectVersion existing in _versions)
       {
@@ -95,7 +105,7 @@ namespace DependencyStore.Domain
 
     public void AddVersion(ArchivedProjectVersion version)
     {
-      if (FindVersion(version.CreatedAt) != null)
+      if (FindVersionByCreatedAt(version.CreatedAt) != null)
       {
         throw new InvalidOperationException("Duplicate project versions: " + this.Name + "-" + version.CreatedAt);
       }
@@ -152,6 +162,11 @@ namespace DependencyStore.Domain
     private static string DateTimeToUniqueString(DateTime when)
     {
       return when.ToString("yyyyMMdd-HHmmssf");
+    }
+
+    public override string ToString()
+    {
+      return "ArchivedVersion<" + this.ArchiveFileName + ">";
     }
   }
 }
