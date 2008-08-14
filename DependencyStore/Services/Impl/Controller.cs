@@ -62,17 +62,14 @@ namespace DependencyStore.Services.Impl
       foreach (Project project in projects)
       {
         ArchivedProject archivedProject = repository.FindOrCreateProject(project);
-        ArchivedProjectVersion version = ArchivedProjectVersion.Create();
-        Console.WriteLine(version.CreatedAtVersion);
-        archivedProject.AddVersion(version);
-        /*
+        ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject);
         using (Archive archive = project.MakeArchive())
         {
           ZipArchiveWriter writer = new ZipArchiveWriter(archive);
-          Purl path = configuration.RepositoryDirectory.Join(project.ArchiveName);
+          Purl path = configuration.RepositoryDirectory.Join(version.ArchiveFileName);
           writer.WriteZip(path);
+          archivedProject.AddVersion(version);
         }
-        */
       }
     }
 

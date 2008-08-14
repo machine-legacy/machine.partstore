@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using DependencyStore.Domain.Archiving;
 
 namespace DependencyStore.Domain
@@ -12,11 +13,6 @@ namespace DependencyStore.Domain
     public string Name
     {
       get { return _name; }
-    }
-
-    public string ArchiveName
-    {
-      get { return _name + ZipArchiveWriter.ZipExtension; }
     }
 
     public SourceLocation Location

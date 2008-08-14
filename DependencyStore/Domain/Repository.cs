@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DependencyStore.Domain.Archiving;
 
 namespace DependencyStore.Domain
 {
@@ -105,17 +106,12 @@ namespace DependencyStore.Domain
   {
     private string _packager;
     private DateTime _createdAt;
-    private Purl _archiveFile;
+    private string _archiveFileName;
 
     public string Packager
     {
       get { return _packager; }
       set { _packager = value; }
-    }
-
-    public string CreatedAtVersion
-    {
-      get { return _createdAt.ToString("yyyyMMdd-HHmmssf"); }
     }
 
     public DateTime CreatedAt
@@ -124,26 +120,38 @@ namespace DependencyStore.Domain
       set { _createdAt = value; }
     }
 
-    [XmlIgnore]
-    public Purl ArchiveFile
+    public string ArchiveFileName
     {
-      get { return _archiveFile; }
-      set { _archiveFile = value; }
+      get { return _archiveFileName; }
+      set { _archiveFileName = value; }
+    }
+
+    public string CreatedAtVersion
+    {
+      get { return DateTimeToUniqueString(_createdAt); }
     }
 
     protected ArchivedProjectVersion()
     {
     }
 
-    protected ArchivedProjectVersion(DateTime createdAt, string packager)
+    protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, string packager)
     {
       _createdAt = createdAt;
+      _archiveFileName = archiveFileName;
       _packager = packager;
     }
 
-    public static ArchivedProjectVersion Create()
+    public static ArchivedProjectVersion Create(ArchivedProject project)
     {
-      return new ArchivedProjectVersion(DateTime.Now, "Nobody");
+      DateTime createdAt = DateTime.Now;
+      string archiveFileName = project.Name + "-" + DateTimeToUniqueString(createdAt) + ZipArchiveWriter.ZipExtension;
+      return new ArchivedProjectVersion(createdAt, archiveFileName, "Nobody");
+    }
+
+    private static string DateTimeToUniqueString(DateTime when)
+    {
+      return when.ToString("yyyyMMdd-HHmmssf");
     }
   }
 }
