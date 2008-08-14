@@ -1,5 +1,6 @@
 using Machine.Container;
 
+using DependencyStore.Domain;
 using DependencyStore.Services;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
@@ -33,11 +34,15 @@ namespace DependencyStore.CommandLine
           }
         }
         IController controller = container.Resolve.Object<IController>();
-        ConfigurationPaths configuration = container.Resolve.Object<ConfigurationPaths>();
-        string path = configuration.FindConfigurationPath();
+        ConfigurationPaths configurationPaths = container.Resolve.Object<ConfigurationPaths>();
+        string path = configurationPaths.FindConfigurationPath();
         if (archiving)
         {
-          controller.ArchiveProjects(configurationRepository.FindConfiguration(path));
+          DependencyStoreConfiguration configuration = configurationRepository.FindConfiguration(path);
+          IRepositoryRepository repositoryRepository = container.Resolve.Object<IRepositoryRepository>();
+          Repository repository = repositoryRepository.FindDefaultRepository(configuration);
+          controller.ArchiveProjects(configuration, repository);
+          repositoryRepository.SaveRepository(repository, configuration);
         }
         else
         {

@@ -47,14 +47,14 @@ namespace DependencyStore.Services.Impl
       }
     }
 
-    public void ArchiveProjects(DependencyStoreConfiguration configuration)
+    public void ArchiveProjects(DependencyStoreConfiguration configuration, Repository repository)
     {
       DomainEvents.Progress += Progress;
-      BuildProjectArchives(configuration);
+      BuildProjectArchives(configuration, repository);
     }
     #endregion
 
-    private void BuildProjectArchives(DependencyStoreConfiguration configuration)
+    private void BuildProjectArchives(DependencyStoreConfiguration configuration, Repository repository)
     {
       FileAndDirectoryRules rules = _fileAndDirectoryRulesRepository.FindDefault();
       IList<Project> projects = _projectRepository.FindAllProjects(configuration, rules);
