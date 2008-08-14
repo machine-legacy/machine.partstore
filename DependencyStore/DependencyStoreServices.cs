@@ -5,6 +5,7 @@ using Machine.Container;
 using Machine.Container.Plugins;
 using Machine.Core.Services.Impl;
 
+using DependencyStore.Domain.Services;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess.Impl;
 using DependencyStore.Services.Impl;
@@ -28,6 +29,9 @@ namespace DependencyStore
       register.Type<DependencyState>();
       register.Type<ConfigurationPaths>();
       register.Type<RepositoryRepository>();
+      register.Type<AddProjectsToRepository>();
+      register.Type<UnpackageProjectManifest>();
+      register.Type<SetManifestToLatestVersion>();
     }
     #endregion
   }

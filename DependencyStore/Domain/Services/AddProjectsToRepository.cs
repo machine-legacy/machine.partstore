@@ -6,6 +6,7 @@ using DependencyStore.Domain.Configuration;
 
 namespace DependencyStore.Domain.Services
 {
+  [Machine.Container.Model.Transient]
   public class AddProjectsToRepository
   {
     private readonly DependencyStoreConfiguration _configuration;
