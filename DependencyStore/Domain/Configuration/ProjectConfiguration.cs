@@ -9,6 +9,7 @@ namespace DependencyStore.Domain.Configuration
   {
     private string _name;
     private BuildDirectoryConfiguration _buildConfiguration;
+    private LibraryDirectoryConfiguration _libraryConfiguration;
 
     [XmlAttribute]
     public string Name
@@ -21,6 +22,12 @@ namespace DependencyStore.Domain.Configuration
     {
       get { return _buildConfiguration; }
       set { _buildConfiguration = value; }
+    }
+
+    public LibraryDirectoryConfiguration Library
+    {
+      get { return _libraryConfiguration; }
+      set { _libraryConfiguration = value; }
     }
 
     public void EnsureValid()

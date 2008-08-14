@@ -9,6 +9,7 @@ namespace DependencyStore.Domain
   {
     private readonly string _name;
     private readonly SourceLocation _buildDirectory;
+    private readonly Purl _libraryDirectory;
 
     public string Name
     {
@@ -22,13 +23,14 @@ namespace DependencyStore.Domain
 
     public Purl LibraryDirectory
     {
-      get { return _buildDirectory.Path.Join(@"..\Libraries"); }
+      get { return _libraryDirectory; }
     }
 
-    public Project(string name, SourceLocation buildDirectory)
+    public Project(string name, SourceLocation buildDirectory, Purl libraryDirectory)
     {
       _name = name;
       _buildDirectory = buildDirectory;
+      _libraryDirectory = libraryDirectory;
     }
 
     public Archive MakeArchive()

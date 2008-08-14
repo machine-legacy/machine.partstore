@@ -26,7 +26,7 @@ namespace DependencyStore.Services.DataAccess.Impl
         if (fileSystemEntry != null)
         {
           SourceLocation location = new SourceLocation(path, fileSystemEntry);
-          Project project = new Project(projectConfiguration.Name, location);
+          Project project = new Project(projectConfiguration.Name, location, projectConfiguration.Library.AsPurl);
           projects.Add(project);
         }
         else
