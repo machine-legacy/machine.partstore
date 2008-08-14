@@ -12,7 +12,6 @@ namespace DependencyStore.Services.Impl
     private readonly ILocationRepository _locationRepository;
     private readonly IConfigurationRepository _configurationRepository;
     private DependencyStoreConfiguration _configuration;
-    private FileAndDirectoryRules _rules;
     private IList<SourceLocation> _sources;
     private IList<SinkLocation> _sinks;
     private LatestFileSet _latestFiles;
