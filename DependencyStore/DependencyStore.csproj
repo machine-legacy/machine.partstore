@@ -79,6 +79,9 @@
     <Compile Include="Domain\FileSetComparer.cs" />
     <Compile Include="Domain\FileSetGroupedByLocation.cs" />
     <Compile Include="Domain\Project.cs" />
+    <Compile Include="Domain\Services\AddProjectsToRepository.cs" />
+    <Compile Include="Domain\Services\UnpackageProjectManifest.cs" />
+    <Compile Include="Domain\Services\SetManifestToLatestVersion.cs" />
     <Compile Include="Domain\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\DomainEvents.cs" />
