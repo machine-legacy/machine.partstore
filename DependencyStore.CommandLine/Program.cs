@@ -1,3 +1,5 @@
+using Machine.Container;
+
 using DependencyStore.Services;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
@@ -14,6 +16,7 @@ namespace DependencyStore.CommandLine
         container.PrepareForServices();
         container.Start();
         container.Add<ConfigurationPaths>();
+        IoC.Container = container;
 
         IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
         bool dryRun = false;
