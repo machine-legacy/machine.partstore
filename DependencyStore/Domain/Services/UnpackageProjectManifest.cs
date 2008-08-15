@@ -21,7 +21,7 @@ namespace DependencyStore.Domain.Services
       _configuration = configuration;
     }
 
-    public void Unpack(Repository repository)
+    public void Unpackage(Repository repository)
     {
       foreach (Project project in _projectRepository.FindAllProjects(_configuration))
       {

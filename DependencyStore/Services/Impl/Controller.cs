@@ -58,7 +58,7 @@ namespace DependencyStore.Services.Impl
     public void Unpack(DependencyStoreConfiguration configuration, Repository repository)
     {
       DomainEvents.Progress += Progress;
-      _container.Resolve.Object<UnpackageProjectManifest>(configuration).Unpack(repository);
+      _container.Resolve.Object<UnpackageProjectManifest>(configuration).Unpackage(repository);
     }
     #endregion
 
