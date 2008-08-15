@@ -40,7 +40,9 @@ namespace DependencyStore.CommandLine
         commandFactory.AddCommand<AddNewVersionCommand>("publish");
         commandFactory.AddCommand<AddNewVersionCommand>("archive");
         commandFactory.AddCommand<HelpCommand>("help");
-        commandFactory.CreateCommand(commandName).Run();
+        ICommand command = commandFactory.CreateCommand(commandName);
+        IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
+        command.Run(configurationRepository.FindDefaultConfiguration());
         /*
         IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
         bool dryRun = false;
