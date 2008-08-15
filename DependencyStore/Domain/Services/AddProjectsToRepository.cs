@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Configuration;
+using DependencyStore.Domain.Repositories;
 
 namespace DependencyStore.Domain.Services
 {

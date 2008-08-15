@@ -1,9 +1,9 @@
 using System;
-using DependencyStore.Domain.Services;
+
 using Machine.Container;
 
-using DependencyStore.Domain;
 using DependencyStore.Services;
+using DependencyStore.Domain.Repositories;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
 

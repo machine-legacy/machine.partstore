@@ -1,7 +1,7 @@
 using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Configuration;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Repositories
 {
   public class UnpackagingDestination
   {

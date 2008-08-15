@@ -4,6 +4,7 @@ using System.IO;
 
 using DependencyStore.Domain;
 using DependencyStore.Domain.Configuration;
+using DependencyStore.Domain.Repositories;
 
 using Machine.Core.Services;
 using Machine.Core.Utility;

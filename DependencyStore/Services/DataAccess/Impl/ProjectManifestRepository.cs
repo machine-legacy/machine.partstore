@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 
-using DependencyStore.Domain;
-
 using Machine.Core.Services;
 using Machine.Core.Utility;
+
+using DependencyStore.Domain;
+using DependencyStore.Domain.Repositories;
 
 namespace DependencyStore.Services.DataAccess.Impl
 {
