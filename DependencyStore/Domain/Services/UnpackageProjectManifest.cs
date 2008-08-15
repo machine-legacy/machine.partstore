@@ -34,7 +34,7 @@ namespace DependencyStore.Domain.Services
           }
           Archive archive = ArchiveFactory.ReadZip(_configuration.RepositoryDirectory.Join(version.ArchiveFileName));
           ZipUnpackager unpackager = new ZipUnpackager(archive);
-          unpackager.UnpackageZip(project.LibraryDirectory.Join(manifest.Name));
+          unpackager.UnpackageZip(project.LibraryDirectory.Join(manifest.ProjectName));
         }
       }
     }

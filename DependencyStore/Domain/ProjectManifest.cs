@@ -5,13 +5,13 @@ namespace DependencyStore.Domain
 {
   public class ProjectManifest
   {
-    private string _name;
+    private string _projectName;
     private DateTime _versionCreatedAt;
 
-    public string Name
+    public string ProjectName
     {
-      get { return _name; }
-      set { _name = value; }
+      get { return _projectName; }
+      set { _projectName = value; }
     }
 
     public DateTime VersionCreatedAt
@@ -26,13 +26,13 @@ namespace DependencyStore.Domain
 
     public ProjectManifest(string name, DateTime versionCreatedAt)
     {
-      _name = name;
+      _projectName = name;
       _versionCreatedAt = versionCreatedAt;
     }
 
     public override string ToString()
     {
-      return "ProjectManifest<" + this.Name + ", " + this.VersionCreatedAt + ">";
+      return "ProjectManifest<" + this.ProjectName + ", " + this.VersionCreatedAt + ">";
     }
   }
 }

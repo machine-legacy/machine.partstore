@@ -58,7 +58,7 @@ namespace DependencyStore.Domain
 
     public ArchivedProjectVersion FindProjectVersion(ProjectManifest manifest)
     {
-      ArchivedProject project = FindProject(manifest.Name);
+      ArchivedProject project = FindProject(manifest.ProjectName);
       if (project == null)
       {
         return null;
