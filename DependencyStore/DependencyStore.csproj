@@ -79,6 +79,7 @@
     <Compile Include="Domain\Repositories\ProjectManifest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\Repositories\ProjectReference.cs" />
     <Compile Include="Domain\Repositories\Repository.cs" />
     <Compile Include="Domain\ProjectDependencies.cs" />
     <Compile Include="Domain\FileAsset.cs" />
@@ -105,9 +106,11 @@
     <Compile Include="Domain\SynchronizationPlan.cs" />
     <Compile Include="Domain\Repositories\UnpackagingDestination.cs" />
     <Compile Include="Services\DataAccess\Impl\ProjectManifestRepository.cs" />
+    <Compile Include="Services\DataAccess\Impl\ProjectReferenceRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\ProjectRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\RepositoryRepository.cs" />
     <Compile Include="Services\DataAccess\IProjectManifestRepository.cs" />
+    <Compile Include="Services\DataAccess\IProjectReferenceRepository.cs" />
     <Compile Include="Services\DataAccess\IProjectRepository.cs" />
     <Compile Include="Domain\Configuration\ConfigurationPaths.cs" />
     <Compile Include="Services\DataAccess\IRepositoryRepository.cs" />

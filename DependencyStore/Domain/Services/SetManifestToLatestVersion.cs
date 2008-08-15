@@ -37,8 +37,8 @@ namespace DependencyStore.Domain.Services
           {
             continue;
           }
-          Purl path = project.LibraryDirectory.Join(manifest.FileName);
           ProjectManifest latestManifest = archivedProject.MakeManifest(version);
+          Purl path = project.LibraryDirectory.Join(latestManifest.FileName);
           _projectManifestRepository.SaveProjectManifest(latestManifest, path);
         }
       }
