@@ -5,6 +5,7 @@ namespace DependencyStore.Domain.Repositories
 {
   public class ProjectManifest
   {
+    public static readonly string Extension = "projref";
     private string _projectName;
     private DateTime _versionCreatedAt;
 
@@ -22,7 +23,7 @@ namespace DependencyStore.Domain.Repositories
 
     public string FileName
     {
-      get { return this.ProjectName + ".projref"; }
+      get { return this.ProjectName + "." + Extension; }
     }
 
     public ProjectManifest()

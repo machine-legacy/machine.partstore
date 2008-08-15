@@ -23,7 +23,7 @@ namespace DependencyStore.Services.DataAccess.Impl
     public IList<ProjectManifest> FindProjectManifests(Project project)
     {
       List<ProjectManifest> manifests = new List<ProjectManifest>();
-      foreach (string fileName in _fileSystem.GetFiles(project.LibraryDirectory.AsString, "*.projref"))
+      foreach (string fileName in _fileSystem.GetFiles(project.LibraryDirectory.AsString, "*." + ProjectManifest.Extension))
       {
         manifests.Add(ReadProjectManifest(new Purl(fileName)));
       }
