@@ -11,7 +11,7 @@ namespace DependencyStore.Domain.Repositories
 
     private Purl CurrentVersionManifestPath
     {
-      get { return _path.Join("CurrentVersion.projref"); }
+      get { return _path.Join(_desiredVersionManifest.FileName); }
     }
 
     public UnpackagingDestination(DependencyStoreConfiguration configuration, Project project, ProjectManifest desiredVersionManifest)

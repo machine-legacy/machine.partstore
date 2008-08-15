@@ -35,7 +35,7 @@ namespace DependencyStore.Services.DataAccess.Impl
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
         ProjectManifest manifest = XmlSerializationHelper.DeserializeString<ProjectManifest>(stream.ReadToEnd());
-        if (manifest.IsAcceptableFileName(path))
+        if (!manifest.IsAcceptableFileName(path))
         {
           throw new InvalidOperationException("Project reference manifest and project name should match: " + path);
         }

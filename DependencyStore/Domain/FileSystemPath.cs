@@ -24,6 +24,11 @@ namespace DependencyStore.Domain
       get { return Path.GetFileName(this.AsString); }
     }
 
+    public string NameWithoutExtension
+    {
+      get { return Path.GetFileNameWithoutExtension(this.AsString); }
+    }
+
     public string Directory
     {
       get { return Path.GetDirectoryName(this.AsString); }

@@ -6,6 +6,7 @@ namespace DependencyStore.Domain.Repositories
   public class ProjectManifest
   {
     public static readonly string Extension = "projref";
+
     private string _projectName;
     private DateTime _versionCreatedAt;
 
@@ -48,7 +49,7 @@ namespace DependencyStore.Domain.Repositories
 
     public bool IsAcceptableFileName(Purl path)
     {
-      return this.ProjectName.Equals(path.Name, StringComparison.InvariantCultureIgnoreCase);
+      return this.ProjectName.Equals(path.NameWithoutExtension, StringComparison.InvariantCultureIgnoreCase);
     }
 
     public override string ToString()
