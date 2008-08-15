@@ -8,7 +8,7 @@ using ICSharpCode.SharpZipLib.Zip;
 
 namespace DependencyStore.Domain.Archiving
 {
-  public class ZipArchiveWriter
+  public class ZipPackager
   {
     public const string ZipExtension = ".zip";
 
@@ -17,7 +17,7 @@ namespace DependencyStore.Domain.Archiving
     private long _otherBytesSoFar;
     private ManifestEntry _currentEntry;
 
-    public ZipArchiveWriter(Archive archive)
+    public ZipPackager(Archive archive)
     {
       _archive = archive;
     }

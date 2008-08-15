@@ -67,7 +67,7 @@
     <Compile Include="Domain\Archiving\ArchiveFactory.cs" />
     <Compile Include="Domain\Archiving\ManifestEntry.cs" />
     <Compile Include="Domain\Archiving\ZipUnpackager.cs" />
-    <Compile Include="Domain\Archiving\ZipWriter.cs" />
+    <Compile Include="Domain\Archiving\ZipPackager.cs" />
     <Compile Include="Domain\Configuration\BuildDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ConfigurationException.cs" />
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />

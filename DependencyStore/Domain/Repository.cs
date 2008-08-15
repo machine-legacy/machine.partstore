@@ -155,7 +155,7 @@ namespace DependencyStore.Domain
     public static ArchivedProjectVersion Create(ArchivedProject project)
     {
       DateTime createdAt = DateTime.Now;
-      string archiveFileName = project.Name + "-" + DateTimeToUniqueString(createdAt) + ZipArchiveWriter.ZipExtension;
+      string archiveFileName = project.Name + "-" + DateTimeToUniqueString(createdAt) + ZipPackager.ZipExtension;
       return new ArchivedProjectVersion(createdAt, archiveFileName, "Nobody");
     }
 

@@ -24,7 +24,7 @@ namespace DependencyStore.Domain.Services
         ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject);
         using (Archive archive = project.MakeArchive())
         {
-          ZipArchiveWriter writer = new ZipArchiveWriter(archive);
+          ZipPackager writer = new ZipPackager(archive);
           Purl path = _configuration.RepositoryDirectory.Join(version.ArchiveFileName);
           writer.WriteZip(path);
           archivedProject.AddVersion(version);
