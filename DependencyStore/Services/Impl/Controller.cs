@@ -48,7 +48,7 @@ namespace DependencyStore.Services.Impl
       }
     }
 
-    public void ArchiveProjects(DependencyStoreConfiguration configuration, Repository repository)
+    public void AddLatestToRepository(DependencyStoreConfiguration configuration, Repository repository)
     {
       DomainEvents.Progress += Progress;
       IList<Project> projects = _projectRepository.FindAllProjects(configuration);

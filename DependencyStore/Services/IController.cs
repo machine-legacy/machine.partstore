@@ -10,7 +10,7 @@ namespace DependencyStore.Services
   {
     void Show(DependencyStoreConfiguration configuration);
     void Update(DependencyStoreConfiguration configuration);
-    void ArchiveProjects(DependencyStoreConfiguration configuration, Repository repository);
+    void AddLatestToRepository(DependencyStoreConfiguration configuration, Repository repository);
     void Unpack(DependencyStoreConfiguration configuration, Repository repository);
   }
 }

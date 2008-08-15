@@ -47,7 +47,7 @@ namespace DependencyStore.CommandLine
         {
           IRepositoryRepository repositoryRepository = container.Resolve.Object<IRepositoryRepository>();
           Repository repository = repositoryRepository.FindDefaultRepository(configuration);
-          controller.ArchiveProjects(configuration, repository);
+          controller.AddLatestToRepository(configuration, repository);
           repositoryRepository.SaveRepository(repository, configuration);
         }
         else if (unpack)
