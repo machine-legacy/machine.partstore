@@ -33,7 +33,12 @@ namespace DependencyStore.Services.DataAccess.Impl
     {
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
-        return XmlSerializationHelper.DeserializeString<ProjectManifest>(stream.ReadToEnd());
+        ProjectManifest manifest = XmlSerializationHelper.DeserializeString<ProjectManifest>(stream.ReadToEnd());
+        if (manifest.IsAcceptableFileName(path))
+        {
+          throw new InvalidOperationException("Project reference manifest and project name should match: " + path);
+        }
+        return manifest;
       }
     }
 

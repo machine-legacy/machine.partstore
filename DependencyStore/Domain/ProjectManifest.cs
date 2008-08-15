@@ -39,5 +39,10 @@ namespace DependencyStore.Domain
     {
       return "ProjectManifest<" + this.ProjectName + ", " + this.VersionCreatedAt + ">";
     }
+
+    public bool IsAcceptableFileName(Purl path)
+    {
+      return this.ProjectName.Equals(path.Name, StringComparison.InvariantCultureIgnoreCase);
+    }
   }
 }
