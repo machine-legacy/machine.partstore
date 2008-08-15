@@ -131,7 +131,7 @@
     <Compile Include="Services\DataAccess\Impl\FileSystemEntryRepository.cs" />
     <Compile Include="Services\DataAccess\IFileSystemEntryRepository.cs" />
     <Compile Include="Services\IController.cs" />
-    <Compile Include="Tasks\DsRefresh.cs" />
+    <Compile Include="Tasks\DsShow.cs" />
     <Compile Include="Tasks\DsTask.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,6 +9,7 @@ namespace DependencyStore.Tasks
   public abstract class DsTask : Task
   {
     private string _projectName;
+    private bool _dryRun;
 
     [Required]
     public string ProjectName
@@ -16,5 +17,13 @@ namespace DependencyStore.Tasks
       get { return _projectName; }
       set { _projectName = value; }
     }
+
+    [Required]
+    public bool DryRun
+    {
+      get { return _dryRun; }
+      set { _dryRun = value; }
+    }
+
   }
 }
