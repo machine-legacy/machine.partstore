@@ -10,37 +10,20 @@ namespace DependencyStore.Domain.Services
   [Machine.Container.Model.Transient]
   public class SetManifestToLatestVersion
   {
-    private readonly IProjectRepository _projectRepository;
-    private readonly IProjectManifestRepository _projectManifestRepository;
+    private readonly IProjectReferenceRepository _projectReferenceRepository;
     private readonly DependencyStoreConfiguration _configuration;
 
-    public SetManifestToLatestVersion(IProjectRepository projectRepository, IProjectManifestRepository projectManifestRepository, DependencyStoreConfiguration configuration)
+    public SetManifestToLatestVersion(IProjectReferenceRepository projectReferenceRepository, DependencyStoreConfiguration configuration)
     {
-      _projectRepository = projectRepository;
-      _projectManifestRepository = projectManifestRepository;
+      _projectReferenceRepository = projectReferenceRepository;
       _configuration = configuration;
     }
 
     public void SetAllProjects(Repository repository)
     {
-      foreach (Project project in _projectRepository.FindAllProjects(_configuration))
+      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences(_configuration))
       {
-        foreach (ProjectManifest manifest in _projectManifestRepository.FindProjectManifests(project))
-        {
-          ArchivedProject archivedProject = repository.FindProject(manifest);
-          if (archivedProject == null)
-          {
-            continue;
-          }
-          ArchivedProjectVersion version = archivedProject.LatestVersion;
-          if (version == null)
-          {
-            continue;
-          }
-          ProjectManifest latestManifest = archivedProject.MakeManifest(version);
-          Purl path = project.LibraryDirectory.Join(latestManifest.FileName);
-          _projectManifestRepository.SaveProjectManifest(latestManifest, path);
-        }
+        reference.MakeLatestVersion();
       }
     }
   }

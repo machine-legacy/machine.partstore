@@ -10,34 +10,20 @@ namespace DependencyStore.Domain.Services
   [Machine.Container.Model.Transient]
   public class UnpackageProjectManifest
   {
-    private readonly IProjectRepository _projectRepository;
-    private readonly IProjectManifestRepository _projectManifestRepository;
+    private readonly IProjectReferenceRepository _projectReferenceRepository;
     private readonly DependencyStoreConfiguration _configuration;
 
-    public UnpackageProjectManifest(IProjectRepository projectRepository, IProjectManifestRepository projectManifestRepository, DependencyStoreConfiguration configuration)
+    public UnpackageProjectManifest(IProjectReferenceRepository projectReferenceRepository, DependencyStoreConfiguration configuration)
     {
-      _projectRepository = projectRepository;
-      _projectManifestRepository = projectManifestRepository;
+      _projectReferenceRepository = projectReferenceRepository;
       _configuration = configuration;
     }
 
     public void Unpackage(Repository repository)
     {
-      foreach (Project project in _projectRepository.FindAllProjects(_configuration))
+      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences(_configuration))
       {
-        foreach (ProjectManifest manifest in _projectManifestRepository.FindProjectManifests(project))
-        {
-          ArchivedProjectVersion version = repository.FindProjectVersion(manifest);
-          if (version == null)
-          {
-            continue;
-          }
-          UnpackagingDestination destination = new UnpackagingDestination(_configuration, project, manifest);
-          if (destination.HasVersionOlderThan(version))
-          {
-            destination.UpdateInstalledVersion(version);
-          }
-        }
+        reference.InstallPackageIfNecessary();
       }
     }
   }
