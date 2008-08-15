@@ -39,7 +39,7 @@ namespace DependencyStore.Domain
     {
       foreach (ArchivedProject existing in _projects)
       {
-        if (existing.Name.Equals(name))
+        if (existing.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
         {
           return existing;
         }
