@@ -73,6 +73,7 @@
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\PackageDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
+    <Compile Include="Domain\Infrastructure.cs" />
     <Compile Include="Domain\ProjectManifest.cs">
       <SubType>Code</SubType>
     </Compile>
