@@ -32,9 +32,11 @@ namespace DependencyStore.Domain.Services
           {
             continue;
           }
-          Archive archive = ArchiveFactory.ReadZip(_configuration.RepositoryDirectory.Join(version.ArchiveFileName));
-          ZipUnpackager unpackager = new ZipUnpackager(archive);
-          unpackager.UnpackageZip(project.LibraryDirectory.Join(manifest.ProjectName));
+          UnpackagingDestination destination = new UnpackagingDestination(_configuration, project, manifest);
+          if (destination.HasVersionOlderThan(version))
+          {
+            destination.UpdateToNewVersion(version);
+          }
         }
       }
     }

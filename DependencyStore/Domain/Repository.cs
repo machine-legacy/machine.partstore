@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DependencyStore.Domain.Archiving;
+using Machine.Core.Services;
 
 namespace DependencyStore.Domain
 {

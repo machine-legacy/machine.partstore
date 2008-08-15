@@ -30,6 +30,11 @@ namespace DependencyStore.Domain
       _versionCreatedAt = versionCreatedAt;
     }
 
+    public bool IsOlderThan(ArchivedProjectVersion version)
+    {
+      return this.VersionCreatedAt < version.CreatedAt;
+    }
+
     public override string ToString()
     {
       return "ProjectManifest<" + this.ProjectName + ", " + this.VersionCreatedAt + ">";
