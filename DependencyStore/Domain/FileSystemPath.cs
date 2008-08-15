@@ -82,5 +82,10 @@ namespace DependencyStore.Domain
     {
       return File.Create(this.AsString);
     }
+
+    public void CreateParentDirectory()
+    {
+      System.IO.Directory.CreateDirectory(this.Directory);
+    }
   }
 }
