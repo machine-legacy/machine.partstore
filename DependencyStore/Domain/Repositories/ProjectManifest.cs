@@ -40,14 +40,19 @@ namespace DependencyStore.Domain.Repositories
       return this.VersionCreatedAt < version.CreatedAt;
     }
 
-    public override string ToString()
+    public bool IsSameVersionAs(ArchivedProjectVersion version)
     {
-      return "ProjectManifest<" + this.ProjectName + ", " + this.VersionCreatedAt + ">";
+      return this.VersionCreatedAt == version.CreatedAt;
     }
 
     public bool IsAcceptableFileName(Purl path)
     {
       return this.ProjectName.Equals(path.Name, StringComparison.InvariantCultureIgnoreCase);
+    }
+
+    public override string ToString()
+    {
+      return "ProjectManifest<" + this.ProjectName + ", " + this.VersionCreatedAt + ">";
     }
   }
 }

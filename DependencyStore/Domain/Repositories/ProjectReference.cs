@@ -20,7 +20,7 @@ namespace DependencyStore.Domain.Repositories
 
     public bool IsLatest
     {
-      get { return false; }
+      get { return _manifest.IsSameVersionAs(_dependency.LatestVersion); }
     }
 
     public void MakeLatestVersion()
