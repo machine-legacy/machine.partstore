@@ -20,6 +20,11 @@ namespace DependencyStore.Domain
       set { _versionCreatedAt = value; }
     }
 
+    public string FileName
+    {
+      get { return this.ProjectName + ".projref"; }
+    }
+
     public ProjectManifest()
     {
     }

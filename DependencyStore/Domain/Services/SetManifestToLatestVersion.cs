@@ -36,7 +36,7 @@ namespace DependencyStore.Domain.Services
           {
             continue;
           }
-          Purl path = project.LibraryDirectory.Join(manifest.ProjectName + ".projref");
+          Purl path = project.LibraryDirectory.Join(manifest.FileName);
           ProjectManifest latestManifest = archivedProject.MakeManifest(version);
           _projectManifestRepository.SaveProjectManifest(latestManifest, path);
         }
