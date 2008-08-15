@@ -57,14 +57,19 @@ namespace DependencyStore.Domain
       _projects.Add(project);
     }
 
+    public ArchivedProject FindProject(ProjectManifest manifest)
+    {
+      return FindProject(manifest.ProjectName);
+    }
+
     public ArchivedProjectVersion FindProjectVersion(ProjectManifest manifest)
     {
-      ArchivedProject project = FindProject(manifest.ProjectName);
+      ArchivedProject project = FindProject(manifest);
       if (project == null)
       {
         return null;
       }
-      return project.FindVersionByCreatedAt(manifest.VersionCreatedAt);
+      return project.FindVersionInManifest(manifest);
     }
   }
   public class ArchivedProject
@@ -90,6 +95,11 @@ namespace DependencyStore.Domain
     public ArchivedProject(string name)
     {
       _name = name;
+    }
+
+    public ArchivedProjectVersion FindVersionInManifest(ProjectManifest manifest)
+    {
+      return FindVersionByCreatedAt(manifest.VersionCreatedAt);
     }
 
     public ArchivedProjectVersion FindVersionByCreatedAt(DateTime createdAt)
