@@ -88,6 +88,15 @@ namespace DependencyStore.Domain
       get { return _versions; }
     }
 
+    public ArchivedProjectVersion LatestVersion
+    {
+      get
+      {
+        _versions.Sort((x, y) => { return x.CreatedAtVersion.CompareTo(y.CreatedAtVersion); });
+        return _versions[_versions.Count - 1];
+      }
+    }
+
     public ArchivedProject()
     {
     }
