@@ -54,7 +54,7 @@ namespace DependencyStore.CommandLine
         {
           IRepositoryRepository repositoryRepository = container.Resolve.Object<IRepositoryRepository>();
           Repository repository = repositoryRepository.FindDefaultRepository(configuration);
-          container.Resolve.Object<UnpackageProjectManifest>(configuration).Unpack(repository);
+          controller.Unpack(configuration, repository);
         }
         else
         {

@@ -6,7 +6,7 @@ using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Services;
 using DependencyStore.Services.DataAccess;
-
+using Machine.Container.Services;
 using Machine.Core.Utility;
 using Machine.Core.Services;
 
@@ -14,12 +14,14 @@ namespace DependencyStore.Services.Impl
 {
   public class Controller : IController
   {
+    private readonly IMachineContainer _container;
     private readonly IProjectRepository _projectRepository;
     private readonly IFileSystem _fileSystem;
     private readonly DependencyState _state;
 
-    public Controller(IProjectRepository projectRepository, IFileSystem fileSystem, DependencyState state)
+    public Controller(IMachineContainer container, IProjectRepository projectRepository, IFileSystem fileSystem, DependencyState state)
     {
+      _container = container;
       _projectRepository = projectRepository;
       _state = state;
       _fileSystem = fileSystem;
@@ -49,16 +51,16 @@ namespace DependencyStore.Services.Impl
     public void ArchiveProjects(DependencyStoreConfiguration configuration, Repository repository)
     {
       DomainEvents.Progress += Progress;
-      BuildProjectArchives(configuration, repository);
+      IList<Project> projects = _projectRepository.FindAllProjects(configuration);
+      _container.Resolve.Object<AddProjectsToRepository>(configuration).AddProjects(projects, repository);
+    }
+
+    public void Unpack(DependencyStoreConfiguration configuration, Repository repository)
+    {
+      DomainEvents.Progress += Progress;
+      _container.Resolve.Object<UnpackageProjectManifest>(configuration).Unpack(repository);
     }
     #endregion
-
-    private void BuildProjectArchives(DependencyStoreConfiguration configuration, Repository repository)
-    {
-      IList<Project> projects = _projectRepository.FindAllProjects(configuration);
-      AddProjectsToRepository adder = new AddProjectsToRepository(configuration);
-      adder.AddProjects(projects, repository);
-    }
 
     private static void ReportOutdatedFile(UpdateOutOfDateFile update)
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
 
@@ -31,8 +32,9 @@ namespace DependencyStore.Domain.Services
           {
             continue;
           }
-          Console.WriteLine(version);
-          Console.WriteLine(manifest);
+          Archive archive = ArchiveFactory.ReadZip(_configuration.RepositoryDirectory.Join(version.ArchiveFileName));
+          ZipUnpackager unpackager = new ZipUnpackager(archive);
+          unpackager.UnpackageZip(project.LibraryDirectory.Join(manifest.Name));
         }
       }
     }
