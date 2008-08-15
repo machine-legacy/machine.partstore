@@ -12,5 +12,6 @@ namespace DependencyStore.Services
     void Update(DependencyStoreConfiguration configuration);
     void AddLatestToRepository(DependencyStoreConfiguration configuration, Repository repository);
     void Unpack(DependencyStoreConfiguration configuration, Repository repository);
+    void Upgrade(DependencyStoreConfiguration configuration, Repository repository);
   }
 }

@@ -60,6 +60,11 @@ namespace DependencyStore.Services.Impl
       DomainEvents.Progress += Progress;
       _container.Resolve.Object<UnpackageProjectManifest>(configuration).Unpackage(repository);
     }
+
+    public void Upgrade(DependencyStoreConfiguration configuration, Repository repository)
+    {
+      _container.Resolve.Object<SetManifestToLatestVersion>(configuration).SetAllProjects(repository);
+    }
     #endregion
 
     private static void ReportOutdatedFile(UpdateOutOfDateFile update)

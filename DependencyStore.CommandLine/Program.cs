@@ -26,6 +26,7 @@ namespace DependencyStore.CommandLine
         bool dryRun = false;
         bool archiving = false;
         bool unpack = false;
+        bool upgrade = false;
         foreach (string arg in args)
         {
           if (arg == "--archive")
@@ -35,6 +36,10 @@ namespace DependencyStore.CommandLine
           if (arg == "--unpack")
           {
             unpack = true;
+          }
+          if (arg == "--upgrade")
+          {
+            upgrade = true;
           }
           if (arg == "--dry")
           {
@@ -55,6 +60,12 @@ namespace DependencyStore.CommandLine
           IRepositoryRepository repositoryRepository = container.Resolve.Object<IRepositoryRepository>();
           Repository repository = repositoryRepository.FindDefaultRepository(configuration);
           controller.Unpack(configuration, repository);
+        }
+        else if (upgrade)
+        {
+          IRepositoryRepository repositoryRepository = container.Resolve.Object<IRepositoryRepository>();
+          Repository repository = repositoryRepository.FindDefaultRepository(configuration);
+          controller.Upgrade(configuration, repository);
         }
         else
         {
