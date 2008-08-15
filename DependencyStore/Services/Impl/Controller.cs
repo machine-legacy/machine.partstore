@@ -53,18 +53,18 @@ namespace DependencyStore.Services.Impl
     {
       DomainEvents.Progress += Progress;
       IList<Project> projects = _projectRepository.FindAllProjects(configuration);
-      _container.Resolve.Object<AddProjectsToRepository>(configuration).AddProjects(projects, repository);
+      _container.Resolve.Object<AddingNewVersionsToRepository>(configuration).AddProjects(projects, repository);
     }
 
     public void Unpack(DependencyStoreConfiguration configuration, Repository repository)
     {
       DomainEvents.Progress += Progress;
-      _container.Resolve.Object<UnpackageProjectManifest>(configuration).Unpackage(repository);
+      _container.Resolve.Object<UnpackagingDependenciesForProjects>(configuration).Unpackage(repository);
     }
 
     public void Upgrade(DependencyStoreConfiguration configuration, Repository repository)
     {
-      _container.Resolve.Object<SetManifestToLatestVersion>(configuration).SetAllProjects(repository);
+      _container.Resolve.Object<AddingDependenciesToProjects>(configuration).SetAllProjects(repository);
     }
     #endregion
 

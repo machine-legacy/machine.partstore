@@ -8,11 +8,11 @@ using DependencyStore.Domain.Repositories;
 namespace DependencyStore.Domain.Services
 {
   [Machine.Container.Model.Transient]
-  public class AddProjectsToRepository
+  public class AddingNewVersionsToRepository
   {
     private readonly DependencyStoreConfiguration _configuration;
 
-    public AddProjectsToRepository(DependencyStoreConfiguration configuration)
+    public AddingNewVersionsToRepository(DependencyStoreConfiguration configuration)
     {
       _configuration = configuration;
     }

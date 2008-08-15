@@ -30,9 +30,9 @@ namespace DependencyStore
       register.Type<DependencyState>();
       register.Type<ConfigurationPaths>();
       register.Type<RepositoryRepository>();
-      register.Type<AddProjectsToRepository>();
-      register.Type<UnpackageProjectManifest>();
-      register.Type<SetManifestToLatestVersion>();
+      register.Type<AddingNewVersionsToRepository>();
+      register.Type<UnpackagingDependenciesForProjects>();
+      register.Type<AddingDependenciesToProjects>();
     }
     #endregion
   }

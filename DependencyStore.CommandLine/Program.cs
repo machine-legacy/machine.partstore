@@ -11,6 +11,21 @@ namespace DependencyStore.CommandLine
 {
   public class Program
   {
+    public class Command
+    {
+    }
+    public class ShowCommand : Command
+    {
+    }
+    public class UnpackageCommand : Command
+    {
+    }
+    public class AddDependencyCommand : Command
+    {
+    }
+    public class AddNewVersionCommand : Command
+    {
+    }
     public static void Main(string[] args)
     {
       using (MachineContainer container = new MachineContainer())

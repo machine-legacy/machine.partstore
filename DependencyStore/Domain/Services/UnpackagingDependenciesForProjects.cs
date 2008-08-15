@@ -8,12 +8,12 @@ using DependencyStore.Services.DataAccess;
 namespace DependencyStore.Domain.Services
 {
   [Machine.Container.Model.Transient]
-  public class UnpackageProjectManifest
+  public class UnpackagingDependenciesForProjects
   {
     private readonly IProjectReferenceRepository _projectReferenceRepository;
     private readonly DependencyStoreConfiguration _configuration;
 
-    public UnpackageProjectManifest(IProjectReferenceRepository projectReferenceRepository, DependencyStoreConfiguration configuration)
+    public UnpackagingDependenciesForProjects(IProjectReferenceRepository projectReferenceRepository, DependencyStoreConfiguration configuration)
     {
       _projectReferenceRepository = projectReferenceRepository;
       _configuration = configuration;

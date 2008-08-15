@@ -8,12 +8,12 @@ using DependencyStore.Services.DataAccess;
 namespace DependencyStore.Domain.Services
 {
   [Machine.Container.Model.Transient]
-  public class SetManifestToLatestVersion
+  public class AddingDependenciesToProjects
   {
     private readonly IProjectReferenceRepository _projectReferenceRepository;
     private readonly DependencyStoreConfiguration _configuration;
 
-    public SetManifestToLatestVersion(IProjectReferenceRepository projectReferenceRepository, DependencyStoreConfiguration configuration)
+    public AddingDependenciesToProjects(IProjectReferenceRepository projectReferenceRepository, DependencyStoreConfiguration configuration)
     {
       _projectReferenceRepository = projectReferenceRepository;
       _configuration = configuration;
