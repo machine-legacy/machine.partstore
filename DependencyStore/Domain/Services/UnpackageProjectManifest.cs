@@ -35,7 +35,7 @@ namespace DependencyStore.Domain.Services
           UnpackagingDestination destination = new UnpackagingDestination(_configuration, project, manifest);
           if (destination.HasVersionOlderThan(version))
           {
-            destination.UpdateToNewVersion(version);
+            destination.UpdateInstalledVersion(version);
           }
         }
       }

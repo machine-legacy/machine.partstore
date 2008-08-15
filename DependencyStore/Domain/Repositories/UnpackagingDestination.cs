@@ -31,7 +31,7 @@ namespace DependencyStore.Domain.Repositories
       return currentManifest.IsOlderThan(version);
     }
 
-    public void UpdateToNewVersion(ArchivedProjectVersion version)
+    public void UpdateInstalledVersion(ArchivedProjectVersion version)
     {
       Archive archive = ArchiveFactory.ReadZip(_configuration.RepositoryDirectory.Join(version.ArchiveFileName));
       ZipUnpackager unpackager = new ZipUnpackager(archive);

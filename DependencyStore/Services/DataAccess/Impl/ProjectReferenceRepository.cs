@@ -38,7 +38,7 @@ namespace DependencyStore.Services.DataAccess.Impl
           {
             throw new InvalidOperationException("Missing version: " + manifest);
           }
-          references.Add(new ProjectReference(archivedProject, project, version, manifest));
+          references.Add(new ProjectReference(configuration, archivedProject, project, version, manifest));
         }
       }
       return references;
