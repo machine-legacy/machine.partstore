@@ -26,15 +26,11 @@ namespace DependencyStore.Commands
       _commands.Add(new RegisteredCommand() { Name = name, Type = typeof(T) });
     }
 
-    public ICommand CreateCommand(string[] args)
+    public ICommand CreateCommand(string name)
     {
-      if (args.Length < 1)
-      {
-        return _container.Resolve.Object<HelpCommand>();
-      }
       foreach (RegisteredCommand registeredCommand in _commands)
       {
-        if (registeredCommand.Name.Equals(args[0]))
+        if (registeredCommand.Name.Equals(name))
         {
           return (ICommand)_container.Resolve.Object(registeredCommand.Type);
         }

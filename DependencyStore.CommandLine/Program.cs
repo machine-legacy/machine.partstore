@@ -25,14 +25,22 @@ namespace DependencyStore.CommandLine
         container.Start();
         IoC.Container = container;
 
-        CommandFactory parser = new CommandFactory(container);
-        parser.AddCommand<ShowCommand>("show");
-        parser.AddCommand<UnpackageCommand>("unpackage");
-        parser.AddCommand<AddDependencyCommand>("add");
-        parser.AddCommand<AddNewVersionCommand>("publish");
-        parser.AddCommand<AddNewVersionCommand>("archive");
-        parser.AddCommand<HelpCommand>("help");
-        parser.CreateCommand(args).Run();
+        CommandLineParser parser = new CommandLineParser();
+        parser.ParseCommandLine(args);
+        string commandName = "help";
+        if (parser.OrphanedArguments.Count > 0)
+        {
+          commandName = parser.OrphanedArguments[0].Value;
+        }
+
+        CommandFactory commandFactory = new CommandFactory(container);
+        commandFactory.AddCommand<ShowCommand>("show");
+        commandFactory.AddCommand<UnpackageCommand>("unpackage");
+        commandFactory.AddCommand<AddDependencyCommand>("add");
+        commandFactory.AddCommand<AddNewVersionCommand>("publish");
+        commandFactory.AddCommand<AddNewVersionCommand>("archive");
+        commandFactory.AddCommand<HelpCommand>("help");
+        commandFactory.CreateCommand(commandName).Run();
         /*
         IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
         bool dryRun = false;
