@@ -6,7 +6,7 @@ using DependencyStore.Domain.Repositories;
 
 namespace DependencyStore.Services.DataAccess
 {
-  interface IProjectReferenceRepository
+  public interface IProjectReferenceRepository
   {
     IList<ProjectReference> FindAllProjectReferences(DependencyStoreConfiguration configuration);
   }
