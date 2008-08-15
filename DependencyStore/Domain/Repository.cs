@@ -131,6 +131,11 @@ namespace DependencyStore.Domain
       }
       _versions.Add(version);
     }
+
+    public ProjectManifest MakeManifest(ArchivedProjectVersion version)
+    {
+      return new ProjectManifest(this.Name, version.CreatedAt);
+    }
   }
   public class ArchivedProjectVersion
   {
