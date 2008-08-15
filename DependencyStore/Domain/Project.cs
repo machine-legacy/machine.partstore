@@ -23,7 +23,14 @@ namespace DependencyStore.Domain
 
     public Purl LibraryDirectory
     {
-      get { return _libraryDirectory; }
+      get
+      {
+        if (_libraryDirectory == null)
+        {
+          throw new InvalidOperationException("Not allowed to use this project's library!");
+        }
+        return _libraryDirectory;
+      }
     }
 
     public Project(string name, SourceLocation buildDirectory, Purl libraryDirectory)
