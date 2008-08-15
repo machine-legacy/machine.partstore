@@ -21,11 +21,16 @@ namespace DependencyStore.Domain
       get { return _buildDirectory; }
     }
 
+    public bool HasLibrary
+    {
+      get { return _libraryDirectory != null; }
+    }
+
     public Purl LibraryDirectory
     {
       get
       {
-        if (_libraryDirectory == null)
+        if (!this.HasLibrary)
         {
           throw new InvalidOperationException("Not allowed to use this project's library!");
         }
