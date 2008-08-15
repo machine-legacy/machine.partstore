@@ -67,5 +67,10 @@ namespace DependencyStore.Domain.Repositories
     {
       return new ProjectManifest(this.Name, version.CreatedAt);
     }
+
+    public override string ToString()
+    {
+      return "ArchivedProject<" + this.Name + ">";
+    }
   }
 }

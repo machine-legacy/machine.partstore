@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Configuration;
+using DependencyStore.Domain.Repositories;
+using DependencyStore.Services.DataAccess;
+using Machine.Core.Utility;
 
 namespace DependencyStore.Commands
 {
@@ -11,8 +14,20 @@ namespace DependencyStore.Commands
   }
   public class ShowCommand : Command
   {
+    private readonly IProjectReferenceRepository _projectReferenceRepository;
+
+    public ShowCommand(IProjectReferenceRepository projectReferenceRepository)
+    {
+      _projectReferenceRepository = projectReferenceRepository;
+    }
+
     public override void Run(DependencyStoreConfiguration configuration)
     {
+      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences(configuration))
+      {
+        TimeSpan age = DateTime.Now - reference.DesiredVersion.CreatedAt;
+        Console.WriteLine("{0} references {1} ({2} old)", reference.ParentProject, reference.Dependency, TimeSpanHelper.ToPrettyString(age));
+      }
     }
   }
   public class UnpackageCommand : Command
