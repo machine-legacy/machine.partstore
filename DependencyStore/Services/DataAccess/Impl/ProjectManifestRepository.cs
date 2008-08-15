@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+
 using DependencyStore.Domain;
+
 using Machine.Core.Services;
 using Machine.Core.Utility;
 
@@ -22,23 +24,26 @@ namespace DependencyStore.Services.DataAccess.Impl
       List<ProjectManifest> manifests = new List<ProjectManifest>();
       foreach (string fileName in _fileSystem.GetFiles(project.LibraryDirectory.AsString, "*.projref"))
       {
-        ProjectManifest manifest = ReadManifest(fileName);
-        manifests.Add(manifest);
+        manifests.Add(ReadProjectManifest(new Purl(fileName)));
       }
       return manifests;
     }
 
-    public void SaveProjectManifest()
+    public ProjectManifest ReadProjectManifest(Purl path)
     {
-    }
-    #endregion
-
-    private ProjectManifest ReadManifest(string path)
-    {
-      using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path)))
+      using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
         return XmlSerializationHelper.DeserializeString<ProjectManifest>(stream.ReadToEnd());
       }
     }
+
+    public void SaveProjectManifest(ProjectManifest manifest, Purl path)
+    {
+      using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
+      {
+        stream.Write(XmlSerializationHelper.Serialize(manifest));
+      }
+    }
+    #endregion
   }
 }
