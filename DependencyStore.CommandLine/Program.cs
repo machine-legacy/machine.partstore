@@ -1,31 +1,19 @@
 using System;
+using System.Collections.Generic;
 
 using Machine.Container;
+using Machine.Container.Services;
 
 using DependencyStore.Services;
 using DependencyStore.Domain.Repositories;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess;
+using DependencyStore.Commands;
 
 namespace DependencyStore.CommandLine
 {
   public class Program
   {
-    public class Command
-    {
-    }
-    public class ShowCommand : Command
-    {
-    }
-    public class UnpackageCommand : Command
-    {
-    }
-    public class AddDependencyCommand : Command
-    {
-    }
-    public class AddNewVersionCommand : Command
-    {
-    }
     public static void Main(string[] args)
     {
       using (MachineContainer container = new MachineContainer())
@@ -37,6 +25,15 @@ namespace DependencyStore.CommandLine
         container.Start();
         IoC.Container = container;
 
+        CommandFactory parser = new CommandFactory(container);
+        parser.AddCommand<ShowCommand>("show");
+        parser.AddCommand<UnpackageCommand>("unpackage");
+        parser.AddCommand<AddDependencyCommand>("add");
+        parser.AddCommand<AddNewVersionCommand>("publish");
+        parser.AddCommand<AddNewVersionCommand>("archive");
+        parser.AddCommand<HelpCommand>("help");
+        parser.CreateCommand(args).Run();
+        /*
         IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
         bool dryRun = false;
         bool archiving = false;
@@ -92,7 +89,7 @@ namespace DependencyStore.CommandLine
           {
             controller.Update(configuration);
           }
-        }
+        }*/
       }
     }
   }

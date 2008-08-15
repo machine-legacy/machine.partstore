@@ -9,6 +9,7 @@ using DependencyStore.Domain.Services;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Services.DataAccess.Impl;
 using DependencyStore.Services.Impl;
+using DependencyStore.Commands;
 
 namespace DependencyStore
 {
@@ -33,6 +34,14 @@ namespace DependencyStore
       register.Type<AddingNewVersionsToRepository>();
       register.Type<UnpackagingDependenciesForProjects>();
       register.Type<AddingDependenciesToProjects>();
+
+      register.Type<CommandFactory>();
+      register.Type<UnpackageCommand>();
+      register.Type<AddNewVersionCommand>();
+      register.Type<ShowCommand>();
+      register.Type<AddNewVersionCommand>();
+      register.Type<AddDependencyCommand>();
+      register.Type<HelpCommand>();
     }
     #endregion
   }
