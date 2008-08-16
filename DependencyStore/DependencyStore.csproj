@@ -76,6 +76,7 @@
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\PackageDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
+    <Compile Include="Domain\Repositories\CurrentProject.cs" />
     <Compile Include="Domain\Infrastructure.cs" />
     <Compile Include="Domain\Repositories\ArchivedProject.cs" />
     <Compile Include="Domain\Repositories\ArchivedProjectVersion.cs" />
@@ -108,6 +109,8 @@
     <Compile Include="Domain\SynchronizationOperation.cs" />
     <Compile Include="Domain\SynchronizationPlan.cs" />
     <Compile Include="Domain\Repositories\UnpackagingDestination.cs" />
+    <Compile Include="Services\DataAccess\ICurrentProjectRepository.cs" />
+    <Compile Include="Services\DataAccess\Impl\CurrentProjectRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\ProjectManifestRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\ProjectReferenceRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\ProjectRepository.cs" />
