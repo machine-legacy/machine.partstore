@@ -36,5 +36,20 @@ namespace DependencyStore.Domain.Configuration
       }
       throw new FileNotFoundException();
     }
+
+    public string FindConfigurationPathForCurrentProject()
+    {
+      string directory = Environment.CurrentDirectory;
+      while (directory != null)
+      {
+        string wouldBe = Path.Combine(directory, FileName);
+        if (_fileSystem.IsFile(wouldBe))
+        {
+          return wouldBe;
+        }
+        directory = Path.GetDirectoryName(directory);
+      }
+      throw new FileNotFoundException();
+    }
   }
 }
