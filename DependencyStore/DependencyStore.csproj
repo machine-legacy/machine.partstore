@@ -97,8 +97,8 @@
     <Compile Include="Domain\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\DomainEvents.cs" />
-    <Compile Include="Domain\FileAndDirectoryRules.cs" />
-    <Compile Include="Domain\IncludeExcludeRules.cs" />
+    <Compile Include="Domain\Configuration\FileAndDirectoryRules.cs" />
+    <Compile Include="Domain\Configuration\IncludeExcludeRules.cs" />
     <Compile Include="Domain\FileSystemDirectory.cs" />
     <Compile Include="Domain\FileSystemEntry.cs" />
     <Compile Include="Domain\FileSystemFile.cs" />

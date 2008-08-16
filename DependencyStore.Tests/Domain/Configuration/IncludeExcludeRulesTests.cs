@@ -5,7 +5,7 @@ using Machine.Testing;
 
 using NUnit.Framework;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Configuration
 {
   [TestFixture]
   public class IncludeExcludeRulesTests : TestsFor<IncludeExcludeRules>

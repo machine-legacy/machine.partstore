@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -61,10 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\BuildLocationTests.cs" />
-    <Compile Include="Domain\FileAndDirectoryRulesTests.cs" />
+    <Compile Include="Domain\Configuration\FileAndDirectoryRulesTests.cs" />
     <Compile Include="Domain\FileSystemDirectoryTests.cs" />
     <Compile Include="Domain\FileSystemPathTests.cs" />
-    <Compile Include="Domain\IncludeExcludeRulesTests.cs" />
+    <Compile Include="Domain\Configuration\IncludeExcludeRulesTests.cs" />
     <Compile Include="Domain\LatestFileSetTests.cs" />
     <Compile Include="Domain\LibraryLocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

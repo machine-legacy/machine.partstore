@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain;
+using DependencyStore.Domain.Configuration;
 
 namespace DependencyStore.Services.DataAccess
 {

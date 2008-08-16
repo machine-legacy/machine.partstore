@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using System.Text.RegularExpressions;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Configuration
 {
   public enum IncludeExclude
   {
