@@ -5,28 +5,10 @@ using System.Xml.Serialization;
 namespace DependencyStore.Domain.Configuration
 {
   [XmlRoot("DependencyStore")]
-  public class DependencyStoreConfiguration
+  public class SimpleDependencyStoreConfiguration
   {
-    private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
-    private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
-    private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
     private string _repositoryDirectory;
-
-    public List<BuildDirectoryConfiguration> BuildDirectories
-    {
-      get { return _buildDirectories; }
-    }
-
-    public List<LibraryDirectoryConfiguration> LibraryDirectories
-    {
-      get { return _libraryDirectories; }
-    }
-
-    public List<ProjectConfiguration> ProjectConfigurations
-    {
-      get { return _projectConfigurations; }
-    }
 
     [XmlAttribute]
     public string Repository
@@ -48,12 +30,39 @@ namespace DependencyStore.Domain.Configuration
       set { _fileAndDirectoryRules = value; }
     }
 
-    public void EnsureValid()
+    public virtual void EnsureValid()
     {
       if (String.IsNullOrEmpty(_repositoryDirectory))
       {
         throw new ConfigurationException("Invalid Repository Directory!");
       }
+    }
+  }
+  [XmlRoot("DependencyStore")]
+  public class DependencyStoreConfiguration : SimpleDependencyStoreConfiguration
+  {
+    private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
+    private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
+    private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
+
+    public List<BuildDirectoryConfiguration> BuildDirectories
+    {
+      get { return _buildDirectories; }
+    }
+
+    public List<LibraryDirectoryConfiguration> LibraryDirectories
+    {
+      get { return _libraryDirectories; }
+    }
+
+    public List<ProjectConfiguration> ProjectConfigurations
+    {
+      get { return _projectConfigurations; }
+    }
+
+    public override void EnsureValid()
+    {
+      base.EnsureValid();
       foreach (BuildDirectoryConfiguration configuration in _buildDirectories)
       {
         configuration.EnsureValid();
