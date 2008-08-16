@@ -25,7 +25,7 @@ namespace DependencyStore.Domain.Configuration
       return paths.ToArray();
     }
 
-    public string FindConfigurationPath()
+    public string FindDefaultConfigurationPath()
     {
       foreach (string path in FindAllPossiblePaths())
       {
@@ -37,7 +37,7 @@ namespace DependencyStore.Domain.Configuration
       throw new FileNotFoundException();
     }
 
-    public string FindConfigurationPathForCurrentProject()
+    public string FindConfigurationForCurrentProjectPath()
     {
       string directory = Environment.CurrentDirectory;
       while (directory != null)

@@ -48,7 +48,12 @@ namespace DependencyStore.Services.DataAccess.Impl
 
     public DependencyStoreConfiguration FindDefaultConfiguration()
     {
-      return FindConfiguration(_paths.FindConfigurationPath());
+      return FindConfiguration(_paths.FindDefaultConfigurationPath());
+    }
+
+    public DependencyStoreConfiguration FindProjectConfiguration()
+    {
+      return FindConfiguration(_paths.FindConfigurationForCurrentProjectPath());
     }
     #endregion
   }
