@@ -32,12 +32,31 @@ namespace DependencyStore.Commands
   }
   public class UnpackageCommand : Command
   {
+    private readonly IProjectReferenceRepository _projectReferenceRepository;
+
+    public UnpackageCommand(IProjectReferenceRepository projectReferenceRepository)
+    {
+      _projectReferenceRepository = projectReferenceRepository;
+    }
+
     public override void Run(DependencyStoreConfiguration configuration)
     {
+      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences(configuration))
+      {
+        reference.InstallPackageIfNecessary();
+      }
     }
   }
   public class AddDependencyCommand : Command
   {
+    private string _projectToAdd;
+
+    public string ProjectToAdd
+    {
+      get { return _projectToAdd; }
+      set { _projectToAdd = value; }
+    }
+
     public override void Run(DependencyStoreConfiguration configuration)
     {
     }

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-
 using Machine.Container;
 
 using DependencyStore.Services.DataAccess;
@@ -27,6 +25,7 @@ namespace DependencyStore.CommandLine
         if (parser.OrphanedArguments.Count > 0)
         {
           commandName = parser.OrphanedArguments[0].Value;
+          parser.OrphanedArguments.RemoveAt(0);
         }
 
         CommandFactory commandFactory = new CommandFactory(container);
@@ -37,6 +36,10 @@ namespace DependencyStore.CommandLine
         commandFactory.AddCommand<AddNewVersionCommand>("archive");
         commandFactory.AddCommand<HelpCommand>("help");
         ICommand command = commandFactory.CreateCommand(commandName);
+
+        CommandLineOptionBinder binder = new CommandLineOptionBinder(parser, command);
+        binder.BindFirstRequired<AddDependencyCommand>(x => x.ProjectToAdd);
+
         IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
         command.Run(configurationRepository.FindDefaultConfiguration());
       }
