@@ -5,8 +5,10 @@ using System.Xml.Serialization;
 namespace DependencyStore.Domain.Configuration
 {
   [XmlRoot("DependencyStore")]
-  public class SimpleDependencyStoreConfiguration
+  public class DependencyStoreConfiguration
   {
+    private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
+    private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
     private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
     private string _repositoryDirectory;
@@ -36,24 +38,6 @@ namespace DependencyStore.Domain.Configuration
       set { _fileAndDirectoryRules = value; }
     }
 
-    public virtual void EnsureValid()
-    {
-      if (String.IsNullOrEmpty(_repositoryDirectory))
-      {
-        throw new ConfigurationException("Invalid Repository Directory!");
-      }
-      foreach (ProjectConfiguration configuration in _projectConfigurations)
-      {
-        configuration.EnsureValid();
-      }
-    }
-  }
-  [XmlRoot("DependencyStore")]
-  public class DependencyStoreConfiguration : SimpleDependencyStoreConfiguration
-  {
-    private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
-    private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
-
     public List<BuildDirectoryConfiguration> BuildDirectories
     {
       get { return _buildDirectories; }
@@ -64,9 +48,16 @@ namespace DependencyStore.Domain.Configuration
       get { return _libraryDirectories; }
     }
 
-    public override void EnsureValid()
+    public virtual void EnsureValid()
     {
-      base.EnsureValid();
+      if (String.IsNullOrEmpty(_repositoryDirectory))
+      {
+        throw new ConfigurationException("Invalid Repository Directory!");
+      }
+      foreach (ProjectConfiguration configuration in _projectConfigurations)
+      {
+        configuration.EnsureValid();
+      }
       foreach (BuildDirectoryConfiguration configuration in _buildDirectories)
       {
         configuration.EnsureValid();
