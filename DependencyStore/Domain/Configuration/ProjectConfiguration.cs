@@ -8,6 +8,7 @@ namespace DependencyStore.Domain.Configuration
   public class ProjectConfiguration
   {
     private string _name;
+    private BuildDirectoryConfiguration _rootConfiguration;
     private BuildDirectoryConfiguration _buildConfiguration;
     private LibraryDirectoryConfiguration _libraryConfiguration;
 
@@ -16,6 +17,12 @@ namespace DependencyStore.Domain.Configuration
     {
       get { return _name; }
       set { _name = value; }
+    }
+
+    public BuildDirectoryConfiguration Root
+    {
+      get { return _rootConfiguration; }
+      set { _rootConfiguration = value; }
     }
 
     public BuildDirectoryConfiguration Build
@@ -36,11 +43,6 @@ namespace DependencyStore.Domain.Configuration
       {
         throw new ConfigurationException("Missing Name!");
       }
-      if (_buildConfiguration == null)
-      {
-        throw new ConfigurationException("Missing Build Configuration!");
-      }
-      _buildConfiguration.EnsureValid();
     }
   }
 }
