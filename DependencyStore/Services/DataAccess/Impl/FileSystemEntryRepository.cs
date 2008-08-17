@@ -61,14 +61,9 @@ namespace DependencyStore.Services.DataAccess.Impl
   }
   public static class FileSystemFileFactory
   {
-    private static IFileSystem FileSystem
-    {
-      get { return IoC.Container.Resolve.Object<IFileSystem>(); }
-    }
-
     public static FileSystemFile CreateFile(Purl path)
     {
-      FileProperties properties = FileSystem.GetFileProperties(path.AsString);
+      FileProperties properties = Infrastructure.FileSystem.GetFileProperties(path.AsString);
       return new FileSystemFile(path, properties.Length, properties.CreationTime, properties.LastAccessTime, properties.LastWriteTime);
     }
   }
