@@ -16,12 +16,17 @@ namespace DependencyStore.Domain
       get { return _name; }
     }
 
+    public bool HasBuildDirectory
+    {
+      get { return _buildDirectory != null; }
+    }
+
     public Purl BuildDirectory
     {
       get { return _buildDirectory; }
     }
 
-    public bool HasLibrary
+    public bool HasLibraryDirectory
     {
       get { return _libraryDirectory != null; }
     }
@@ -30,7 +35,7 @@ namespace DependencyStore.Domain
     {
       get
       {
-        if (!this.HasLibrary)
+        if (!this.HasLibraryDirectory)
         {
           throw new InvalidOperationException("Not allowed to use this project's library!");
         }

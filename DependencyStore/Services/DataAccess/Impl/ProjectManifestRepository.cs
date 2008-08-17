@@ -23,7 +23,7 @@ namespace DependencyStore.Services.DataAccess.Impl
     public IList<ProjectManifest> FindProjectManifests(Project project)
     {
       List<ProjectManifest> manifests = new List<ProjectManifest>();
-      if (project.HasLibrary)
+      if (project.HasLibraryDirectory)
       {
         foreach (string fileName in _fileSystem.GetFiles(project.LibraryDirectory.AsString, "*." + ProjectManifest.Extension))
         {
