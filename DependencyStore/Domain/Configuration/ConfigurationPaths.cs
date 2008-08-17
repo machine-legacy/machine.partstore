@@ -34,7 +34,7 @@ namespace DependencyStore.Domain.Configuration
           return path;
         }
       }
-      throw new FileNotFoundException();
+      return null;
     }
 
     public string FindConfigurationForCurrentProjectPath()
@@ -49,7 +49,7 @@ namespace DependencyStore.Domain.Configuration
         }
         directory = Path.GetDirectoryName(directory);
       }
-      throw new FileNotFoundException();
+      return null;
     }
   }
 }

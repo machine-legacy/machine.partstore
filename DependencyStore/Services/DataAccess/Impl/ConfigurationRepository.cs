@@ -28,6 +28,10 @@ namespace DependencyStore.Services.DataAccess.Impl
     {
       try
       {
+        if (configurationFile == null)
+        {
+          throw new FileNotFoundException();
+        }
         using (StreamReader reader = _fileSystem.OpenText(configurationFile))
         {
           DependencyStoreConfiguration configuration = XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
