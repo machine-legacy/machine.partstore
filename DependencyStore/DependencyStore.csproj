@@ -74,7 +74,6 @@
     <Compile Include="Domain\Configuration\BuildDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ConfigurationException.cs" />
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
-    <Compile Include="Domain\Configuration\PackageDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
     <Compile Include="Domain\Repositories\CurrentProject.cs" />
     <Compile Include="Domain\Infrastructure.cs" />
