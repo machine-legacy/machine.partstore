@@ -28,7 +28,6 @@ namespace DependencyStore
       register.Type<CurrentProjectRepository>();
       register.Type<LocationRepository>();
       register.Type<ProjectRepository>();
-      register.Type<Controller>();
       register.Type<DependencyState>();
       register.Type<ConfigurationPaths>();
       register.Type<RepositoryRepository>();

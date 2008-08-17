@@ -68,7 +68,6 @@
     <Compile Include="Domain\LatestFileSetTests.cs" />
     <Compile Include="Domain\LibraryLocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Impl\ControllerTests.cs" />
     <Compile Include="Services\DataAccess\Impl\ConfigurationRepositoryTests.cs" />
     <Compile Include="Services\DataAccess\Impl\FileAndDirectoryRulesRepositoryTests.cs" />
     <Compile Include="Services\DataAccess\Impl\FileSystemEntryRepositoryTests.cs" />

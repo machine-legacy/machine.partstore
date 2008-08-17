@@ -125,7 +125,6 @@
     <Compile Include="Utility\StreamHelper.cs" />
     <Compile Include="Utility\StringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Impl\Controller.cs" />
     <Compile Include="Services\DataAccess\Impl\ConfigurationRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\DataAccessExceptions.cs" />
     <Compile Include="Services\DataAccess\Impl\FileAndDirectoryRulesRepository.cs" />
@@ -136,7 +135,6 @@
     <Compile Include="Utility\FileSystemEntryPrinter.cs" />
     <Compile Include="Services\DataAccess\Impl\FileSystemEntryRepository.cs" />
     <Compile Include="Services\DataAccess\IFileSystemEntryRepository.cs" />
-    <Compile Include="Services\IController.cs" />
     <Compile Include="Tasks\DsShow.cs" />
     <Compile Include="Tasks\DsTask.cs" />
   </ItemGroup>
