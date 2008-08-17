@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Repositories;
 using DependencyStore.Services.DataAccess;
 
@@ -11,17 +10,15 @@ namespace DependencyStore.Domain.Services
   public class UnpackagingDependenciesForProjects
   {
     private readonly IProjectReferenceRepository _projectReferenceRepository;
-    private readonly DependencyStoreConfiguration _configuration;
 
-    public UnpackagingDependenciesForProjects(IProjectReferenceRepository projectReferenceRepository, DependencyStoreConfiguration configuration)
+    public UnpackagingDependenciesForProjects(IProjectReferenceRepository projectReferenceRepository)
     {
       _projectReferenceRepository = projectReferenceRepository;
-      _configuration = configuration;
     }
 
     public void Unpackage(Repository repository)
     {
-      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences(_configuration))
+      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences())
       {
         reference.InstallPackageIfNecessary();
       }

@@ -52,7 +52,7 @@ namespace DependencyStore.Services.Impl
     public void AddLatestToRepository(DependencyStoreConfiguration configuration, Repository repository)
     {
       DomainEvents.Progress += Progress;
-      IList<Project> projects = _projectRepository.FindAllProjects(configuration);
+      IList<Project> projects = _projectRepository.FindAllProjects();
       _container.Resolve.Object<AddingNewVersionsToRepository>(configuration).AddProjects(projects, repository);
     }
 

@@ -8,10 +8,12 @@ namespace DependencyStore.Services.DataAccess.Impl
 {
   public class LocationRepository : ILocationRepository
   {
+    private readonly ICurrentConfiguration _currentConfiguration;
     private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
 
-    public LocationRepository(IFileSystemEntryRepository fileSystemEntryRepository)
+    public LocationRepository(ICurrentConfiguration currentConfiguration, IFileSystemEntryRepository fileSystemEntryRepository)
     {
+      _currentConfiguration = currentConfiguration;
       _fileSystemEntryRepository = fileSystemEntryRepository;
     }
 
@@ -48,20 +50,20 @@ namespace DependencyStore.Services.DataAccess.Impl
       return locations;
     }
 
-    public IList<SourceLocation> FindAllSources(DependencyStoreConfiguration configuration)
+    public IList<SourceLocation> FindAllSources()
     {
       List<SourceLocation> locations = new List<SourceLocation>();
-      foreach (Location location in FindAll(configuration))
+      foreach (Location location in FindAll(_currentConfiguration.DefaultConfiguration))
       {
         if (location.IsSource) locations.Add((SourceLocation)location);
       }
       return locations;
     }
 
-    public IList<SinkLocation> FindAllSinks(DependencyStoreConfiguration configuration)
+    public IList<SinkLocation> FindAllSinks()
     {
       List<SinkLocation> locations = new List<SinkLocation>();
-      foreach (Location location in FindAll(configuration))
+      foreach (Location location in FindAll(_currentConfiguration.DefaultConfiguration))
       {
         if (location.IsSink) locations.Add((SinkLocation)location);
       }

@@ -23,7 +23,7 @@ namespace DependencyStore.Commands
 
     public override void Run(DependencyStoreConfiguration configuration)
     {
-      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences(configuration))
+      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences())
       {
         TimeSpan age = DateTime.Now - reference.DesiredVersion.CreatedAt;
         Console.WriteLine("{0} references {1} ({2} old)", reference.ParentProject, reference.Dependency, TimeSpanHelper.ToPrettyString(age));
@@ -41,7 +41,7 @@ namespace DependencyStore.Commands
 
     public override void Run(DependencyStoreConfiguration configuration)
     {
-      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences(configuration))
+      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences())
       {
         reference.InstallPackageIfNecessary();
       }

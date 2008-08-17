@@ -45,8 +45,8 @@ namespace DependencyStore.Services.Impl
     public void Refresh()
     {
       _configuration = _configurationRepository.FindDefaultConfiguration();
-      _sinks = _locationRepository.FindAllSinks(_configuration);
-      _sources = _locationRepository.FindAllSources(_configuration);
+      _sinks = _locationRepository.FindAllSinks();
+      _sources = _locationRepository.FindAllSources();
       _latestFiles = new LatestFileSet();
       _latestFiles.AddAll(_sources);
       _latestFiles.SortByModifiedAt();
