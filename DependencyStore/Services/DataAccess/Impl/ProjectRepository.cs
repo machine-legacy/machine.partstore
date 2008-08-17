@@ -9,12 +9,10 @@ namespace DependencyStore.Services.DataAccess.Impl
   public class ProjectRepository : IProjectRepository
   {
     private readonly ICurrentConfiguration _currentConfiguration;
-    private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
 
-    public ProjectRepository(ICurrentConfiguration currentConfiguration, IFileSystemEntryRepository fileSystemEntryRepository)
+    public ProjectRepository(ICurrentConfiguration currentConfiguration)
     {
       _currentConfiguration = currentConfiguration;
-      _fileSystemEntryRepository = fileSystemEntryRepository;
     }
 
     #region IProjectRepository Members
@@ -23,23 +21,18 @@ namespace DependencyStore.Services.DataAccess.Impl
       List<Project> projects = new List<Project>();
       foreach (ProjectConfiguration projectConfiguration in _currentConfiguration.DefaultConfiguration.ProjectConfigurations)
       {
-        Purl path = new Purl(projectConfiguration.Build.Path);
-        FileSystemEntry fileSystemEntry = _fileSystemEntryRepository.FindEntry(path, _currentConfiguration.DefaultConfiguration.FileAndDirectoryRules);
-        if (fileSystemEntry != null)
+        Purl buildDirectory = null;
+        if (projectConfiguration.Build != null)
         {
-          SourceLocation location = new SourceLocation(path, fileSystemEntry);
-          Purl libraryDirectory = null;
-          if (projectConfiguration.Library != null)
-          {
-            libraryDirectory = projectConfiguration.Library.AsPurl;
-          }
-          Project project = new Project(projectConfiguration.Name, location, libraryDirectory);
-          projects.Add(project);
+          buildDirectory = projectConfiguration.Build.AsPurl;
         }
-        else
+        Purl libraryDirectory = null;
+        if (projectConfiguration.Library != null)
         {
-          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(projectConfiguration.Build.AsPurl));
+          libraryDirectory = projectConfiguration.Library.AsPurl;
         }
+        Project project = new Project(projectConfiguration.Name, buildDirectory, libraryDirectory);
+        projects.Add(project);
       }
       return projects;
     }

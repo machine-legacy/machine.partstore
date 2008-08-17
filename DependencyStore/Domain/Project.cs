@@ -8,7 +8,7 @@ namespace DependencyStore.Domain
   public class Project
   {
     private readonly string _name;
-    private readonly SourceLocation _buildDirectory;
+    private readonly Purl _buildDirectory;
     private readonly Purl _libraryDirectory;
 
     public string Name
@@ -16,7 +16,7 @@ namespace DependencyStore.Domain
       get { return _name; }
     }
 
-    public SourceLocation BuildDirectory
+    public Purl BuildDirectory
     {
       get { return _buildDirectory; }
     }
@@ -38,7 +38,7 @@ namespace DependencyStore.Domain
       }
     }
 
-    public Project(string name, SourceLocation buildDirectory, Purl libraryDirectory)
+    public Project(string name, Purl buildDirectory, Purl libraryDirectory)
     {
       _name = name;
       _buildDirectory = buildDirectory;
@@ -47,6 +47,8 @@ namespace DependencyStore.Domain
 
     public Archive MakeArchive()
     {
+      throw new NotImplementedException();
+      /*
       FileSet fileSet = this.BuildDirectory.ToFileSet();
       Purl fileRootDirectory = fileSet.FindCommonDirectory();
       Archive archive = new Archive();
@@ -55,6 +57,7 @@ namespace DependencyStore.Domain
         archive.Add(file.Path.ChangeRoot(fileRootDirectory), file);
       }
       return archive;
+      */
     }
 
     public override string ToString()
