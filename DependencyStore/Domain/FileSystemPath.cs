@@ -92,5 +92,20 @@ namespace DependencyStore.Domain
     {
       System.IO.Directory.CreateDirectory(this.Directory);
     }
+
+    public static Purl FindCommonDirectory(params Purl[] paths)
+    {
+      List<string> strings = new List<string>();
+      foreach (Purl path in paths)
+      {
+        strings.Add(path.AsString);
+      }
+      string common = StringHelper.FindLongestCommonPrefix(strings);
+      if (!System.IO.Directory.Exists(common))
+      {
+        common = Path.GetDirectoryName(common);
+      }
+      return new Purl(PathHelper.NormalizeDirectorySlashes(common));
+    }
   }
 }
