@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Repositories;
 using DependencyStore.Services.DataAccess;
 using Machine.Core.Utility;
@@ -10,7 +9,7 @@ namespace DependencyStore.Commands
 {
   public abstract class Command : ICommand
   {
-    public abstract void Run(DependencyStoreConfiguration configuration);
+    public abstract void Run();
   }
   public class ShowCommand : Command
   {
@@ -21,7 +20,7 @@ namespace DependencyStore.Commands
       _projectReferenceRepository = projectReferenceRepository;
     }
 
-    public override void Run(DependencyStoreConfiguration configuration)
+    public override void Run()
     {
       foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences())
       {
@@ -39,7 +38,7 @@ namespace DependencyStore.Commands
       _projectReferenceRepository = projectReferenceRepository;
     }
 
-    public override void Run(DependencyStoreConfiguration configuration)
+    public override void Run()
     {
       foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences())
       {
@@ -57,19 +56,19 @@ namespace DependencyStore.Commands
       set { _projectToAdd = value; }
     }
 
-    public override void Run(DependencyStoreConfiguration configuration)
+    public override void Run()
     {
     }
   }
   public class AddNewVersionCommand : Command
   {
-    public override void Run(DependencyStoreConfiguration configuration)
+    public override void Run()
     {
     }
   }
   public class HelpCommand : Command
   {
-    public override void Run(DependencyStoreConfiguration configuration)
+    public override void Run()
     {
       Console.WriteLine("{0} <command> [options]", "DependencyStore.exe");
       Console.WriteLine("Commands:");

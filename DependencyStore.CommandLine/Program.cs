@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
+
 using Machine.Container;
 
-using DependencyStore.Services.DataAccess;
 using DependencyStore.Commands;
 
 namespace DependencyStore.CommandLine
@@ -36,12 +37,11 @@ namespace DependencyStore.CommandLine
         commandFactory.AddCommand<AddNewVersionCommand>("archive");
         commandFactory.AddCommand<HelpCommand>("help");
         ICommand command = commandFactory.CreateCommand(commandName);
-
+        
         CommandLineOptionBinder binder = new CommandLineOptionBinder(parser, command);
         binder.BindFirstRequired<AddDependencyCommand>(x => x.ProjectToAdd);
-
-        IConfigurationRepository configurationRepository = container.Resolve.Object<IConfigurationRepository>();
-        command.Run(configurationRepository.FindDefaultConfiguration());
+        
+        command.Run();
       }
     }
   }
