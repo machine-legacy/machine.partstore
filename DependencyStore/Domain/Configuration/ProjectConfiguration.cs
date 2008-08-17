@@ -8,7 +8,7 @@ namespace DependencyStore.Domain.Configuration
   public class ProjectConfiguration
   {
     private string _name;
-    private BuildDirectoryConfiguration _rootConfiguration;
+    private RootDirectoryConfiguration _rootConfiguration;
     private BuildDirectoryConfiguration _buildConfiguration;
     private LibraryDirectoryConfiguration _libraryConfiguration;
 
@@ -19,7 +19,7 @@ namespace DependencyStore.Domain.Configuration
       set { _name = value; }
     }
 
-    public BuildDirectoryConfiguration Root
+    public RootDirectoryConfiguration Root
     {
       get { return _rootConfiguration; }
       set { _rootConfiguration = value; }

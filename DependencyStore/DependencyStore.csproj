@@ -73,8 +73,10 @@
     <Compile Include="Domain\Archiving\ZipPackager.cs" />
     <Compile Include="Domain\Configuration\BuildDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ConfigurationException.cs" />
+    <Compile Include="Domain\Configuration\DirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
+    <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
     <Compile Include="Domain\Repositories\CurrentProject.cs" />
     <Compile Include="Domain\Infrastructure.cs" />
     <Compile Include="Domain\Repositories\ArchivedProject.cs" />
