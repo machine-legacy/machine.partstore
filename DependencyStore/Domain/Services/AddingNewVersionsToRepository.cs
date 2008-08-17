@@ -10,11 +10,8 @@ namespace DependencyStore.Domain.Services
   [Machine.Container.Model.Transient]
   public class AddingNewVersionsToRepository
   {
-    private readonly DependencyStoreConfiguration _configuration;
-
-    public AddingNewVersionsToRepository(DependencyStoreConfiguration configuration)
+    public AddingNewVersionsToRepository()
     {
-      _configuration = configuration;
     }
 
     public void AddProjects(IEnumerable<Project> projects, Repository repository)
@@ -22,11 +19,11 @@ namespace DependencyStore.Domain.Services
       foreach (Project project in projects)
       {
         ArchivedProject archivedProject = repository.FindOrCreateProject(project);
-        ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject);
+        ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, repository);
         using (Archive archive = project.MakeArchive())
         {
           ZipPackager writer = new ZipPackager(archive);
-          Purl path = _configuration.RepositoryDirectory.Join(version.ArchiveFileName);
+          Purl path = version.ArchivePath;
           writer.WriteZip(path);
           archivedProject.AddVersion(version);
         }

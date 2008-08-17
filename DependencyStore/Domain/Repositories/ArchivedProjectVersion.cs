@@ -7,16 +7,9 @@ namespace DependencyStore.Domain.Repositories
 {
   public class ArchivedProjectVersion
   {
-    private string _packager;
     private DateTime _createdAt;
     private string _archiveFileName;
     private Purl _archivePath;
-
-    public string Packager
-    {
-      get { return _packager; }
-      set { _packager = value; }
-    }
 
     public DateTime CreatedAt
     {
@@ -46,18 +39,18 @@ namespace DependencyStore.Domain.Repositories
     {
     }
 
-    protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, string packager)
+    protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, Purl archivePath)
     {
       _createdAt = createdAt;
       _archiveFileName = archiveFileName;
-      _packager = packager;
+      _archivePath = archivePath;
     }
 
-    public static ArchivedProjectVersion Create(ArchivedProject project)
+    public static ArchivedProjectVersion Create(ArchivedProject project, Repository repository)
     {
       DateTime createdAt = DateTime.Now;
       string archiveFileName = project.Name + "-" + DateTimeToUniqueString(createdAt) + ZipPackager.ZipExtension;
-      return new ArchivedProjectVersion(createdAt, archiveFileName, "Nobody");
+      return new ArchivedProjectVersion(createdAt, archiveFileName, repository.RootPath.Join(archiveFileName));
     }
 
     private static string DateTimeToUniqueString(DateTime when)
