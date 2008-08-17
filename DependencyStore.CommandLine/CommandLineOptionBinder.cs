@@ -17,17 +17,17 @@ namespace DependencyStore.CommandLine
       _command = command;
     }
 
-    public void BindFirstRequired<TTarget>(Expression<Func<TTarget, object>> property)
+    public void RequireFirst<TTarget>(Expression<Func<TTarget, object>> property)
     {
-      BindNth(0, true, property);
+      Nth(0, true, property);
     }
 
-    public void BindFirstOptional<TTarget>(Expression<Func<TTarget, object>> property)
+    public void OptionalFirst<TTarget>(Expression<Func<TTarget, object>> property)
     {
-      BindNth(0, false, property);
+      Nth(0, false, property);
     }
 
-    public void BindNth<TTarget>(short i, bool required, Expression<Func<TTarget, object>> property)
+    public void Nth<TTarget>(short i, bool required, Expression<Func<TTarget, object>> property)
     {
       if (!DoesBindingApply<TTarget>()) return;
       if (i >= _parser.OrphanedArguments.Count)

@@ -38,8 +38,8 @@ namespace DependencyStore.CommandLine
         commandFactory.AddCommand<HelpCommand>("help");
         ICommand command = commandFactory.CreateCommand(commandName);
         
-        CommandLineOptionBinder binder = new CommandLineOptionBinder(parser, command);
-        binder.BindFirstRequired<AddDependencyCommand>(x => x.ProjectToAdd);
+        CommandLineOptionBinder bind = new CommandLineOptionBinder(parser, command);
+        bind.RequireFirst<AddDependencyCommand>(x => x.ProjectToAdd);
         
         command.Run();
       }
