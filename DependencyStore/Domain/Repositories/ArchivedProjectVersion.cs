@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 
 using DependencyStore.Domain.Archiving;
 
@@ -9,6 +10,7 @@ namespace DependencyStore.Domain.Repositories
     private string _packager;
     private DateTime _createdAt;
     private string _archiveFileName;
+    private Purl _archivePath;
 
     public string Packager
     {
@@ -26,6 +28,13 @@ namespace DependencyStore.Domain.Repositories
     {
       get { return _archiveFileName; }
       set { _archiveFileName = value; }
+    }
+
+    [XmlIgnore]
+    public Purl ArchivePath
+    {
+      get { return _archivePath; }
+      set { _archivePath = value; }
     }
 
     public string CreatedAtVersion

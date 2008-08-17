@@ -1,11 +1,9 @@
 using DependencyStore.Domain.Archiving;
-using DependencyStore.Domain.Configuration;
 
 namespace DependencyStore.Domain.Repositories
 {
   public class UnpackagingDestination
   {
-    private readonly DependencyStoreConfiguration _configuration;
     private readonly ProjectManifest _desiredVersionManifest;
     private readonly Purl _path;
 
@@ -14,9 +12,8 @@ namespace DependencyStore.Domain.Repositories
       get { return _path.Join(_desiredVersionManifest.FileName); }
     }
 
-    public UnpackagingDestination(DependencyStoreConfiguration configuration, Project project, ProjectManifest desiredVersionManifest)
+    public UnpackagingDestination(Project project, ProjectManifest desiredVersionManifest)
     {
-      _configuration = configuration;
       _path = project.LibraryDirectory.Join(desiredVersionManifest.ProjectName);
       _desiredVersionManifest = desiredVersionManifest;
     }
@@ -33,7 +30,7 @@ namespace DependencyStore.Domain.Repositories
 
     public void UpdateInstalledVersion(ArchivedProjectVersion version)
     {
-      Archive archive = ArchiveFactory.ReadZip(_configuration.RepositoryDirectory.Join(version.ArchiveFileName));
+      Archive archive = ArchiveFactory.ReadZip(version.ArchivePath);
       ZipUnpackager unpackager = new ZipUnpackager(archive);
       unpackager.UnpackageZip(_path);
       ProjectManifest manifest = _desiredVersionManifest;

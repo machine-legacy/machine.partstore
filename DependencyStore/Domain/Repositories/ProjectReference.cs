@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using DependencyStore.Domain.Configuration;
 
 namespace DependencyStore.Domain.Repositories
 {
   public class ProjectReference
   {
-    private readonly DependencyStoreConfiguration _configuration;
     private readonly Project _parentProject;
     private readonly ArchivedProject _dependency;
     private ProjectManifest _manifest;
     private ArchivedProjectVersion _desiredVersion;
 
-    public ProjectReference(DependencyStoreConfiguration configuration, ArchivedProject dependency, Project parentProject, ArchivedProjectVersion desiredVersion, ProjectManifest manifest)
+    public ProjectReference(ArchivedProject dependency, Project parentProject, ArchivedProjectVersion desiredVersion, ProjectManifest manifest)
     {
-      _configuration = configuration;
       _dependency = dependency;
       _manifest = manifest;
       _parentProject = parentProject;
@@ -67,7 +64,7 @@ namespace DependencyStore.Domain.Repositories
 
     private UnpackagingDestination UnpackagingDestination
     {
-      get { return new UnpackagingDestination(_configuration, _parentProject, _manifest); }
+      get { return new UnpackagingDestination(_parentProject, _manifest); }
     }
   }
 }

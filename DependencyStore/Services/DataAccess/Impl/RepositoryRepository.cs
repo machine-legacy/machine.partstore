@@ -31,7 +31,7 @@ namespace DependencyStore.Services.DataAccess.Impl
       }
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
-        return XmlSerializationHelper.DeserializeString<Repository>(stream.ReadToEnd());
+        return Prepare(XmlSerializationHelper.DeserializeString<Repository>(stream.ReadToEnd()), path);
       }
     }
 
@@ -44,5 +44,18 @@ namespace DependencyStore.Services.DataAccess.Impl
       }
     }
     #endregion
+
+    private static Repository Prepare(Repository repository, Purl rootPath)
+    {
+      repository.RootPath = rootPath;
+      foreach (ArchivedProject project in repository.Projects)
+      {
+        foreach (ArchivedProjectVersion version in project.Versions)
+        {
+          version.ArchivePath = repository.RootPath.Join(version.ArchiveFileName);
+        }
+      }
+      return repository;
+    }
   }
 }

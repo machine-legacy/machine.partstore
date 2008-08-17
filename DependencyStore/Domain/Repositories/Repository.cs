@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace DependencyStore.Domain.Repositories
 {
   public class Repository
   {
     private readonly List<ArchivedProject> _projects = new List<ArchivedProject>();
+    private Purl _rootPath;
 
     public List<ArchivedProject> Projects
     {
       get { return _projects; }
+    }
+
+    [XmlIgnore]
+    public Purl RootPath
+    {
+      get { return _rootPath; }
+      set { _rootPath = value; }
     }
 
     public bool IsEmpty
