@@ -35,6 +35,7 @@ namespace DependencyStore
       register.Type<AddingNewVersionsToRepository>();
       register.Type<UnpackagingDependenciesForProjects>();
       register.Type<AddingDependenciesToProjects>();
+      register.Type<CurrentConfiguration>();
 
       register.Type<CommandFactory>();
       register.Type<UnpackageCommand>();

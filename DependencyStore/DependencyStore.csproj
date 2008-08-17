@@ -108,7 +108,9 @@
     <Compile Include="Domain\SynchronizationOperation.cs" />
     <Compile Include="Domain\SynchronizationPlan.cs" />
     <Compile Include="Domain\Repositories\UnpackagingDestination.cs" />
+    <Compile Include="Services\DataAccess\ICurrentConfiguration.cs" />
     <Compile Include="Services\DataAccess\ICurrentProjectRepository.cs" />
+    <Compile Include="Services\DataAccess\Impl\CurrentConfiguration.cs" />
     <Compile Include="Services\DataAccess\Impl\CurrentProjectRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\ProjectManifestRepository.cs" />
     <Compile Include="Services\DataAccess\Impl\ProjectReferenceRepository.cs" />
