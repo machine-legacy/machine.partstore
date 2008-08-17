@@ -10,7 +10,7 @@ namespace DependencyStore.Services.DataAccess.Impl
     #region ICurrentProjectRepository Members
     public CurrentProject FindCurrentProject()
     {
-      return new CurrentProject(null);
+      throw new NotImplementedException();
     }
     #endregion
   }

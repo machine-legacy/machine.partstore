@@ -8,12 +8,18 @@ namespace DependencyStore.Domain
   public class Project
   {
     private readonly string _name;
+    private readonly Purl _rootDirectory;
     private readonly Purl _buildDirectory;
     private readonly Purl _libraryDirectory;
 
     public string Name
     {
       get { return _name; }
+    }
+
+    public Purl RootDirectory
+    {
+      get { return _rootDirectory; }
     }
 
     public bool HasBuildDirectory
@@ -43,9 +49,10 @@ namespace DependencyStore.Domain
       }
     }
 
-    public Project(string name, Purl buildDirectory, Purl libraryDirectory)
+    public Project(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
     {
       _name = name;
+      _rootDirectory = rootDirectory;
       _buildDirectory = buildDirectory;
       _libraryDirectory = libraryDirectory;
     }

@@ -21,17 +21,21 @@ namespace DependencyStore.Services.DataAccess.Impl
       List<Project> projects = new List<Project>();
       foreach (ProjectConfiguration projectConfiguration in _currentConfiguration.DefaultConfiguration.ProjectConfigurations)
       {
+        List<Purl> directories = new List<Purl>();
         Purl buildDirectory = null;
         if (projectConfiguration.Build != null)
         {
           buildDirectory = projectConfiguration.Build.AsPurl;
+          directories.Add(buildDirectory);
         }
         Purl libraryDirectory = null;
         if (projectConfiguration.Library != null)
         {
           libraryDirectory = projectConfiguration.Library.AsPurl;
+          directories.Add(libraryDirectory);
         }
-        Project project = new Project(projectConfiguration.Name, buildDirectory, libraryDirectory);
+        Purl rootDirectory = Purl.FindCommonDirectory(directories.ToArray());
+        Project project = new Project(projectConfiguration.Name, rootDirectory, buildDirectory, libraryDirectory);
         projects.Add(project);
       }
       return projects;

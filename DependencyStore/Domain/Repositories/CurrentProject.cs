@@ -3,21 +3,10 @@ using System.Collections.Generic;
 
 namespace DependencyStore.Domain.Repositories
 {
-  public class CurrentProject
+  public class CurrentProject : Project
   {
-    private readonly Purl _rootDirectory;
-
-    public Purl RootDirectory
-    {
-      get { return _rootDirectory; }
-    }
-
-    public CurrentProject(Purl rootDirectory)
-    {
-      _rootDirectory = rootDirectory;
-    }
-
-    public void AddDependency()
+    public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
+      : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
     }
   }
