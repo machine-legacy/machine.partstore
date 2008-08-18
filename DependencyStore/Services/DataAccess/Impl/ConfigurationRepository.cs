@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
+using DependencyStore.Domain;
 using DependencyStore.Domain.Configuration;
 
 using Machine.Core.Services;
@@ -57,8 +58,43 @@ namespace DependencyStore.Services.DataAccess.Impl
 
     public DependencyStoreConfiguration FindProjectConfiguration()
     {
-      return FindConfiguration(_paths.FindConfigurationForCurrentProjectPath());
+      string path = _paths.FindConfigurationForCurrentProjectPath();
+      DependencyStoreConfiguration configuration = FindConfiguration(path);
+      if (configuration.ProjectConfigurations.Count == 0)
+      {
+        ProjectStructure projectStructure = new ProjectStructure(new Purl(Path.GetDirectoryName(path)));
+        ProjectConfiguration currentProject = new ProjectConfiguration();
+        currentProject.Root = new RootDirectoryConfiguration(projectStructure.FindRootDirectory());
+        currentProject.Build = new BuildDirectoryConfiguration(projectStructure.FindBuildDirectory());
+        currentProject.Library = new LibraryDirectoryConfiguration(projectStructure.FindLibraryDirectory());
+        configuration.ProjectConfigurations.Add(currentProject);
+      }
+      return configuration;
     }
     #endregion
+  }
+  public class ProjectStructure
+  {
+    private readonly Purl _root;
+
+    public ProjectStructure(Purl root)
+    {
+      _root = root;
+    }
+
+    public Purl FindRootDirectory()
+    {
+      return _root;
+    }
+
+    public Purl FindBuildDirectory()
+    {
+      return _root.Join("Build");
+    }
+
+    public Purl FindLibraryDirectory()
+    {
+      return _root.Join("Libraries");
+    }
   }
 }

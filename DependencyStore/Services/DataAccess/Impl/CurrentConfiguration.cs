@@ -22,7 +22,7 @@ namespace DependencyStore.Services.DataAccess.Impl
       {
         if (_defaultConfiguration == null)
         {
-          _defaultConfiguration = _configurationRepository.FindDefaultConfiguration();
+          _defaultConfiguration = _configurationRepository.FindProjectConfiguration();
         }
         return _defaultConfiguration;
       }
