@@ -14,5 +14,10 @@ namespace DependencyStore.Domain.Configuration
       : base(path)
     {
     }
+
+    public RootDirectoryConfiguration(Purl path)
+      : base(path)
+    {
+    }
   }
 }

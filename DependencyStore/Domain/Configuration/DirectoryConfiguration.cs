@@ -29,6 +29,11 @@ namespace DependencyStore.Domain.Configuration
       _path = path;
     }
 
+    protected DirectoryConfiguration(Purl path)
+    {
+      _path = path.AsString;
+    }
+
     public void EnsureValid()
     {
       if (String.IsNullOrEmpty(_path))
