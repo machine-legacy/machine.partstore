@@ -137,7 +137,6 @@
     <Compile Include="Domain\Core\Repositories\IFileAndDirectoryRulesRepository.cs" />
     <Compile Include="Domain\SimpleCopying\Repositories\ILocationRepository.cs" />
     <Compile Include="Domain\SimpleCopying\Repositories\Impl\LocationRepository.cs" />
-    <Compile Include="Utility\FileSystemEntryPrinter.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\FileSystemEntryRepository.cs" />
     <Compile Include="Domain\Core\Repositories\IFileSystemEntryRepository.cs" />
   </ItemGroup>
