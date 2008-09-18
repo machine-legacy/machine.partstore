@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
@@ -12,12 +13,29 @@ namespace DependencyStore.Domain.Repositories
     {
     }
 
+    public IEnumerable References
+    {
+      get { return Infrastructure.ProjectReferenceRepository.FindAllProjectReferences(); }
+    }
+
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject project)
     {
       Console.WriteLine("Adding reference {0}", project);
       ProjectReference reference = Infrastructure.ProjectReferenceRepository.FindProjectReferenceFor(this, project);
       reference.MakeLatestVersion();
       return reference;
+    }
+
+    public void InstallPackagesIfNecessary()
+    {
+      foreach (ProjectReference reference in Infrastructure.ProjectReferenceRepository.FindAllProjectReferences())
+      {
+        reference.InstallPackageIfNecessary();
+      }
+    }
+
+    public void PublishNewVersion()
+    {
     }
   }
 }

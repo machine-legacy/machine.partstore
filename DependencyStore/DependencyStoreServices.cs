@@ -41,9 +41,8 @@ namespace DependencyStore
 
       register.Type<CommandFactory>();
       register.Type<UnpackageCommand>();
-      register.Type<AddNewVersionCommand>();
       register.Type<ShowCommand>();
-      register.Type<AddNewVersionCommand>();
+      register.Type<PublishNewVersionCommand>();
       register.Type<AddDependencyCommand>();
       register.Type<HelpCommand>();
     }

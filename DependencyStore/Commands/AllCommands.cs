@@ -14,16 +14,17 @@ namespace DependencyStore.Commands
   }
   public class ShowCommand : Command
   {
-    private readonly IProjectReferenceRepository _projectReferenceRepository;
+    private readonly ICurrentProjectRepository _currentProjectRepository;
 
-    public ShowCommand(IProjectReferenceRepository projectReferenceRepository)
+    public ShowCommand(ICurrentProjectRepository currentProjectRepository)
     {
-      _projectReferenceRepository = projectReferenceRepository;
+      _currentProjectRepository = currentProjectRepository;
     }
 
     public override void Run()
     {
-      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences())
+      CurrentProject project = _currentProjectRepository.FindCurrentProject();
+      foreach (ProjectReference reference in project.References)
       {
         TimeSpan age = DateTime.Now - reference.DesiredVersion.CreatedAt;
         Console.WriteLine("{0} references {1} ({2} old)", reference.ParentProject, reference.Dependency, TimeSpanHelper.ToPrettyString(age));
@@ -32,19 +33,17 @@ namespace DependencyStore.Commands
   }
   public class UnpackageCommand : Command
   {
-    private readonly IProjectReferenceRepository _projectReferenceRepository;
+    private readonly ICurrentProjectRepository _currentProjectRepository;
 
-    public UnpackageCommand(IProjectReferenceRepository projectReferenceRepository)
+    public UnpackageCommand(ICurrentProjectRepository currentProjectRepository)
     {
-      _projectReferenceRepository = projectReferenceRepository;
+      _currentProjectRepository = currentProjectRepository;
     }
 
     public override void Run()
     {
-      foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences())
-      {
-        reference.InstallPackageIfNecessary();
-      }
+      CurrentProject project = _currentProjectRepository.FindCurrentProject();
+      project.InstallPackagesIfNecessary();
     }
   }
   public class AddDependencyCommand : Command
@@ -79,10 +78,19 @@ namespace DependencyStore.Commands
       project.AddReferenceToLatestVersion(projectBeingReferenced);
     }
   }
-  public class AddNewVersionCommand : Command
+  public class PublishNewVersionCommand : Command
   {
+    private readonly ICurrentProjectRepository _currentProjectRepository;
+
+    public PublishNewVersionCommand(ICurrentProjectRepository currentProjectRepository)
+    {
+      _currentProjectRepository = currentProjectRepository;
+    }
+
     public override void Run()
     {
+      CurrentProject project = _currentProjectRepository.FindCurrentProject();
+      project.PublishNewVersion();
     }
   }
   public class HelpCommand : Command

@@ -33,8 +33,8 @@ namespace DependencyStore.CommandLine
         commandFactory.AddCommand<ShowCommand>("show");
         commandFactory.AddCommand<UnpackageCommand>("unpackage");
         commandFactory.AddCommand<AddDependencyCommand>("add");
-        commandFactory.AddCommand<AddNewVersionCommand>("publish");
-        commandFactory.AddCommand<AddNewVersionCommand>("archive");
+        commandFactory.AddCommand<PublishNewVersionCommand>("publish");
+        commandFactory.AddCommand<PublishNewVersionCommand>("archive");
         commandFactory.AddCommand<HelpCommand>("help");
         ICommand command = commandFactory.CreateCommand(commandName);
         
