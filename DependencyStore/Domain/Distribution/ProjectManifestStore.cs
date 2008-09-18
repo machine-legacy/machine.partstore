@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using Microsoft.Build.BuildEngine;
+using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Domain.Distribution
 {
