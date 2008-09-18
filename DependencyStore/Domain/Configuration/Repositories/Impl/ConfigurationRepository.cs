@@ -25,7 +25,26 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
     }
 
     #region IConfigurationRepository Members
-    public DependencyStoreConfiguration FindConfiguration(string configurationFile)
+    public DependencyStoreConfiguration FindProjectConfiguration()
+    {
+      string path = _paths.FindConfigurationForCurrentProjectPath();
+      DependencyStoreConfiguration configuration = FindConfiguration(path);
+      if (configuration.ProjectConfigurations.Count == 0)
+      {
+        Purl rootPath = new Purl(path).Parent;
+        ProjectStructure projectStructure = new ProjectStructure(rootPath);
+        ProjectConfiguration currentProject = new ProjectConfiguration();
+        currentProject.Name = rootPath.Name;
+        currentProject.Root = new RootDirectoryConfiguration(projectStructure.FindRootDirectory());
+        currentProject.Build = new BuildDirectoryConfiguration(projectStructure.FindBuildDirectory());
+        currentProject.Library = new LibraryDirectoryConfiguration(projectStructure.FindLibraryDirectory());
+        configuration.ProjectConfigurations.Add(currentProject);
+      }
+      return configuration;
+    }
+    #endregion
+
+    private DependencyStoreConfiguration FindConfiguration(string configurationFile)
     {
       try
       {
@@ -50,29 +69,5 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
         throw new InvalidConfigurationException("Error reading configuration", e);
       }
     }
-
-    public DependencyStoreConfiguration FindDefaultConfiguration()
-    {
-      return FindConfiguration(_paths.FindDefaultConfigurationPath());
-    }
-
-    public DependencyStoreConfiguration FindProjectConfiguration()
-    {
-      string path = _paths.FindConfigurationForCurrentProjectPath();
-      DependencyStoreConfiguration configuration = FindConfiguration(path);
-      if (configuration.ProjectConfigurations.Count == 0)
-      {
-        Purl rootPath = new Purl(path).Parent;
-        ProjectStructure projectStructure = new ProjectStructure(rootPath);
-        ProjectConfiguration currentProject = new ProjectConfiguration();
-        currentProject.Name = rootPath.Name;
-        currentProject.Root = new RootDirectoryConfiguration(projectStructure.FindRootDirectory());
-        currentProject.Build = new BuildDirectoryConfiguration(projectStructure.FindBuildDirectory());
-        currentProject.Library = new LibraryDirectoryConfiguration(projectStructure.FindLibraryDirectory());
-        configuration.ProjectConfigurations.Add(currentProject);
-      }
-      return configuration;
-    }
-    #endregion
   }
 }
