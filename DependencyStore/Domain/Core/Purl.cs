@@ -34,6 +34,11 @@ namespace DependencyStore.Domain.Core
       get { return Path.GetDirectoryName(this.AsString); }
     }
 
+    public Purl Parent
+    {
+      get { return new Purl(this.Directory); }
+    }
+
     public Purl(string path)
     {
       _path = path;
