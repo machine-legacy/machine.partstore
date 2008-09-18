@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.Domain.Core
+using DependencyStore.Domain.Core;
+
+namespace DependencyStore.Domain.SimpleCopying
 {
   public class SynchronizationPlan : IEnumerable<SynchronizationOperation>
   {

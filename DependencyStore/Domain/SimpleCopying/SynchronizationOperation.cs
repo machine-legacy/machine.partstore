@@ -1,6 +1,8 @@
 using System;
 
-namespace DependencyStore.Domain.Core
+using DependencyStore.Domain.Core;
+
+namespace DependencyStore.Domain.SimpleCopying
 {
   public abstract class SynchronizationOperation
   {

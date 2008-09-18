@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain;
+using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Archiving;
 
-namespace DependencyStore.Domain.Core
+namespace DependencyStore.Domain.SimpleCopying
 {
   public static class DomainEvents
   {

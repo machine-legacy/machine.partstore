@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
+using DependencyStore.Domain.SimpleCopying;
 using DependencyStore.Domain.Configuration;
 
 namespace DependencyStore.Services.DataAccess.Impl

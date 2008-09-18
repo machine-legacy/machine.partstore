@@ -37,19 +37,6 @@ namespace DependencyStore.Domain.Core
       }
     }
 
-    public void Add(Location location)
-    {
-      AddAll(location.FileEntry.BreadthFirstFiles);
-    }
-
-    public void AddAll<TL>(IEnumerable<TL> locations) where TL : Location
-    {
-      foreach (TL location in locations)
-      {
-        Add(location);
-      }
-    }
-
     public void Remove(FileAsset file)
     {
       _files.Remove(file);

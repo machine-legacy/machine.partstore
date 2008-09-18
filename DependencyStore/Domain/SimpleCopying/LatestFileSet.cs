@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Machine.Core;
 
-namespace DependencyStore.Domain.Core
+using DependencyStore.Domain.Core;
+
+namespace DependencyStore.Domain.SimpleCopying
 {
   public class LatestFileSet : FileSet
   {

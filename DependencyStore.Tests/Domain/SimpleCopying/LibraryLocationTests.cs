@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-namespace DependencyStore.Domain.Core
+namespace DependencyStore.Domain.SimpleCopying
 {
   [TestFixture]
   public class LibraryLocationTests

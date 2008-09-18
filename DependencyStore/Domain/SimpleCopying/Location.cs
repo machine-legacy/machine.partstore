@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.Domain.Core
+using DependencyStore.Domain.Core;
+
+namespace DependencyStore.Domain.SimpleCopying
 {
   public abstract class Location
   {
@@ -43,8 +45,13 @@ namespace DependencyStore.Domain.Core
     public FileSet ToFileSet()
     {
       FileSet fileSet = new FileSet();
-      fileSet.Add(this);
+      AddTo(fileSet);
       return fileSet;
+    }
+
+    public void AddTo(FileSet fileSet)
+    {
+      fileSet.AddAll(this.FileEntry.BreadthFirstFiles);
     }
 
     public bool HasFile(FileAsset file)

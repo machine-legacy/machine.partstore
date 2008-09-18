@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.SimpleCopying;
 
 namespace DependencyStore.Services.DataAccess
 {

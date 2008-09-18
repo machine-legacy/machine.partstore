@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Configuration;
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.SimpleCopying;
 using DependencyStore.Services.DataAccess;
 
 namespace DependencyStore.Services.Impl
@@ -48,7 +48,10 @@ namespace DependencyStore.Services.Impl
       _sinks = _locationRepository.FindAllSinks();
       _sources = _locationRepository.FindAllSources();
       _latestFiles = new LatestFileSet();
-      _latestFiles.AddAll(_sources);
+      foreach (SourceLocation location in _sources)
+      {
+        location.AddTo(_latestFiles);
+      }
       _latestFiles.SortByModifiedAt();
     }
 

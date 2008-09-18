@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
+using DependencyStore.Domain.SimpleCopying;
 using DependencyStore.Utility;
 using DependencyStore.Domain.Core;
 

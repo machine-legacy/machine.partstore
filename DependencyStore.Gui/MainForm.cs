@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 
 using DependencyStore.Domain.Core;
+using DependencyStore.Domain.SimpleCopying;
 
 namespace DependencyStore.Gui
 {

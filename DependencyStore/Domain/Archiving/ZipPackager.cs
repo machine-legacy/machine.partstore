@@ -5,6 +5,7 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 
 using DependencyStore.Domain.Core;
+using DependencyStore.Domain.SimpleCopying;
 using DependencyStore.Services.DataAccess.Impl;
 using DependencyStore.Utility;
 
