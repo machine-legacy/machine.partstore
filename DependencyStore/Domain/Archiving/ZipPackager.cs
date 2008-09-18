@@ -6,7 +6,6 @@ using ICSharpCode.SharpZipLib.Zip;
 
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Core.Repositories.Impl;
-using DependencyStore.Domain.SimpleCopying;
 using DependencyStore.Utility;
 
 namespace DependencyStore.Domain.Archiving
@@ -51,7 +50,7 @@ namespace DependencyStore.Domain.Archiving
     private void ReportProgress(long bytesSoFar)
     {
       double progress = (_otherBytesSoFar + bytesSoFar) / (double)_totalBytes;
-      DomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _currentEntry));
+      ArchivingDomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _currentEntry));
     }
 
     private static ZipOutputStream OpenZipStream(Purl path)

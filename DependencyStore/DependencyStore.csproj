@@ -68,6 +68,7 @@
     <Compile Include="Domain\Archiving\ArchivedFile.cs" />
     <Compile Include="Domain\Archiving\ArchivedFileInZip.cs" />
     <Compile Include="Domain\Archiving\ArchiveFactory.cs" />
+    <Compile Include="Domain\Archiving\ArchivingDomainEvents.cs" />
     <Compile Include="Domain\Archiving\ManifestEntry.cs" />
     <Compile Include="Domain\Archiving\ZipUnpackager.cs" />
     <Compile Include="Domain\Archiving\ZipPackager.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Domain\Services\AddingDependenciesToProjects.cs" />
     <Compile Include="Domain\SimpleCopying\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
-    <Compile Include="Domain\SimpleCopying\DomainEvents.cs" />
+    <Compile Include="Domain\SimpleCopying\SimpleCopyingDomainEvents.cs" />
     <Compile Include="Domain\Configuration\FileAndDirectoryRules.cs" />
     <Compile Include="Domain\Configuration\IncludeExcludeRules.cs" />
     <Compile Include="Domain\Core\FileSystemDirectory.cs" />

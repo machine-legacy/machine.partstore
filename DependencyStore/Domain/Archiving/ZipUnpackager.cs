@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 
-using DependencyStore.Domain.SimpleCopying;
 using DependencyStore.Utility;
 using DependencyStore.Domain.Core;
 
@@ -46,7 +45,7 @@ namespace DependencyStore.Domain.Archiving
     private void ReportProgress(long bytesSoFar)
     {
       double progress = (_otherBytesSoFar + bytesSoFar) / (double)_totalBytes;
-      DomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _currentEntry));
+      ArchivingDomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _currentEntry));
     }
   }
 }

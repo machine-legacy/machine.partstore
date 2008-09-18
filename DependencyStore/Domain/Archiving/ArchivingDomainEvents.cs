@@ -1,41 +1,16 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Archiving;
-
-namespace DependencyStore.Domain.SimpleCopying
+namespace DependencyStore.Domain.Archiving
 {
-  public static class DomainEvents
+  public class ArchivingDomainEvents
   {
-    public static event EventHandler<LocationNotFoundEventArgs> LocationNotFound;
-
-    public static void OnLocationNotFound(object sender, LocationNotFoundEventArgs e)
-    {
-      if (LocationNotFound == null) return;
-      LocationNotFound(sender, e);
-    }
-
     public static event EventHandler<ProgressEventArgs> Progress;
 
     public static void OnProgress(object sender, ProgressEventArgs e)
     {
       if (Progress == null) return;
       Progress(sender, e);
-    }
-  }
-  public class LocationNotFoundEventArgs : EventArgs
-  {
-    private readonly Purl _path;
-
-    public Purl Path
-    {
-      get { return _path; }
-    }
-
-    public LocationNotFoundEventArgs(Purl path)
-    {
-      _path = path;
     }
   }
   public class ProgressEventArgs : EventArgs

@@ -33,7 +33,7 @@ namespace DependencyStore.Domain.SimpleCopying.Repositories.Impl
         }
         else
         {
-          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(build.AsPurl));
+          SimpleCopyingDomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(build.AsPurl));
         }
       }
       foreach (LibraryDirectoryConfiguration library in configuration.LibraryDirectories)
@@ -46,7 +46,7 @@ namespace DependencyStore.Domain.SimpleCopying.Repositories.Impl
         }
         else
         {
-          DomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(library.AsPurl));
+          SimpleCopyingDomainEvents.OnLocationNotFound(this, new LocationNotFoundEventArgs(library.AsPurl));
         }
       }
       return locations;
