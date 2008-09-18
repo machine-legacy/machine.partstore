@@ -32,7 +32,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
           {
             throw new InvalidOperationException("Missing project: " + manifest);
           }
-          ProjectReference reference = new ProjectReference(project, archivedProject);
+          ProjectReference reference = new ProjectReference(project, archivedProject, manifest);
           references.Add(reference);
         }
       }
@@ -41,7 +41,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 
     public ProjectReference FindProjectReferenceFor(Project parentProject, ArchivedProject dependency)
     {
-      return new ProjectReference(parentProject, dependency);
+      return new ProjectReference(parentProject, dependency, null);
     }
   }
 }
