@@ -32,16 +32,16 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
           {
             throw new InvalidOperationException("Missing project: " + manifest);
           }
-          ProjectReference reference = new ProjectReference(project, archivedProject, manifest);
+          ArchivedProjectVersion version = archivedProject.FindVersionInManifest(manifest);
+          if (version == null)
+          {
+            throw new InvalidOperationException("Missing version: " + manifest);
+          }
+          ProjectReference reference = new ProjectReference(project, archivedProject, version);
           references.Add(reference);
         }
       }
       return references;
-    }
-
-    public ProjectReference FindProjectReferenceFor(Project parentProject, ArchivedProject dependency)
-    {
-      return new ProjectReference(parentProject, dependency, null);
     }
   }
 }

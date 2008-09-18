@@ -23,7 +23,7 @@ namespace DependencyStore.Domain.Distribution
       ProjectManifest latestManifest = dependency.MakeManifestForLatestVersion();
       Purl path = this.LibraryDirectory.Join(dependency.ManifestFileName);
       Infrastructure.ProjectManifestRepository.SaveProjectManifest(latestManifest, path);
-      return new ProjectReference(this, dependency, latestManifest);
+      return new ProjectReference(this, dependency, dependency.LatestVersion);
     }
 
     public void UnpackageIfNecessary()
