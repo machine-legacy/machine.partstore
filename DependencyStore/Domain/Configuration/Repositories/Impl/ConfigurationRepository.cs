@@ -38,6 +38,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
         currentProject.Root = new RootDirectoryConfiguration(projectStructure.FindRootDirectory());
         currentProject.Build = new BuildDirectoryConfiguration(projectStructure.FindBuildDirectory());
         currentProject.Library = new LibraryDirectoryConfiguration(projectStructure.FindLibraryDirectory());
+        currentProject.EnsureValid();
         configuration.ProjectConfigurations.Add(currentProject);
       }
       return configuration;

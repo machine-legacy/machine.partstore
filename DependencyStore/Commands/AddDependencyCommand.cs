@@ -24,18 +24,19 @@ namespace DependencyStore.Commands
       set { _projectToAdd = value; }
     }
 
-    public override void Run()
+    public override CommandStatus Run()
     {
       Repository repository = _repositoryRepository.FindDefaultRepository();
       ArchivedProject projectBeingReferenced = repository.FindProject(this.ProjectToAdd);
       if (projectBeingReferenced == null)
       {
         Console.WriteLine("Project not found: {0}", this.ProjectToAdd);
-        return;
+        return CommandStatus.Failure;
       }
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.AddReferenceToLatestVersion(projectBeingReferenced);
       _currentProjectRepository.SaveCurrentProject(project);
+      return CommandStatus.Success;
     }
   }
 }

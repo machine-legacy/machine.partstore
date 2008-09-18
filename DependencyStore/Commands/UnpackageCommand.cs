@@ -14,10 +14,11 @@ namespace DependencyStore.Commands
       _currentProjectRepository = currentProjectRepository;
     }
 
-    public override void Run()
+    public override CommandStatus Run()
     {
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.InstallPackagesIfNecessary();
+      return CommandStatus.Success;
     }
   }
 }

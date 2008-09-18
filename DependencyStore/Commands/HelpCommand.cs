@@ -4,7 +4,7 @@ namespace DependencyStore.Commands
 {
   public class HelpCommand : Command
   {
-    public override void Run()
+    public override CommandStatus Run()
     {
       Console.WriteLine("{0} <command> [options]", "DependencyStore.exe");
       Console.WriteLine("Commands:");
@@ -15,6 +15,7 @@ namespace DependencyStore.Commands
       Console.WriteLine("  publish --dry-run");
       Console.WriteLine("  search");
       Console.WriteLine("  help");
+      return CommandStatus.Success;
     }
   }
 }

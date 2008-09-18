@@ -16,12 +16,13 @@ namespace DependencyStore.Commands
       _repositoryRepository = repositoryRepository;
     }
 
-    public override void Run()
+    public override CommandStatus Run()
     {
       Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.PublishNewVersion(repository);
       _repositoryRepository.SaveRepository(repository);
+      return CommandStatus.Success;
     }
   }
 }

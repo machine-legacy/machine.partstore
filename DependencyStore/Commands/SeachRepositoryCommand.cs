@@ -14,13 +14,14 @@ namespace DependencyStore.Commands
       _repositoryRepository = repositoryRepository;
     }
 
-    public override void Run()
+    public override CommandStatus Run()
     {
       Repository repository = _repositoryRepository.FindDefaultRepository();
       foreach (ArchivedProject project in repository.Projects)
       {
         Console.WriteLine("{0,-30} {1}", project.Name, project.LatestVersion.CreatedAt);
       }
+      return CommandStatus.Success;
     }
   }
 }

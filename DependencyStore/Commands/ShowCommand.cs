@@ -16,7 +16,7 @@ namespace DependencyStore.Commands
       _currentProjectRepository = currentProjectRepository;
     }
 
-    public override void Run()
+    public override CommandStatus Run()
     {
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       foreach (ProjectReference reference in project.References)
@@ -24,6 +24,7 @@ namespace DependencyStore.Commands
         TimeSpan age = DateTime.Now - reference.DesiredVersion.CreatedAt;
         Console.WriteLine("{0} references {1} ({2} old)", reference.ParentProject, reference.Dependency, TimeSpanHelper.ToPrettyString(age));
       }
+      return CommandStatus.Success;
     }
   }
 }

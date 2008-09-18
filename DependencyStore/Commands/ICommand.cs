@@ -2,12 +2,17 @@ using System;
 
 namespace DependencyStore.Commands
 {
+  public enum CommandStatus
+  {
+    Success,
+    Failure
+  }
   public interface ICommand
   {
-    void Run();
+    CommandStatus Run();
   }
   public abstract class Command : ICommand
   {
-    public abstract void Run();
+    public abstract CommandStatus Run();
   }
 }
