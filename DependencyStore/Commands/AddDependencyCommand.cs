@@ -27,14 +27,15 @@ namespace DependencyStore.Commands
     public override CommandStatus Run()
     {
       Repository repository = _repositoryRepository.FindDefaultRepository();
-      ArchivedProject projectBeingReferenced = repository.FindProject(this.ProjectToAdd);
-      if (projectBeingReferenced == null)
+      ArchivedProject dependency = repository.FindProject(this.ProjectToAdd);
+      if (dependency == null)
       {
         Console.WriteLine("Project not found: {0}", this.ProjectToAdd);
         return CommandStatus.Failure;
       }
+      Console.WriteLine("Adding reference to {0} ({1})", dependency.Name, dependency.LatestVersion.CreatedAt);
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      project.AddReferenceToLatestVersion(projectBeingReferenced);
+      project.AddReferenceToLatestVersion(dependency);
       _currentProjectRepository.SaveCurrentProject(project);
       return CommandStatus.Success;
     }
