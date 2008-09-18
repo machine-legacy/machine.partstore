@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.Domain.Repositories
+namespace DependencyStore.Domain.Distribution
 {
   public class ArchivedProject
   {

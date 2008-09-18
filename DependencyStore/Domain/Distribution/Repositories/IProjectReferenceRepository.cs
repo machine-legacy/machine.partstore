@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
 
-namespace DependencyStore.Domain.Repositories.Repositories
+namespace DependencyStore.Domain.Distribution.Repositories
 {
   public interface IProjectReferenceRepository
   {

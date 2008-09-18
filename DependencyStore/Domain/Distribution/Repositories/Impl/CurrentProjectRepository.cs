@@ -5,7 +5,7 @@ using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Configuration.Repositories;
 using DependencyStore.Domain.Core;
 
-namespace DependencyStore.Domain.Repositories.Repositories.Impl
+namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class CurrentProjectRepository : ICurrentProjectRepository
   {

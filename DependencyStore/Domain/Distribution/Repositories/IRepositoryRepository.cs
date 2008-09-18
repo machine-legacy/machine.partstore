@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.Domain.Repositories.Repositories
+namespace DependencyStore.Domain.Distribution.Repositories
 {
   public interface IRepositoryRepository
   {

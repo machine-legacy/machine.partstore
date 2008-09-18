@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Repositories;
+using DependencyStore.Domain.Distribution;
 
 namespace DependencyStore.Domain.Services
 {

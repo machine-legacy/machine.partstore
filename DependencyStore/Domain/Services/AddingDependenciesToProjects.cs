@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Repositories;
-using DependencyStore.Domain.Repositories.Repositories;
+using DependencyStore.Domain.Distribution;
+using DependencyStore.Domain.Distribution.Repositories;
 
 namespace DependencyStore.Domain.Services
 {

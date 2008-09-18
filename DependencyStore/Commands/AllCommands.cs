@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 using Machine.Core.Utility;
 
-using DependencyStore.Domain.Repositories;
-using DependencyStore.Domain.Repositories.Repositories;
+using DependencyStore.Domain.Distribution;
+using DependencyStore.Domain.Distribution.Repositories;
 
 namespace DependencyStore.Commands
 {

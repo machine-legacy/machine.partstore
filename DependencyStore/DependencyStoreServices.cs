@@ -11,7 +11,7 @@ using DependencyStore.Commands;
 using DependencyStore.Services.Impl;
 using DependencyStore.Domain.Core.Repositories.Impl;
 using DependencyStore.Domain.Configuration.Repositories.Impl;
-using DependencyStore.Domain.Repositories.Repositories.Impl;
+using DependencyStore.Domain.Distribution.Repositories.Impl;
 using DependencyStore.Domain.SimpleCopying.Repositories.Impl;
 
 namespace DependencyStore

@@ -8,7 +8,7 @@ using Machine.Core.Utility;
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Configuration.Repositories;
 
-namespace DependencyStore.Domain.Repositories.Repositories.Impl
+namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class RepositoryRepository : IRepositoryRepository
   {

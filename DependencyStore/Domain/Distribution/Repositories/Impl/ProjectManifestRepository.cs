@@ -7,7 +7,7 @@ using Machine.Core.Utility;
 
 using DependencyStore.Domain.Core;
 
-namespace DependencyStore.Domain.Repositories.Repositories.Impl
+namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class ProjectManifestRepository : IProjectManifestRepository
   {

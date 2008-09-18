@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 using DependencyStore.Domain.Core;
 
-namespace DependencyStore.Domain.Repositories
+namespace DependencyStore.Domain.Distribution
 {
   public class Repository
   {

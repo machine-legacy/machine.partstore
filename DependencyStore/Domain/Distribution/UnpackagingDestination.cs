@@ -3,7 +3,7 @@ using System;
 using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Core;
 
-namespace DependencyStore.Domain.Repositories
+namespace DependencyStore.Domain.Distribution
 {
   public class UnpackagingDestination
   {

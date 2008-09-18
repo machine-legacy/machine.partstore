@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Core.Repositories;
 
-namespace DependencyStore.Domain.Repositories.Repositories.Impl
+namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class ProjectReferenceRepository : IProjectReferenceRepository
   {
