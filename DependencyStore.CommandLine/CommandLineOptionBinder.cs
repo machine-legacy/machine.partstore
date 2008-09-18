@@ -38,7 +38,7 @@ namespace DependencyStore.CommandLine
         }
       }
       PropertyInfo info = (PropertyInfo)GetMemberInfo(property);
-      info.GetSetMethod().Invoke(_command, new object[] { _parser.OrphanedArguments[i] });
+      info.GetSetMethod().Invoke(_command, new object[] { _parser.OrphanedArguments[i].Value });
     }
 
     // Shamelessly ripped from Kzu....
