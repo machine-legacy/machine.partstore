@@ -20,6 +20,8 @@ namespace DependencyStore.CommandLine
         container.Start();
         IoC.Container = container;
 
+        WriteVanityBanner();
+
         CommandLineParser parser = new CommandLineParser();
         parser.ParseCommandLine(args);
         string commandName = "help";
@@ -43,7 +45,16 @@ namespace DependencyStore.CommandLine
         bind.RequireFirst<AddDependencyCommand>(x => x.ProjectToAdd);
         
         command.Run();
+
+        Console.WriteLine();
       }
+    }
+
+    private static void WriteVanityBanner()
+    {
+      Version version = typeof(Program).Assembly.GetName().Version;
+      Console.WriteLine("DependencyStore {0} (C) Jacob Lewallen 2007,2008", version);
+      Console.WriteLine();
     }
   }
 }
