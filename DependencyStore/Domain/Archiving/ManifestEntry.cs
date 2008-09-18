@@ -47,7 +47,7 @@ namespace DependencyStore.Domain.Archiving
 
     public override string ToString()
     {
-      return String.Format("Entry<{0}, {1}>", this.ArchivePath);
+      return String.Format("Entry<{0}>", this.ArchivePath);
     }
   }
 }
