@@ -26,6 +26,10 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       string name = projectConfiguration.Name;
       return new CurrentProject(name, rootDirectory, buildDirectory, libraryDirectory);
     }
+
+    public void SaveCurrentProject(CurrentProject project)
+    {
+    }
     #endregion
   }
 }

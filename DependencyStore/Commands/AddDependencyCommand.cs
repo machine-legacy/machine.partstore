@@ -7,13 +7,13 @@ namespace DependencyStore.Commands
 {
   public class AddDependencyCommand : Command
   {
-    private readonly ICurrentProjectRepository _projectRepository;
+    private readonly ICurrentProjectRepository _currentProjectRepository;
     private readonly IRepositoryRepository _repositoryRepository;
 
-    public AddDependencyCommand(ICurrentProjectRepository projectRepository, IRepositoryRepository repositoryRepository)
+    public AddDependencyCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
     {
-      _projectRepository = projectRepository;
       _repositoryRepository = repositoryRepository;
+      _currentProjectRepository = currentProjectRepository;
     }
 
     private string _projectToAdd;
@@ -33,8 +33,9 @@ namespace DependencyStore.Commands
         Console.WriteLine("Project not found: {0}", this.ProjectToAdd);
         return;
       }
-      CurrentProject project = _projectRepository.FindCurrentProject();
+      CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.AddReferenceToLatestVersion(projectBeingReferenced);
+      _currentProjectRepository.SaveCurrentProject(project);
     }
   }
 }

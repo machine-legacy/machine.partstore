@@ -55,16 +55,12 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
         using (StreamReader reader = _fileSystem.OpenText(configurationFile))
         {
           DependencyStoreConfiguration configuration = XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
-          configuration.EnsureValid();
           configuration.FileAndDirectoryRules = _fileAndDirectoryRulesRepository.FindDefault();
+          configuration.EnsureValid();
           return configuration;
         }
       }
-      catch (InvalidOperationException e)
-      {
-        throw new InvalidConfigurationException("Error reading configuration", e);
-      }
-      catch (XmlException e)
+      catch (Exception e)
       {
         throw new InvalidConfigurationException("Error reading configuration", e);
       }
