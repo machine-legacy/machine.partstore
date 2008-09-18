@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Domain.Core.Repositories
 {
   public interface IProjectRepository
   {

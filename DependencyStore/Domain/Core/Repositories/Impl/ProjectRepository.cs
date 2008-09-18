@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Configuration;
+using DependencyStore.Domain.Configuration.Repositories;
 
-namespace DependencyStore.Services.DataAccess.Impl
+namespace DependencyStore.Domain.Core.Repositories.Impl
 {
   public class ProjectRepository : IProjectRepository
   {

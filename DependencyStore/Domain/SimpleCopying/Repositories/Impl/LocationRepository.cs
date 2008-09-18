@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
-using DependencyStore.Domain.SimpleCopying;
+using DependencyStore.Domain.Core.Repositories;
+using DependencyStore.Domain.Configuration.Repositories;
 using DependencyStore.Domain.Configuration;
 
-namespace DependencyStore.Services.DataAccess.Impl
+namespace DependencyStore.Domain.SimpleCopying.Repositories.Impl
 {
   public class LocationRepository : ILocationRepository
   {

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Repositories;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Domain.Repositories.Repositories
 {
   public interface IProjectManifestRepository
   {

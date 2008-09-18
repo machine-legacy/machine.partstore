@@ -68,9 +68,6 @@
     <Compile Include="Domain\SimpleCopying\LatestFileSetTests.cs" />
     <Compile Include="Domain\SimpleCopying\LibraryLocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DataAccess\Impl\ConfigurationRepositoryTests.cs" />
-    <Compile Include="Services\DataAccess\Impl\FileAndDirectoryRulesRepositoryTests.cs" />
-    <Compile Include="Services\DataAccess\Impl\FileSystemEntryRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DependencyStore\DependencyStore.csproj">

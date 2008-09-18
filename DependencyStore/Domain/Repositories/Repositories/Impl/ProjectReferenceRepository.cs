@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Repositories;
+using DependencyStore.Domain.Core.Repositories;
 
-namespace DependencyStore.Services.DataAccess.Impl
+namespace DependencyStore.Domain.Repositories.Repositories.Impl
 {
   public class ProjectReferenceRepository : IProjectReferenceRepository
   {

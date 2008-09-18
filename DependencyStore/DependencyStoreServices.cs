@@ -7,9 +7,12 @@ using Machine.Core.Services.Impl;
 
 using DependencyStore.Domain.Services;
 using DependencyStore.Domain.Configuration;
-using DependencyStore.Services.DataAccess.Impl;
-using DependencyStore.Services.Impl;
 using DependencyStore.Commands;
+using DependencyStore.Services.Impl;
+using DependencyStore.Domain.Core.Repositories.Impl;
+using DependencyStore.Domain.Configuration.Repositories.Impl;
+using DependencyStore.Domain.Repositories.Repositories.Impl;
+using DependencyStore.Domain.SimpleCopying.Repositories.Impl;
 
 namespace DependencyStore
 {

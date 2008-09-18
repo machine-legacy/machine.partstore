@@ -6,10 +6,10 @@ using System.Xml;
 using Machine.Core.Services;
 using Machine.Core.Utility;
 
-using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Core;
+using DependencyStore.Domain.Core.Repositories;
 
-namespace DependencyStore.Services.DataAccess.Impl
+namespace DependencyStore.Domain.Configuration.Repositories.Impl
 {
   public class ConfigurationRepository : IConfigurationRepository
   {

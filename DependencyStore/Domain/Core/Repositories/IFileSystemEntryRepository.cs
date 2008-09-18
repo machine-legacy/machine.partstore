@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Core;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Domain.Core.Repositories
 {
   public interface IFileSystemEntryRepository
   {

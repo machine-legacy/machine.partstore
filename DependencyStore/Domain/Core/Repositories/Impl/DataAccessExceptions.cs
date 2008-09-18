@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace DependencyStore.Services.DataAccess.Impl
+namespace DependencyStore.Domain.Core.Repositories.Impl
 {
   public class FileSystemEntryNotFoundException : ApplicationException
   {
@@ -18,24 +18,6 @@ namespace DependencyStore.Services.DataAccess.Impl
     }
 
     public FileSystemEntryNotFoundException(string message, Exception innerException) : base(message, innerException)
-    {
-    }
-  }
-  public class InvalidConfigurationException : ApplicationException
-  {
-    public InvalidConfigurationException(string message) : base(message)
-    {
-    }
-
-    public InvalidConfigurationException()
-    {
-    }
-
-    public InvalidConfigurationException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-
-    public InvalidConfigurationException(string message, Exception innerException) : base(message, innerException)
     {
     }
   }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Repositories;
-
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Domain.Repositories.Repositories
 {
   public interface IProjectReferenceRepository
   {

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Repositories;
-
 using Machine.Core.Services;
 using Machine.Core.Utility;
 
-namespace DependencyStore.Services.DataAccess.Impl
+using DependencyStore.Domain.Core;
+using DependencyStore.Domain.Configuration.Repositories;
+
+namespace DependencyStore.Domain.Repositories.Repositories.Impl
 {
   public class RepositoryRepository : IRepositoryRepository
   {

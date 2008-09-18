@@ -6,9 +6,8 @@ using Machine.Core.Services;
 using Machine.Core.Utility;
 
 using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Repositories;
 
-namespace DependencyStore.Services.DataAccess.Impl
+namespace DependencyStore.Domain.Repositories.Repositories.Impl
 {
   public class ProjectManifestRepository : IProjectManifestRepository
   {

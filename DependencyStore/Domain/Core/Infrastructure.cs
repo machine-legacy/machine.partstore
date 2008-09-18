@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Services.DataAccess;
-
 using Machine.Container;
 using Machine.Core.Services;
+
+using DependencyStore.Domain.Repositories.Repositories;
 
 namespace DependencyStore.Domain.Core
 {

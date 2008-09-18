@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Machine.Core.Utility;
 
 using DependencyStore.Domain.Repositories;
-using DependencyStore.Services.DataAccess;
+using DependencyStore.Domain.Repositories.Repositories;
 
 namespace DependencyStore.Commands
 {

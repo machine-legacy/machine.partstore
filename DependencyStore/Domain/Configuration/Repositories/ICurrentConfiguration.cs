@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain.Configuration;
 
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Domain.Configuration.Repositories
 {
   public interface ICurrentConfiguration
   {

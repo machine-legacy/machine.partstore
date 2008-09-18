@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.SimpleCopying;
-
-namespace DependencyStore.Services.DataAccess
+namespace DependencyStore.Domain.SimpleCopying.Repositories
 {
   public interface ILocationRepository
   {
