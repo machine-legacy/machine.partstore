@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Repositories;
 
@@ -10,10 +9,6 @@ namespace DependencyStore.Domain.Services
   [Machine.Container.Model.Transient]
   public class AddingNewVersionsToRepository
   {
-    public AddingNewVersionsToRepository()
-    {
-    }
-
     public void AddProjects(IEnumerable<Project> projects, Repository repository)
     {
       foreach (Project project in projects)

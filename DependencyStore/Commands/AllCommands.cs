@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using Machine.Core.Utility;
 
-using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Repositories;
 using DependencyStore.Domain.Repositories.Repositories;
 
