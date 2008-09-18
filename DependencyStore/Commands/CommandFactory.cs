@@ -14,6 +14,11 @@ namespace DependencyStore.Commands
     {
       public string Name;
       public Type Type;
+      public RegisteredCommand(string name, Type type)
+      {
+        this.Name = name;
+        this.Type = type;
+      }
     }
 
     public CommandFactory(IMachineContainer container)
@@ -23,7 +28,7 @@ namespace DependencyStore.Commands
 
     public void AddCommand<T>(string name) where T : ICommand
     {
-      _commands.Add(new RegisteredCommand() { Name = name, Type = typeof(T) });
+      _commands.Add(new RegisteredCommand(name, typeof (T)));
     }
 
     public ICommand CreateCommand(string name)
