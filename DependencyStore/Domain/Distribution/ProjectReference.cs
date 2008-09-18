@@ -11,7 +11,6 @@ namespace DependencyStore.Domain.Distribution
     private readonly ArchivedProject _dependency;
     private readonly ProjectManifest _manifest;
     private readonly UnpackagingDestination _destination;
-    private ArchivedProjectVersion _dependencyVersion;
 
     public ProjectReference(Project parentProject, ArchivedProject dependency, ProjectManifest manifest)
     {
@@ -33,7 +32,7 @@ namespace DependencyStore.Domain.Distribution
 
     public ArchivedProjectVersion DependencyVersion
     {
-      get { throw new NotImplementedException(); }
+      get { return _dependency.FindVersionInManifest(_manifest); }
     }
 
     public bool IsDesiredVersionInstalled
