@@ -9,7 +9,6 @@ namespace DependencyStore.Domain.Distribution
   {
     private readonly Project _parentProject;
     private readonly ArchivedProject _dependency;
-    private ProjectManifest _manifest;
     private ArchivedProjectVersion _desiredVersion;
 
     public ProjectReference(Project parentProject, ArchivedProject dependency)
@@ -17,20 +16,6 @@ namespace DependencyStore.Domain.Distribution
       _parentProject = parentProject;
       _dependency = dependency;
       _desiredVersion = dependency.LatestVersion;
-      _manifest = null;
-    }
-
-    public ProjectReference(Project parentProject, ArchivedProject dependency, ArchivedProjectVersion desiredVersion, ProjectManifest manifest)
-    {
-      _parentProject = parentProject;
-      _dependency = dependency;
-      _desiredVersion = desiredVersion;
-      _manifest = manifest;
-    }
-
-    public Project ParentProject
-    {
-      get { return _parentProject; }
     }
 
     public ArchivedProject Dependency
@@ -54,7 +39,6 @@ namespace DependencyStore.Domain.Distribution
       Purl path = _parentProject.LibraryDirectory.Join(latestManifest.FileName);
       Infrastructure.ProjectManifestRepository.SaveProjectManifest(latestManifest, path);
       _desiredVersion = _dependency.LatestVersion;
-      _manifest = latestManifest;
     }
 
     public void UnpackageIfNecessary()
@@ -68,7 +52,11 @@ namespace DependencyStore.Domain.Distribution
 
     private UnpackagingDestination UnpackagingDestination
     {
-      get { return new UnpackagingDestination(_parentProject, _manifest); }
+      get
+      {
+        ProjectManifest manifest = Infrastructure.ProjectManifestRepository.ReadProjectManifest(_parentProject.LibraryDirectory.Join(_dependency.Name + "." + ProjectManifest.Extension));
+        return new UnpackagingDestination(_parentProject, manifest);
+      }
     }
   }
 }

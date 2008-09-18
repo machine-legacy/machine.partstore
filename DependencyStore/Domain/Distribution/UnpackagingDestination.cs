@@ -36,8 +36,7 @@ namespace DependencyStore.Domain.Distribution
       Archive archive = ArchiveFactory.ReadZip(version.ArchivePath);
       ZipUnpackager unpackager = new ZipUnpackager(archive);
       unpackager.UnpackageZip(_path);
-      ProjectManifest manifest = _desiredVersionManifest;
-      Infrastructure.ProjectManifestRepository.SaveProjectManifest(manifest, this.CurrentVersionManifestPath);
+      Infrastructure.ProjectManifestRepository.SaveProjectManifest(_desiredVersionManifest, this.CurrentVersionManifestPath);
     }
   }
 }

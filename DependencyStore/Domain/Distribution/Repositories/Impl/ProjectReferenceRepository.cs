@@ -32,12 +32,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
           {
             throw new InvalidOperationException("Missing project: " + manifest);
           }
-          ArchivedProjectVersion version = archivedProject.LatestVersion;
-          if (version == null)
-          {
-            throw new InvalidOperationException("Missing version: " + manifest);
-          }
-          references.Add(new ProjectReference(project, archivedProject, version, manifest));
+          references.Add(new ProjectReference(project, archivedProject));
         }
       }
       return references;

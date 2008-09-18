@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
@@ -9,12 +8,14 @@ namespace DependencyStore.Domain.Distribution
 {
   public class CurrentProject : Project
   {
+    private readonly List<ProjectReference> _references = new List<ProjectReference>();
+
     public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
       : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
     }
 
-    public IEnumerable References
+    public IEnumerable<ProjectReference> References
     {
       get { return Infrastructure.ProjectReferenceRepository.FindAllProjectReferences(); }
     }
@@ -23,6 +24,7 @@ namespace DependencyStore.Domain.Distribution
     {
       ProjectReference reference = Infrastructure.ProjectReferenceRepository.FindProjectReferenceFor(this, project);
       reference.MakeLatestVersion();
+      _references.Add(reference);
       return reference;
     }
 
