@@ -12,12 +12,20 @@ namespace DependencyStore.Domain.Repositories
     private ProjectManifest _manifest;
     private ArchivedProjectVersion _desiredVersion;
 
+    public ProjectReference(ArchivedProject dependency, Project parentProject)
+    {
+      _dependency = dependency;
+      _parentProject = parentProject;
+      _desiredVersion = dependency.LatestVersion;
+      _manifest = null;
+    }
+
     public ProjectReference(ArchivedProject dependency, Project parentProject, ArchivedProjectVersion desiredVersion, ProjectManifest manifest)
     {
       _dependency = dependency;
-      _manifest = manifest;
       _parentProject = parentProject;
       _desiredVersion = desiredVersion;
+      _manifest = manifest;
     }
 
     public Project ParentProject
@@ -35,11 +43,6 @@ namespace DependencyStore.Domain.Repositories
       get { return _desiredVersion; }
     }
 
-    public bool IsUsingOlderVersion
-    {
-      get { return _manifest.IsOlderThan(_dependency.LatestVersion); }
-    }
-
     public bool IsDesiredVersionInstalled
     {
       get { return this.UnpackagingDestination.HasVersionOlderThan(_desiredVersion); }
@@ -47,11 +50,10 @@ namespace DependencyStore.Domain.Repositories
 
     public void MakeLatestVersion()
     {
-      ArchivedProjectVersion latestVersion = _dependency.LatestVersion;
-      ProjectManifest latestManifest = _dependency.MakeManifest(latestVersion);
+      ProjectManifest latestManifest = _dependency.MakeManifestForLatestVersion();
       Purl path = _parentProject.LibraryDirectory.Join(latestManifest.FileName);
       Infrastructure.ProjectManifestRepository.SaveProjectManifest(latestManifest, path);
-      _desiredVersion = latestVersion;
+      _desiredVersion = _dependency.LatestVersion;
       _manifest = latestManifest;
     }
 

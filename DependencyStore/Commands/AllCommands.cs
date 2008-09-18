@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Machine.Core.Utility;
 
+using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Repositories;
 using DependencyStore.Domain.Repositories.Repositories;
 
@@ -49,6 +50,15 @@ namespace DependencyStore.Commands
   }
   public class AddDependencyCommand : Command
   {
+    private readonly ICurrentProjectRepository _projectRepository;
+    private readonly IRepositoryRepository _repositoryRepository;
+
+    public AddDependencyCommand(ICurrentProjectRepository projectRepository, IRepositoryRepository repositoryRepository)
+    {
+      _projectRepository = projectRepository;
+      _repositoryRepository = repositoryRepository;
+    }
+
     private string _projectToAdd;
 
     public string ProjectToAdd
@@ -59,6 +69,15 @@ namespace DependencyStore.Commands
 
     public override void Run()
     {
+      Repository repository = _repositoryRepository.FindDefaultRepository();
+      ArchivedProject projectBeingReferenced = repository.FindProject(this.ProjectToAdd);
+      if (projectBeingReferenced == null)
+      {
+        Console.WriteLine("Project not found: {0}", this.ProjectToAdd);
+        return;
+      }
+      CurrentProject project = _projectRepository.FindCurrentProject();
+      project.AddReferenceToLatestVersion(projectBeingReferenced);
     }
   }
   public class AddNewVersionCommand : Command

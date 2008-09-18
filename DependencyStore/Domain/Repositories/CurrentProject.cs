@@ -11,5 +11,13 @@ namespace DependencyStore.Domain.Repositories
       : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
     }
+
+    public ProjectReference AddReferenceToLatestVersion(ArchivedProject project)
+    {
+      Console.WriteLine("Adding reference {0}", project);
+      ProjectReference reference = new ProjectReference(project, this);
+      reference.MakeLatestVersion();
+      return reference;
+    }
   }
 }
