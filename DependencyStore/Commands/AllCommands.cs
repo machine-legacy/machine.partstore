@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Machine.Core.Utility;
+
 using DependencyStore.Domain.Repositories;
 using DependencyStore.Services.DataAccess;
-using Machine.Core.Utility;
 
 namespace DependencyStore.Commands
 {

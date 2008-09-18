@@ -77,6 +77,7 @@
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
     <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
+    <Compile Include="Domain\Core\CoreDomainEvents.cs" />
     <Compile Include="Domain\Repositories\CurrentProject.cs" />
     <Compile Include="Domain\Core\Infrastructure.cs" />
     <Compile Include="Domain\Repositories\ArchivedProject.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="Domain\Core\FileSystemDirectory.cs" />
     <Compile Include="Domain\Core\FileSystemEntry.cs" />
     <Compile Include="Domain\Core\FileSystemFile.cs" />
-    <Compile Include="Domain\Core\FileSystemPath.cs" />
+    <Compile Include="Domain\Core\Purl.cs" />
     <Compile Include="Domain\SimpleCopying\LatestFileSet.cs" />
     <Compile Include="Domain\SimpleCopying\SinkLocation.cs" />
     <Compile Include="Domain\SimpleCopying\Location.cs" />
