@@ -12,7 +12,6 @@ namespace DependencyStore.Services.Impl
   {
     private readonly ILocationRepository _locationRepository;
     private readonly IConfigurationRepository _configurationRepository;
-    private DependencyStoreConfiguration _configuration;
     private IList<SourceLocation> _sources;
     private IList<SinkLocation> _sinks;
     private LatestFileSet _latestFiles;
@@ -45,7 +44,6 @@ namespace DependencyStore.Services.Impl
 
     public void Refresh()
     {
-      _configuration = _configurationRepository.FindDefaultConfiguration();
       _sinks = _locationRepository.FindAllSinks();
       _sources = _locationRepository.FindAllSources();
       _latestFiles = new LatestFileSet();

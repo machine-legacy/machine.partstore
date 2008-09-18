@@ -39,7 +39,7 @@ namespace DependencyStore
       register.Type<AddingDependenciesToProjects>();
       register.Type<CurrentConfiguration>();
 
-      register.Type<SeachAvailableProjects>();
+      register.Type<SeachRepositoryCommand>();
       register.Type<CommandFactory>();
       register.Type<UnpackageCommand>();
       register.Type<ShowCommand>();
