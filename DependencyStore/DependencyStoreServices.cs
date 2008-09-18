@@ -35,8 +35,6 @@ namespace DependencyStore
       register.Type<ConfigurationPaths>();
       register.Type<RepositoryRepository>();
       register.Type<AddingNewVersionsToRepository>();
-      register.Type<UnpackagingDependenciesForProjects>();
-      register.Type<AddingDependenciesToProjects>();
       register.Type<CurrentConfiguration>();
 
       register.Type<SeachRepositoryCommand>();

@@ -105,8 +105,6 @@
     <Compile Include="Domain\SimpleCopying\FileSetGroupedByLocation.cs" />
     <Compile Include="Domain\Core\Project.cs" />
     <Compile Include="Domain\Services\AddingNewVersionsToRepository.cs" />
-    <Compile Include="Domain\Services\UnpackagingDependenciesForProjects.cs" />
-    <Compile Include="Domain\Services\AddingDependenciesToProjects.cs" />
     <Compile Include="Domain\SimpleCopying\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\SimpleCopying\SimpleCopyingDomainEvents.cs" />
