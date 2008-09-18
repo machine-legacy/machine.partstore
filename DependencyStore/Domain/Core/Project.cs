@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Archiving;
-
 namespace DependencyStore.Domain.Core
 {
   public class Project
@@ -55,21 +53,6 @@ namespace DependencyStore.Domain.Core
       _rootDirectory = rootDirectory;
       _buildDirectory = buildDirectory;
       _libraryDirectory = libraryDirectory;
-    }
-
-    public Archive MakeArchive()
-    {
-      throw new NotImplementedException();
-      /*
-      FileSet fileSet = this.BuildDirectory.ToFileSet();
-      Purl fileRootDirectory = fileSet.FindCommonDirectory();
-      Archive archive = new Archive();
-      foreach (FileSystemFile file in fileSet.Files)
-      {
-        archive.Add(file.Path.ChangeRoot(fileRootDirectory), file);
-      }
-      return archive;
-      */
     }
 
     public override string ToString()

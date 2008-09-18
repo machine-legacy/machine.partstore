@@ -20,6 +20,7 @@ namespace DependencyStore.Domain.Services
       {
         ArchivedProject archivedProject = repository.FindOrCreateProject(project);
         ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, repository);
+        /*
         using (Archive archive = project.MakeArchive())
         {
           ZipPackager writer = new ZipPackager(archive);
@@ -27,6 +28,8 @@ namespace DependencyStore.Domain.Services
           writer.WriteZip(path);
           archivedProject.AddVersion(version);
         }
+        */
+        throw new NotImplementedException();
       }
     }
   }
