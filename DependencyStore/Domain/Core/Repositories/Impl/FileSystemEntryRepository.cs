@@ -10,13 +10,20 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
   public class FileSystemEntryRepository : IFileSystemEntryRepository
   {
     private readonly IFileSystem _fileSystem;
+    private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
 
-    public FileSystemEntryRepository(IFileSystem fileSystem)
+    public FileSystemEntryRepository(IFileSystem fileSystem, IFileAndDirectoryRulesRepository fileAndDirectoryRulesRepository)
     {
       _fileSystem = fileSystem;
+      _fileAndDirectoryRulesRepository = fileAndDirectoryRulesRepository;
     }
 
     #region IFileSystemEntryRepository Members
+    public FileSystemEntry FindEntry(Purl path)
+    {
+      return FindEntry(path, _fileAndDirectoryRulesRepository.FindDefault());
+    }
+
     public FileSystemEntry FindEntry(Purl path, FileAndDirectoryRules rules)
     {
       if (_fileSystem.IsFile(path.AsString))
