@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AddDependencyCommand.cs" />
+    <Compile Include="Commands\ArchiveProgressDisplayer.cs" />
     <Compile Include="Commands\CommandFactory.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />

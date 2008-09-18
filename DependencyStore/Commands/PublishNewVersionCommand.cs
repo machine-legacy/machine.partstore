@@ -18,6 +18,7 @@ namespace DependencyStore.Commands
 
     public override CommandStatus Run()
     {
+      new ArchiveProgressDisplayer(true);
       Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.PublishNewVersion(repository);
