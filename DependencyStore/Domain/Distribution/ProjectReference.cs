@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
@@ -57,7 +57,7 @@ namespace DependencyStore.Domain.Distribution
       _manifest = latestManifest;
     }
 
-    public void InstallPackageIfNecessary()
+    public void UnpackageIfNecessary()
     {
       UnpackagingDestination destination = this.UnpackagingDestination;
       if (destination.HasVersionOlderThan(_desiredVersion))

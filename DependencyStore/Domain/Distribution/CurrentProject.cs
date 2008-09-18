@@ -27,11 +27,11 @@ namespace DependencyStore.Domain.Distribution
       return reference;
     }
 
-    public void InstallPackagesIfNecessary()
+    public void UnpackageIfNecessary()
     {
       foreach (ProjectReference reference in Infrastructure.ProjectReferenceRepository.FindAllProjectReferences())
       {
-        reference.InstallPackageIfNecessary();
+        reference.UnpackageIfNecessary();
       }
     }
 

@@ -17,7 +17,7 @@ namespace DependencyStore.Commands
     public override CommandStatus Run()
     {
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      project.InstallPackagesIfNecessary();
+      project.UnpackageIfNecessary();
       return CommandStatus.Success;
     }
   }

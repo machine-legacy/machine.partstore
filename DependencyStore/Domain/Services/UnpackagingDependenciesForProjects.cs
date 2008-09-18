@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Distribution;
@@ -20,7 +20,7 @@ namespace DependencyStore.Domain.Services
     {
       foreach (ProjectReference reference in _projectReferenceRepository.FindAllProjectReferences())
       {
-        reference.InstallPackageIfNecessary();
+        reference.UnpackageIfNecessary();
       }
     }
   }
