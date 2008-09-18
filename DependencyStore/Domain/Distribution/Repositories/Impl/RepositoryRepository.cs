@@ -12,6 +12,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class RepositoryRepository : IRepositoryRepository
   {
+    private static readonly XmlSerializer<Repository> _serializer = new XmlSerializer<Repository>();
     private readonly ICurrentConfiguration _currentConfiguration;
     private readonly IFileSystem _fileSystem;
 
@@ -31,7 +32,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       }
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
-        return Prepare(XmlSerializationHelper.DeserializeString<Repository>(stream.ReadToEnd()), path);
+        return Prepare(_serializer.DeserializeString(stream.ReadToEnd()), path);
       }
     }
 
@@ -40,7 +41,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       Purl path = _currentConfiguration.DefaultConfiguration.RepositoryDirectory.Join("Manifest.xml");
       using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
       {
-        stream.Write(XmlSerializationHelper.Serialize(repository));
+        stream.Write(_serializer.Serialize(repository));
       }
     }
     #endregion

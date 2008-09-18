@@ -11,6 +11,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class ProjectManifestRepository : IProjectManifestRepository
   {
+    private static readonly XmlSerializer<ProjectManifest> _serializer = new XmlSerializer<ProjectManifest>();
     private readonly IFileSystem _fileSystem;
 
     public ProjectManifestRepository(IFileSystem fileSystem)
@@ -36,7 +37,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     {
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
-        ProjectManifest manifest = XmlSerializationHelper.DeserializeString<ProjectManifest>(stream.ReadToEnd());
+        ProjectManifest manifest = _serializer.DeserializeString(stream.ReadToEnd());
         if (!manifest.IsAcceptableFileName(path))
         {
           throw new InvalidOperationException("Project reference manifest and project name should match: " + path);
@@ -49,7 +50,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     {
       using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
       {
-        stream.Write(XmlSerializationHelper.Serialize(manifest));
+        stream.Write(_serializer.Serialize(manifest));
       }
     }
     #endregion

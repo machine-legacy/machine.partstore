@@ -13,6 +13,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
 {
   public class ConfigurationRepository : IConfigurationRepository
   {
+    private static readonly XmlSerializer<DependencyStoreConfiguration> _serializer = new XmlSerializer<DependencyStoreConfiguration>();
     private readonly IFileSystem _fileSystem;
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly ConfigurationPaths _paths;
@@ -55,7 +56,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
         }
         using (StreamReader reader = _fileSystem.OpenText(configurationFile))
         {
-          DependencyStoreConfiguration configuration = XmlSerializationHelper.DeserializeString<DependencyStoreConfiguration>(reader.ReadToEnd());
+          DependencyStoreConfiguration configuration = _serializer.DeserializeString(reader.ReadToEnd());
           configuration.FileAndDirectoryRules = _fileAndDirectoryRulesRepository.FindDefault();
           configuration.EnsureValid();
           return configuration;
