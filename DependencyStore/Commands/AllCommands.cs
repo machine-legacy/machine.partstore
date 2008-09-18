@@ -31,6 +31,24 @@ namespace DependencyStore.Commands
       }
     }
   }
+  public class SeachAvailableProjects : Command
+  {
+    private readonly IRepositoryRepository _repositoryRepository;
+
+    public SeachAvailableProjects(IRepositoryRepository repositoryRepository)
+    {
+      _repositoryRepository = repositoryRepository;
+    }
+
+    public override void Run()
+    {
+      Repository repository = _repositoryRepository.FindDefaultRepository();
+      foreach (ArchivedProject project in repository.Projects)
+      {
+        Console.WriteLine("{0,-30} {1}", project.Name, project.LatestVersion.CreatedAt);
+      }
+    }
+  }
   public class UnpackageCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
@@ -104,6 +122,7 @@ namespace DependencyStore.Commands
       Console.WriteLine("  add --dry-run");
       Console.WriteLine("  update --all --dry-run");
       Console.WriteLine("  publish --dry-run");
+      Console.WriteLine("  search");
       Console.WriteLine("  help");
     }
   }
