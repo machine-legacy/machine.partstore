@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E11F7937-010C-4D69-B5F5-A91A2A051D70}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -69,4 +69,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>COPY $(TargetPath) $(TargetDir)Ds.exe</PostBuildEvent>
+  </PropertyGroup>
 </Project>
