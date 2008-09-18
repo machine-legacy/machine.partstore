@@ -19,10 +19,12 @@ namespace DependencyStore.Commands
     public override CommandStatus Run()
     {
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
+      Console.WriteLine("Current Project: {0}", project.Name);
+      Console.WriteLine("References:");
       foreach (ProjectReference reference in project.References)
       {
         TimeSpan age = DateTime.Now - reference.DesiredVersion.CreatedAt;
-        Console.WriteLine("{0} references {1} ({2} old)", reference.ParentProject, reference.Dependency, TimeSpanHelper.ToPrettyString(age));
+        Console.WriteLine("  {0} ({1} old)", reference.Dependency.Name, TimeSpanHelper.ToPrettyString(age));
       }
       return CommandStatus.Success;
     }
