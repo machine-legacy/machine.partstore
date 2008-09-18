@@ -140,8 +140,6 @@
     <Compile Include="Utility\FileSystemEntryPrinter.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\FileSystemEntryRepository.cs" />
     <Compile Include="Domain\Core\Repositories\IFileSystemEntryRepository.cs" />
-    <Compile Include="Tasks\DsShow.cs" />
-    <Compile Include="Tasks\DsTask.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
