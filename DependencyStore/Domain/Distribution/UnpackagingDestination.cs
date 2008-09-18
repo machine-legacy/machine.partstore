@@ -7,18 +7,21 @@ namespace DependencyStore.Domain.Distribution
 {
   public class UnpackagingDestination
   {
-    private readonly ProjectManifest _desiredVersionManifest;
     private readonly Purl _path;
+    private readonly ProjectManifest _currentManifest;
+    private readonly Purl _currentManifestPath;
 
     private Purl CurrentVersionManifestPath
     {
-      get { return _path.Join(_desiredVersionManifest.FileName); }
+      get { return _currentManifestPath; }
     }
 
-    public UnpackagingDestination(Project project, ProjectManifest desiredVersionManifest)
+    public UnpackagingDestination(Project project, ArchivedProject dependency)
     {
-      _path = project.LibraryDirectory.Join(desiredVersionManifest.ProjectName);
-      _desiredVersionManifest = desiredVersionManifest;
+      ProjectManifest manifest = Infrastructure.ProjectManifestRepository.ReadProjectManifest(project.LibraryDirectory.Join(dependency.ManifestFileName));
+      _path = project.LibraryDirectory.Join(dependency.Name);
+      _currentManifest = manifest;
+      _currentManifestPath = _path.Join(dependency.ManifestFileName);
     }
 
     public bool HasVersionOlderThan(ArchivedProjectVersion version)
@@ -36,7 +39,7 @@ namespace DependencyStore.Domain.Distribution
       Archive archive = ArchiveFactory.ReadZip(version.ArchivePath);
       ZipUnpackager unpackager = new ZipUnpackager(archive);
       unpackager.UnpackageZip(_path);
-      Infrastructure.ProjectManifestRepository.SaveProjectManifest(_desiredVersionManifest, this.CurrentVersionManifestPath);
+      Infrastructure.ProjectManifestRepository.SaveProjectManifest(_currentManifest, this.CurrentVersionManifestPath);
     }
   }
 }

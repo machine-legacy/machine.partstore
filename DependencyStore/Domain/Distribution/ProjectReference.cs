@@ -9,13 +9,19 @@ namespace DependencyStore.Domain.Distribution
   {
     private readonly Project _parentProject;
     private readonly ArchivedProject _dependency;
-    private ArchivedProjectVersion _desiredVersion;
+    private readonly UnpackagingDestination _destination;
+    private ArchivedProjectVersion _dependencyVersion;
 
     public ProjectReference(Project parentProject, ArchivedProject dependency)
     {
       _parentProject = parentProject;
       _dependency = dependency;
-      _desiredVersion = dependency.LatestVersion;
+      _destination = new UnpackagingDestination(_parentProject, _dependency);
+    }
+
+    private UnpackagingDestination UnpackagingDestination
+    {
+      get { return _destination; }
     }
 
     public ArchivedProject Dependency
@@ -23,39 +29,30 @@ namespace DependencyStore.Domain.Distribution
       get { return _dependency; }
     }
 
-    public ArchivedProjectVersion DesiredVersion
+    public ArchivedProjectVersion DependencyVersion
     {
-      get { return _desiredVersion; }
+      get { throw new NotImplementedException(); }
     }
 
     public bool IsDesiredVersionInstalled
     {
-      get { return this.UnpackagingDestination.HasVersionOlderThan(_desiredVersion); }
+      get { return this.UnpackagingDestination.HasVersionOlderThan(this.DependencyVersion); }
     }
 
     public void MakeLatestVersion()
     {
       ProjectManifest latestManifest = _dependency.MakeManifestForLatestVersion();
-      Purl path = _parentProject.LibraryDirectory.Join(latestManifest.FileName);
+      Purl path = _parentProject.LibraryDirectory.Join(_dependency.ManifestFileName);
       Infrastructure.ProjectManifestRepository.SaveProjectManifest(latestManifest, path);
-      _desiredVersion = _dependency.LatestVersion;
+      _dependencyVersion = _dependency.LatestVersion;
     }
 
     public void UnpackageIfNecessary()
     {
       UnpackagingDestination destination = this.UnpackagingDestination;
-      if (destination.HasVersionOlderThan(_desiredVersion))
+      if (destination.HasVersionOlderThan(this.DependencyVersion))
       {
-        destination.UpdateInstalledVersion(_desiredVersion);
-      }
-    }
-
-    private UnpackagingDestination UnpackagingDestination
-    {
-      get
-      {
-        ProjectManifest manifest = Infrastructure.ProjectManifestRepository.ReadProjectManifest(_parentProject.LibraryDirectory.Join(_dependency.Name + "." + ProjectManifest.Extension));
-        return new UnpackagingDestination(_parentProject, manifest);
+        destination.UpdateInstalledVersion(this.DependencyVersion);
       }
     }
   }

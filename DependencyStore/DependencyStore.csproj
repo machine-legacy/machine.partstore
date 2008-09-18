@@ -96,6 +96,7 @@
     <Compile Include="Domain\Distribution\ProjectManifest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\Distribution\ProjectManifestStore.cs" />
     <Compile Include="Domain\Distribution\ProjectReference.cs" />
     <Compile Include="Domain\Distribution\Repository.cs" />
     <Compile Include="Domain\Core\FileAsset.cs" />

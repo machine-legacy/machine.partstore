@@ -14,6 +14,11 @@ namespace DependencyStore.Domain.Distribution
       set { _name = value; }
     }
 
+    public string ManifestFileName
+    {
+      get { return this.Name + "." + ProjectManifest.Extension; }
+    }
+
     public List<ArchivedProjectVersion> Versions
     {
       get { return _versions; }

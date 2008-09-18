@@ -32,7 +32,8 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
           {
             throw new InvalidOperationException("Missing project: " + manifest);
           }
-          references.Add(new ProjectReference(project, archivedProject));
+          ProjectReference reference = new ProjectReference(project, archivedProject);
+          references.Add(reference);
         }
       }
       return references;

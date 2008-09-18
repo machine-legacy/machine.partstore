@@ -24,11 +24,6 @@ namespace DependencyStore.Domain.Distribution
       set { _versionCreatedAt = value; }
     }
 
-    public string FileName
-    {
-      get { return this.ProjectName + "." + Extension; }
-    }
-
     public ProjectManifest()
     {
     }
