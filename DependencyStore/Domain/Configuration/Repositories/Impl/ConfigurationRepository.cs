@@ -64,6 +64,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       {
         ProjectStructure projectStructure = new ProjectStructure(new Purl(Path.GetDirectoryName(path)));
         ProjectConfiguration currentProject = new ProjectConfiguration();
+        currentProject.Name = Path.GetFileName(Path.GetDirectoryName(path));
         currentProject.Root = new RootDirectoryConfiguration(projectStructure.FindRootDirectory());
         currentProject.Build = new BuildDirectoryConfiguration(projectStructure.FindBuildDirectory());
         currentProject.Library = new LibraryDirectoryConfiguration(projectStructure.FindLibraryDirectory());
