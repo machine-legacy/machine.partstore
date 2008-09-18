@@ -113,6 +113,7 @@ namespace DependencyStore.Domain.Configuration
     public static string PtDirectory = @"^pt$";
     public static string ObjDirectory = @"^obj$";
     public static string DllFile = @"^.+\.dll$";
+    public static string ExeFile = @"^.+\.exe$";
     public static string PdbFile = @"^.+\.pdb$";
     public static string ConfigFile = @"^.+\.config$";
   }

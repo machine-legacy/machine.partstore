@@ -16,6 +16,7 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
       rules.DirectoryRules.AddExclusion(DefaultInclusionRules.PtDirectory);
       rules.DirectoryRules.AddExclusion(DefaultInclusionRules.ObjDirectory);
       rules.FileRules.AddInclusion(DefaultInclusionRules.DllFile);
+      rules.FileRules.AddInclusion(DefaultInclusionRules.ExeFile);
       rules.FileRules.AddInclusion(DefaultInclusionRules.PdbFile);
       rules.FileRules.AddInclusion(DefaultInclusionRules.ConfigFile);
       return rules;
