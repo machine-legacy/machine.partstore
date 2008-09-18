@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-using Machine.Container;
 using Machine.Core.Services;
 
-using DependencyStore.Domain;
+using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Configuration;
 
 namespace DependencyStore.Services.DataAccess.Impl

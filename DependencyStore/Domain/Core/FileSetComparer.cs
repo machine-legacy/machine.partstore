@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   public class FileSetComparer : IEqualityComparer<FileAsset>
   {

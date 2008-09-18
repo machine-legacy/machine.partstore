@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-using DependencyStore.Domain;
-using DependencyStore.Domain.Configuration;
-
 using Machine.Core.Services;
 using Machine.Core.Utility;
+
+using DependencyStore.Domain.Configuration;
+using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Services.DataAccess.Impl
 {

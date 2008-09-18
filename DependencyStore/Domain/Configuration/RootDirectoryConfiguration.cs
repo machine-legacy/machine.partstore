@@ -1,6 +1,8 @@
 using System;
 using System.Xml.Serialization;
 
+using DependencyStore.Domain.Core;
+
 namespace DependencyStore.Domain.Configuration
 {
   [XmlType("Root")]

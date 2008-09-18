@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Machine.Core.Services;
 
-using DependencyStore.Domain;
+using DependencyStore.Domain.Core;
 using DependencyStore.Services.Impl;
 
 namespace DependencyStore.Gui

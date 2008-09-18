@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8D6BE035-80BC-40DA-8534-8DA0EFF55724}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -78,7 +78,7 @@
     <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
     <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
     <Compile Include="Domain\Repositories\CurrentProject.cs" />
-    <Compile Include="Domain\Infrastructure.cs" />
+    <Compile Include="Domain\Core\Infrastructure.cs" />
     <Compile Include="Domain\Repositories\ArchivedProject.cs" />
     <Compile Include="Domain\Repositories\ArchivedProjectVersion.cs" />
     <Compile Include="Domain\Repositories\ProjectManifest.cs">
@@ -86,28 +86,28 @@
     </Compile>
     <Compile Include="Domain\Repositories\ProjectReference.cs" />
     <Compile Include="Domain\Repositories\Repository.cs" />
-    <Compile Include="Domain\FileAsset.cs" />
-    <Compile Include="Domain\FileSet.cs" />
-    <Compile Include="Domain\FileSetComparer.cs" />
-    <Compile Include="Domain\FileSetGroupedByLocation.cs" />
-    <Compile Include="Domain\Project.cs" />
+    <Compile Include="Domain\Core\FileAsset.cs" />
+    <Compile Include="Domain\Core\FileSet.cs" />
+    <Compile Include="Domain\Core\FileSetComparer.cs" />
+    <Compile Include="Domain\Core\FileSetGroupedByLocation.cs" />
+    <Compile Include="Domain\Core\Project.cs" />
     <Compile Include="Domain\Services\AddingNewVersionsToRepository.cs" />
     <Compile Include="Domain\Services\UnpackagingDependenciesForProjects.cs" />
     <Compile Include="Domain\Services\AddingDependenciesToProjects.cs" />
-    <Compile Include="Domain\SourceLocation.cs" />
+    <Compile Include="Domain\Core\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
-    <Compile Include="Domain\DomainEvents.cs" />
+    <Compile Include="Domain\Core\DomainEvents.cs" />
     <Compile Include="Domain\Configuration\FileAndDirectoryRules.cs" />
     <Compile Include="Domain\Configuration\IncludeExcludeRules.cs" />
-    <Compile Include="Domain\FileSystemDirectory.cs" />
-    <Compile Include="Domain\FileSystemEntry.cs" />
-    <Compile Include="Domain\FileSystemFile.cs" />
-    <Compile Include="Domain\FileSystemPath.cs" />
-    <Compile Include="Domain\LatestFileSet.cs" />
-    <Compile Include="Domain\SinkLocation.cs" />
-    <Compile Include="Domain\Location.cs" />
-    <Compile Include="Domain\SynchronizationOperation.cs" />
-    <Compile Include="Domain\SynchronizationPlan.cs" />
+    <Compile Include="Domain\Core\FileSystemDirectory.cs" />
+    <Compile Include="Domain\Core\FileSystemEntry.cs" />
+    <Compile Include="Domain\Core\FileSystemFile.cs" />
+    <Compile Include="Domain\Core\FileSystemPath.cs" />
+    <Compile Include="Domain\Core\LatestFileSet.cs" />
+    <Compile Include="Domain\Core\SinkLocation.cs" />
+    <Compile Include="Domain\Core\Location.cs" />
+    <Compile Include="Domain\Core\SynchronizationOperation.cs" />
+    <Compile Include="Domain\Core\SynchronizationPlan.cs" />
     <Compile Include="Domain\Repositories\UnpackagingDestination.cs" />
     <Compile Include="Services\DataAccess\ICurrentConfiguration.cs" />
     <Compile Include="Services\DataAccess\ICurrentProjectRepository.cs" />

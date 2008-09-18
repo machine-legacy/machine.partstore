@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-using DependencyStore.Domain;
+using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Gui
 {

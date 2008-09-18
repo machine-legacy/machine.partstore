@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-using DependencyStore.Domain;
+using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Repositories;
 
 using Machine.Core.Services;

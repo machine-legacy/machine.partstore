@@ -5,7 +5,7 @@ using Machine.Testing;
 
 using NUnit.Framework;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   [TestFixture]
   public class LatestFileSetTests : TestsFor<LatestFileSet>

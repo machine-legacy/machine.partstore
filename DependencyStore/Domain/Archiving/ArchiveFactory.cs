@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using ICSharpCode.SharpZipLib.Zip;
 
+using DependencyStore.Domain.Core;
+
 namespace DependencyStore.Domain.Archiving
 {
   public class ArchiveFactory

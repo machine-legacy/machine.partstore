@@ -2,6 +2,7 @@ using System;
 using System.Xml.Serialization;
 
 using DependencyStore.Domain.Archiving;
+using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Domain.Repositories
 {

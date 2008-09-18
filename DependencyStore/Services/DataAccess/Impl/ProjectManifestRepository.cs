@@ -5,7 +5,7 @@ using System.IO;
 using Machine.Core.Services;
 using Machine.Core.Utility;
 
-using DependencyStore.Domain;
+using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Repositories;
 
 namespace DependencyStore.Services.DataAccess.Impl

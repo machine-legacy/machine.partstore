@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   public abstract class FileAsset
   {

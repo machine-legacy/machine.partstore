@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using DependencyStore.Utility;
+using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Domain.Archiving
 {

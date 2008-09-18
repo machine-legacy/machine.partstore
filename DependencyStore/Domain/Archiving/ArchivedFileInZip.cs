@@ -4,6 +4,8 @@ using System.IO;
 
 using ICSharpCode.SharpZipLib.Zip;
 
+using DependencyStore.Domain.Core;
+
 namespace DependencyStore.Domain.Archiving
 {
   public class ArchivedFileInZip : ArchivedFile

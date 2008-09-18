@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using DependencyStore.Domain;
+using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Utility
 {

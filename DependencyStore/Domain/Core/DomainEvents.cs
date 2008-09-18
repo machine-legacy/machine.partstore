@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DependencyStore.Domain;
 using DependencyStore.Domain.Archiving;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   public static class DomainEvents
   {

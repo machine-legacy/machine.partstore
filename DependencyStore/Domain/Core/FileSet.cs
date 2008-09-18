@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using DependencyStore.Utility;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   public class FileSet
   {

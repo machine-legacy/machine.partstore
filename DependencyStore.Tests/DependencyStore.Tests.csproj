@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4043D05C-949E-485D-82B7-C738B27CEC5D}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -60,13 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\BuildLocationTests.cs" />
+    <Compile Include="Domain\Core\BuildLocationTests.cs" />
     <Compile Include="Domain\Configuration\FileAndDirectoryRulesTests.cs" />
-    <Compile Include="Domain\FileSystemDirectoryTests.cs" />
-    <Compile Include="Domain\FileSystemPathTests.cs" />
+    <Compile Include="Domain\Core\FileSystemDirectoryTests.cs" />
+    <Compile Include="Domain\Core\FileSystemPathTests.cs" />
     <Compile Include="Domain\Configuration\IncludeExcludeRulesTests.cs" />
-    <Compile Include="Domain\LatestFileSetTests.cs" />
-    <Compile Include="Domain\LibraryLocationTests.cs" />
+    <Compile Include="Domain\Core\LatestFileSetTests.cs" />
+    <Compile Include="Domain\Core\LibraryLocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataAccess\Impl\ConfigurationRepositoryTests.cs" />
     <Compile Include="Services\DataAccess\Impl\FileAndDirectoryRulesRepositoryTests.cs" />

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-using Machine.Testing;
+using DependencyStore.Domain.Core;
 
+using Machine.Testing;
 using NUnit.Framework;
 
 namespace DependencyStore.Domain.Configuration

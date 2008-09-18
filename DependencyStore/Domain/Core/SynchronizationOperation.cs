@@ -1,6 +1,6 @@
 using System;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   public abstract class SynchronizationOperation
   {

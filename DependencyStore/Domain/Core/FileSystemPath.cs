@@ -4,7 +4,7 @@ using System.IO;
 
 using DependencyStore.Utility;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   /**
    * file:///c/Source/Project/File.cs

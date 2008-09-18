@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
+using DependencyStore.Domain.Core;
+
 namespace DependencyStore.Domain.Repositories
 {
   public class Repository

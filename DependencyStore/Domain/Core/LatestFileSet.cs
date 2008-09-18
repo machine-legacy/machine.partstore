@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Machine.Core;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   public class LatestFileSet : FileSet
   {

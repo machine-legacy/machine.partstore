@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   [TestFixture]
   public class BuildLocationTests

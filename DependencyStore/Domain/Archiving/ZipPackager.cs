@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using DependencyStore.Services.DataAccess.Impl;
-using DependencyStore.Utility;
 
 using ICSharpCode.SharpZipLib.Zip;
+
+using DependencyStore.Domain.Core;
+using DependencyStore.Services.DataAccess.Impl;
+using DependencyStore.Utility;
 
 namespace DependencyStore.Domain.Archiving
 {

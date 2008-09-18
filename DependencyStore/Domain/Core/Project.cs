@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain.Archiving;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   public class Project
   {

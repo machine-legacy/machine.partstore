@@ -6,7 +6,7 @@ using DependencyStore.Services.DataAccess;
 using Machine.Container;
 using Machine.Core.Services;
 
-namespace DependencyStore.Domain
+namespace DependencyStore.Domain.Core
 {
   public static class Infrastructure
   {
