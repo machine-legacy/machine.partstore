@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,6 +79,7 @@
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
     <Compile Include="Domain\Configuration\Repositories\Impl\DataAccessExceptions.cs" />
+    <Compile Include="Domain\Configuration\Repositories\Impl\ProjectStructure.cs" />
     <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
     <Compile Include="Domain\Core\CoreDomainEvents.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\DataAccessExceptions.cs" />

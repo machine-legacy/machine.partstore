@@ -62,9 +62,10 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       DependencyStoreConfiguration configuration = FindConfiguration(path);
       if (configuration.ProjectConfigurations.Count == 0)
       {
-        ProjectStructure projectStructure = new ProjectStructure(new Purl(Path.GetDirectoryName(path)));
+        Purl rootPath = new Purl(path).Parent;
+        ProjectStructure projectStructure = new ProjectStructure(rootPath);
         ProjectConfiguration currentProject = new ProjectConfiguration();
-        currentProject.Name = Path.GetFileName(Path.GetDirectoryName(path));
+        currentProject.Name = rootPath.Name;
         currentProject.Root = new RootDirectoryConfiguration(projectStructure.FindRootDirectory());
         currentProject.Build = new BuildDirectoryConfiguration(projectStructure.FindBuildDirectory());
         currentProject.Library = new LibraryDirectoryConfiguration(projectStructure.FindLibraryDirectory());
@@ -73,29 +74,5 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       return configuration;
     }
     #endregion
-  }
-  public class ProjectStructure
-  {
-    private readonly Purl _root;
-
-    public ProjectStructure(Purl root)
-    {
-      _root = root;
-    }
-
-    public Purl FindRootDirectory()
-    {
-      return _root;
-    }
-
-    public Purl FindBuildDirectory()
-    {
-      return _root.Join("Build");
-    }
-
-    public Purl FindLibraryDirectory()
-    {
-      return _root.Join("Libraries");
-    }
   }
 }
