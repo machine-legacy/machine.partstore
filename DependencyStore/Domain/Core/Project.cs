@@ -27,7 +27,14 @@ namespace DependencyStore.Domain.Core
 
     public Purl BuildDirectory
     {
-      get { return _buildDirectory; }
+      get
+      {
+        if (!this.HasBuildDirectory)
+        {
+          throw new InvalidOperationException("Project's build directory is missing!");
+        }
+        return _buildDirectory;
+      }
     }
 
     public bool HasLibraryDirectory
@@ -41,7 +48,7 @@ namespace DependencyStore.Domain.Core
       {
         if (!this.HasLibraryDirectory)
         {
-          throw new InvalidOperationException("Not allowed to use this project's library!");
+          throw new InvalidOperationException("Project's library directory is missing!");
         }
         return _libraryDirectory;
       }
