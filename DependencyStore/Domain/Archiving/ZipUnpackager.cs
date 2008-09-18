@@ -45,7 +45,7 @@ namespace DependencyStore.Domain.Archiving
     private void ReportProgress(long bytesSoFar)
     {
       double progress = (_otherBytesSoFar + bytesSoFar) / (double)_totalBytes;
-      ArchivingDomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _currentEntry));
+      ArchivingDomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _archive.Path, _currentEntry));
     }
   }
 }

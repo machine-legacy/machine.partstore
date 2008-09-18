@@ -11,6 +11,12 @@ namespace DependencyStore.Domain.Archiving
   {
     private readonly List<ManifestEntry> _entries = new List<ManifestEntry>();
     private readonly ZipFile _zipFile;
+    private readonly Purl _path;
+
+    public Purl Path
+    {
+      get { return _path; }
+    }
 
     public long UncompressedBytes
     {
@@ -45,8 +51,9 @@ namespace DependencyStore.Domain.Archiving
     {
     }
 
-    public Archive(ZipFile zipFile)
+    public Archive(Purl path, ZipFile zipFile)
     {
+      _path = path;
       _zipFile = zipFile;
     }
 

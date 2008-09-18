@@ -15,6 +15,7 @@ namespace DependencyStore.Domain.Archiving
     public const string ZipExtension = ".zip";
 
     private readonly Archive _archive;
+    private Purl _pathOfArchive;
     private long _totalBytes;
     private long _otherBytesSoFar;
     private ManifestEntry _currentEntry;
@@ -26,6 +27,7 @@ namespace DependencyStore.Domain.Archiving
 
     public FileSystemFile WriteZip(Purl path)
     {
+      _pathOfArchive = path;
       _totalBytes = _archive.UncompressedBytes;
       _otherBytesSoFar = 0;
       using (ZipOutputStream zip = OpenZipStream(path))
@@ -50,7 +52,7 @@ namespace DependencyStore.Domain.Archiving
     private void ReportProgress(long bytesSoFar)
     {
       double progress = (_otherBytesSoFar + bytesSoFar) / (double)_totalBytes;
-      ArchivingDomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _currentEntry));
+      ArchivingDomainEvents.OnProgress(this, new ArchiveFileProgressEventArgs(progress, _pathOfArchive, _currentEntry));
     }
 
     private static ZipOutputStream OpenZipStream(Purl path)

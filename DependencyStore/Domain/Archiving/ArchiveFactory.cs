@@ -12,7 +12,7 @@ namespace DependencyStore.Domain.Archiving
     public static Archive ReadZip(Purl path)
     {
       ZipFile zip = new ZipFile(path.AsString);
-      Archive archive = new Archive(zip);
+      Archive archive = new Archive(path, zip);
       foreach (ZipEntry entry in zip)
       {
         if (!entry.IsDirectory)
