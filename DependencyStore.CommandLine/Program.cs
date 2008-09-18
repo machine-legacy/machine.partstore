@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
 
+using log4net.Appender;
+using log4net.Config;
+using log4net.Layout;
+
 using Machine.Container;
+using Machine.Core.Utility;
 
 using DependencyStore.Commands;
 
@@ -11,6 +16,9 @@ namespace DependencyStore.CommandLine
   {
     public static void Main(string[] args)
     {
+      ConfigureLog4net();
+      WriteVanityBanner();
+
       using (MachineContainer container = new MachineContainer())
       {
         container.Initialize();
@@ -19,8 +27,6 @@ namespace DependencyStore.CommandLine
         helper.AddServiceCollectionsFrom(typeof(DependencyStoreServices).Assembly);
         container.Start();
         IoC.Container = container;
-
-        WriteVanityBanner();
 
         CommandLineParser parser = new CommandLineParser();
         parser.ParseCommandLine(args);
@@ -55,6 +61,14 @@ namespace DependencyStore.CommandLine
       Version version = typeof(Program).Assembly.GetName().Version;
       Console.WriteLine("DependencyStore {0} (C) Jacob Lewallen 2007,2008", version);
       Console.WriteLine();
+    }
+
+    private static void ConfigureLog4net()
+    {
+      ConsoleAppender appender = new ConsoleAppender();
+      appender.Layout = new PatternLayout("%m%n");
+      BasicConfigurator.Configure(appender);
+      LoggingHelper.Disable("Machine.Container");
     }
   }
 }
