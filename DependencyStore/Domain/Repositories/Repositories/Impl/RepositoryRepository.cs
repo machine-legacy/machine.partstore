@@ -47,7 +47,7 @@ namespace DependencyStore.Domain.Repositories.Repositories.Impl
 
     private static Repository Prepare(Repository repository, Purl rootPath)
     {
-      repository.RootPath = rootPath;
+      repository.RootPath = rootPath.Parent;
       foreach (ArchivedProject project in repository.Projects)
       {
         foreach (ArchivedProjectVersion version in project.Versions)
