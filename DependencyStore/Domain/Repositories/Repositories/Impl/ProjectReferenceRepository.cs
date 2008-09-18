@@ -37,10 +37,15 @@ namespace DependencyStore.Domain.Repositories.Repositories.Impl
           {
             throw new InvalidOperationException("Missing version: " + manifest);
           }
-          references.Add(new ProjectReference(archivedProject, project, version, manifest));
+          references.Add(new ProjectReference(project, archivedProject, version, manifest));
         }
       }
       return references;
+    }
+
+    public ProjectReference FindProjectReferenceFor(Project parentProject, ArchivedProject dependency)
+    {
+      return new ProjectReference(parentProject, dependency);
     }
   }
 }

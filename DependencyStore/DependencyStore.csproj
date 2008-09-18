@@ -84,6 +84,7 @@
     <Compile Include="Domain\Core\Infrastructure.cs" />
     <Compile Include="Domain\Repositories\ArchivedProject.cs" />
     <Compile Include="Domain\Repositories\ArchivedProjectVersion.cs" />
+    <Compile Include="Domain\Repositories\Infrastructure.cs" />
     <Compile Include="Domain\Repositories\ProjectManifest.cs">
       <SubType>Code</SubType>
     </Compile>

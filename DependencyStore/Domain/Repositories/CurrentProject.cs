@@ -15,7 +15,7 @@ namespace DependencyStore.Domain.Repositories
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject project)
     {
       Console.WriteLine("Adding reference {0}", project);
-      ProjectReference reference = new ProjectReference(project, this);
+      ProjectReference reference = Infrastructure.ProjectReferenceRepository.FindProjectReferenceFor(this, project);
       reference.MakeLatestVersion();
       return reference;
     }

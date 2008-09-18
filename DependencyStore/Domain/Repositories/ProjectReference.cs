@@ -12,18 +12,18 @@ namespace DependencyStore.Domain.Repositories
     private ProjectManifest _manifest;
     private ArchivedProjectVersion _desiredVersion;
 
-    public ProjectReference(ArchivedProject dependency, Project parentProject)
+    public ProjectReference(Project parentProject, ArchivedProject dependency)
     {
-      _dependency = dependency;
       _parentProject = parentProject;
+      _dependency = dependency;
       _desiredVersion = dependency.LatestVersion;
       _manifest = null;
     }
 
-    public ProjectReference(ArchivedProject dependency, Project parentProject, ArchivedProjectVersion desiredVersion, ProjectManifest manifest)
+    public ProjectReference(Project parentProject, ArchivedProject dependency, ArchivedProjectVersion desiredVersion, ProjectManifest manifest)
     {
-      _dependency = dependency;
       _parentProject = parentProject;
+      _dependency = dependency;
       _desiredVersion = desiredVersion;
       _manifest = manifest;
     }
