@@ -99,16 +99,20 @@ namespace DependencyStore.Commands
   public class PublishNewVersionCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
+    private readonly IRepositoryRepository _repositoryRepository;
 
-    public PublishNewVersionCommand(ICurrentProjectRepository currentProjectRepository)
+    public PublishNewVersionCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
     {
       _currentProjectRepository = currentProjectRepository;
+      _repositoryRepository = repositoryRepository;
     }
 
     public override void Run()
     {
+      Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      project.PublishNewVersion();
+      project.PublishNewVersion(repository);
+      _repositoryRepository.SaveRepository(repository);
     }
   }
   public class HelpCommand : Command

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
+using DependencyStore.Domain.Services;
 
 namespace DependencyStore.Domain.Distribution
 {
@@ -34,8 +35,9 @@ namespace DependencyStore.Domain.Distribution
       }
     }
 
-    public void PublishNewVersion()
+    public void PublishNewVersion(Repository repository)
     {
+      new AddingNewVersionsToRepository().PublishProject(this, repository);
     }
   }
 }
