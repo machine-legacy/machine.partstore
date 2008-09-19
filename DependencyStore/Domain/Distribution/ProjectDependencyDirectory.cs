@@ -5,13 +5,13 @@ using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Domain.Distribution
 {
-  public class UnpackagingDestination
+  public class ProjectDependencyDirectory
   {
     private readonly Purl _path;
     private readonly ProjectManifestStore _manifests;
     private readonly ArchivedProject _dependency;
 
-    public UnpackagingDestination(Project project, ArchivedProject dependency)
+    public ProjectDependencyDirectory(Project project, ArchivedProject dependency)
     {
       _dependency = dependency;
       _path = project.LibraryDirectory.Join(dependency.Name);

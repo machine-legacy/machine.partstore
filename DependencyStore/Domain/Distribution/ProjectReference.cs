@@ -10,19 +10,19 @@ namespace DependencyStore.Domain.Distribution
     private readonly Project _parentProject;
     private readonly ArchivedProject _dependency;
     private readonly ArchivedProjectVersion _desiredVersion;
-    private readonly UnpackagingDestination _destination;
+    private readonly ProjectDependencyDirectory _dependencyDirectory;
 
     public ProjectReference(Project parentProject, ArchivedProject dependency, ArchivedProjectVersion desiredVersion)
     {
       _parentProject = parentProject;
       _dependency = dependency;
       _desiredVersion = desiredVersion;
-      _destination = new UnpackagingDestination(_parentProject, _dependency);
+      _dependencyDirectory = new ProjectDependencyDirectory(_parentProject, _dependency);
     }
 
-    private UnpackagingDestination UnpackagingDestination
+    private ProjectDependencyDirectory ProjectDependencyDirectory
     {
-      get { return _destination; }
+      get { return _dependencyDirectory; }
     }
 
     public ArchivedProject Dependency
@@ -37,15 +37,15 @@ namespace DependencyStore.Domain.Distribution
 
     public bool IsDesiredVersionInstalled
     {
-      get { return this.UnpackagingDestination.HasVersionOlderThan(this.DesiredVersion); }
+      get { return this.ProjectDependencyDirectory.HasVersionOlderThan(this.DesiredVersion); }
     }
 
     public void UnpackageIfNecessary()
     {
-      UnpackagingDestination destination = this.UnpackagingDestination;
-      if (destination.HasVersionOlderThan(this.DesiredVersion))
+      ProjectDependencyDirectory dependencyDirectory = this.ProjectDependencyDirectory;
+      if (dependencyDirectory.HasVersionOlderThan(this.DesiredVersion))
       {
-        destination.UpdateInstalledVersion(this.DesiredVersion);
+        dependencyDirectory.UpdateInstalledVersion(this.DesiredVersion);
       }
     }
   }

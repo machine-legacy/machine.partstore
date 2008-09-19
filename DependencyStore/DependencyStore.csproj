@@ -120,7 +120,7 @@
     <Compile Include="Domain\SimpleCopying\Location.cs" />
     <Compile Include="Domain\SimpleCopying\SynchronizationOperation.cs" />
     <Compile Include="Domain\SimpleCopying\SynchronizationPlan.cs" />
-    <Compile Include="Domain\Distribution\UnpackagingDestination.cs" />
+    <Compile Include="Domain\Distribution\ProjectDependencyDirectory.cs" />
     <Compile Include="Domain\Configuration\Repositories\ICurrentConfiguration.cs" />
     <Compile Include="Domain\Distribution\Repositories\ICurrentProjectRepository.cs" />
     <Compile Include="Domain\Configuration\Repositories\Impl\CurrentConfiguration.cs" />
