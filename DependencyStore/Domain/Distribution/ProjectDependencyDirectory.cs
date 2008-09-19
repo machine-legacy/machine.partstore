@@ -1,6 +1,5 @@
 using System;
 
-using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Domain.Distribution
@@ -35,9 +34,7 @@ namespace DependencyStore.Domain.Distribution
 
     public void UpdateInstalledVersion(ArchivedProjectVersion version)
     {
-      Archive archive = ArchiveFactory.ReadZip(version.ArchivePath);
-      ZipUnpackager unpackager = new ZipUnpackager(archive);
-      unpackager.UnpackageZip(_path);
+      Repository.AccessStrategy.CheckoutVersionFromRepository(version, _path);
       _manifests.AddManifestFor(_dependency, version);
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(_manifests);
     }

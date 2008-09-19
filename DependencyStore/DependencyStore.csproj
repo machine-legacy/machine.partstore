@@ -89,6 +89,7 @@
     <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
     <Compile Include="Domain\Core\CoreDomainEvents.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\DataAccessExceptions.cs" />
+    <Compile Include="Domain\Distribution\ArchiveRepositoryAccessStrategy.cs" />
     <Compile Include="Domain\Distribution\CurrentProject.cs" />
     <Compile Include="Domain\Core\Infrastructure.cs" />
     <Compile Include="Domain\Distribution\ArchivedProject.cs" />
@@ -128,7 +129,7 @@
     <Compile Include="Domain\Configuration\ConfigurationPaths.cs" />
     <Compile Include="Domain\Distribution\Repositories\IRepositoryRepository.cs" />
     <Compile Include="Domain\Distribution\NewProjectVersion.cs" />
-    <Compile Include="Domain\Services\IRepositoryAccessStrategy.cs">
+    <Compile Include="Domain\Distribution\IRepositoryAccessStrategy.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utility\PathHelper.cs" />

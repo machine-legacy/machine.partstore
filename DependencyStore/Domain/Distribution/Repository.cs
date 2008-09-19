@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 using DependencyStore.Domain.Core;
+using DependencyStore.Domain.Services;
 
 namespace DependencyStore.Domain.Distribution
 {
   public class Repository
   {
+    public static readonly IRepositoryAccessStrategy AccessStrategy = new ArchiveRepositoryAccessStrategy();
     private readonly List<ArchivedProject> _projects = new List<ArchivedProject>();
     private Purl _rootPath;
 

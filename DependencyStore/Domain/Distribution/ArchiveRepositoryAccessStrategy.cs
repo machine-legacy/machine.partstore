@@ -1,26 +1,27 @@
 using System;
-using System.Collections.Generic;
 
 using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Distribution;
 
-namespace DependencyStore.Domain.Services
+namespace DependencyStore.Domain.Distribution
 {
-  public interface IRepositoryAccessStrategy
-  {
-    void AddVersionToRepository(NewProjectVersion newProjectVersion);
-  }
   public class ArchiveRepositoryAccessStrategy : IRepositoryAccessStrategy
   {
     #region IRepositoryAdditionStrategy Members
-    public void AddVersionToRepository(NewProjectVersion newProjectVersion)
+    public void CommitVersionToRepository(NewProjectVersion newProjectVersion)
     {
       using (Archive archive = MakeArchiveFor(newProjectVersion))
       {
         ZipPackager writer = new ZipPackager(archive);
         writer.WriteZip(newProjectVersion.ArchivePath);
       }
+    }
+
+    public void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory)
+    {
+      Archive archive = ArchiveFactory.ReadZip(version.ArchivePath);
+      ZipUnpackager unpackager = new ZipUnpackager(archive);
+      unpackager.UnpackageZip(directory);
     }
     #endregion
 
