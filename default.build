@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<project name="wepid" default="build">
+  <property name="build.clean.dir" value="Build" />
+  <property name="build.dir" value="Build/Debug" />
+  <property name="build.debug" value="true" />
+  <property name="source.dir" value="${project::get-base-directory()}" />
+  <property name="lib.dir" value="Libraries" />
+  <property name="project.assembly.name" value="DependencyStore" />
+
+  <target name="clean">
+    <delete dir="${build.clean.dir}" />
+  </target>
+
+  <target name="build">
+    <mkdir dir="${build.dir}" />
+    <call target="build-application" />
+  </target>
+
+  <target name="build-application">
+    <csc target="library" output="${build.dir}/DependencyStore.dll" debug="${build.debug}">
+      <sources>
+        <include name="${source.dir}/DependencyStore/**/*.cs" />
+      </sources>
+      <references>
+        <include name="System.dll" />
+        <include name="System.Core.dll" />
+        <include name="${lib.dir}/log4net.dll" />
+        <include name="${lib.dir}/Machine/Machine.Core.dll" />
+        <include name="${lib.dir}/Machine/Machine.Container.dll" />
+        <include name="${lib.dir}/ICSharpCode/ICSharpCode.SharpZipLib.dll" />
+      </references>
+    </csc>
+
+    <csc target="exe" output="${build.dir}/DependencyStore.CommandLine.exe" debug="${build.debug}">
+      <sources>
+        <include name="${source.dir}/DependencyStore.CommandLine/**/*.cs" />
+      </sources>
+      <references>
+        <include name="System.dll" />
+        <include name="System.Core.dll" />
+        <include name="${lib.dir}/log4net.dll" />
+        <include name="${lib.dir}/Machine/Machine.Core.dll" />
+        <include name="${lib.dir}/Machine/Machine.Container.dll" />
+        <include name="${lib.dir}/ICSharpCode/ICSharpCode.SharpZipLib.dll" />
+        <include name="${build.dir}/DependencyStore.dll" />
+      </references>
+    </csc>
+  </target>
+
+  <target name="rebuild" depends="clean,build">
+  </target>
+</project>
