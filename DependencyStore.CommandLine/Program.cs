@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Layout;
@@ -15,6 +16,8 @@ namespace DependencyStore.CommandLine
 {
   public class Program
   {
+    private static readonly ILog _log = LogManager.GetLogger(typeof(Program));
+
     public static void Main(string[] args)
     {
       ConfigureLog4net();
@@ -66,14 +69,19 @@ namespace DependencyStore.CommandLine
     private static void WriteVanityBanner()
     {
       Version version = typeof(Program).Assembly.GetName().Version;
-      Console.WriteLine("DependencyStore {0} (C) Jacob Lewallen 2008", version);
+      string banner = String.Format("DependencyStore {0} (C) Jacob Lewallen 2008", version);
+      Console.WriteLine(banner);
       Console.WriteLine();
+      _log.Info(banner);
     }
 
     private static void ConfigureLog4net()
     {
-      ConsoleAppender appender = new ConsoleAppender();
-      appender.Layout = new PatternLayout("%m%n");
+      FileAppender appender = new FileAppender();
+      appender.Layout = new PatternLayout("%d %-5p %c %m%n");
+      appender.File = System.IO.Path.Combine(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "DependencyStore"), "Ds.log");
+      appender.AppendToFile = true;
+      appender.ActivateOptions();
       BasicConfigurator.Configure(appender);
       LoggingHelper.Disable("Machine.Container");
     }

@@ -18,7 +18,7 @@ namespace DependencyStore.Domain.Configuration
 
     protected virtual string[] FindAllPossiblePaths()
     {
-      string applicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+      string applicationData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
       List<string> paths = new List<string>();
       paths.Add(FileName);
       paths.Add(Path.Combine(applicationData, FileName));
