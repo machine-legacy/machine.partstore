@@ -1,5 +1,7 @@
 using System;
-
+using System.Collections.Generic;
+using System.Text;
+using DependencyStore.Utility;
 using Machine.Core.Utility;
 
 using DependencyStore.Domain.Distribution;
@@ -21,13 +23,46 @@ namespace DependencyStore.Commands
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       Console.WriteLine("Current Project: {0}", project.Name);
       Console.WriteLine("References:");
-      foreach (ProjectReference reference in project.References)
+      List<ReferenceStatus> referenceStatuses = new List<ReferenceStatus>(project.ReferenceStatuses); 
+      foreach (ReferenceStatus status in referenceStatuses)
       {
-        TimeSpan age = DateTime.Now - reference.Version.CreatedAt;
-        Console.WriteLine("  {0} ({1} old)", reference.Dependency.Name, TimeSpanHelper.ToPrettyString(age));
-        Console.WriteLine("  {0}", reference.Version.RepositoryAlias);
+        WriteStatus(status);
+      }
+      if (referenceStatuses.Count == 0)
+      {
+        Console.WriteLine("No references, use 'ds add <project>' to add some.");
       }
       return CommandStatus.Success;
+    }
+
+    private static void WriteStatus(ReferenceStatus status)
+    {
+      List<string> flags = new List<string>();
+      if (status.IsProjectMissing)
+      {
+        flags.Add("Missing Project");
+      }
+      if (status.IsReferencedVersionMissing)
+      {
+        flags.Add("Missing Version");
+      }
+      if (status.IsOutdated)
+      {
+        flags.Add("Outdated");
+      }
+      if (status.IsReferencedVersionInstalled)
+      {
+        flags.Add("NeedsUpdate");
+      }
+      if (!status.IsAnyVersionInstalled)
+      {
+        flags.Add("NothingInstalled");
+      }
+      else if (status.IsOlderVersionInstalled)
+      {
+        flags.Add("OlderVersionInstalled");
+      }
+      Console.WriteLine("  {0} ({1}) ({2})", status.DependencyName, status.ReferencedVersionCreatedAt, flags.Join(", "));
     }
   }
 }

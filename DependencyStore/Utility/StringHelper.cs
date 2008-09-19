@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 using Machine.Core;
 
@@ -31,6 +32,20 @@ namespace DependencyStore.Utility
         }
       }
       return String.Empty;
+    }
+
+    public static string Join(this IEnumerable<string> values, string separator)
+    {
+      StringBuilder sb = new StringBuilder();
+      foreach (string flag in values)
+      {
+        if (sb.Length != 0)
+        {
+          sb.Append(separator);
+        }
+        sb.Append(flag);
+      }
+      return sb.ToString();
     }
   }
 }

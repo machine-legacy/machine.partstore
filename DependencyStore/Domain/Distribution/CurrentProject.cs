@@ -8,21 +8,29 @@ namespace DependencyStore.Domain.Distribution
   public class CurrentProject : Project
   {
     private readonly ProjectManifestStore _manifests;
+    private readonly IList<ProjectReference> _references;
 
     public ProjectManifestStore Manifests
     {
       get { return _manifests; }
     }
 
-    public IEnumerable<ProjectReference> References
+    public IEnumerable<ReferenceStatus> ReferenceStatuses
     {
-      get { return Infrastructure.ProjectReferenceRepository.FindAllProjectReferences(); }
+      get
+      {
+        foreach (ProjectReference reference in _references)
+        {
+          yield return reference.Status;
+        }
+      }
     }
 
     public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory, ProjectManifestStore manifests)
       : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
       _manifests = manifests;
+      _references = Infrastructure.ProjectReferenceRepository.FindAllProjectReferences();
     }
 
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject dependency)
@@ -33,7 +41,7 @@ namespace DependencyStore.Domain.Distribution
 
     public void UnpackageIfNecessary(Repository repository)
     {
-      foreach (ProjectReference reference in Infrastructure.ProjectReferenceRepository.FindAllProjectReferences())
+      foreach (ProjectReference reference in _references)
       {
         reference.UnpackageIfNecessary(repository);
       }
