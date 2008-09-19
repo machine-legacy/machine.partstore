@@ -21,7 +21,7 @@ namespace DependencyStore.Commands
       new ArchiveProgressDisplayer(true);
       Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      project.PublishNewVersion(repository);
+      project.AddNewVersion(repository);
       _repositoryRepository.SaveRepository(repository);
       return CommandStatus.Success;
     }

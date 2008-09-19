@@ -32,7 +32,7 @@ namespace DependencyStore.Domain.Distribution
       return manifest.IsOlderThan(version);
     }
 
-    public void UpdateInstalledVersion(ArchivedProjectVersion version)
+    public void UpdateInstalledVersion(Repository repository, ArchivedProjectVersion version)
     {
       Repository.AccessStrategy.CheckoutVersionFromRepository(version, _path);
       _manifests.AddManifestFor(_dependency, version);

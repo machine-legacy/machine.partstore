@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 using DependencyStore.Domain.Core;
+using DependencyStore.Domain.Services;
 
 namespace DependencyStore.Domain.Distribution
 {
@@ -79,6 +80,11 @@ namespace DependencyStore.Domain.Distribution
         return null;
       }
       return project.FindVersionInManifest(manifest);
+    }
+
+    public void AddNewVersion(Project project)
+    {
+      new AddingNewVersionsToRepository().AddNewVersion(this, project);
     }
   }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Services;
 
 namespace DependencyStore.Domain.Distribution
 {
@@ -32,17 +31,17 @@ namespace DependencyStore.Domain.Distribution
       return new ProjectReference(this, dependency, dependency.LatestVersion);
     }
 
-    public void UnpackageIfNecessary()
+    public void UnpackageIfNecessary(Repository repository)
     {
       foreach (ProjectReference reference in Infrastructure.ProjectReferenceRepository.FindAllProjectReferences())
       {
-        reference.UnpackageIfNecessary();
+        reference.UnpackageIfNecessary(repository);
       }
     }
 
-    public void PublishNewVersion(Repository repository)
+    public void AddNewVersion(Repository repository)
     {
-      new AddingNewVersionsToRepository().PublishProject(this, repository);
+      repository.AddNewVersion(this);
     }
   }
 }

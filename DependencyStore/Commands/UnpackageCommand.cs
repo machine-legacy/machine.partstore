@@ -8,17 +8,20 @@ namespace DependencyStore.Commands
   public class UnpackageCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
+    private readonly IRepositoryRepository _repositoryRepository;
 
-    public UnpackageCommand(ICurrentProjectRepository currentProjectRepository)
+    public UnpackageCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
     {
       _currentProjectRepository = currentProjectRepository;
+      _repositoryRepository = repositoryRepository;
     }
 
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(false);
+      Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      project.UnpackageIfNecessary();
+      project.UnpackageIfNecessary(repository);
       return CommandStatus.Success;
     }
   }

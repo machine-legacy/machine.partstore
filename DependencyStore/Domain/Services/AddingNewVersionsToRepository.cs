@@ -9,21 +9,13 @@ namespace DependencyStore.Domain.Services
   [Machine.Container.Model.Transient]
   public class AddingNewVersionsToRepository
   {
-    public void PublishProject(Project project, Repository repository)
+    public void AddNewVersion(Repository repository, Project project)
     {
-      AddProjects(new Project[] { project }, repository);
-    }
-
-    public void AddProjects(IEnumerable<Project> projects, Repository repository)
-    {
-      foreach (Project project in projects)
-      {
-        ArchivedProject archivedProject = repository.FindOrCreateProject(project);
-        ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, repository);
-        NewProjectVersion newProjectVersion = new NewProjectVersion(archivedProject, version, CreateFileSet(project));
-        Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
-        archivedProject.AddVersion(version);
-      }
+      ArchivedProject archivedProject = repository.FindOrCreateProject(project);
+      ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, repository);
+      NewProjectVersion newProjectVersion = new NewProjectVersion(archivedProject, version, CreateFileSet(project));
+      Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
+      archivedProject.AddVersion(version);
     }
 
     private static FileSet CreateFileSet(Project project)

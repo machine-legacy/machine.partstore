@@ -33,11 +33,11 @@ namespace DependencyStore.Domain.Distribution
       get { return _version; }
     }
 
-    public void UnpackageIfNecessary()
+    public void UnpackageIfNecessary(Repository repository)
     {
       if (this.Status.IsOlderVersionInstalled)
       {
-        this.Installed.UpdateInstalledVersion(this.Version);
+        this.Installed.UpdateInstalledVersion(repository, this.Version);
       }
     }
 
