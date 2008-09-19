@@ -9,20 +9,20 @@ namespace DependencyStore.Domain.Distribution
   {
     private readonly Project _parentProject;
     private readonly ArchivedProject _dependency;
-    private readonly ArchivedProjectVersion _desiredVersion;
-    private readonly ProjectDependencyDirectory _dependencyDirectory;
+    private readonly ArchivedProjectVersion _version;
+    private readonly ProjectDependencyDirectory _installed;
 
-    public ProjectReference(Project parentProject, ArchivedProject dependency, ArchivedProjectVersion desiredVersion)
+    public ProjectReference(Project parentProject, ArchivedProject dependency, ArchivedProjectVersion version)
     {
       _parentProject = parentProject;
       _dependency = dependency;
-      _desiredVersion = desiredVersion;
-      _dependencyDirectory = new ProjectDependencyDirectory(_parentProject, _dependency);
+      _version = version;
+      _installed = new ProjectDependencyDirectory(_parentProject, _dependency);
     }
 
-    private ProjectDependencyDirectory ProjectDependencyDirectory
+    private ProjectDependencyDirectory Installed
     {
-      get { return _dependencyDirectory; }
+      get { return _installed; }
     }
 
     public ArchivedProject Dependency
@@ -30,22 +30,26 @@ namespace DependencyStore.Domain.Distribution
       get { return _dependency; }
     }
 
-    public ArchivedProjectVersion DesiredVersion
+    public ArchivedProjectVersion Version
     {
-      get { return _desiredVersion; }
+      get { return _version; }
     }
 
-    public bool IsDesiredVersionInstalled
+    public bool IsToLatestVersion
     {
-      get { return this.ProjectDependencyDirectory.HasVersionOlderThan(this.DesiredVersion); }
+      get { return this.Dependency.LatestVersion == this.Version; }
+    }
+
+    public bool IsOlderVersionInstalled
+    {
+      get { return this.Installed.HasVersionOlderThan(this.Version); }
     }
 
     public void UnpackageIfNecessary()
     {
-      ProjectDependencyDirectory dependencyDirectory = this.ProjectDependencyDirectory;
-      if (dependencyDirectory.HasVersionOlderThan(this.DesiredVersion))
+      if (this.IsOlderVersionInstalled)
       {
-        dependencyDirectory.UpdateInstalledVersion(this.DesiredVersion);
+        this.Installed.UpdateInstalledVersion(this.Version);
       }
     }
   }

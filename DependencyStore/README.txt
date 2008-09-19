@@ -1,8 +1,6 @@
 ﻿Might be useful to allow the user to move to the previous version of a project.
 To help them find something that works better?
 
-Refactor path handling in UnpackagingDestination, move into Project somehow?
-
 Need to make Repository directories machine agnostic.
 
 In show, display stars or something for references that can be updated to the
@@ -19,3 +17,6 @@ Mutators:
  
 It would be nice if a repository could have its own set of hooks, we could then
 easily manage a repository inside of a git repository for example.
+
+Add ReferenceStatus to store the condition of a ProjectReference? These can be
+printed into the UI.

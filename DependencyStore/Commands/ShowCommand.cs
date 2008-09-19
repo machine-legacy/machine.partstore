@@ -23,9 +23,9 @@ namespace DependencyStore.Commands
       Console.WriteLine("References:");
       foreach (ProjectReference reference in project.References)
       {
-        TimeSpan age = DateTime.Now - reference.DesiredVersion.CreatedAt;
+        TimeSpan age = DateTime.Now - reference.Version.CreatedAt;
         Console.WriteLine("  {0} ({1} old)", reference.Dependency.Name, TimeSpanHelper.ToPrettyString(age));
-        Console.WriteLine("  {0}", reference.DesiredVersion.ArchivePath.AsString);
+        Console.WriteLine("  {0}", reference.Version.ArchivePath.AsString);
       }
       return CommandStatus.Success;
     }
