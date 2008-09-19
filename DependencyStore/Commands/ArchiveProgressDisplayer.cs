@@ -1,6 +1,7 @@
 using System;
 
 using DependencyStore.Domain.Archiving;
+using DependencyStore.Domain.Distribution;
 
 namespace DependencyStore.Commands
 {
@@ -12,6 +13,7 @@ namespace DependencyStore.Commands
     {
       _packaging = packaging;
       ArchivingDomainEvents.Progress += OnProgress;
+      DistributionDomainEvents.FileCopyProgress += OnProgress;
     }
 
     private void OnProgress(object sender, ProgressEventArgs e)

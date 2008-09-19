@@ -63,6 +63,11 @@ namespace DependencyStore.Domain.Core
       get { return _files; }
     }
 
+    public int Count
+    {
+      get { return _files.Count; }
+    }
+
     public Purl FindCommonDirectory()
     {
       List<string> strings = new List<string>();
