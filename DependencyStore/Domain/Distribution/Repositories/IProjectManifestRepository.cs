@@ -7,8 +7,8 @@ namespace DependencyStore.Domain.Distribution.Repositories
 {
   public interface IProjectManifestRepository
   {
-    IList<ProjectManifest> FindProjectManifests(Project project);
-    ProjectManifest ReadProjectManifest(Purl path);
-    void SaveProjectManifest(ProjectManifest manifest, Purl path);
+    ProjectManifestStore FindProjectManifestStore(Purl path);
+    ProjectManifestStore FindProjectManifestStore(Project project);
+    void SaveProjectManifestStore(ProjectManifestStore projectManifestStore);
   }
 }

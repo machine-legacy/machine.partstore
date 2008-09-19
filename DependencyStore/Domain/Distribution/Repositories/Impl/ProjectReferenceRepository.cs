@@ -25,7 +25,8 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       List<ProjectReference> references = new List<ProjectReference>();
       foreach (Project project in _projectRepository.FindAllProjects())
       {
-        foreach (ProjectManifest manifest in _projectManifestRepository.FindProjectManifests(project))
+        ProjectManifestStore manifestStore = _projectManifestRepository.FindProjectManifestStore(project);
+        foreach (ProjectManifest manifest in manifestStore)
         {
           ArchivedProject archivedProject = repository.FindProject(manifest);
           if (archivedProject == null)

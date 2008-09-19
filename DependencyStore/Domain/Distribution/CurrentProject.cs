@@ -20,9 +20,9 @@ namespace DependencyStore.Domain.Distribution
 
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject dependency)
     {
-      ProjectManifest latestManifest = dependency.MakeManifestForLatestVersion();
-      Purl path = this.LibraryDirectory.Join(dependency.ManifestFileName);
-      Infrastructure.ProjectManifestRepository.SaveProjectManifest(latestManifest, path);
+      ProjectManifestStore manifests = Infrastructure.ProjectManifestRepository.FindProjectManifestStore(this);
+      manifests.AddManifestFor(dependency, dependency.LatestVersion);
+      Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(manifests);
       return new ProjectReference(this, dependency, dependency.LatestVersion);
     }
 

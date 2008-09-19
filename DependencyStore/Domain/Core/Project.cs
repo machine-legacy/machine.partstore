@@ -54,6 +54,11 @@ namespace DependencyStore.Domain.Core
       }
     }
 
+    public Purl PackageInstallationDirectoryFor(string name)
+    {
+      return this.LibraryDirectory.Join(name);
+    }
+
     public Project(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
     {
       _name = name;

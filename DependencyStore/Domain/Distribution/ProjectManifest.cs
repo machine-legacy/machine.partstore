@@ -24,6 +24,11 @@ namespace DependencyStore.Domain.Distribution
       set { _versionCreatedAt = value; }
     }
 
+    public string FileName
+    {
+      get { return _projectName + "." + Extension; }
+    }
+
     public ProjectManifest()
     {
     }
@@ -46,7 +51,7 @@ namespace DependencyStore.Domain.Distribution
 
     public bool IsAcceptableFileName(Purl path)
     {
-      return this.ProjectName.Equals(path.NameWithoutExtension, StringComparison.InvariantCultureIgnoreCase);
+      return this.FileName.Equals(path.Name, StringComparison.InvariantCultureIgnoreCase);
     }
 
     public override string ToString()

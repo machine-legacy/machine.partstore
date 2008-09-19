@@ -21,20 +21,41 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     }
 
     #region IProjectManifestRepository Members
-    public IList<ProjectManifest> FindProjectManifests(Project project)
+    public ProjectManifestStore FindProjectManifestStore(Purl path)
     {
-      List<ProjectManifest> manifests = new List<ProjectManifest>();
+      return new ProjectManifestStore(path, ReadManifests(path));
+    }
+
+    public ProjectManifestStore FindProjectManifestStore(Project project)
+    {
       if (project.HasLibraryDirectory)
       {
-        foreach (string fileName in _fileSystem.GetFiles(project.LibraryDirectory.AsString, "*." + ProjectManifest.Extension))
-        {
-          manifests.Add(ReadProjectManifest(new Purl(fileName)));
-        }
+        return FindProjectManifestStore(project.LibraryDirectory);
+      }
+      return new ProjectManifestStore(project.LibraryDirectory, new List<ProjectManifest>());
+    }
+
+    public void SaveProjectManifestStore(ProjectManifestStore projectManifestStore)
+    {
+      foreach (ProjectManifest manifest in projectManifestStore)
+      {
+        Purl manifestPath = projectManifestStore.RootDirectory.Join(manifest.FileName);
+        SaveProjectManifest(manifest, manifestPath);
+      }
+    }
+    #endregion
+
+    private IList<ProjectManifest> ReadManifests(Purl directory)
+    {
+      List<ProjectManifest> manifests = new List<ProjectManifest>();
+      foreach (string fileName in _fileSystem.GetFiles(directory.AsString, "*." + ProjectManifest.Extension))
+      {
+        manifests.Add(ReadProjectManifest(new Purl(fileName)));
       }
       return manifests;
     }
 
-    public ProjectManifest ReadProjectManifest(Purl path)
+    private ProjectManifest ReadProjectManifest(Purl path)
     {
       if (_cache.ContainsKey(path))
       {
@@ -52,7 +73,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       }
     }
 
-    public void SaveProjectManifest(ProjectManifest manifest, Purl path)
+    private void SaveProjectManifest(ProjectManifest manifest, Purl path)
     {
       using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
       {
@@ -60,6 +81,5 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
         stream.Write(_serializer.Serialize(manifest));
       }
     }
-    #endregion
   }
 }

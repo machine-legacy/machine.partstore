@@ -8,30 +8,33 @@ namespace DependencyStore.Domain.Distribution
   public class UnpackagingDestination
   {
     private readonly Purl _path;
-    private readonly ProjectManifest _currentManifest;
-    private readonly Purl _currentManifestPath;
-
-    private Purl CurrentVersionManifestPath
-    {
-      get { return _currentManifestPath; }
-    }
+    private readonly ProjectManifestStore _manifests;
+    private readonly ArchivedProject _dependency;
 
     public UnpackagingDestination(Project project, ArchivedProject dependency)
     {
-      ProjectManifest manifest = Infrastructure.ProjectManifestRepository.ReadProjectManifest(project.LibraryDirectory.Join(dependency.ManifestFileName));
+      _dependency = dependency;
       _path = project.LibraryDirectory.Join(dependency.Name);
-      _currentManifest = manifest;
-      _currentManifestPath = _path.Join(dependency.ManifestFileName);
+      _manifests = Infrastructure.ProjectManifestRepository.FindProjectManifestStore(_path);
+    }
+
+    public bool HasAnythingInstalled
+    {
+      get { return _manifests.ManifestFor(_dependency) != null; }
     }
 
     public bool HasVersionOlderThan(ArchivedProjectVersion version)
     {
-      if (!Infrastructure.FileSystem.IsFile(CurrentVersionManifestPath.AsString))
+      if (!this.HasAnythingInstalled)
       {
         return true;
       }
-      ProjectManifest currentManifest = Infrastructure.ProjectManifestRepository.ReadProjectManifest(CurrentVersionManifestPath);
-      return currentManifest.IsOlderThan(version);
+      ProjectManifest manifest = _manifests.ManifestFor(_dependency);
+      if (manifest == null)
+      {
+        return true;
+      }
+      return manifest.IsOlderThan(version);
     }
 
     public void UpdateInstalledVersion(ArchivedProjectVersion version)
@@ -39,7 +42,8 @@ namespace DependencyStore.Domain.Distribution
       Archive archive = ArchiveFactory.ReadZip(version.ArchivePath);
       ZipUnpackager unpackager = new ZipUnpackager(archive);
       unpackager.UnpackageZip(_path);
-      Infrastructure.ProjectManifestRepository.SaveProjectManifest(_currentManifest, this.CurrentVersionManifestPath);
+      _manifests.AddManifestFor(_dependency, version);
+      Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(_manifests);
     }
   }
 }
