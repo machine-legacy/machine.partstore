@@ -16,11 +16,11 @@ namespace DependencyStore.Commands
 
     private void OnProgress(object sender, ProgressEventArgs e)
     {
-      ArchiveFileProgressEventArgs archiveArgs = (ArchiveFileProgressEventArgs)e;
-      Console.Write(StringForStep, archiveArgs.PercentComplete * 100.0);
+      FileCopyProgressEventArgs copyArgs = (FileCopyProgressEventArgs)e;
+      Console.Write(StringForStep, copyArgs.PercentComplete * 100.0);
       if (e.PercentComplete == 1.0)
       {
-        Console.WriteLine(StringForCompletion, archiveArgs.Archive.Name);
+        Console.WriteLine(StringForCompletion, copyArgs.Destiny.Name);
       }
     }
 
@@ -28,13 +28,13 @@ namespace DependencyStore.Commands
     {
       get
       {
-        return (_packaging ? "Packaging " : "Unpackaging ") + "{0:##.##}%\r";
+        return (_packaging ? "Committing " : "Checking out ") + "{0:##.##}%\r";
       }
     }
 
     private string StringForCompletion
     {
-      get { return _packaging ? "Archive packaged {0}" : "Archive unpackaged {0}"; }
+      get { return _packaging ? "Committed {0}" : "Checking out {0}"; }
     }
   }
 }

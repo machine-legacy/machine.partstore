@@ -28,7 +28,29 @@ namespace DependencyStore.Domain.Archiving
       _percentComplete = percentComplete;
     }
   }
-  public class ArchiveFileProgressEventArgs : ProgressEventArgs
+  public class FileCopyProgressEventArgs : ProgressEventArgs
+  {
+    private readonly FileAsset _file;
+    private readonly Purl _destiny;
+
+    public FileAsset File
+    {
+      get { return _file; }
+    }
+
+    public Purl Destiny
+    {
+      get { return _destiny; }
+    }
+
+    public FileCopyProgressEventArgs(double percentComplete, FileAsset file, Purl destiny)
+      : base(percentComplete)
+    {
+      _file = file;
+      _destiny = destiny;
+    }
+  }
+  public class ArchiveFileProgressEventArgs : FileCopyProgressEventArgs
   {
     private readonly ManifestEntry _manifestEntry;
     private readonly Purl _archive;
@@ -44,7 +66,7 @@ namespace DependencyStore.Domain.Archiving
     }
 
     public ArchiveFileProgressEventArgs(double percentComplete, Purl archive, ManifestEntry manifestEntry)
-     : base(percentComplete)
+     : base(percentComplete, manifestEntry.FileAsset, archive)
     {
       _archive = archive;
       _manifestEntry = manifestEntry;
