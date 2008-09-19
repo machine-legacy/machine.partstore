@@ -36,7 +36,7 @@ namespace DependencyStore.Commands
 
     private string StringForCompletion
     {
-      get { return _packaging ? "Committed {0}" : "Checking out {0}"; }
+      get { return _packaging ? "Committed {0}" : "Checked out {0}"; }
     }
   }
 }
