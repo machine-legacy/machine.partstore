@@ -14,21 +14,12 @@ namespace DependencyStore.Domain.Distribution
     public ProjectDependencyDirectory(Project project, ArchivedProject dependency)
     {
       _dependency = dependency;
-      _path = project.LibraryDirectory.Join(dependency.Name);
+      _path = project.DependencyPackageDirectoryFor(dependency);
       _manifests = Infrastructure.ProjectManifestRepository.FindProjectManifestStore(_path);
-    }
-
-    public bool HasAnythingInstalled
-    {
-      get { return _manifests.ManifestFor(_dependency) != null; }
     }
 
     public bool HasVersionOlderThan(ArchivedProjectVersion version)
     {
-      if (!this.HasAnythingInstalled)
-      {
-        return true;
-      }
       ProjectManifest manifest = _manifests.ManifestFor(_dependency);
       if (manifest == null)
       {

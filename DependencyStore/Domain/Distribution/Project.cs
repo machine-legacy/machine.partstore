@@ -56,9 +56,9 @@ namespace DependencyStore.Domain.Distribution
       }
     }
 
-    public Purl PackageInstallationDirectoryFor(string name)
+    public Purl DependencyPackageDirectoryFor(ArchivedProject dependency)
     {
-      return this.LibraryDirectory.Join(name);
+      return this.LibraryDirectory.Join(dependency.Name);
     }
 
     public Project(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
