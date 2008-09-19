@@ -26,7 +26,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       Purl buildDirectory = projectConfiguration.Build.AsPurl;
       Purl libraryDirectory = projectConfiguration.Library.AsPurl;
       string name = projectConfiguration.Name;
-      ProjectManifestStore manifests = _projectManifestRepository.FindProjectManifestStore(projectConfiguration.Root.AsPurl);
+      ProjectManifestStore manifests = _projectManifestRepository.FindProjectManifestStore(projectConfiguration.Library.AsPurl);
       return new CurrentProject(name, rootDirectory, buildDirectory, libraryDirectory, manifests);
     }
 
