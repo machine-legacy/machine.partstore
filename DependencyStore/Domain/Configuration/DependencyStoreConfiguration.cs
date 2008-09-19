@@ -11,24 +11,28 @@ namespace DependencyStore.Domain.Configuration
   {
     private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
-    private string _repositoryDirectory;
+    private string _repositoryName;
 
     [XmlAttribute]
-    public string Repository
+    public string RepositoryName
     {
-      get { return _repositoryDirectory; }
-      set { _repositoryDirectory = value; }
-    }
-
-    [XmlIgnore]
-    public Purl RepositoryDirectory
-    {
-      get { return new Purl(_repositoryDirectory); }
+      get { return _repositoryName; }
+      set { _repositoryName = value; }
     }
 
     public List<ProjectConfiguration> ProjectConfigurations
     {
       get { return _projectConfigurations; }
+    }
+
+    [XmlIgnore]
+    public Purl RepositoryDirectory
+    {
+      get
+      {
+        Purl purl = new Purl(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
+        return purl.Join("DependencyStore").Join(this.RepositoryName);
+      }
     }
 
     [XmlIgnore]
@@ -40,7 +44,7 @@ namespace DependencyStore.Domain.Configuration
 
     public virtual void EnsureValid()
     {
-      if (String.IsNullOrEmpty(_repositoryDirectory))
+      if (String.IsNullOrEmpty(_repositoryName))
       {
         throw new ConfigurationException("Invalid Repository Directory!");
       }

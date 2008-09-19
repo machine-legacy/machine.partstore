@@ -66,7 +66,7 @@ namespace DependencyStore.CommandLine
     private static void WriteVanityBanner()
     {
       Version version = typeof(Program).Assembly.GetName().Version;
-      Console.WriteLine("DependencyStore {0} (C) Jacob Lewallen 2007,2008", version);
+      Console.WriteLine("DependencyStore {0} (C) Jacob Lewallen 2008", version);
       Console.WriteLine();
     }
 
