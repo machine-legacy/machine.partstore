@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
-
 namespace DependencyStore.Domain.Distribution
 {
   public class ProjectReference
@@ -35,21 +33,23 @@ namespace DependencyStore.Domain.Distribution
       get { return _version; }
     }
 
-    public bool IsToLatestVersion
-    {
-      get { return this.Dependency.LatestVersion == this.Version; }
-    }
-
-    public bool IsOlderVersionInstalled
-    {
-      get { return this.Installed.HasVersionOlderThan(this.Version); }
-    }
-
     public void UnpackageIfNecessary()
     {
-      if (this.IsOlderVersionInstalled)
+      if (this.Status.IsOlderVersionInstalled)
       {
         this.Installed.UpdateInstalledVersion(this.Version);
+      }
+    }
+
+    public ReferenceStatus Status
+    {
+      get
+      {
+        bool isAnyVersionInstalled = this.Installed.IsAnythingInstalled;
+        bool isReferencedVersionInstalled = !this.Installed.HasVersionOlderThan(_version);
+        bool isOlderVersionInstalled = this.Installed.HasVersionOlderThan(_version);
+        bool isToLatestVersion = this.Dependency.LatestVersion == this.Version;
+        return new ReferenceStatus(isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled);
       }
     }
   }

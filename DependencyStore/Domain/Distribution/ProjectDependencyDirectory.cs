@@ -18,6 +18,11 @@ namespace DependencyStore.Domain.Distribution
       _manifests = Infrastructure.ProjectManifestRepository.FindProjectManifestStore(_path);
     }
 
+    public bool IsAnythingInstalled
+    {
+      get { return _manifests.ManifestFor(_dependency) != null; }
+    }
+
     public bool HasVersionOlderThan(ArchivedProjectVersion version)
     {
       ProjectManifest manifest = _manifests.ManifestFor(_dependency);

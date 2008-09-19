@@ -100,6 +100,7 @@
     </Compile>
     <Compile Include="Domain\Distribution\ProjectManifestStore.cs" />
     <Compile Include="Domain\Distribution\ProjectReference.cs" />
+    <Compile Include="Domain\Distribution\ReferenceStatus.cs" />
     <Compile Include="Domain\Distribution\Repository.cs" />
     <Compile Include="Domain\Core\FileAsset.cs" />
     <Compile Include="Domain\Core\FileSet.cs" />
