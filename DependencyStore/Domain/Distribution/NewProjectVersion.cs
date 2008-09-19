@@ -26,11 +26,6 @@ namespace DependencyStore.Domain.Distribution
       get { return _version.RepositoryAlias; }
     }
 
-    public Purl CommonRootDirectory
-    {
-      get { return _fileSet.FindCommonDirectory(); }
-    }
-
     public FileSet FileSet
     {
       get { return _fileSet; }
