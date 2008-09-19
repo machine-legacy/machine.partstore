@@ -65,7 +65,7 @@ namespace DependencyStore.Domain.Core
       {
         return ((Purl)obj).AsString.Equals(this.AsString, StringComparison.InvariantCultureIgnoreCase);
       }
-      return base.Equals(obj);
+      return false;
     }
 
     public override Int32 GetHashCode()
