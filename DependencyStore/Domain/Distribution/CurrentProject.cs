@@ -20,10 +20,10 @@ namespace DependencyStore.Domain.Distribution
       get { return Infrastructure.ProjectReferenceRepository.FindAllProjectReferences(); }
     }
 
-    public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
+    public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory, ProjectManifestStore manifests)
       : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
-      _manifests = Infrastructure.ProjectManifestRepository.FindProjectManifestStore(this);
+      _manifests = manifests;
     }
 
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject dependency)

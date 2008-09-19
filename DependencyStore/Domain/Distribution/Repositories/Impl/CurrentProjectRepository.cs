@@ -10,10 +10,12 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
   public class CurrentProjectRepository : ICurrentProjectRepository
   {
     private readonly ICurrentConfiguration _currentConfiguration;
+    private readonly IProjectManifestRepository _projectManifestRepository;
 
-    public CurrentProjectRepository(ICurrentConfiguration currentConfiguration)
+    public CurrentProjectRepository(ICurrentConfiguration currentConfiguration, IProjectManifestRepository projectManifestRepository)
     {
       _currentConfiguration = currentConfiguration;
+      _projectManifestRepository = projectManifestRepository;
     }
 
     #region ICurrentProjectRepository Members
@@ -24,7 +26,8 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       Purl buildDirectory = projectConfiguration.Build.AsPurl;
       Purl libraryDirectory = projectConfiguration.Library.AsPurl;
       string name = projectConfiguration.Name;
-      return new CurrentProject(name, rootDirectory, buildDirectory, libraryDirectory);
+      ProjectManifestStore manifests = _projectManifestRepository.FindProjectManifestStore(projectConfiguration.Root.AsPurl);
+      return new CurrentProject(name, rootDirectory, buildDirectory, libraryDirectory, manifests);
     }
 
     public void SaveCurrentProject(CurrentProject project)
