@@ -29,7 +29,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       if (!_fileSystem.IsFile(path.AsString))
       {
         Console.WriteLine("Creating new repository, {0} is missing.", path.AsString);
-        return new Repository();
+        return Prepare(new Repository(), path);
       }
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
