@@ -10,6 +10,8 @@ namespace DependencyStore.Domain.Services
   [Machine.Container.Model.Transient]
   public class AddingNewVersionsToRepository
   {
+    private readonly IRepositoryAccessStrategy _repositoryAccessStrategy = new ArchiveRepositoryAccessStrategy();
+
     public void PublishProject(Project project, Repository repository)
     {
       AddProjects(new Project[] { project }, repository);
@@ -25,24 +27,9 @@ namespace DependencyStore.Domain.Services
         FileSet fileSet = new FileSet();
         fileSet.AddAll(entry.BreadthFirstFiles);
         NewProjectVersion newProjectVersion = new NewProjectVersion(archivedProject, version, fileSet);
-        using (Archive archive = MakeArchiveFor(newProjectVersion))
-        {
-          ZipPackager writer = new ZipPackager(archive);
-          Purl path = version.ArchivePath;
-          writer.WriteZip(path);
-          archivedProject.AddVersion(version);
-        }
+        _repositoryAccessStrategy.AddVersionToRepository(newProjectVersion);
+        archivedProject.AddVersion(version);
       }
-    }
-
-    private static Archive MakeArchiveFor(NewProjectVersion newProjectVersion)
-    {
-      Archive archive = new Archive();
-      foreach (FileSystemFile file in newProjectVersion.Files)
-      {
-        archive.Add(file.Path.ChangeRoot(newProjectVersion.CommonRootDirectory), file);
-      }
-      return archive;
     }
   }
 }

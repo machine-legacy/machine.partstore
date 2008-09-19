@@ -128,6 +128,9 @@
     <Compile Include="Domain\Configuration\ConfigurationPaths.cs" />
     <Compile Include="Domain\Distribution\Repositories\IRepositoryRepository.cs" />
     <Compile Include="Domain\Distribution\NewProjectVersion.cs" />
+    <Compile Include="Domain\Services\IRepositoryAccessStrategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utility\PathHelper.cs" />
     <Compile Include="Utility\StreamHelper.cs" />
     <Compile Include="Utility\StringHelper.cs" />
