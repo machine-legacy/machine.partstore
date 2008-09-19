@@ -34,6 +34,7 @@ namespace DependencyStore.Domain.Distribution
       foreach (FileSystemFile file in fileSet.Files)
       {
         Purl fileDestiny = destiny.Join(file.Path.ChangeRoot(fileSet.FindCommonDirectory()));
+        fileDestiny.CreateParentDirectory();
         Infrastructure.FileSystem.CopyFile(file.Purl.AsString, fileDestiny.AsString, false);
         filesSoFar++;
         DistributionDomainEvents.OnProgress(this, new FileCopyProgressEventArgs(filesSoFar / (double)fileSet.Count, file, destiny));
