@@ -29,10 +29,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 
     public void SaveCurrentProject(CurrentProject project)
     {
-      Console.WriteLine("THIS SHOULD WRITE TO DISK");
-      foreach (ProjectReference reference in project.References)
-      {
-      }
+      Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(project.Manifests);
     }
     #endregion
   }

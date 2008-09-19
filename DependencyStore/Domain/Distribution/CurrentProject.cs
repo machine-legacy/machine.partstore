@@ -8,9 +8,11 @@ namespace DependencyStore.Domain.Distribution
 {
   public class CurrentProject : Project
   {
-    public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
-      : base(name, rootDirectory, buildDirectory, libraryDirectory)
+    private readonly ProjectManifestStore _manifests;
+
+    public ProjectManifestStore Manifests
     {
+      get { return _manifests; }
     }
 
     public IEnumerable<ProjectReference> References
@@ -18,11 +20,15 @@ namespace DependencyStore.Domain.Distribution
       get { return Infrastructure.ProjectReferenceRepository.FindAllProjectReferences(); }
     }
 
+    public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
+      : base(name, rootDirectory, buildDirectory, libraryDirectory)
+    {
+      _manifests = Infrastructure.ProjectManifestRepository.FindProjectManifestStore(this);
+    }
+
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject dependency)
     {
-      ProjectManifestStore manifests = Infrastructure.ProjectManifestRepository.FindProjectManifestStore(this);
-      manifests.AddManifestFor(dependency, dependency.LatestVersion);
-      Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(manifests);
+      _manifests.AddManifestFor(dependency, dependency.LatestVersion);
       return new ProjectReference(this, dependency, dependency.LatestVersion);
     }
 
