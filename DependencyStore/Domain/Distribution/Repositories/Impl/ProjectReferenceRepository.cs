@@ -31,12 +31,12 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
           ArchivedProject archivedProject = repository.FindProject(manifest);
           if (archivedProject == null)
           {
-            throw new InvalidOperationException("Missing project: " + manifest);
+            throw new ArchivedProjectNotFoundException("Missing project: " + manifest);
           }
           ArchivedProjectVersion version = archivedProject.FindVersionInManifest(manifest);
           if (version == null)
           {
-            throw new InvalidOperationException("Missing version: " + manifest);
+            throw new ArchivedVersionNotFoundException("Missing version: " + manifest);
           }
           ProjectReference reference = new ProjectReference(project, archivedProject, version);
           references.Add(reference);

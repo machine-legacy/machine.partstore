@@ -28,6 +28,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       Purl path = _currentConfiguration.DefaultConfiguration.RepositoryDirectory.Join("Manifest.xml");
       if (!_fileSystem.IsFile(path.AsString))
       {
+        Console.WriteLine("Creating new repository, {0} is missing.", path.AsString);
         return new Repository();
       }
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))

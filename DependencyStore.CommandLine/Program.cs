@@ -8,6 +8,7 @@ using log4net.Layout;
 using Machine.Container;
 using Machine.Core.Utility;
 
+using DependencyStore.Domain.Distribution;
 using DependencyStore.Commands;
 
 namespace DependencyStore.CommandLine
@@ -49,9 +50,15 @@ namespace DependencyStore.CommandLine
         
         CommandLineOptionBinder bind = new CommandLineOptionBinder(parser, command);
         bind.RequireFirst<AddDependencyCommand>(x => x.ProjectToAdd);
-        
-        command.Run();
 
+        try
+        {
+          command.Run();
+        }
+        catch (ObjectNotFoundException objectNotFound)
+        {
+          Console.WriteLine("{0}", objectNotFound.Message);
+        }
         Console.WriteLine();
       }
     }
