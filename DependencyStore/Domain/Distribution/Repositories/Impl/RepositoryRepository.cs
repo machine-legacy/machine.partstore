@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -54,7 +54,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       {
         foreach (ArchivedProjectVersion version in project.Versions)
         {
-          version.ArchivePath = repository.RootPath.Join(version.ArchiveFileName);
+          version.ArchivePath = repository.RootPath.Join(version.RepositoryAlias);
         }
       }
       return repository;

@@ -9,7 +9,7 @@ namespace DependencyStore.Domain.Distribution
   public class ArchivedProjectVersion
   {
     private DateTime _createdAt;
-    private string _archiveFileName;
+    private string _repositoryAlias;
     private Purl _archivePath;
 
     public DateTime CreatedAt
@@ -18,10 +18,10 @@ namespace DependencyStore.Domain.Distribution
       set { _createdAt = value; }
     }
 
-    public string ArchiveFileName
+    public string RepositoryAlias
     {
-      get { return _archiveFileName; }
-      set { _archiveFileName = value; }
+      get { return _repositoryAlias; }
+      set { _repositoryAlias = value; }
     }
 
     [XmlIgnore]
@@ -43,7 +43,7 @@ namespace DependencyStore.Domain.Distribution
     protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, Purl archivePath)
     {
       _createdAt = createdAt;
-      _archiveFileName = archiveFileName;
+      _repositoryAlias = archiveFileName;
       _archivePath = archivePath;
     }
 
@@ -61,7 +61,7 @@ namespace DependencyStore.Domain.Distribution
 
     public override string ToString()
     {
-      return "ArchivedVersion<" + this.ArchiveFileName + ">";
+      return "ArchivedVersion<" + this.RepositoryAlias + ">";
     }
   }
 }

@@ -21,9 +21,9 @@ namespace DependencyStore.Domain.Distribution
       get { return _version.ArchivePath; }
     }
 
-    public string ArchiveFileName
+    public string RepositoryAlias
     {
-      get { return _version.ArchiveFileName; }
+      get { return _version.RepositoryAlias; }
     }
 
     public Purl CommonRootDirectory

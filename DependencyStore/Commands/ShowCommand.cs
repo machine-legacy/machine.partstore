@@ -25,7 +25,7 @@ namespace DependencyStore.Commands
       {
         TimeSpan age = DateTime.Now - reference.Version.CreatedAt;
         Console.WriteLine("  {0} ({1} old)", reference.Dependency.Name, TimeSpanHelper.ToPrettyString(age));
-        Console.WriteLine("  {0}", reference.Version.ArchivePath.AsString);
+        Console.WriteLine("  {0}", reference.Version.RepositoryAlias);
       }
       return CommandStatus.Success;
     }
