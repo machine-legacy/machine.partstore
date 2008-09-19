@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using DependencyStore.Domain.Configuration;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -80,7 +80,8 @@ namespace DependencyStore.CommandLine
     {
       FileAppender appender = new FileAppender();
       appender.Layout = new PatternLayout("%d %-5p %c %m%n");
-      appender.File = System.IO.Path.Combine(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "DependencyStore"), "Ds.log");
+      
+      appender.File = System.IO.Path.Combine(ConfigurationPaths.RootDataDirectory, "Ds.log");
       appender.AppendToFile = true;
       appender.ActivateOptions();
       BasicConfigurator.Configure(appender);

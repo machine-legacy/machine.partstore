@@ -20,5 +20,3 @@ easily manage a repository inside of a git repository for example.
 
 Add ReferenceStatus to store the condition of a ProjectReference? These can be
 printed into the UI.
-
-Refactor all references to GetFolderPath into something we can change...

@@ -30,8 +30,8 @@ namespace DependencyStore.Domain.Configuration
     {
       get
       {
-        Purl purl = new Purl(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData));
-        return purl.Join("DependencyStore").Join(this.RepositoryName);
+        Purl purl = new Purl(ConfigurationPaths.RootDataDirectory);
+        return purl.Join(this.RepositoryName);
       }
     }
 

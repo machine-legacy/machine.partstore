@@ -11,6 +11,11 @@ namespace DependencyStore.Domain.Configuration
     private readonly IFileSystem _fileSystem;
     private const string FileName = @"DependencyStore.config";
 
+    public static string RootDataDirectory
+    {
+      get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "DependencyStore"); }
+    }
+
     public ConfigurationPaths(IFileSystem fileSystem)
     {
       _fileSystem = fileSystem;
@@ -18,10 +23,9 @@ namespace DependencyStore.Domain.Configuration
 
     protected virtual string[] FindAllPossiblePaths()
     {
-      string applicationData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
       List<string> paths = new List<string>();
       paths.Add(FileName);
-      paths.Add(Path.Combine(applicationData, FileName));
+      paths.Add(Path.Combine(RootDataDirectory, FileName));
       return paths.ToArray();
     }
 
