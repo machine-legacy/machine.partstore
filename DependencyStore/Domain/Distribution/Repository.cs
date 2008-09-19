@@ -9,7 +9,7 @@ namespace DependencyStore.Domain.Distribution
 {
   public class Repository
   {
-    public static readonly IRepositoryAccessStrategy AccessStrategy = new ArchiveRepositoryAccessStrategy();
+    public static readonly IRepositoryAccessStrategy AccessStrategy = new MirroredRepositoryAccessStrategy();
     private readonly List<ArchivedProject> _projects = new List<ArchivedProject>();
     private Purl _rootPath;
 
