@@ -46,5 +46,14 @@ namespace DependencyStore.Domain.Distribution
       _isOlderVersionInstalled = isOlderVersionInstalled;
       _isReferencedVersionInstalled = isReferencedVersionInstalled;
     }
+
+    public static ReferenceStatus Create(ArchivedProject dependency, ArchivedProjectVersion version, ProjectDependencyDirectory dependencyDirectory)
+    {
+      bool isAnyVersionInstalled = dependencyDirectory.IsAnythingInstalled;
+      bool isReferencedVersionInstalled = !dependencyDirectory.HasVersionOlderThan(version);
+      bool isOlderVersionInstalled = dependencyDirectory.HasVersionOlderThan(version);
+      bool isToLatestVersion = dependency.LatestVersion == version;
+      return new ReferenceStatus(isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled);
+    }
   }
 }

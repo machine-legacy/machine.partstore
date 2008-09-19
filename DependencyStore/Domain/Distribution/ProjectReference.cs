@@ -43,14 +43,7 @@ namespace DependencyStore.Domain.Distribution
 
     public ReferenceStatus Status
     {
-      get
-      {
-        bool isAnyVersionInstalled = this.Installed.IsAnythingInstalled;
-        bool isReferencedVersionInstalled = !this.Installed.HasVersionOlderThan(_version);
-        bool isOlderVersionInstalled = this.Installed.HasVersionOlderThan(_version);
-        bool isToLatestVersion = this.Dependency.LatestVersion == this.Version;
-        return new ReferenceStatus(isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled);
-      }
+      get { return ReferenceStatus.Create(_dependency, _version, _installed); }
     }
   }
 }
