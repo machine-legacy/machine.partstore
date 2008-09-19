@@ -10,13 +10,13 @@ namespace DependencyStore.Domain.Distribution
     #region IRepositoryAccessStrategy Members
     public void CommitVersionToRepository(NewProjectVersion newProjectVersion)
     {
-      Purl destiny = newProjectVersion.ArchivePath;
+      Purl destiny = newProjectVersion.PathInRepository;
       CopyFiles(newProjectVersion.FileSet, destiny);
     }
 
     public void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory)
     {
-      FileSystemEntry entry = Infrastructure.FileSystemEntryRepository.FindEntry(version.ArchivePath);
+      FileSystemEntry entry = Infrastructure.FileSystemEntryRepository.FindEntry(version.PathInRepository);
       FileSet fileSet = new FileSet();
       fileSet.AddAll(entry.BreadthFirstFiles);
       CopyFiles(fileSet, directory);

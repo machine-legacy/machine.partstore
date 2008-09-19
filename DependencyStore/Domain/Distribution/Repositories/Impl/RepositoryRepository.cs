@@ -54,7 +54,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       {
         foreach (ArchivedProjectVersion version in project.Versions)
         {
-          version.ArchivePath = repository.RootPath.Join(version.RepositoryAlias);
+          version.PathInRepository = repository.RootPath.Join(version.RepositoryAlias);
         }
       }
       return repository;

@@ -16,9 +16,9 @@ namespace DependencyStore.Domain.Distribution
       get { return _project.Name; }
     }
 
-    public Purl ArchivePath
+    public Purl PathInRepository
     {
-      get { return _version.ArchivePath; }
+      get { return _version.PathInRepository; }
     }
 
     public string RepositoryAlias

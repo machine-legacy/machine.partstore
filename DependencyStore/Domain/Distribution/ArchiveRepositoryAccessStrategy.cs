@@ -13,13 +13,13 @@ namespace DependencyStore.Domain.Distribution
       using (Archive archive = MakeArchiveFor(newProjectVersion))
       {
         ZipPackager writer = new ZipPackager(archive);
-        writer.WriteZip(newProjectVersion.ArchivePath);
+        writer.WriteZip(new Purl(newProjectVersion.PathInRepository.AsString + ZipPackager.ZipExtension));
       }
     }
 
     public void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory)
     {
-      Archive archive = ArchiveFactory.ReadZip(version.ArchivePath);
+      Archive archive = ArchiveFactory.ReadZip(new Purl(version.PathInRepository.AsString + ZipPackager.ZipExtension));
       ZipUnpackager unpackager = new ZipUnpackager(archive);
       unpackager.UnpackageZip(directory);
     }

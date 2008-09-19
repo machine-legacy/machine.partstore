@@ -10,7 +10,7 @@ namespace DependencyStore.Domain.Distribution
   {
     private DateTime _createdAt;
     private string _repositoryAlias;
-    private Purl _archivePath;
+    private Purl _pathInRepository;
 
     public DateTime CreatedAt
     {
@@ -25,10 +25,10 @@ namespace DependencyStore.Domain.Distribution
     }
 
     [XmlIgnore]
-    public Purl ArchivePath
+    public Purl PathInRepository
     {
-      get { return _archivePath; }
-      set { _archivePath = value; }
+      get { return _pathInRepository; }
+      set { _pathInRepository = value; }
     }
 
     public string CreatedAtVersion
@@ -40,18 +40,18 @@ namespace DependencyStore.Domain.Distribution
     {
     }
 
-    protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, Purl archivePath)
+    protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, Purl pathInRepository)
     {
       _createdAt = createdAt;
       _repositoryAlias = archiveFileName;
-      _archivePath = archivePath;
+      _pathInRepository = pathInRepository;
     }
 
     public static ArchivedProjectVersion Create(ArchivedProject project, Repository repository)
     {
       DateTime createdAt = DateTime.Now;
-      string archiveFileName = project.Name + "-" + DateTimeToUniqueString(createdAt) + ZipPackager.ZipExtension;
-      return new ArchivedProjectVersion(createdAt, archiveFileName, repository.RootPath.Join(archiveFileName));
+      string repositoryAlias = project.Name + "-" + DateTimeToUniqueString(createdAt);
+      return new ArchivedProjectVersion(createdAt, repositoryAlias, repository.RootPath.Join(repositoryAlias));
     }
 
     private static string DateTimeToUniqueString(DateTime when)
