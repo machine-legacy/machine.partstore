@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
-
-namespace DependencyStore.Domain.Core.Repositories
+namespace DependencyStore.Domain.Distribution.Repositories
 {
   public interface IProjectRepository
   {

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 
+using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Configuration.Repositories;
 
-namespace DependencyStore.Domain.Core.Repositories.Impl
+namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class ProjectRepository : IProjectRepository
   {

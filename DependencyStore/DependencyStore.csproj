@@ -105,7 +105,7 @@
     <Compile Include="Domain\Core\FileSet.cs" />
     <Compile Include="Domain\SimpleCopying\FileSetComparer.cs" />
     <Compile Include="Domain\SimpleCopying\FileSetGroupedByLocation.cs" />
-    <Compile Include="Domain\Core\Project.cs" />
+    <Compile Include="Domain\Distribution\Project.cs" />
     <Compile Include="Domain\Services\AddingNewVersionsToRepository.cs" />
     <Compile Include="Domain\SimpleCopying\SourceLocation.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
@@ -128,11 +128,11 @@
     <Compile Include="Domain\Distribution\Repositories\Impl\CurrentProjectRepository.cs" />
     <Compile Include="Domain\Distribution\Repositories\Impl\ProjectManifestRepository.cs" />
     <Compile Include="Domain\Distribution\Repositories\Impl\ProjectReferenceRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\Impl\ProjectRepository.cs" />
+    <Compile Include="Domain\Distribution\Repositories\Impl\ProjectRepository.cs" />
     <Compile Include="Domain\Distribution\Repositories\Impl\RepositoryRepository.cs" />
     <Compile Include="Domain\Distribution\Repositories\IProjectManifestRepository.cs" />
     <Compile Include="Domain\Distribution\Repositories\IProjectReferenceRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\IProjectRepository.cs" />
+    <Compile Include="Domain\Distribution\Repositories\IProjectRepository.cs" />
     <Compile Include="Domain\Configuration\ConfigurationPaths.cs" />
     <Compile Include="Domain\Distribution\Repositories\IRepositoryRepository.cs" />
     <Compile Include="Services\Impl\DependencyState.cs" />
