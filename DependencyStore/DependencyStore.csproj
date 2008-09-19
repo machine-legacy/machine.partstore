@@ -96,6 +96,7 @@
     <Compile Include="Domain\Distribution\ArchivedProjectVersion.cs" />
     <Compile Include="Domain\Distribution\Errors.cs" />
     <Compile Include="Domain\Distribution\Infrastructure.cs" />
+    <Compile Include="Domain\Distribution\MirroredRepositoryAccessStrategy.cs" />
     <Compile Include="Domain\Distribution\ProjectManifest.cs">
       <SubType>Code</SubType>
     </Compile>

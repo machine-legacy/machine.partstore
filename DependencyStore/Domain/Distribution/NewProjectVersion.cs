@@ -31,9 +31,9 @@ namespace DependencyStore.Domain.Distribution
       get { return _fileSet.FindCommonDirectory(); }
     }
 
-    public IEnumerable<FileAsset> Files
+    public FileSet FileSet
     {
-      get { return _fileSet.Files; }
+      get { return _fileSet; }
     }
 
     public NewProjectVersion(ArchivedProject project, ArchivedProjectVersion version, FileSet fileSet)

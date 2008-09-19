@@ -28,7 +28,7 @@ namespace DependencyStore.Domain.Distribution
     private static Archive MakeArchiveFor(NewProjectVersion newProjectVersion)
     {
       Archive archive = new Archive();
-      foreach (FileSystemFile file in newProjectVersion.Files)
+      foreach (FileSystemFile file in newProjectVersion.FileSet.Files)
       {
         archive.Add(file.Path.ChangeRoot(newProjectVersion.CommonRootDirectory), file);
       }
