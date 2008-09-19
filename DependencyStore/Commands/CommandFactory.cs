@@ -7,6 +7,7 @@ namespace DependencyStore.Commands
 {
   public class CommandFactory
   {
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(CommandFactory));
     private readonly IMachineContainer _container;
     private readonly List<RegisteredCommand> _commands = new List<RegisteredCommand>();
 
@@ -33,14 +34,18 @@ namespace DependencyStore.Commands
 
     public ICommand CreateCommand(string name)
     {
+      Type commandType = typeof(HelpCommand);
       foreach (RegisteredCommand registeredCommand in _commands)
       {
         if (registeredCommand.Name.Equals(name))
         {
-          return (ICommand)_container.Resolve.Object(registeredCommand.Type);
+          commandType = registeredCommand.Type;
+          break;
         }
       }
-      return _container.Resolve.Object<HelpCommand>();
+      ICommand command = (ICommand)_container.Resolve.Object(commandType);
+      _log.Info("Using: " + command);
+      return command;
     }
   }
 }

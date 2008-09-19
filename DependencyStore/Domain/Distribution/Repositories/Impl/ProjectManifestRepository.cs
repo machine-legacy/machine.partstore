@@ -11,6 +11,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class ProjectManifestRepository : IProjectManifestRepository
   {
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(ProjectManifestRepository));
     private static readonly XmlSerializer<ProjectManifest> _serializer = new XmlSerializer<ProjectManifest>();
     private readonly Dictionary<Purl, ProjectManifestStore> _cache = new Dictionary<Purl, ProjectManifestStore>();
     private readonly IFileSystem _fileSystem;
@@ -23,6 +24,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     #region IProjectManifestRepository Members
     public ProjectManifestStore FindProjectManifestStore(Purl path)
     {
+      _log.Info("Loading: " + path.AsString);
       if (_cache.ContainsKey(path))
       {
         return _cache[path];
@@ -43,6 +45,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 
     public void SaveProjectManifestStore(ProjectManifestStore projectManifestStore)
     {
+      _log.Info("Saving: " + projectManifestStore.RootDirectory.AsString);
       foreach (ProjectManifest manifest in projectManifestStore)
       {
         Purl manifestPath = projectManifestStore.RootDirectory.Join(manifest.FileName);

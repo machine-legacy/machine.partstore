@@ -9,6 +9,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class ProjectRepository : IProjectRepository
   {
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(ProjectRepository));
     private readonly ICurrentConfiguration _currentConfiguration;
 
     public ProjectRepository(ICurrentConfiguration currentConfiguration)

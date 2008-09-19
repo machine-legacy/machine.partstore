@@ -8,15 +8,19 @@ namespace DependencyStore.Domain.Distribution
 {
   public class MirroredRepositoryAccessStrategy : IRepositoryAccessStrategy
   {
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(MirroredRepositoryAccessStrategy));
+
     #region IRepositoryAccessStrategy Members
     public void CommitVersionToRepository(NewProjectVersion newProjectVersion)
     {
+      _log.Info("Committing: " + newProjectVersion);
       Purl destiny = newProjectVersion.PathInRepository;
       CopyFiles(newProjectVersion.FileSet, destiny);
     }
 
     public void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory)
     {
+      _log.Info("Checking out: " + version + " into " + directory);
       FileSystemEntry entry = Infrastructure.FileSystemEntryRepository.FindEntry(version.PathInRepository);
       FileSet fileSet = new FileSet();
       fileSet.AddAll(entry.BreadthFirstFiles);

@@ -61,6 +61,7 @@ namespace DependencyStore.CommandLine
         catch (ObjectNotFoundException objectNotFound)
         {
           Console.WriteLine("{0}", objectNotFound.Message);
+          _log.Info(objectNotFound.Message);
         }
         Console.WriteLine();
       }

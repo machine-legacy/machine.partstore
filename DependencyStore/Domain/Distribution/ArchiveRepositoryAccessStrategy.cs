@@ -7,9 +7,12 @@ namespace DependencyStore.Domain.Distribution
 {
   public class ArchiveRepositoryAccessStrategy : IRepositoryAccessStrategy
   {
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(ArchiveRepositoryAccessStrategy));
+
     #region IRepositoryAdditionStrategy Members
     public void CommitVersionToRepository(NewProjectVersion newProjectVersion)
     {
+      _log.Info("Committing: " + newProjectVersion);
       using (Archive archive = MakeArchiveFor(newProjectVersion))
       {
         ZipPackager writer = new ZipPackager(archive);
@@ -19,6 +22,7 @@ namespace DependencyStore.Domain.Distribution
 
     public void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory)
     {
+      _log.Info("Checking out: " + version + " into " + directory);
       Archive archive = ArchiveFactory.ReadZip(new Purl(version.PathInRepository.AsString + ZipPackager.ZipExtension));
       ZipUnpackager unpackager = new ZipUnpackager(archive);
       unpackager.UnpackageZip(directory);

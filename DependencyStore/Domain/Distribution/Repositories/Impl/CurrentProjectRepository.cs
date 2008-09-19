@@ -9,6 +9,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class CurrentProjectRepository : ICurrentProjectRepository
   {
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(CurrentProjectRepository));
     private readonly ICurrentConfiguration _currentConfiguration;
     private readonly IProjectManifestRepository _projectManifestRepository;
 
@@ -27,6 +28,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       Purl libraryDirectory = projectConfiguration.Library.AsPurl;
       string name = projectConfiguration.Name;
       ProjectManifestStore manifests = _projectManifestRepository.FindProjectManifestStore(projectConfiguration.Library.AsPurl);
+      _log.Info("CurrentProject: " + name + " in " + rootDirectory.AsString);
       return new CurrentProject(name, rootDirectory, buildDirectory, libraryDirectory, manifests);
     }
 

@@ -12,6 +12,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class RepositoryRepository : IRepositoryRepository
   {
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(ProjectRepository));
     private static readonly XmlSerializer<Repository> _serializer = new XmlSerializer<Repository>();
     private readonly ICurrentConfiguration _currentConfiguration;
     private readonly IFileSystem _fileSystem;
@@ -28,9 +29,11 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       Purl path = _currentConfiguration.DefaultConfiguration.RepositoryDirectory.Join("Manifest.xml");
       if (!_fileSystem.IsFile(path.AsString))
       {
-        Console.WriteLine("Creating new repository, {0} is missing.", path.AsString);
+        Console.WriteLine("Creating new repository: " + path.AsString);
+        _log.Info("Creating new repository: " + path.AsString);
         return Prepare(new Repository(), path);
       }
+      _log.Info("Opening: " + path.AsString);
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
         return Prepare(_serializer.DeserializeString(stream.ReadToEnd()), path);
@@ -40,6 +43,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     public void SaveRepository(Repository repository)
     {
       Purl path = _currentConfiguration.DefaultConfiguration.RepositoryDirectory.Join("Manifest.xml");
+      _log.Info("Saving: " + path.AsString);
       using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
       {
         stream.Write(_serializer.Serialize(repository));
