@@ -28,7 +28,7 @@ namespace DependencyStore.Domain.Distribution
     {
       get
       {
-        _versions.Sort((x, y) => { return x.CreatedAtVersion.CompareTo(y.CreatedAtVersion); });
+        _versions.Sort((x, y) => x.CreatedAtVersion.CompareTo(y.CreatedAtVersion));
         return _versions[_versions.Count - 1];
       }
     }
