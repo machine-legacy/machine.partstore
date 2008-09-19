@@ -21,7 +21,11 @@ namespace DependencyStore.Domain.Services
       {
         ArchivedProject archivedProject = repository.FindOrCreateProject(project);
         ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, repository);
-        using (Archive archive = MakeArchiveFor(project))
+        FileSystemEntry entry = Core.Infrastructure.FileSystemEntryRepository.FindEntry(project.BuildDirectory);
+        FileSet fileSet = new FileSet();
+        fileSet.AddAll(entry.BreadthFirstFiles);
+        NewProjectVersion newProjectVersion = new NewProjectVersion(archivedProject, version, fileSet);
+        using (Archive archive = MakeArchiveFor(newProjectVersion))
         {
           ZipPackager writer = new ZipPackager(archive);
           Purl path = version.ArchivePath;
@@ -31,16 +35,12 @@ namespace DependencyStore.Domain.Services
       }
     }
 
-    private static Archive MakeArchiveFor(Project project)
+    private static Archive MakeArchiveFor(NewProjectVersion newProjectVersion)
     {
-      FileSystemEntry entry = Core.Infrastructure.FileSystemEntryRepository.FindEntry(project.BuildDirectory);
-      FileSet fileSet = new FileSet();
-      fileSet.AddAll(entry.BreadthFirstFiles);
-      Purl fileRootDirectory = fileSet.FindCommonDirectory();
       Archive archive = new Archive();
-      foreach (FileSystemFile file in fileSet.Files)
+      foreach (FileSystemFile file in newProjectVersion.Files)
       {
-        archive.Add(file.Path.ChangeRoot(fileRootDirectory), file);
+        archive.Add(file.Path.ChangeRoot(newProjectVersion.CommonRootDirectory), file);
       }
       return archive;
     }
