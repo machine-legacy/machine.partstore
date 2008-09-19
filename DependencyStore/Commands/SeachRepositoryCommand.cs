@@ -19,7 +19,7 @@ namespace DependencyStore.Commands
       Repository repository = _repositoryRepository.FindDefaultRepository();
       foreach (ArchivedProject project in repository.Projects)
       {
-        Console.WriteLine("{0,-30} {1}", project.Name, project.LatestVersion.CreatedAt);
+        Console.WriteLine("{0,-30} {1} ({2} versions)", project.Name, project.LatestVersion.CreatedAt, project.Versions.Count);
       }
       return CommandStatus.Success;
     }

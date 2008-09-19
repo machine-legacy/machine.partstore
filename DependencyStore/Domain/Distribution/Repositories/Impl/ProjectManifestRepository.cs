@@ -12,6 +12,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
   public class ProjectManifestRepository : IProjectManifestRepository
   {
     private static readonly XmlSerializer<ProjectManifest> _serializer = new XmlSerializer<ProjectManifest>();
+    private readonly Dictionary<Purl, ProjectManifest> _cache = new Dictionary<Purl, ProjectManifest>();
     private readonly IFileSystem _fileSystem;
 
     public ProjectManifestRepository(IFileSystem fileSystem)
@@ -35,6 +36,10 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 
     public ProjectManifest ReadProjectManifest(Purl path)
     {
+      if (_cache.ContainsKey(path))
+      {
+        return _cache[path];
+      }
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
         ProjectManifest manifest = _serializer.DeserializeString(stream.ReadToEnd());
@@ -42,6 +47,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
         {
           throw new InvalidOperationException("Project reference manifest and project name should match: " + path);
         }
+        _cache[path] = manifest;
         return manifest;
       }
     }
@@ -50,6 +56,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     {
       using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
       {
+        _cache[path] = manifest;
         stream.Write(_serializer.Serialize(manifest));
       }
     }
