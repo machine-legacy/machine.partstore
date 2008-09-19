@@ -60,13 +60,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\SimpleCopying\BuildLocationTests.cs" />
     <Compile Include="Domain\Configuration\FileAndDirectoryRulesTests.cs" />
     <Compile Include="Domain\Core\FileSystemDirectoryTests.cs" />
     <Compile Include="Domain\Core\FileSystemPathTests.cs" />
     <Compile Include="Domain\Configuration\IncludeExcludeRulesTests.cs" />
-    <Compile Include="Domain\SimpleCopying\LatestFileSetTests.cs" />
-    <Compile Include="Domain\SimpleCopying\LibraryLocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

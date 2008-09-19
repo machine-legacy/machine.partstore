@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
 
 using Machine.Core.Services;
 using Machine.Core.Utility;

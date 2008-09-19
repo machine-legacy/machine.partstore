@@ -8,11 +8,9 @@ using Machine.Core.Services.Impl;
 using DependencyStore.Domain.Services;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Commands;
-using DependencyStore.Services.Impl;
 using DependencyStore.Domain.Core.Repositories.Impl;
 using DependencyStore.Domain.Configuration.Repositories.Impl;
 using DependencyStore.Domain.Distribution.Repositories.Impl;
-using DependencyStore.Domain.SimpleCopying.Repositories.Impl;
 
 namespace DependencyStore
 {
@@ -29,9 +27,7 @@ namespace DependencyStore
       register.Type<ProjectManifestRepository>();
       register.Type<ProjectReferenceRepository>();
       register.Type<CurrentProjectRepository>();
-      register.Type<LocationRepository>();
       register.Type<ProjectRepository>();
-      register.Type<DependencyState>();
       register.Type<ConfigurationPaths>();
       register.Type<RepositoryRepository>();
       register.Type<AddingNewVersionsToRepository>();

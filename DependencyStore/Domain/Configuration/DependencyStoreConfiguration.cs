@@ -9,8 +9,6 @@ namespace DependencyStore.Domain.Configuration
   [XmlRoot("DependencyStore")]
   public class DependencyStoreConfiguration
   {
-    private readonly List<BuildDirectoryConfiguration> _buildDirectories = new List<BuildDirectoryConfiguration>();
-    private readonly List<LibraryDirectoryConfiguration> _libraryDirectories = new List<LibraryDirectoryConfiguration>();
     private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
     private string _repositoryDirectory;
@@ -40,16 +38,6 @@ namespace DependencyStore.Domain.Configuration
       set { _fileAndDirectoryRules = value; }
     }
 
-    public List<BuildDirectoryConfiguration> BuildDirectories
-    {
-      get { return _buildDirectories; }
-    }
-
-    public List<LibraryDirectoryConfiguration> LibraryDirectories
-    {
-      get { return _libraryDirectories; }
-    }
-
     public virtual void EnsureValid()
     {
       if (String.IsNullOrEmpty(_repositoryDirectory))
@@ -57,14 +45,6 @@ namespace DependencyStore.Domain.Configuration
         throw new ConfigurationException("Invalid Repository Directory!");
       }
       foreach (ProjectConfiguration configuration in _projectConfigurations)
-      {
-        configuration.EnsureValid();
-      }
-      foreach (BuildDirectoryConfiguration configuration in _buildDirectories)
-      {
-        configuration.EnsureValid();
-      }
-      foreach (LibraryDirectoryConfiguration configuration in _libraryDirectories)
       {
         configuration.EnsureValid();
       }
