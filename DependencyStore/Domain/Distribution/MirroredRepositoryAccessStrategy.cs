@@ -15,7 +15,7 @@ namespace DependencyStore.Domain.Distribution
     {
       _log.Info("Committing: " + newProjectVersion);
       Purl destiny = newProjectVersion.PathInRepository;
-      CopyFiles(newProjectVersion.FileSet, destiny);
+      CopyFiles(newProjectVersion.FileSet, destiny, false);
     }
 
     public void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory)
@@ -24,11 +24,11 @@ namespace DependencyStore.Domain.Distribution
       FileSystemEntry entry = Infrastructure.FileSystemEntryRepository.FindEntry(version.PathInRepository);
       FileSet fileSet = new FileSet();
       fileSet.AddAll(entry.BreadthFirstFiles);
-      CopyFiles(fileSet, directory);
+      CopyFiles(fileSet, directory, true);
     }
     #endregion
 
-    private void CopyFiles(FileSet fileSet, Purl destiny)
+    private void CopyFiles(FileSet fileSet, Purl destiny, bool overwrite)
     {
       if (!Infrastructure.FileSystem.IsDirectory(destiny.AsString))
       {
@@ -39,7 +39,7 @@ namespace DependencyStore.Domain.Distribution
       {
         Purl fileDestiny = destiny.Join(file.Path.ChangeRoot(fileSet.FindCommonDirectory()));
         fileDestiny.CreateParentDirectory();
-        Infrastructure.FileSystem.CopyFile(file.Purl.AsString, fileDestiny.AsString, false);
+        Infrastructure.FileSystem.CopyFile(file.Purl.AsString, fileDestiny.AsString, overwrite);
         filesSoFar++;
         DistributionDomainEvents.OnProgress(this, new FileCopyProgressEventArgs(filesSoFar / (double)fileSet.Count, file, destiny));
       }
