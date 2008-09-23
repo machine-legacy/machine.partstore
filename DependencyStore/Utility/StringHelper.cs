@@ -47,5 +47,18 @@ namespace DependencyStore.Utility
       }
       return sb.ToString();
     }
+
+    public static IEnumerable<string> QuoteEach(this IEnumerable<string> values)
+    {
+      return QuoteEach(values, @"""");
+    }
+
+    public static IEnumerable<string> QuoteEach(this IEnumerable<string> values, string token)
+    {
+      foreach (string value in values)
+      {
+        yield return token + value + token;
+      }
+    }
   }
 }
