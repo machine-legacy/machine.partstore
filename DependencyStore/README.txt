@@ -20,3 +20,9 @@ easily manage a repository inside of a git repository for example.
 
 Add ReferenceStatus to store the condition of a ProjectReference? These can be
 printed into the UI.
+
+Repository.Save:
+  Commit versions that have been added.
+  Save Manifest.xml
+  Run Hooks
+  
