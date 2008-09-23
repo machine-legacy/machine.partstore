@@ -64,13 +64,28 @@ namespace DependencyStore.Domain.Distribution
 
     public void Run(string[] parameters)
     {
-      _log.Info("Running " + _path.AsString + " with " + parameters.Join(" "));
+      // Parent is the repository directory.
+      Purl workingDirectory = _path.Parent.Parent;
+      _log.Info("Running " + _path.AsString + " with " + parameters.Join(" ") + " in " + workingDirectory.AsString);
       ProcessStartInfo startInfo = new ProcessStartInfo(_path.AsString, parameters.Join(" "));
-      startInfo.UseShellExecute = true;
+      startInfo.WorkingDirectory = workingDirectory.AsString;
+      startInfo.RedirectStandardOutput = true;
+      startInfo.RedirectStandardError = true;
+      startInfo.UseShellExecute = false;
       Process process = Process.Start(startInfo);
       if (process == null)
       {
         throw new InvalidOperationException("Error executing hook: " + _path);
+      }
+      string standardOut = process.StandardOutput.ReadToEnd();
+      if (!String.IsNullOrEmpty(standardOut))
+      {
+        Console.WriteLine(standardOut);
+      }
+      string standardError = process.StandardError.ReadToEnd();
+      if (!String.IsNullOrEmpty(standardError))
+      {
+        Console.WriteLine(standardError);
       }
       process.WaitForExit();
     }
