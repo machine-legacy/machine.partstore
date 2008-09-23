@@ -64,12 +64,11 @@ namespace DependencyStore.Domain.Distribution
 
     public void Run(string[] parameters)
     {
-      // Parent is the repository directory.
-      Purl workingDirectory = _path.Parent.Parent;
+      Purl repositoryDirectory = _path.Parent.Parent;
       string commandArguments = parameters.QuoteEach().Join(" ");
-      _log.Info("Running " + _path.AsString + " with " +  commandArguments + " in " + workingDirectory.AsString);
+      _log.Info("Running " + _path.AsString + " with " +  commandArguments + " in " + repositoryDirectory.AsString);
       ProcessStartInfo startInfo = new ProcessStartInfo(_path.AsString, commandArguments);
-      startInfo.WorkingDirectory = workingDirectory.AsString;
+      startInfo.WorkingDirectory = repositoryDirectory.AsString;
       startInfo.RedirectStandardOutput = true;
       startInfo.RedirectStandardError = true;
       startInfo.UseShellExecute = false;
