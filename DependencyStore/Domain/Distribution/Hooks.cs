@@ -24,7 +24,7 @@ namespace DependencyStore.Domain.Distribution
 
     public void RunCommit(ArchivedProject project, ArchivedProjectVersion version)
     {
-      Run(FindRunnableHooks("post-commit"), project.Name, version.CreatedAtVersion, version.RepositoryAlias);
+      Run(FindRunnableHooks("post-commit"), _path.AsString, project.Name, version.CreatedAtVersion, version.RepositoryAlias);
     }
 
     public void RunRefresh()
@@ -66,8 +66,9 @@ namespace DependencyStore.Domain.Distribution
     {
       // Parent is the repository directory.
       Purl workingDirectory = _path.Parent.Parent;
-      _log.Info("Running " + _path.AsString + " with " + parameters.Join(" ") + " in " + workingDirectory.AsString);
-      ProcessStartInfo startInfo = new ProcessStartInfo(_path.AsString, parameters.Join(" "));
+      string commandArguments = parameters.QuoteEach().Join(" ");
+      _log.Info("Running " + _path.AsString + " with " +  commandArguments + " in " + workingDirectory.AsString);
+      ProcessStartInfo startInfo = new ProcessStartInfo(_path.AsString, commandArguments);
       startInfo.WorkingDirectory = workingDirectory.AsString;
       startInfo.RedirectStandardOutput = true;
       startInfo.RedirectStandardError = true;
