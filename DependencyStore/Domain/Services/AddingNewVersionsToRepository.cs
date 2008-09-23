@@ -16,6 +16,7 @@ namespace DependencyStore.Domain.Services
       NewProjectVersion newProjectVersion = new NewProjectVersion(archivedProject, version, CreateFileSet(project));
       Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
       archivedProject.AddVersion(version);
+      Hooks.Create(repository).RunCommit(archivedProject, version);
     }
 
     private static FileSet CreateFileSet(Project project)

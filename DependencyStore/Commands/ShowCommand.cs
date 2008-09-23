@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using DependencyStore.Utility;
-using Machine.Core.Utility;
 
+using DependencyStore.Utility;
 using DependencyStore.Domain.Distribution;
 using DependencyStore.Domain.Distribution.Repositories;
 
