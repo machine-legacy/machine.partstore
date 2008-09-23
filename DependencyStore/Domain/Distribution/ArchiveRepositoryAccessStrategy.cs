@@ -27,6 +27,11 @@ namespace DependencyStore.Domain.Distribution
       ZipUnpackager unpackager = new ZipUnpackager(archive);
       unpackager.UnpackageZip(directory);
     }
+
+    public bool IsVersionPresentInRepository(ArchivedProjectVersion version)
+    {
+      return Infrastructure.FileSystem.IsFile(version.PathInRepository.AsString + ZipPackager.ZipExtension);
+    }
     #endregion
 
     private static Archive MakeArchiveFor(NewProjectVersion newProjectVersion)

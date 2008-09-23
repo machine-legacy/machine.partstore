@@ -8,5 +8,6 @@ namespace DependencyStore.Domain.Distribution
   {
     void CommitVersionToRepository(NewProjectVersion newProjectVersion);
     void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory);
+    bool IsVersionPresentInRepository(ArchivedProjectVersion version);
   }
 }

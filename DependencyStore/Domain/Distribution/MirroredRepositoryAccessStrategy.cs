@@ -26,6 +26,11 @@ namespace DependencyStore.Domain.Distribution
       fileSet.AddAll(entry.BreadthFirstFiles);
       CopyFiles(fileSet, directory, true);
     }
+
+    public bool IsVersionPresentInRepository(ArchivedProjectVersion version)
+    {
+      return Infrastructure.FileSystem.IsDirectory(version.PathInRepository.AsString);
+    }
     #endregion
 
     private void CopyFiles(FileSet fileSet, Purl destiny, bool overwrite)
