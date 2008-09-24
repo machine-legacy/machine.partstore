@@ -7,35 +7,31 @@ namespace DependencyStore.Domain.Distribution
 {
   public class NewProjectVersion
   {
-    private readonly ArchivedProject _project;
-    private readonly ArchivedProjectVersion _version;
-    private readonly FileSet _fileSet;
+    private readonly ProjectVersionAdded _projectVersionAdded;
 
     public string ProjectName
     {
-      get { return _project.Name; }
+      get { return _projectVersionAdded.Project.Name; }
     }
 
     public Purl PathInRepository
     {
-      get { return _version.PathInRepository; }
+      get { return _projectVersionAdded.Version.PathInRepository; }
     }
 
     public string RepositoryAlias
     {
-      get { return _version.RepositoryAlias; }
+      get { return _projectVersionAdded.Version.RepositoryAlias; }
     }
 
     public FileSet FileSet
     {
-      get { return _fileSet; }
+      get { return _projectVersionAdded.Version.FileSet; }
     }
 
-    public NewProjectVersion(ArchivedProject project, ArchivedProjectVersion version, FileSet fileSet)
+    public NewProjectVersion(ProjectVersionAdded projectVersionAdded)
     {
-      _project = project;
-      _version = version;
-      _fileSet = fileSet;
+      _projectVersionAdded = projectVersionAdded;
     }
   }
 }

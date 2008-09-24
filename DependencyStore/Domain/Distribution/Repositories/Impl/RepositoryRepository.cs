@@ -82,7 +82,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     {
       foreach (ProjectVersionAdded change in changes)
       {
-        NewProjectVersion newProjectVersion = new NewProjectVersion(change.Project, change.Version, change.Version.FileSet);
+        NewProjectVersion newProjectVersion = new NewProjectVersion(change);
         Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
       }
     }
