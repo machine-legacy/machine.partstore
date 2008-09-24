@@ -28,7 +28,6 @@ namespace DependencyStore.Domain.Distribution
       _type = type;
     }
   }
-
   public class Hooks
   {
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(Hooks));
@@ -39,6 +38,7 @@ namespace DependencyStore.Domain.Distribution
     {
       _path = path;
       _hookTypes.Add(new HookType("cmd", typeof(CmdExecHook)));
+      _hookTypes.Add(new HookType("ps1", typeof(PowershellHook)));
     }
 
     public static Hooks Create(Repository repository)
@@ -92,9 +92,10 @@ namespace DependencyStore.Domain.Distribution
     public void Run(string[] parameters)
     {
       Purl repositoryDirectory = _path.Parent.Parent;
-      string commandArguments = parameters.QuoteEach().Join(" ");
+      string command = CreateCommand();
+      string commandArguments = CreateArguments(parameters);
       _log.Info("Running " + _path.AsString + " with " + commandArguments + " in " + repositoryDirectory.AsString);
-      ProcessStartInfo startInfo = new ProcessStartInfo(_path.AsString, commandArguments);
+      ProcessStartInfo startInfo = new ProcessStartInfo(command, commandArguments);
       startInfo.WorkingDirectory = repositoryDirectory.AsString;
       startInfo.RedirectStandardOutput = true;
       startInfo.RedirectStandardError = true;
@@ -116,10 +117,27 @@ namespace DependencyStore.Domain.Distribution
       }
       process.WaitForExit();
     }
+
+    protected virtual string CreateCommand()
+    {
+      return _path.AsString;
+    }
+
+    protected virtual string CreateArguments(string[] arguments)
+    {
+      return arguments.QuoteEach().Join(" ");
+    }
   }
   public class CmdExecHook : RunnableHook
   {
     public CmdExecHook(Purl path)
+      : base(path)
+    {
+    }
+  }
+  public class PowershellHook : RunnableHook
+  {
+    public PowershellHook(Purl path)
       : base(path)
     {
     }
