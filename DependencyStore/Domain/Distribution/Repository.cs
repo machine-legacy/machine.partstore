@@ -85,16 +85,8 @@ namespace DependencyStore.Domain.Distribution
     {
       ArchivedProject archivedProject = FindOrCreateProject(project);
       ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, this);
-      version.FileSet = CreateFileSet(project.BuildDirectory);
+      version.FileSet = FileSetFactory.CreateFileSetFrom(project.BuildDirectory);
       archivedProject.AddVersion(version);
-    }
-
-    private static FileSet CreateFileSet(Purl directory)
-    {
-      FileSystemEntry entry = Core.Infrastructure.FileSystemEntryRepository.FindEntry(directory);
-      FileSet fileSet = new FileSet();
-      fileSet.AddAll(entry.BreadthFirstFiles);
-      return fileSet;
     }
   }
 }

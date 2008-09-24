@@ -88,6 +88,7 @@
     <Compile Include="Domain\Configuration\Repositories\Impl\ProjectStructure.cs" />
     <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
     <Compile Include="Domain\Core\CoreDomainEvents.cs" />
+    <Compile Include="Domain\Core\FileSetFactory.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\DataAccessExceptions.cs" />
     <Compile Include="Domain\Distribution\ArchiveRepositoryAccessStrategy.cs" />
     <Compile Include="Domain\Distribution\CurrentProject.cs" />
