@@ -109,6 +109,7 @@
     <Compile Include="Domain\Core\FileAsset.cs" />
     <Compile Include="Domain\Core\FileSet.cs" />
     <Compile Include="Domain\Distribution\Project.cs" />
+    <Compile Include="Domain\Distribution\RepositoryChange.cs" />
     <Compile Include="Domain\Services\AddingNewVersionsToRepository.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\Configuration\FileAndDirectoryRules.cs" />

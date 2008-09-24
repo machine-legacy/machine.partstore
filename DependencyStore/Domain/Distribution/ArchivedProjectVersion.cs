@@ -11,6 +11,7 @@ namespace DependencyStore.Domain.Distribution
     private DateTime _createdAt;
     private string _repositoryAlias;
     private Purl _pathInRepository;
+    private FileSet _fileSet;
 
     public DateTime CreatedAt
     {
@@ -29,6 +30,13 @@ namespace DependencyStore.Domain.Distribution
     {
       get { return _pathInRepository; }
       set { _pathInRepository = value; }
+    }
+
+    [XmlIgnore]
+    public FileSet FileSet
+    {
+      get { return _fileSet; }
+      set { _fileSet = value; }
     }
 
     public string CreatedAtVersion

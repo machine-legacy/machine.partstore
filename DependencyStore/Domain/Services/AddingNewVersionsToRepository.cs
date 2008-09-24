@@ -13,19 +13,22 @@ namespace DependencyStore.Domain.Services
     {
       ArchivedProject archivedProject = repository.FindOrCreateProject(project);
       ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, repository);
-      NewProjectVersion newProjectVersion = new NewProjectVersion(archivedProject, version, CreateFileSet(project));
-      Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
+      version.FileSet = CreateFileSet(project.BuildDirectory);
       archivedProject.AddVersion(version);
-      Distribution.Infrastructure.RepositoryRepository.SaveRepository(repository);
-      Hooks.Create(repository).RunCommit(archivedProject, version);
     }
 
-    private static FileSet CreateFileSet(Project project)
+    private static FileSet CreateFileSet(Purl directory)
     {
-      FileSystemEntry entry = Core.Infrastructure.FileSystemEntryRepository.FindEntry(project.BuildDirectory);
+      FileSystemEntry entry = Core.Infrastructure.FileSystemEntryRepository.FindEntry(directory);
       FileSet fileSet = new FileSet();
       fileSet.AddAll(entry.BreadthFirstFiles);
       return fileSet;
+    }
+
+    public void CommitNewVersion(ProjectVersionCommitted change)
+    {
+      NewProjectVersion newProjectVersion = new NewProjectVersion(change.Project, change.Version, change.Version.FileSet);
+      Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
     }
   }
 }

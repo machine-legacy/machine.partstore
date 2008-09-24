@@ -22,6 +22,7 @@ namespace DependencyStore.Commands
       Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.AddNewVersion(repository);
+      _repositoryRepository.SaveRepository(repository);
       return CommandStatus.Success;
     }
   }

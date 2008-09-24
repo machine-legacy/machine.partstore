@@ -7,6 +7,7 @@ using Machine.Core.Utility;
 
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Configuration.Repositories;
+using DependencyStore.Domain.Services;
 
 namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
@@ -42,6 +43,31 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 
     public void SaveRepository(Repository repository)
     {
+      List<ProjectVersionCommitted> changes = new List<ProjectVersionCommitted>();
+      foreach (ArchivedProject project in repository.Projects)
+      {
+        foreach (ArchivedProjectVersion version in project.Versions)
+        {
+          if (!Repository.AccessStrategy.IsVersionPresentInRepository(version))
+          {
+            changes.Add(new ProjectVersionCommitted(project, version));
+          }
+        }
+      }
+      foreach (ProjectVersionCommitted change in changes)
+      {
+        new AddingNewVersionsToRepository().CommitNewVersion(change);
+      }
+      SaveRepositoryManifest(repository);
+      foreach (ProjectVersionCommitted change in changes)
+      {
+        Hooks.Create(repository).RunCommit(change.Project, change.Version);
+      }
+    }
+    #endregion
+
+    private void SaveRepositoryManifest(Repository repository)
+    {
       Purl path = _currentConfiguration.DefaultConfiguration.RepositoryDirectory.Join("Manifest.xml");
       _log.Info("Saving: " + path.AsString);
       using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
@@ -49,7 +75,6 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
         stream.Write(_serializer.Serialize(repository));
       }
     }
-    #endregion
 
     private static Repository Prepare(Repository repository, Purl rootPath)
     {
