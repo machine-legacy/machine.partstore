@@ -7,14 +7,38 @@ using DependencyStore.Utility;
 
 namespace DependencyStore.Domain.Distribution
 {
+  public class HookType
+  {
+    private readonly string _fileExtension;
+    private readonly Type _type;
+
+    public string FileExtension
+    {
+      get { return _fileExtension; }
+    }
+
+    public Type Type
+    {
+      get { return _type; }
+    }
+
+    public HookType(string extension, Type type)
+    {
+      _fileExtension = extension;
+      _type = type;
+    }
+  }
+
   public class Hooks
   {
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(Hooks));
     private readonly Purl _path;
-
+    private readonly List<HookType> _hookTypes = new List<HookType>();
+    
     protected Hooks(Purl path)
     {
       _path = path;
+      _hookTypes.Add(new HookType("cmd", typeof(CmdExecHook)));
     }
 
     public static Hooks Create(Repository repository)
@@ -36,10 +60,13 @@ namespace DependencyStore.Domain.Distribution
     {
       if (Infrastructure.FileSystem.IsDirectory(_path.AsString))
       {
-        foreach (string file in Infrastructure.FileSystem.GetFiles(_path.AsString, name + ".*"))
+        foreach (HookType hookType in _hookTypes)
         {
-          _log.Info("Found: " + file);
-          yield return new RunnableHook(new Purl(file));
+          foreach (string file in Infrastructure.FileSystem.GetFiles(_path.AsString, name + "." + hookType.FileExtension))
+          {
+            _log.Info("Found: " + file);
+            yield return (RunnableHook)Activator.CreateInstance(hookType.Type, new Purl(file));
+          }
         }
       }
     }
@@ -66,7 +93,7 @@ namespace DependencyStore.Domain.Distribution
     {
       Purl repositoryDirectory = _path.Parent.Parent;
       string commandArguments = parameters.QuoteEach().Join(" ");
-      _log.Info("Running " + _path.AsString + " with " +  commandArguments + " in " + repositoryDirectory.AsString);
+      _log.Info("Running " + _path.AsString + " with " + commandArguments + " in " + repositoryDirectory.AsString);
       ProcessStartInfo startInfo = new ProcessStartInfo(_path.AsString, commandArguments);
       startInfo.WorkingDirectory = repositoryDirectory.AsString;
       startInfo.RedirectStandardOutput = true;
@@ -88,6 +115,13 @@ namespace DependencyStore.Domain.Distribution
         Console.WriteLine(standardError);
       }
       process.WaitForExit();
+    }
+  }
+  public class CmdExecHook : RunnableHook
+  {
+    public CmdExecHook(Purl path)
+      : base(path)
+    {
     }
   }
 }
