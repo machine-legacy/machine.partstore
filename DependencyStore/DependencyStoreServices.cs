@@ -5,7 +5,6 @@ using Machine.Container;
 using Machine.Container.Plugins;
 using Machine.Core.Services.Impl;
 
-using DependencyStore.Domain.Services;
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Commands;
 using DependencyStore.Domain.Core.Repositories.Impl;
@@ -30,7 +29,6 @@ namespace DependencyStore
       register.Type<ProjectRepository>();
       register.Type<ConfigurationPaths>();
       register.Type<RepositoryRepository>();
-      register.Type<AddingNewVersionsToRepository>();
       register.Type<CurrentConfiguration>();
 
       register.Type<SeachRepositoryCommand>();

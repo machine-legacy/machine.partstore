@@ -7,7 +7,6 @@ using Machine.Core.Utility;
 
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Configuration.Repositories;
-using DependencyStore.Domain.Services;
 
 namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
@@ -32,16 +31,38 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       {
         Console.WriteLine("Creating new repository: " + path.AsString);
         _log.Info("Creating new repository: " + path.AsString);
-        return Prepare(new Repository(), path);
+        return Hydrate(new Repository(), path);
       }
       _log.Info("Opening: " + path.AsString);
       using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
       {
-        return Prepare(_serializer.DeserializeString(stream.ReadToEnd()), path);
+        return Hydrate(_serializer.DeserializeString(stream.ReadToEnd()), path);
       }
     }
 
     public void SaveRepository(Repository repository)
+    {
+      IEnumerable<ProjectVersionCommitted> changes = FindAllChanges(repository);
+      CommitChanges(repository, changes);
+      SaveRepositoryManifest(repository);
+      RunChangeHooks(repository, changes);
+    }
+    #endregion
+
+    private static Repository Hydrate(Repository repository, Purl rootPath)
+    {
+      repository.RootPath = rootPath.Parent;
+      foreach (ArchivedProject project in repository.Projects)
+      {
+        foreach (ArchivedProjectVersion version in project.Versions)
+        {
+          version.PathInRepository = repository.RootPath.Join(version.RepositoryAlias);
+        }
+      }
+      return repository;
+    }
+
+    private static IEnumerable<ProjectVersionCommitted> FindAllChanges(Repository repository)
     {
       List<ProjectVersionCommitted> changes = new List<ProjectVersionCommitted>();
       foreach (ArchivedProject project in repository.Projects)
@@ -54,17 +75,17 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
           }
         }
       }
+      return changes;
+    }
+
+    private static void CommitChanges(Repository repository, IEnumerable<ProjectVersionCommitted> changes)
+    {
       foreach (ProjectVersionCommitted change in changes)
       {
-        new AddingNewVersionsToRepository().CommitNewVersion(change);
-      }
-      SaveRepositoryManifest(repository);
-      foreach (ProjectVersionCommitted change in changes)
-      {
-        Hooks.Create(repository).RunCommit(change.Project, change.Version);
+        NewProjectVersion newProjectVersion = new NewProjectVersion(change.Project, change.Version, change.Version.FileSet);
+        Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
       }
     }
-    #endregion
 
     private void SaveRepositoryManifest(Repository repository)
     {
@@ -76,17 +97,12 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       }
     }
 
-    private static Repository Prepare(Repository repository, Purl rootPath)
+    private static void RunChangeHooks(Repository repository, IEnumerable<ProjectVersionCommitted> changes)
     {
-      repository.RootPath = rootPath.Parent;
-      foreach (ArchivedProject project in repository.Projects)
+      foreach (ProjectVersionCommitted change in changes)
       {
-        foreach (ArchivedProjectVersion version in project.Versions)
-        {
-          version.PathInRepository = repository.RootPath.Join(version.RepositoryAlias);
-        }
+        Hooks.Create(repository).RunCommit(change.Project, change.Version);
       }
-      return repository;
     }
   }
 }

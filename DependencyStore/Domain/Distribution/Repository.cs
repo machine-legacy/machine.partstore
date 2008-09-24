@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Services;
 
 namespace DependencyStore.Domain.Distribution
 {
@@ -84,7 +83,18 @@ namespace DependencyStore.Domain.Distribution
 
     public void AddNewVersion(Project project)
     {
-      new AddingNewVersionsToRepository().AddNewVersion(this, project);
+      ArchivedProject archivedProject = FindOrCreateProject(project);
+      ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, this);
+      version.FileSet = CreateFileSet(project.BuildDirectory);
+      archivedProject.AddVersion(version);
+    }
+
+    private static FileSet CreateFileSet(Purl directory)
+    {
+      FileSystemEntry entry = Core.Infrastructure.FileSystemEntryRepository.FindEntry(directory);
+      FileSet fileSet = new FileSet();
+      fileSet.AddAll(entry.BreadthFirstFiles);
+      return fileSet;
     }
   }
 }
