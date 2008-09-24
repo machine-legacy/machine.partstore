@@ -37,6 +37,7 @@ namespace DependencyStore
       register.Type<ShowCommand>();
       register.Type<PublishNewVersionCommand>();
       register.Type<AddDependencyCommand>();
+      register.Type<RefreshCommand>();
       register.Type<HelpCommand>();
     }
     #endregion

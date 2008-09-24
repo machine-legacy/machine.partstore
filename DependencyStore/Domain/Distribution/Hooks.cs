@@ -53,7 +53,7 @@ namespace DependencyStore.Domain.Distribution
 
     public void RunRefresh()
     {
-      Run(FindRunnableHooks("refresh"));
+      Run(FindRunnableHooks("refresh"), _path.Parent.AsString);
     }
 
     private IEnumerable<RunnableHook> FindRunnableHooks(string name)

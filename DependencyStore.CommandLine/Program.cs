@@ -48,6 +48,7 @@ namespace DependencyStore.CommandLine
         commandFactory.AddCommand<PublishNewVersionCommand>("publish");
         commandFactory.AddCommand<PublishNewVersionCommand>("archive");
         commandFactory.AddCommand<SeachRepositoryCommand>("search");
+        commandFactory.AddCommand<RefreshCommand>("refresh");
         commandFactory.AddCommand<HelpCommand>("help");
         ICommand command = commandFactory.CreateCommand(commandName);
         

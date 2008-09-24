@@ -67,6 +67,7 @@
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\PublishNewVersionCommand.cs" />
+    <Compile Include="Commands\RefreshCommand.cs" />
     <Compile Include="Commands\SeachRepositoryCommand.cs" />
     <Compile Include="Commands\ShowCommand.cs" />
     <Compile Include="Commands\UnpackageCommand.cs" />

@@ -47,6 +47,11 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       SaveRepositoryManifest(repository);
       RunChangeHooks(repository, changes);
     }
+
+    public void RefreshRepository(Repository repository)
+    {
+      Hooks.Create(repository).RunRefresh();
+    }
     #endregion
 
     private static Repository Hydrate(Repository repository, Purl rootPath)
