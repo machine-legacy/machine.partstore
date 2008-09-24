@@ -43,7 +43,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     public void SaveRepository(Repository repository)
     {
       IEnumerable<ProjectVersionAdded> changes = FindAllChanges(repository);
-      CommitChanges(repository, changes);
+      CommitChanges(changes);
       SaveRepositoryManifest(repository);
       RunChangeHooks(repository, changes);
     }
@@ -78,12 +78,11 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       return changes;
     }
 
-    private static void CommitChanges(Repository repository, IEnumerable<ProjectVersionAdded> changes)
+    private static void CommitChanges(IEnumerable<ProjectVersionAdded> changes)
     {
       foreach (ProjectVersionAdded change in changes)
       {
-        NewProjectVersion newProjectVersion = new NewProjectVersion(change);
-        Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
+        Repository.AccessStrategy.CommitVersionToRepository(new NewProjectVersion(change));
       }
     }
 
