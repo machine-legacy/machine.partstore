@@ -84,6 +84,11 @@ namespace DependencyStore.Domain.Distribution
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(RunnableHook));
     private readonly Purl _path;
 
+    protected Purl Path
+    {
+      get { return _path; }
+    }
+
     public RunnableHook(Purl path)
     {
       _path = path;
@@ -94,7 +99,7 @@ namespace DependencyStore.Domain.Distribution
       Purl repositoryDirectory = _path.Parent.Parent;
       string command = CreateCommand();
       string commandArguments = CreateArguments(parameters);
-      _log.Info("Running " + _path.AsString + " with " + commandArguments + " in " + repositoryDirectory.AsString);
+      _log.Info("Running " + command + " with " + commandArguments + " in " + repositoryDirectory.AsString);
       ProcessStartInfo startInfo = new ProcessStartInfo(command, commandArguments);
       startInfo.WorkingDirectory = repositoryDirectory.AsString;
       startInfo.RedirectStandardOutput = true;
@@ -140,6 +145,16 @@ namespace DependencyStore.Domain.Distribution
     public PowershellHook(Purl path)
       : base(path)
     {
+    }
+
+    protected override string CreateCommand()
+    {
+      return @"C:\Windows\System32\WindowsPowershell\V1.0\Powershell.exe";
+    }
+
+    protected override string CreateArguments(string[] arguments)
+    {
+      return "-NoProfile &'" + base.CreateCommand() + "' " + arguments.QuoteEach("'").Join(" ");
     }
   }
 }
