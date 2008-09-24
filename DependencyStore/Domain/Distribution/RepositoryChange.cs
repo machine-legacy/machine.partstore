@@ -5,7 +5,7 @@ namespace DependencyStore.Domain.Distribution
   public class RepositoryChange
   {
   }
-  public class ProjectVersionCommitted : RepositoryChange
+  public class ProjectVersionAdded : RepositoryChange
   {
     private readonly ArchivedProject _project;
     private readonly ArchivedProjectVersion _version;
@@ -20,7 +20,7 @@ namespace DependencyStore.Domain.Distribution
       get { return _version; }
     }
 
-    public ProjectVersionCommitted(ArchivedProject project, ArchivedProjectVersion version)
+    public ProjectVersionAdded(ArchivedProject project, ArchivedProjectVersion version)
     {
       _project = project;
       _version = version;

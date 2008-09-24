@@ -42,7 +42,7 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
 
     public void SaveRepository(Repository repository)
     {
-      IEnumerable<ProjectVersionCommitted> changes = FindAllChanges(repository);
+      IEnumerable<ProjectVersionAdded> changes = FindAllChanges(repository);
       CommitChanges(repository, changes);
       SaveRepositoryManifest(repository);
       RunChangeHooks(repository, changes);
@@ -62,25 +62,25 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       return repository;
     }
 
-    private static IEnumerable<ProjectVersionCommitted> FindAllChanges(Repository repository)
+    private static IEnumerable<ProjectVersionAdded> FindAllChanges(Repository repository)
     {
-      List<ProjectVersionCommitted> changes = new List<ProjectVersionCommitted>();
+      List<ProjectVersionAdded> changes = new List<ProjectVersionAdded>();
       foreach (ArchivedProject project in repository.Projects)
       {
         foreach (ArchivedProjectVersion version in project.Versions)
         {
           if (!Repository.AccessStrategy.IsVersionPresentInRepository(version))
           {
-            changes.Add(new ProjectVersionCommitted(project, version));
+            changes.Add(new ProjectVersionAdded(project, version));
           }
         }
       }
       return changes;
     }
 
-    private static void CommitChanges(Repository repository, IEnumerable<ProjectVersionCommitted> changes)
+    private static void CommitChanges(Repository repository, IEnumerable<ProjectVersionAdded> changes)
     {
-      foreach (ProjectVersionCommitted change in changes)
+      foreach (ProjectVersionAdded change in changes)
       {
         NewProjectVersion newProjectVersion = new NewProjectVersion(change.Project, change.Version, change.Version.FileSet);
         Repository.AccessStrategy.CommitVersionToRepository(newProjectVersion);
@@ -97,9 +97,9 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       }
     }
 
-    private static void RunChangeHooks(Repository repository, IEnumerable<ProjectVersionCommitted> changes)
+    private static void RunChangeHooks(Repository repository, IEnumerable<ProjectVersionAdded> changes)
     {
-      foreach (ProjectVersionCommitted change in changes)
+      foreach (ProjectVersionAdded change in changes)
       {
         Hooks.Create(repository).RunCommit(change.Project, change.Version);
       }
