@@ -33,5 +33,10 @@ namespace DependencyStore.Domain.Distribution
     {
       _projectVersionAdded = projectVersionAdded;
     }
+
+    public override string ToString()
+    {
+      return "NewVersion<" + this.ProjectName + " from " + this.FileSet.FindCommonDirectory() + " to " + this.RepositoryAlias + ">";
+    }
   }
 }
