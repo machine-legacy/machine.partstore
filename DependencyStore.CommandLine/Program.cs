@@ -45,8 +45,8 @@ namespace DependencyStore.CommandLine
         commandFactory.AddCommand<ShowCommand>("show");
         commandFactory.AddCommand<UnpackageCommand>("unpackage");
         commandFactory.AddCommand<AddDependencyCommand>("add");
-        commandFactory.AddCommand<PublishNewVersionCommand>("publish");
-        commandFactory.AddCommand<PublishNewVersionCommand>("archive");
+        commandFactory.AddCommand<AddNewVersionCommand>("publish");
+        commandFactory.AddCommand<AddNewVersionCommand>("archive");
         commandFactory.AddCommand<SeachRepositoryCommand>("search");
         commandFactory.AddCommand<RefreshCommand>("refresh");
         commandFactory.AddCommand<HelpCommand>("help");
