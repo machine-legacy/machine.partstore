@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Core.Repositories;
-
 namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
   public class ProjectReferenceRepository : IProjectReferenceRepository
@@ -31,15 +28,16 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
           ArchivedProject archivedProject = repository.FindProject(manifest);
           if (archivedProject == null)
           {
-            throw new ArchivedProjectNotFoundException("Missing project: " + manifest);
+            references.Add(BrokenProjectReference.MissingProject(manifest));
+            continue;
           }
           ArchivedProjectVersion version = archivedProject.FindVersionInManifest(manifest);
           if (version == null)
           {
-            throw new ArchivedVersionNotFoundException("Missing version: " + manifest);
+            references.Add(BrokenProjectReference.MissingVersion(manifest));
+            continue;
           }
-          ProjectReference reference = new ProjectReference(project, archivedProject, version);
-          references.Add(reference);
+          references.Add(new HealthyProjectReference(project, archivedProject, version));
         }
       }
       return references;

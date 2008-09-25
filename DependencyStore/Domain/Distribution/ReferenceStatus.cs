@@ -5,8 +5,9 @@ namespace DependencyStore.Domain.Distribution
   public class ReferenceStatus
   {
     private readonly string _dependencyName;
-    private readonly string _referencedAlias;
     private readonly DateTime _referencedVersionCreatedAt;
+    private readonly bool _isProjectMissing;
+    private readonly bool _isReferencedVersionMissing;
     private readonly bool _isToLatestVersion;
     private readonly bool _isAnyVersionInstalled;
     private readonly bool _isOlderVersionInstalled;
@@ -17,11 +18,6 @@ namespace DependencyStore.Domain.Distribution
       get { return _dependencyName; }
     }
 
-    public string ReferencedAlias
-    {
-      get { return _referencedAlias; }
-    }
-
     public DateTime ReferencedVersionCreatedAt
     {
       get { return _referencedVersionCreatedAt; }
@@ -29,12 +25,12 @@ namespace DependencyStore.Domain.Distribution
 
     public bool IsProjectMissing
     {
-      get { return false; }
+      get { return _isProjectMissing; }
     }
 
     public bool IsReferencedVersionMissing
     {
-      get { return false; }
+      get { return _isReferencedVersionMissing; }
     }
 
     public bool IsToLatestVersion
@@ -62,10 +58,17 @@ namespace DependencyStore.Domain.Distribution
       get { return !this.IsToLatestVersion; }
     }
 
-    public ReferenceStatus(string dependencyName, string referencedAlias, DateTime referencedVersionCreatedAt, bool isToLatestVersion, bool isAnyVersionInstalled, bool isOlderVersionInstalled, bool isReferencedVersionInstalled)
+    public ReferenceStatus(string dependencyName, DateTime referencedVersionCreatedAt, bool isProjectMissing, bool isReferencedVersionMissing)
     {
       _dependencyName = dependencyName;
-      _referencedAlias = referencedAlias;
+      _referencedVersionCreatedAt = referencedVersionCreatedAt;
+      _isProjectMissing = isProjectMissing;
+      _isReferencedVersionMissing = isReferencedVersionMissing;
+    }
+
+    protected ReferenceStatus(string dependencyName, DateTime referencedVersionCreatedAt, bool isToLatestVersion, bool isAnyVersionInstalled, bool isOlderVersionInstalled, bool isReferencedVersionInstalled)
+    {
+      _dependencyName = dependencyName;
       _referencedVersionCreatedAt = referencedVersionCreatedAt;
       _isToLatestVersion = isToLatestVersion;
       _isAnyVersionInstalled = isAnyVersionInstalled;
@@ -79,7 +82,7 @@ namespace DependencyStore.Domain.Distribution
       bool isReferencedVersionInstalled = !dependencyDirectory.HasVersionOlderThan(version);
       bool isOlderVersionInstalled = dependencyDirectory.HasVersionOlderThan(version);
       bool isToLatestVersion = dependency.LatestVersion == version;
-      return new ReferenceStatus(dependency.Name, version.RepositoryAlias, version.CreatedAt, isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled);
+      return new ReferenceStatus(dependency.Name, version.CreatedAt, isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled);
     }
   }
 }

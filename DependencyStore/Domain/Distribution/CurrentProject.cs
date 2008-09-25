@@ -36,7 +36,7 @@ namespace DependencyStore.Domain.Distribution
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject dependency)
     {
       _manifests.AddManifestFor(dependency, dependency.LatestVersion);
-      return new ProjectReference(this, dependency, dependency.LatestVersion);
+      return new HealthyProjectReference(this, dependency, dependency.LatestVersion);
     }
 
     public void UnpackageIfNecessary(Repository repository)

@@ -3,14 +3,27 @@ using System.Collections.Generic;
 
 namespace DependencyStore.Domain.Distribution
 {
-  public class ProjectReference
+  public abstract class ProjectReference
+  {
+    protected ProjectReference()
+    {
+    }
+
+    public abstract void UnpackageIfNecessary(Repository repository);
+
+    public abstract ReferenceStatus Status
+    {
+      get;
+    }
+  }
+  public class HealthyProjectReference : ProjectReference
   {
     private readonly Project _parentProject;
     private readonly ArchivedProject _dependency;
     private readonly ArchivedProjectVersion _version;
     private readonly ProjectDependencyDirectory _installed;
 
-    public ProjectReference(Project parentProject, ArchivedProject dependency, ArchivedProjectVersion version)
+    public HealthyProjectReference(Project parentProject, ArchivedProject dependency, ArchivedProjectVersion version)
     {
       _parentProject = parentProject;
       _dependency = dependency;
@@ -23,27 +36,46 @@ namespace DependencyStore.Domain.Distribution
       get { return _installed; }
     }
 
-    public ArchivedProject Dependency
-    {
-      get { return _dependency; }
-    }
-
-    public ArchivedProjectVersion Version
-    {
-      get { return _version; }
-    }
-
-    public void UnpackageIfNecessary(Repository repository)
+    public override void UnpackageIfNecessary(Repository repository)
     {
       if (this.Status.IsOlderVersionInstalled)
       {
-        this.Installed.UpdateInstalledVersion(repository, this.Version);
+        this.Installed.UpdateInstalledVersion(repository, _version);
       }
     }
 
-    public ReferenceStatus Status
+    public override ReferenceStatus Status
     {
       get { return ReferenceStatus.Create(_dependency, _version, _installed); }
+    }
+  }
+  public class BrokenProjectReference : ProjectReference
+  {
+    private readonly ReferenceStatus _status;
+
+    protected BrokenProjectReference(ReferenceStatus status)
+    {
+      _status = status;
+    }
+
+    public override void UnpackageIfNecessary(Repository repository)
+    {
+      throw new InvalidOperationException("How did you do this?");
+    }
+
+    public override ReferenceStatus Status
+    {
+      get { return _status; }
+    }
+
+    public static ProjectReference MissingProject(ProjectManifest manifest)
+    {
+      return new BrokenProjectReference(new ReferenceStatus(manifest.ProjectName, manifest.VersionCreatedAt, true, true));
+    }
+
+    public static ProjectReference MissingVersion(ProjectManifest manifest)
+    {
+      return new BrokenProjectReference(new ReferenceStatus(manifest.ProjectName, manifest.VersionCreatedAt, false, true));
     }
   }
 }
