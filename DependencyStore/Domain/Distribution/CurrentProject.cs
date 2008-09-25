@@ -26,6 +26,21 @@ namespace DependencyStore.Domain.Distribution
       }
     }
 
+    public bool AreAllReferencesHealthy
+    {
+      get
+      {
+        foreach (ReferenceStatus status in this.ReferenceStatuses)
+        {
+          if (!status.IsHealthy)
+          {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
+
     public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory, ProjectManifestStore manifests)
       : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
@@ -41,9 +56,16 @@ namespace DependencyStore.Domain.Distribution
 
     public void UnpackageIfNecessary(Repository repository)
     {
-      foreach (ProjectReference reference in _references)
+      if (this.AreAllReferencesHealthy)
       {
-        reference.UnpackageIfNecessary(repository);
+        foreach (ProjectReference reference in _references)
+        {
+          reference.UnpackageIfNecessary(repository);
+        }
+      }
+      else
+      {
+        throw new InvalidOperationException("Not all references are healthy!");
       }
     }
 

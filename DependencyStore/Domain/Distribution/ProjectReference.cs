@@ -60,7 +60,7 @@ namespace DependencyStore.Domain.Distribution
 
     public override void UnpackageIfNecessary(Repository repository)
     {
-      throw new InvalidOperationException("How did you do this?");
+      throw new InvalidOperationException("You can't Unpackage an unhealthy reference!");
     }
 
     public override ReferenceStatus Status

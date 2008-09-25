@@ -21,6 +21,12 @@ namespace DependencyStore.Commands
       new ArchiveProgressDisplayer(false);
       Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
+      if (!project.AreAllReferencesHealthy)
+      {
+        Console.WriteLine("Not all project references are healthy!");
+        Console.WriteLine("Use 'ds show' to see which ones you need to fix...");
+        return CommandStatus.Failure;
+      }
       project.UnpackageIfNecessary(repository);
       return CommandStatus.Success;
     }

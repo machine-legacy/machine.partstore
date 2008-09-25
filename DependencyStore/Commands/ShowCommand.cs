@@ -21,19 +21,23 @@ namespace DependencyStore.Commands
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       Console.WriteLine("Current Project: {0}", project.Name);
       Console.WriteLine("References:");
-      List<ReferenceStatus> referenceStatuses = new List<ReferenceStatus>(project.ReferenceStatuses); 
+      List<ReferenceStatus> referenceStatuses = new List<ReferenceStatus>(project.ReferenceStatuses);
+      CommandStatus commandStatus = CommandStatus.Success;
       foreach (ReferenceStatus status in referenceStatuses)
       {
-        WriteStatus(status);
+        if (!WriteStatus(status))
+        {
+          commandStatus = CommandStatus.Failure;
+        }
       }
       if (referenceStatuses.Count == 0)
       {
         Console.WriteLine("No references, use 'ds add <project>' to add some.");
       }
-      return CommandStatus.Success;
+      return commandStatus;
     }
 
-    private static void WriteStatus(ReferenceStatus status)
+    private static bool WriteStatus(ReferenceStatus status)
     {
       List<string> flags = new List<string>();
       if (status.IsProjectMissing)
@@ -61,6 +65,7 @@ namespace DependencyStore.Commands
         flags.Add("OlderVersionInstalled");
       }
       Console.WriteLine("  {0} ({1}) ({2})", status.DependencyName, status.ReferencedVersionCreatedAt, flags.Join(", "));
+      return !status.IsHealthy;
     }
   }
 }

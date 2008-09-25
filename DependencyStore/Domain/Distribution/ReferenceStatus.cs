@@ -58,6 +58,11 @@ namespace DependencyStore.Domain.Distribution
       get { return !this.IsToLatestVersion; }
     }
 
+    public bool IsHealthy
+    {
+      get { return !(this.IsProjectMissing || this.IsReferencedVersionMissing); }
+    }
+
     protected ReferenceStatus(string dependencyName, DateTime referencedVersionCreatedAt, bool isProjectMissing, bool isReferencedVersionMissing)
     {
       _dependencyName = dependencyName;
