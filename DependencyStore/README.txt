@@ -26,3 +26,8 @@ Repository.Save:
   Save Manifest.xml
   Run Hooks
   
+  
+Aaron's Ideas:
+  Tagging
+  Expand project in place...
+  Flesh out multiple repositories one machine...

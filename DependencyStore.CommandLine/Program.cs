@@ -54,6 +54,7 @@ namespace DependencyStore.CommandLine
         
         CommandLineOptionBinder bind = new CommandLineOptionBinder(parser, command);
         bind.RequireFirst<AddDependencyCommand>(x => x.ProjectToAdd);
+        bind.OptionalFirst<AddNewVersionCommand>(x => x.Tags);
 
         try
         {

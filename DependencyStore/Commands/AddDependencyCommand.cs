@@ -9,19 +9,18 @@ namespace DependencyStore.Commands
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
     private readonly IRepositoryRepository _repositoryRepository;
-
-    public AddDependencyCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
-    {
-      _repositoryRepository = repositoryRepository;
-      _currentProjectRepository = currentProjectRepository;
-    }
-
     private string _projectToAdd;
 
     public string ProjectToAdd
     {
       get { return _projectToAdd; }
       set { _projectToAdd = value; }
+    }
+
+    public AddDependencyCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
+    {
+      _repositoryRepository = repositoryRepository;
+      _currentProjectRepository = currentProjectRepository;
     }
 
     public override CommandStatus Run()

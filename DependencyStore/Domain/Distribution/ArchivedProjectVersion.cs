@@ -1,7 +1,6 @@
 using System;
 using System.Xml.Serialization;
 
-using DependencyStore.Domain.Archiving;
 using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Domain.Distribution
@@ -10,6 +9,7 @@ namespace DependencyStore.Domain.Distribution
   {
     private DateTime _createdAt;
     private string _repositoryAlias;
+    private Tags _tags;
     private Purl _pathInRepository;
     private FileSet _fileSet;
 
@@ -23,6 +23,12 @@ namespace DependencyStore.Domain.Distribution
     {
       get { return _repositoryAlias; }
       set { _repositoryAlias = value; }
+    }
+
+    public Tags Tags
+    {
+      get { return _tags; }
+      set { _tags = value; }
     }
 
     [XmlIgnore]
@@ -48,18 +54,19 @@ namespace DependencyStore.Domain.Distribution
     {
     }
 
-    protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, Purl pathInRepository)
+    protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, Purl pathInRepository, Tags tags)
     {
       _createdAt = createdAt;
       _repositoryAlias = archiveFileName;
       _pathInRepository = pathInRepository;
+      _tags = tags;
     }
 
-    public static ArchivedProjectVersion Create(ArchivedProject project, Repository repository)
+    public static ArchivedProjectVersion Create(Repository repository, ArchivedProject project, Tags tags)
     {
       DateTime createdAt = DateTime.Now;
       string repositoryAlias = project.Name + "-" + DateTimeToUniqueString(createdAt);
-      return new ArchivedProjectVersion(createdAt, repositoryAlias, repository.RootPath.Join(repositoryAlias));
+      return new ArchivedProjectVersion(createdAt, repositoryAlias, repository.RootPath.Join(repositoryAlias), tags);
     }
 
     private static string DateTimeToUniqueString(DateTime when)

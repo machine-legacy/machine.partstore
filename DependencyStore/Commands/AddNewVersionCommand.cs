@@ -9,6 +9,13 @@ namespace DependencyStore.Commands
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
     private readonly IRepositoryRepository _repositoryRepository;
+    private string _tags;
+
+    public string Tags
+    {
+      get { return _tags; }
+      set { _tags = value; }
+    }
 
     public AddNewVersionCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
     {
@@ -21,7 +28,7 @@ namespace DependencyStore.Commands
       new ArchiveProgressDisplayer(true);
       Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      project.AddNewVersion(repository);
+      project.AddNewVersion(repository, new Tags(_tags));
       _repositoryRepository.SaveRepository(repository);
       return CommandStatus.Success;
     }

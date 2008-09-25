@@ -69,9 +69,9 @@ namespace DependencyStore.Domain.Distribution
       }
     }
 
-    public void AddNewVersion(Repository repository)
+    public void AddNewVersion(Repository repository, Tags tags)
     {
-      repository.AddNewVersion(this);
+      repository.AddNewVersion(this, tags);
     }
   }
 }

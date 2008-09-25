@@ -81,10 +81,10 @@ namespace DependencyStore.Domain.Distribution
       return project.FindVersionInManifest(manifest);
     }
 
-    public void AddNewVersion(Project project)
+    public void AddNewVersion(Project project, Tags tags)
     {
       ArchivedProject archivedProject = FindOrCreateProject(project);
-      ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, this);
+      ArchivedProjectVersion version = ArchivedProjectVersion.Create(this, archivedProject, tags);
       version.FileSet = FileSetFactory.CreateFileSetFrom(project.BuildDirectory);
       archivedProject.AddVersion(version);
     }

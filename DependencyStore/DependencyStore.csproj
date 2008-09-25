@@ -137,6 +137,7 @@
     <Compile Include="Domain\Distribution\IRepositoryAccessStrategy.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Domain\Distribution\Tags.cs" />
     <Compile Include="Utility\PathHelper.cs" />
     <Compile Include="Utility\StreamHelper.cs" />
     <Compile Include="Utility\StringHelper.cs" />

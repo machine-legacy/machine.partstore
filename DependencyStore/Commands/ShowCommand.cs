@@ -64,7 +64,7 @@ namespace DependencyStore.Commands
       {
         flags.Add("OlderVersionInstalled");
       }
-      Console.WriteLine("  {0} ({1}) ({2})", status.DependencyName, status.ReferencedVersionCreatedAt, flags.Join(", "));
+      Console.WriteLine("  {0} ({1}) ({2})", status.DependencyName, status.ReferencedVersionTags, flags.Join(", "));
       return !status.IsHealthy;
     }
   }
