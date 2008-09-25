@@ -58,7 +58,7 @@ namespace DependencyStore.Domain.Distribution
       get { return !this.IsToLatestVersion; }
     }
 
-    public ReferenceStatus(string dependencyName, DateTime referencedVersionCreatedAt, bool isProjectMissing, bool isReferencedVersionMissing)
+    protected ReferenceStatus(string dependencyName, DateTime referencedVersionCreatedAt, bool isProjectMissing, bool isReferencedVersionMissing)
     {
       _dependencyName = dependencyName;
       _referencedVersionCreatedAt = referencedVersionCreatedAt;
@@ -83,6 +83,16 @@ namespace DependencyStore.Domain.Distribution
       bool isOlderVersionInstalled = dependencyDirectory.HasVersionOlderThan(version);
       bool isToLatestVersion = dependency.LatestVersion == version;
       return new ReferenceStatus(dependency.Name, version.CreatedAt, isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled);
+    }
+
+    public static ReferenceStatus CreateMissingProject(ProjectManifest manifest)
+    {
+      return new ReferenceStatus(manifest.ProjectName, manifest.VersionCreatedAt, true, true);
+    }
+
+    public static ReferenceStatus CreateMissingVersion(ProjectManifest manifest)
+    {
+      return new ReferenceStatus(manifest.ProjectName, manifest.VersionCreatedAt, false, true);
     }
   }
 }

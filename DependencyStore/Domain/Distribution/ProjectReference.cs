@@ -70,12 +70,12 @@ namespace DependencyStore.Domain.Distribution
 
     public static ProjectReference MissingProject(ProjectManifest manifest)
     {
-      return new BrokenProjectReference(new ReferenceStatus(manifest.ProjectName, manifest.VersionCreatedAt, true, true));
+      return new BrokenProjectReference(ReferenceStatus.CreateMissingProject(manifest));
     }
 
     public static ProjectReference MissingVersion(ProjectManifest manifest)
     {
-      return new BrokenProjectReference(new ReferenceStatus(manifest.ProjectName, manifest.VersionCreatedAt, false, true));
+      return new BrokenProjectReference(ReferenceStatus.CreateMissingVersion(manifest));
     }
   }
 }
