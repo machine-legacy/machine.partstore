@@ -52,9 +52,9 @@ namespace DependencyStore.Commands
       {
         flags.Add("Outdated");
       }
-      if (status.IsReferencedVersionInstalled)
+      if (!status.IsReferencedVersionInstalled)
       {
-        flags.Add("NeedsUpdate");
+        flags.Add("NeedsUnpackage");
       }
       if (!status.IsAnyVersionInstalled)
       {
