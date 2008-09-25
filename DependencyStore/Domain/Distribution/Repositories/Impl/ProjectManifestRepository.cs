@@ -57,9 +57,12 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
     private IList<ProjectManifest> ReadManifests(Purl directory)
     {
       List<ProjectManifest> manifests = new List<ProjectManifest>();
-      foreach (string fileName in _fileSystem.GetFiles(directory.AsString, "*." + ProjectManifest.Extension))
+      if (_fileSystem.IsDirectory(directory.AsString))
       {
-        manifests.Add(ReadProjectManifest(new Purl(fileName)));
+        foreach (string fileName in _fileSystem.GetFiles(directory.AsString, "*." + ProjectManifest.Extension))
+        {
+          manifests.Add(ReadProjectManifest(new Purl(fileName)));
+        }
       }
       return manifests;
     }
