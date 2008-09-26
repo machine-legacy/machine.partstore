@@ -57,15 +57,8 @@ namespace DependencyStore.CommandLine
         bind.RequireFirst<AddDependencyCommand>(x => x.ProjectToAdd);
         bind.OptionalFirst<AddNewVersionCommand>(x => x.Tags);
 
-        try
-        {
-          command.Run();
-        }
-        catch (ObjectNotFoundException objectNotFound)
-        {
-          Console.WriteLine("{0}", objectNotFound.Message);
-          _log.Info(objectNotFound.Message);
-        }
+        command.Run();
+
         Console.WriteLine();
       }
     }

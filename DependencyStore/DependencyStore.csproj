@@ -100,7 +100,6 @@
     <Compile Include="Domain\Core\ArchivedProject.cs" />
     <Compile Include="Domain\Core\ArchivedProjectVersion.cs" />
     <Compile Include="Domain\Core\DistributionDomainEvents.cs" />
-    <Compile Include="Domain\Core\Errors.cs" />
     <Compile Include="Domain\Core\Hooks.cs" />
     <Compile Include="Domain\Core\Infrastructure.cs" />
     <Compile Include="Domain\Core\MirroredRepositoryAccessStrategy.cs" />
