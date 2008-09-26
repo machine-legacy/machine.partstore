@@ -25,6 +25,7 @@ namespace DependencyStore.Commands
 
     public override CommandStatus Run()
     {
+      new ArchiveProgressDisplayer(false);
       Repository repository = _repositoryRepository.FindDefaultRepository();
       ArchivedProject dependency = repository.FindProject(this.ProjectToAdd);
       if (dependency == null)
