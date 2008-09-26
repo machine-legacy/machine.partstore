@@ -88,12 +88,12 @@
     <Compile Include="Domain\Configuration\Repositories\Impl\DataAccessExceptions.cs" />
     <Compile Include="Domain\Configuration\Repositories\Impl\ProjectStructure.cs" />
     <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
-    <Compile Include="Domain\Core\CoreDomainEvents.cs" />
-    <Compile Include="Domain\Core\FileSetFactory.cs" />
-    <Compile Include="Domain\Core\Repositories\Impl\DataAccessExceptions.cs" />
+    <Compile Include="Domain\FileSystem\CoreDomainEvents.cs" />
+    <Compile Include="Domain\FileSystem\FileSetFactory.cs" />
+    <Compile Include="Domain\FileSystem\Repositories\Impl\DataAccessExceptions.cs" />
     <Compile Include="Domain\Distribution\ArchiveRepositoryAccessStrategy.cs" />
     <Compile Include="Domain\Distribution\CurrentProject.cs" />
-    <Compile Include="Domain\Core\Infrastructure.cs" />
+    <Compile Include="Domain\FileSystem\Infrastructure.cs" />
     <Compile Include="Domain\Distribution\ArchivedProject.cs" />
     <Compile Include="Domain\Distribution\ArchivedProjectVersion.cs" />
     <Compile Include="Domain\Distribution\DistributionDomainEvents.cs" />
@@ -108,17 +108,17 @@
     <Compile Include="Domain\Distribution\ProjectReference.cs" />
     <Compile Include="Domain\Distribution\ReferenceStatus.cs" />
     <Compile Include="Domain\Distribution\Repository.cs" />
-    <Compile Include="Domain\Core\FileAsset.cs" />
-    <Compile Include="Domain\Core\FileSet.cs" />
+    <Compile Include="Domain\FileSystem\FileAsset.cs" />
+    <Compile Include="Domain\FileSystem\FileSet.cs" />
     <Compile Include="Domain\Distribution\Project.cs" />
     <Compile Include="Domain\Distribution\RepositoryChange.cs" />
     <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
     <Compile Include="Domain\Configuration\FileAndDirectoryRules.cs" />
     <Compile Include="Domain\Configuration\IncludeExcludeRules.cs" />
-    <Compile Include="Domain\Core\FileSystemDirectory.cs" />
-    <Compile Include="Domain\Core\FileSystemEntry.cs" />
-    <Compile Include="Domain\Core\FileSystemFile.cs" />
-    <Compile Include="Domain\Core\Purl.cs" />
+    <Compile Include="Domain\FileSystem\FileSystemDirectory.cs" />
+    <Compile Include="Domain\FileSystem\FileSystemEntry.cs" />
+    <Compile Include="Domain\FileSystem\FileSystemFile.cs" />
+    <Compile Include="Domain\FileSystem\Purl.cs" />
     <Compile Include="Domain\Distribution\ProjectDependencyDirectory.cs" />
     <Compile Include="Domain\Configuration\Repositories\ICurrentConfiguration.cs" />
     <Compile Include="Domain\Distribution\Repositories\ICurrentProjectRepository.cs" />
@@ -143,11 +143,11 @@
     <Compile Include="Utility\StringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Domain\Configuration\Repositories\Impl\ConfigurationRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\Impl\FileAndDirectoryRulesRepository.cs" />
+    <Compile Include="Domain\FileSystem\Repositories\Impl\FileAndDirectoryRulesRepository.cs" />
     <Compile Include="Domain\Configuration\Repositories\IConfigurationRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\IFileAndDirectoryRulesRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\Impl\FileSystemEntryRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\IFileSystemEntryRepository.cs" />
+    <Compile Include="Domain\FileSystem\Repositories\IFileAndDirectoryRulesRepository.cs" />
+    <Compile Include="Domain\FileSystem\Repositories\Impl\FileSystemEntryRepository.cs" />
+    <Compile Include="Domain\FileSystem\Repositories\IFileSystemEntryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.txt" />

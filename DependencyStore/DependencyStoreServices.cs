@@ -7,7 +7,7 @@ using Machine.Core.Services.Impl;
 
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Commands;
-using DependencyStore.Domain.Core.Repositories.Impl;
+using DependencyStore.Domain.FileSystem.Repositories.Impl;
 using DependencyStore.Domain.Configuration.Repositories.Impl;
 using DependencyStore.Domain.Distribution.Repositories.Impl;
 

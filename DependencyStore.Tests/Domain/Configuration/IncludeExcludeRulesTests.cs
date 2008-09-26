@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.FileSystem;
 
 using Machine.Testing;
 using NUnit.Framework;

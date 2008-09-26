@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain.Configuration;
 
-namespace DependencyStore.Domain.Core.Repositories.Impl
+namespace DependencyStore.Domain.FileSystem.Repositories.Impl
 {
   public class FileAndDirectoryRulesRepository : IFileAndDirectoryRulesRepository
   {

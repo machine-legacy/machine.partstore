@@ -5,7 +5,7 @@ using Machine.Testing;
 
 using NUnit.Framework;
 
-namespace DependencyStore.Domain.Core
+namespace DependencyStore.Domain.FileSystem
 {
   [TestFixture]
   public class FileSystemDirectoryTests : TestsFor<FileSystemDirectory>

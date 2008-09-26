@@ -7,7 +7,7 @@ using DependencyStore.Domain.Distribution.Repositories;
 
 namespace DependencyStore.Domain.Distribution
 {
-  public class Infrastructure : DependencyStore.Domain.Core.Infrastructure
+  public class Infrastructure : DependencyStore.Domain.FileSystem.Infrastructure
   {
     public static IProjectManifestRepository ProjectManifestRepository
     {

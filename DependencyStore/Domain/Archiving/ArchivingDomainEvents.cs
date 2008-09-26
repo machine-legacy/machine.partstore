@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.FileSystem;
 
 namespace DependencyStore.Domain.Archiving
 {

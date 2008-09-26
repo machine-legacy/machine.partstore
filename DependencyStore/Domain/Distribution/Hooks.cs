@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.FileSystem;
 using DependencyStore.Utility;
 
 namespace DependencyStore.Domain.Distribution

@@ -61,8 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Configuration\FileAndDirectoryRulesTests.cs" />
-    <Compile Include="Domain\Core\FileSystemDirectoryTests.cs" />
-    <Compile Include="Domain\Core\FileSystemPathTests.cs" />
+    <Compile Include="Domain\FileSystem\FileSystemDirectoryTests.cs" />
+    <Compile Include="Domain\FileSystem\FileSystemPathTests.cs" />
     <Compile Include="Domain\Configuration\IncludeExcludeRulesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

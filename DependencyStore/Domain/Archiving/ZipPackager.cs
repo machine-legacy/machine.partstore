@@ -4,8 +4,8 @@ using System.IO;
 
 using ICSharpCode.SharpZipLib.Zip;
 
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Core.Repositories.Impl;
+using DependencyStore.Domain.FileSystem;
+using DependencyStore.Domain.FileSystem.Repositories.Impl;
 using DependencyStore.Utility;
 
 namespace DependencyStore.Domain.Archiving

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.FileSystem;
 
 namespace DependencyStore.Domain.Configuration
 {

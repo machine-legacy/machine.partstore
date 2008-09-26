@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.FileSystem;
 
 namespace DependencyStore.Domain.Archiving
 {
@@ -9,12 +9,12 @@ namespace DependencyStore.Domain.Archiving
   {
     private readonly Purl _path;
 
-    public override Core.Purl Purl
+    public override Purl Purl
     {
       get { return _path; }
     }
 
-    protected ArchivedFile(Core.Purl path)
+    protected ArchivedFile(Purl path)
     {
       _path = path;
     }

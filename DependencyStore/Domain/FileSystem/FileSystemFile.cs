@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace DependencyStore.Domain.Core
+namespace DependencyStore.Domain.FileSystem
 {
   public class FileSystemFile : FileSystemEntry
   {

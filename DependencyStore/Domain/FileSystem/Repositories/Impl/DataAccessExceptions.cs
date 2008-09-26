@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace DependencyStore.Domain.Core.Repositories.Impl
+namespace DependencyStore.Domain.FileSystem.Repositories.Impl
 {
   public class FileSystemEntryNotFoundException : ApplicationException
   {

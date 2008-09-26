@@ -5,7 +5,7 @@ using System.IO;
 using Machine.Core.Services;
 using Machine.Core.Utility;
 
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.FileSystem;
 
 namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {

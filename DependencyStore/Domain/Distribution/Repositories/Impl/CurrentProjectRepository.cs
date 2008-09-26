@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Configuration.Repositories;
-using DependencyStore.Domain.Core;
+using DependencyStore.Domain.FileSystem;
 
 namespace DependencyStore.Domain.Distribution.Repositories.Impl
 {
