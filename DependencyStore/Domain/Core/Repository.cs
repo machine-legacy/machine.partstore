@@ -24,6 +24,11 @@ namespace DependencyStore.Domain.Core
       set { _rootPath = value; }
     }
 
+    public string Name
+    {
+      get { return _rootPath.Name; }
+    }
+
     public bool IsEmpty
     {
       get { return _projects.Count == 0; }
