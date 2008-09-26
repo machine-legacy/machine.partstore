@@ -20,16 +20,20 @@ namespace DependencyStore
     {
       register.Type<FileSystem>();
       register.Type<Clock>();
+
       register.Type<FileSystemEntryRepository>();
       register.Type<FileAndDirectoryRulesRepository>();
+      
       register.Type<ConfigurationRepository>();
+      register.Type<ConfigurationPaths>();
+      register.Type<CurrentConfiguration>();
+      
       register.Type<ProjectManifestRepository>();
       register.Type<ProjectReferenceRepository>();
       register.Type<CurrentProjectRepository>();
       register.Type<ProjectRepository>();
-      register.Type<ConfigurationPaths>();
       register.Type<RepositoryRepository>();
-      register.Type<CurrentConfiguration>();
+      register.Type<RepositorySetRepository>();
 
       register.Type<SeachRepositoryCommand>();
       register.Type<CommandFactory>();

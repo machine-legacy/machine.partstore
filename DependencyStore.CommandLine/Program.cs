@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using DependencyStore.Domain.Configuration;
+
 using log4net;
 using log4net.Appender;
 using log4net.Config;
@@ -9,6 +9,7 @@ using log4net.Layout;
 using Machine.Container;
 using Machine.Core.Utility;
 
+using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Core;
 using DependencyStore.Commands;
 

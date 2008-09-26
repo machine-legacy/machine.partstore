@@ -40,11 +40,6 @@ namespace DependencyStore.Domain.Core
       return archived;
     }
 
-    public ArchivedProject FindProject(Project project)
-    {
-      return FindProject(project.Name);
-    }
-
     public ArchivedProject FindProject(string name)
     {
       foreach (ArchivedProject existing in _projects)
@@ -57,7 +52,7 @@ namespace DependencyStore.Domain.Core
       return null;
     }
 
-    public void AddProject(ArchivedProject project)
+    private void AddProject(ArchivedProject project)
     {
       if (FindProject(project.Name) != null)
       {
@@ -70,7 +65,7 @@ namespace DependencyStore.Domain.Core
     {
       return FindProject(manifest.ProjectName);
     }
-
+    /*
     public ArchivedProjectVersion FindProjectVersion(ProjectManifest manifest)
     {
       ArchivedProject project = FindProject(manifest);
@@ -80,7 +75,7 @@ namespace DependencyStore.Domain.Core
       }
       return project.FindVersionInManifest(manifest);
     }
-
+    */
     public void AddNewVersion(Project project, Tags tags)
     {
       ArchivedProject archivedProject = FindOrCreateProject(project);
