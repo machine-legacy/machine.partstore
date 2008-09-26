@@ -83,6 +83,7 @@
     <Compile Include="Domain\Configuration\BuildDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ConfigurationException.cs" />
     <Compile Include="Domain\Configuration\DirectoryConfiguration.cs" />
+    <Compile Include="Domain\Configuration\IncludeRepository.cs" />
     <Compile Include="Domain\Configuration\LibraryDirectoryConfiguration.cs" />
     <Compile Include="Domain\Configuration\ProjectConfiguration.cs" />
     <Compile Include="Domain\Configuration\Repositories\Impl\DataAccessExceptions.cs" />

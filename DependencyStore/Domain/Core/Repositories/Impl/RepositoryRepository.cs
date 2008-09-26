@@ -26,7 +26,7 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
     #region IRepositoryRepository Members
     public Repository FindDefaultRepository()
     {
-      Purl path = _currentConfiguration.DefaultConfiguration.RepositoryDirectory.Join("Manifest.xml");
+      Purl path = _currentConfiguration.DefaultConfiguration.DefaultRepository.RepositoryDirectory.Join("Manifest.xml");
       if (!_fileSystem.IsFile(path.AsString))
       {
         Console.WriteLine("Creating new repository: " + path.AsString);
@@ -94,7 +94,7 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
 
     private void SaveRepositoryManifest(Repository repository)
     {
-      Purl path = _currentConfiguration.DefaultConfiguration.RepositoryDirectory.Join("Manifest.xml");
+      Purl path = _currentConfiguration.DefaultConfiguration.DefaultRepository.RepositoryDirectory.Join("Manifest.xml");
       _log.Info("Saving: " + path.AsString);
       using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
       {
