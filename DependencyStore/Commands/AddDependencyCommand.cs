@@ -35,7 +35,7 @@ namespace DependencyStore.Commands
       Console.WriteLine("Adding reference to {0} ({1})", dependency.Name, dependency.LatestVersion.CreatedAt);
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.AddReferenceToLatestVersion(dependency);
-      _currentProjectRepository.SaveCurrentProject(project);
+      _currentProjectRepository.SaveCurrentProject(project, repository);
       return CommandStatus.Success;
     }
   }

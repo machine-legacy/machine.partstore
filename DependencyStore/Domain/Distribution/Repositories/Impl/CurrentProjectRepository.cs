@@ -32,8 +32,15 @@ namespace DependencyStore.Domain.Distribution.Repositories.Impl
       return new CurrentProject(name, rootDirectory, buildDirectory, libraryDirectory, manifests);
     }
 
-    public void SaveCurrentProject(CurrentProject project)
+    public void SaveCurrentProject(CurrentProject project, Repository repository)
     {
+      foreach (ProjectReference projectReference in project.References)
+      {
+        if (projectReference.Status.IsOlderVersionInstalled)
+        {
+          projectReference.UnpackageIfNecessary(repository);
+        }
+      }
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(project.Manifests);
     }
     #endregion

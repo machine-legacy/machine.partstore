@@ -15,6 +15,11 @@ namespace DependencyStore.Domain.Distribution
       get { return _manifests; }
     }
 
+    public IEnumerable<ProjectReference> References
+    {
+      get { return _references; }
+    }
+
     public IEnumerable<ReferenceStatus> ReferenceStatuses
     {
       get
@@ -51,7 +56,9 @@ namespace DependencyStore.Domain.Distribution
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject dependency)
     {
       _manifests.AddManifestFor(dependency, dependency.LatestVersion);
-      return new HealthyProjectReference(this, dependency, dependency.LatestVersion);
+      ProjectReference projectReference = new HealthyProjectReference(this, dependency, dependency.LatestVersion);
+      _references.Add(projectReference);
+      return projectReference;
     }
 
     public void UnpackageIfNecessary(Repository repository)
