@@ -9,7 +9,7 @@ using log4net.Layout;
 using Machine.Container;
 using Machine.Core.Utility;
 
-using DependencyStore.Domain.Distribution;
+using DependencyStore.Domain.Core;
 using DependencyStore.Commands;
 
 namespace DependencyStore.CommandLine

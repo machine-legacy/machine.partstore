@@ -1,7 +1,7 @@
 using System;
 
 using DependencyStore.Domain.Archiving;
-using DependencyStore.Domain.Distribution;
+using DependencyStore.Domain.Core;
 
 namespace DependencyStore.Commands
 {

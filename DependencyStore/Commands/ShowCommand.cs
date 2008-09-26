@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 
 using DependencyStore.Utility;
-using DependencyStore.Domain.Distribution;
-using DependencyStore.Domain.Distribution.Repositories;
+using DependencyStore.Domain.Core;
+using DependencyStore.Domain.Core.Repositories;
 
 namespace DependencyStore.Commands
 {
