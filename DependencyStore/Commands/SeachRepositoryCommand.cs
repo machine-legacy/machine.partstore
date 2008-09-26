@@ -7,19 +7,23 @@ namespace DependencyStore.Commands
 {
   public class SeachRepositoryCommand : Command
   {
-    private readonly IRepositoryRepository _repositoryRepository;
+    private readonly IRepositorySetRepository _repositorySetRepository;
 
-    public SeachRepositoryCommand(IRepositoryRepository repositoryRepository)
+    public SeachRepositoryCommand(IRepositorySetRepository repositorySetRepository)
     {
-      _repositoryRepository = repositoryRepository;
+      _repositorySetRepository = repositorySetRepository;
     }
 
     public override CommandStatus Run()
     {
-      Repository repository = _repositoryRepository.FindDefaultRepository();
-      foreach (ArchivedProject project in repository.Projects)
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      foreach (Repository repository in repositorySet.Repositories)
       {
-        Console.WriteLine("{0,-30} {1} ({2} versions)", project.Name, project.LatestVersion.CreatedAt, project.Versions.Count);
+        Console.WriteLine("Repository: {0}", repository.Name);
+        foreach (ArchivedProject project in repository.Projects)
+        {
+          Console.WriteLine("{0,-30} {1} ({2} versions)", project.Name, project.LatestVersion.CreatedAt, project.Versions.Count);
+        }
       }
       return CommandStatus.Success;
     }
