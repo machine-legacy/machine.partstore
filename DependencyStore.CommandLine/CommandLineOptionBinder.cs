@@ -36,6 +36,7 @@ namespace DependencyStore.CommandLine
         {
           throw new InvalidOperationException("Missing argument!");
         }
+        return;
       }
       PropertyInfo info = (PropertyInfo)GetMemberInfo(property);
       info.GetSetMethod().Invoke(_command, new object[] { _parser.OrphanedArguments[i].Value });
