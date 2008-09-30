@@ -66,6 +66,16 @@ namespace DependencyStore.Domain.Configuration
       return null;
     }
 
+    public string InferPathToConfigurationForCurrentProject()
+    {
+      string path = InferProjectRootDirectory();
+      if (String.IsNullOrEmpty(path))
+      {
+        return null;
+      }
+      return Path.Combine(path, FileName);
+    }
+
     private static IEnumerable<string> WalkUpDirectories()
     {
       string directory = Environment.CurrentDirectory;
