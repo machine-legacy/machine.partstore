@@ -24,12 +24,15 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
     {
       ProjectConfiguration projectConfiguration = _currentConfiguration.DefaultConfiguration.ProjectConfigurations[0];
       Purl rootDirectory = projectConfiguration.Root.AsPurl;
-      Purl buildDirectory = projectConfiguration.Build.AsPurl;
+      Purl buildDirectory = null;
+      if (projectConfiguration.Build != null)
+      {
+        buildDirectory = projectConfiguration.Build.AsPurl;
+      }
       Purl libraryDirectory = projectConfiguration.Library.AsPurl;
-      string name = projectConfiguration.Name;
-      ProjectManifestStore manifests = _projectManifestRepository.FindProjectManifestStore(projectConfiguration.Library.AsPurl);
-      _log.Info("CurrentProject: " + name + " in " + rootDirectory.AsString);
-      return new CurrentProject(name, rootDirectory, buildDirectory, libraryDirectory, manifests);
+      ProjectManifestStore manifests = _projectManifestRepository.FindProjectManifestStore(libraryDirectory);
+      _log.Info("CurrentProject: " + projectConfiguration.Name + " in " + rootDirectory.AsString);
+      return new CurrentProject(projectConfiguration.Name, rootDirectory, buildDirectory, libraryDirectory, manifests);
     }
 
     public void SaveCurrentProject(CurrentProject project, Repository repository)

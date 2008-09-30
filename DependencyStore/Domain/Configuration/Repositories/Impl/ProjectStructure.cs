@@ -34,12 +34,35 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
 
     protected BuildDirectoryConfiguration FindBuildDirectory()
     {
-      return new BuildDirectoryConfiguration(_root.Join("Build"));
+      Purl build = SelectFirstValidDirectory("Build", "Bin");
+      if (build == null)
+      {
+        return null;
+      }
+      return new BuildDirectoryConfiguration(build);
     }
 
     protected LibraryDirectoryConfiguration FindLibraryDirectory()
     {
-      return new LibraryDirectoryConfiguration(_root.Join("Libraries"));
+      Purl build = SelectFirstValidDirectory("Libraries", "Lib");
+      if (build == null)
+      {
+        return null;
+      }
+      return new LibraryDirectoryConfiguration(build);
+    }
+
+    protected Purl SelectFirstValidDirectory(params string[] relativeCandidates)
+    {
+      foreach (string candidate in relativeCandidates)
+      {
+        Purl path = _root.Join(candidate);
+        if (_fileSystem.IsDirectory(path.AsString))
+        {
+          return path;
+        }
+      }
+      return null;
     }
   }
 }
