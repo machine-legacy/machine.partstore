@@ -48,21 +48,24 @@ namespace DependencyStore.Commands
       {
         flags.Add("Missing Version");
       }
-      if (status.IsOutdated)
+      if (status.IsHealthy)
       {
-        flags.Add("Outdated");
-      }
-      if (!status.IsReferencedVersionInstalled)
-      {
-        flags.Add("NeedsUnpackage");
-      }
-      if (!status.IsAnyVersionInstalled)
-      {
-        flags.Add("NothingInstalled");
-      }
-      else if (status.IsOlderVersionInstalled)
-      {
-        flags.Add("OlderVersionInstalled");
+        if (status.IsOutdated)
+        {
+          flags.Add("Outdated");
+        }
+        if (!status.IsReferencedVersionInstalled)
+        {
+          flags.Add("NeedsUnpackage");
+        }
+        if (!status.IsAnyVersionInstalled)
+        {
+          flags.Add("NothingInstalled");
+        }
+        else if (status.IsOlderVersionInstalled)
+        {
+          flags.Add("OlderVersionInstalled");
+        }
       }
       Console.WriteLine("  {0} ({1}) ({2})", status.DependencyName, status.ReferencedVersionTags, flags.Join(", "));
       return !status.IsHealthy;
