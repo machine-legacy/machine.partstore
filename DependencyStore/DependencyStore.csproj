@@ -131,11 +131,9 @@
     <Compile Include="Domain\Core\Repositories\Impl\CurrentProjectRepository.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\ProjectManifestRepository.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\ProjectReferenceRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\Impl\ProjectRepository.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\RepositoryRepository.cs" />
     <Compile Include="Domain\Core\Repositories\IProjectManifestRepository.cs" />
     <Compile Include="Domain\Core\Repositories\IProjectReferenceRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\IProjectRepository.cs" />
     <Compile Include="Domain\Configuration\ConfigurationPaths.cs" />
     <Compile Include="Domain\Core\Repositories\IRepositoryRepository.cs" />
     <Compile Include="Domain\Core\NewProjectVersion.cs" />
