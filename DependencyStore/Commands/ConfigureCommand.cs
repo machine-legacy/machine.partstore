@@ -24,6 +24,7 @@ namespace DependencyStore.Commands
         configuration.Repositories.Add(new IncludeRepository("Default"));
       }
       _configurationRepository.SaveProjectConfiguration(configuration);
+      Console.WriteLine("Saved configuration " + configuration.ConfigurationPath.AsString);
       return CommandStatus.Success;
     }
   }
