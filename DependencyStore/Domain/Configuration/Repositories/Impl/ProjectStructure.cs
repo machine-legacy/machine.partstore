@@ -1,31 +1,45 @@
 using System;
 
 using DependencyStore.Domain.FileSystem;
+using Machine.Core.Services;
 
 namespace DependencyStore.Domain.Configuration.Repositories.Impl
 {
   public class ProjectStructure
   {
+    private readonly IFileSystem _fileSystem;
     private readonly Purl _root;
 
-    public ProjectStructure(Purl root)
+    public ProjectStructure(IFileSystem fileSystem,  Purl root)
     {
+      _fileSystem = fileSystem;
       _root = root;
     }
 
-    public Purl FindRootDirectory()
+    public ProjectConfiguration InferProjectConfiguration()
     {
-      return _root;
+      ProjectConfiguration configuration = new ProjectConfiguration();
+      configuration.Name = _root.Name;
+      configuration.Root = FindRootDirectory();
+      configuration.Build = FindBuildDirectory();
+      configuration.Library = FindLibraryDirectory();
+      configuration.EnsureValid();
+      return configuration;
     }
 
-    public Purl FindBuildDirectory()
+    protected RootDirectoryConfiguration FindRootDirectory()
     {
-      return _root.Join("Build");
+      return new RootDirectoryConfiguration(_root);
     }
 
-    public Purl FindLibraryDirectory()
+    protected BuildDirectoryConfiguration FindBuildDirectory()
     {
-      return _root.Join("Libraries");
+      return new BuildDirectoryConfiguration(_root.Join("Build"));
+    }
+
+    protected LibraryDirectoryConfiguration FindLibraryDirectory()
+    {
+      return new LibraryDirectoryConfiguration(_root.Join("Libraries"));
     }
   }
 }

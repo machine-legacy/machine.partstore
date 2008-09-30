@@ -32,14 +32,8 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       if (configuration.ProjectConfigurations.Count == 0)
       {
         Purl rootPath = new Purl(path).Parent;
-        ProjectStructure projectStructure = new ProjectStructure(rootPath);
-        ProjectConfiguration currentProject = new ProjectConfiguration();
-        currentProject.Name = rootPath.Name;
-        currentProject.Root = new RootDirectoryConfiguration(projectStructure.FindRootDirectory());
-        currentProject.Build = new BuildDirectoryConfiguration(projectStructure.FindBuildDirectory());
-        currentProject.Library = new LibraryDirectoryConfiguration(projectStructure.FindLibraryDirectory());
-        currentProject.EnsureValid();
-        configuration.ProjectConfigurations.Add(currentProject);
+        ProjectStructure projectStructure = new ProjectStructure(_fileSystem, rootPath);
+        configuration.ProjectConfigurations.Add(projectStructure.InferProjectConfiguration());
       }
       return configuration;
     }
