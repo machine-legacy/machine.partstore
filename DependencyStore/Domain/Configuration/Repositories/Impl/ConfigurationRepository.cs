@@ -38,7 +38,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
     public DependencyStoreConfiguration FindProjectConfiguration()
     {
       string path = _paths.FindConfigurationForCurrentProjectPath();
-      DependencyStoreConfiguration configuration = FindConfiguration(path);
+      DependencyStoreConfiguration configuration = ReadConfiguration(path);
       if (configuration == null)
       {
         return null;
@@ -66,15 +66,15 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
     }
     #endregion
 
-    private DependencyStoreConfiguration FindConfiguration(string configurationFile)
+    private DependencyStoreConfiguration ReadConfiguration(string path)
     {
+      if (path == null || !_fileSystem.IsFile(path))
+      {
+        return null;
+      }
       try
       {
-        if (configurationFile == null || !_fileSystem.IsFile(configurationFile))
-        {
-          return null;
-        }
-        using (StreamReader reader = _fileSystem.OpenText(configurationFile))
+        using (StreamReader reader = _fileSystem.OpenText(path))
         {
           DependencyStoreConfiguration configuration = _serializer.DeserializeString(reader.ReadToEnd());
           configuration.FileAndDirectoryRules = _fileAndDirectoryRulesRepository.FindDefault();
