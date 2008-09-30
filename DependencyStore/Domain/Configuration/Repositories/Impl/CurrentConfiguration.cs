@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Configuration;
-
 namespace DependencyStore.Domain.Configuration.Repositories.Impl
 {
   public class CurrentConfiguration : ICurrentConfiguration
@@ -22,7 +20,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       {
         if (_defaultConfiguration == null)
         {
-          _defaultConfiguration = _configurationRepository.FindProjectConfiguration();
+          _defaultConfiguration = _configurationRepository.FindAndRequireProjectConfiguration();
         }
         return _defaultConfiguration;
       }

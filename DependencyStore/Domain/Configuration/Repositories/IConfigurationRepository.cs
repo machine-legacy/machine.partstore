@@ -5,6 +5,7 @@ namespace DependencyStore.Domain.Configuration.Repositories
 {
   public interface IConfigurationRepository
   {
+    DependencyStoreConfiguration FindAndRequireProjectConfiguration();
     DependencyStoreConfiguration FindProjectConfiguration();
     void SaveProjectConfiguration(DependencyStoreConfiguration configuration);
   }

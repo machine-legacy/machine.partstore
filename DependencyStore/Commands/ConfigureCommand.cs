@@ -17,6 +17,7 @@ namespace DependencyStore.Commands
 
     public override CommandStatus Run()
     {
+      _configurationRepository.FindProjectConfiguration();
       DependencyStoreConfiguration configuration = new DependencyStoreConfiguration();
       configuration.Repositories.Add(new IncludeRepository("Default"));
       _configurationRepository.SaveProjectConfiguration(configuration);

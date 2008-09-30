@@ -25,10 +25,24 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
     }
 
     #region IConfigurationRepository Members
+    public DependencyStoreConfiguration FindAndRequireProjectConfiguration()
+    {
+      DependencyStoreConfiguration configuration = FindProjectConfiguration();
+      if (configuration == null)
+      {
+        throw new InvalidOperationException("Missing configuration!");
+      }
+      return configuration;
+    }
+
     public DependencyStoreConfiguration FindProjectConfiguration()
     {
       string path = _paths.FindConfigurationForCurrentProjectPath();
       DependencyStoreConfiguration configuration = FindConfiguration(path);
+      if (configuration == null)
+      {
+        return null;
+      }
       if (configuration.ProjectConfigurations.Count == 0)
       {
         Purl rootPath = new Purl(path).Parent;
@@ -56,9 +70,9 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
     {
       try
       {
-        if (configurationFile == null)
+        if (configurationFile == null || !_fileSystem.IsFile(configurationFile))
         {
-          throw new FileNotFoundException();
+          return null;
         }
         using (StreamReader reader = _fileSystem.OpenText(configurationFile))
         {
