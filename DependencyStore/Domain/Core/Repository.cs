@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -95,6 +95,11 @@ namespace DependencyStore.Domain.Core
       {
         yield return new ReferenceCandidate(this.Name, project.Name, project.LatestVersion.CreatedAt, project.LatestVersion.Tags);
       }
+    }
+
+    public void Refresh()
+    {
+      Infrastructure.RepositoryRepository.RefreshRepository(this);
     }
   }
 }

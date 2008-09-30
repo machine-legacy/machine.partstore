@@ -51,5 +51,13 @@ namespace DependencyStore.Domain.Core
       }
       return candidates;
     }
+
+    public void Refresh()
+    {
+      foreach (Repository repository in _repositories)
+      {
+        repository.Refresh();
+      }
+    }
   }
 }
