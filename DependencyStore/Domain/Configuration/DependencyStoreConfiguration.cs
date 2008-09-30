@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
+using DependencyStore.Domain.FileSystem;
+
 namespace DependencyStore.Domain.Configuration
 {
   [XmlRoot("DependencyStore")]
@@ -10,6 +12,7 @@ namespace DependencyStore.Domain.Configuration
     private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
     private readonly List<IncludeRepository> _repositories = new List<IncludeRepository>();
     private FileAndDirectoryRules _fileAndDirectoryRules;
+    private Purl _configurationPath;
 
     public List<ProjectConfiguration> ProjectConfigurations
     {
@@ -38,6 +41,13 @@ namespace DependencyStore.Domain.Configuration
     {
       get { return _fileAndDirectoryRules; }
       set { _fileAndDirectoryRules = value; }
+    }
+
+    [XmlIgnore]
+    public Purl ConfigurationPath
+    {
+      get { return _configurationPath; }
+      set { _configurationPath = value; }
     }
 
     public virtual void EnsureValid()

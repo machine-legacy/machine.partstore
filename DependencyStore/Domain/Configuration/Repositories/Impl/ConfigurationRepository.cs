@@ -78,6 +78,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
         {
           DependencyStoreConfiguration configuration = _serializer.DeserializeString(reader.ReadToEnd());
           configuration.FileAndDirectoryRules = _fileAndDirectoryRulesRepository.FindDefault();
+          configuration.ConfigurationPath = new Purl(path);
           configuration.EnsureValid();
           return configuration;
         }
