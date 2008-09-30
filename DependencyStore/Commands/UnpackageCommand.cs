@@ -8,18 +8,18 @@ namespace DependencyStore.Commands
   public class UnpackageCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
-    private readonly IRepositoryRepository _repositoryRepository;
+    private readonly IRepositorySetRepository _repositorySetRepository;
 
-    public UnpackageCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
+    public UnpackageCommand(ICurrentProjectRepository currentProjectRepository, IRepositorySetRepository repositorySetRepository)
     {
       _currentProjectRepository = currentProjectRepository;
-      _repositoryRepository = repositoryRepository;
+      _repositorySetRepository = repositorySetRepository;
     }
 
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(false);
-      Repository repository = _repositoryRepository.FindDefaultRepository();
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       if (!project.AreAllReferencesHealthy)
       {
@@ -28,7 +28,7 @@ namespace DependencyStore.Commands
         Console.WriteLine("Use 'ds refresh' to download missing versions (maybe)");
         return CommandStatus.Failure;
       }
-      project.UnpackageIfNecessary(repository);
+      project.UnpackageIfNecessary(repositorySet);
       return CommandStatus.Success;
     }
   }

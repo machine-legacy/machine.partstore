@@ -9,7 +9,7 @@ namespace DependencyStore.Domain.Core
     {
     }
 
-    public abstract void UnpackageIfNecessary(Repository repository);
+    public abstract void UnpackageIfNecessary(RepositorySet repositorySet);
 
     public abstract ReferenceStatus Status
     {
@@ -36,11 +36,11 @@ namespace DependencyStore.Domain.Core
       get { return _installed; }
     }
 
-    public override void UnpackageIfNecessary(Repository repository)
+    public override void UnpackageIfNecessary(RepositorySet repositorySet)
     {
       if (this.Status.IsOlderVersionInstalled)
       {
-        this.Installed.UpdateInstalledVersion(repository, _version);
+        this.Installed.UpdateInstalledVersion(repositorySet, _version);
       }
     }
 
@@ -58,7 +58,7 @@ namespace DependencyStore.Domain.Core
       _status = status;
     }
 
-    public override void UnpackageIfNecessary(Repository repository)
+    public override void UnpackageIfNecessary(RepositorySet repositorySet)
     {
       throw new InvalidOperationException("You can't Unpackage an unhealthy reference!");
     }

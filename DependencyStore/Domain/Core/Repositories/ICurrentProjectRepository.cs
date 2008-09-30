@@ -6,6 +6,6 @@ namespace DependencyStore.Domain.Core.Repositories
   public interface ICurrentProjectRepository
   {
     CurrentProject FindCurrentProject();
-    void SaveCurrentProject(CurrentProject project, Repository repository);
+    void SaveCurrentProject(CurrentProject project, RepositorySet repositorySet);
   }
 }

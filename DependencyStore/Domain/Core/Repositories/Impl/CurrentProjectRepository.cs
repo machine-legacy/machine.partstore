@@ -35,13 +35,13 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
       return new CurrentProject(projectConfiguration.Name, rootDirectory, buildDirectory, libraryDirectory, manifests);
     }
 
-    public void SaveCurrentProject(CurrentProject project, Repository repository)
+    public void SaveCurrentProject(CurrentProject project, RepositorySet repositorySet)
     {
       foreach (ProjectReference projectReference in project.References)
       {
         if (projectReference.Status.IsOlderVersionInstalled)
         {
-          projectReference.UnpackageIfNecessary(repository);
+          projectReference.UnpackageIfNecessary(repositorySet);
         }
       }
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(project.Manifests);

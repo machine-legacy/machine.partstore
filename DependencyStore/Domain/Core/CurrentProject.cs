@@ -61,13 +61,13 @@ namespace DependencyStore.Domain.Core
       return projectReference;
     }
 
-    public void UnpackageIfNecessary(Repository repository)
+    public void UnpackageIfNecessary(RepositorySet repositorySet)
     {
       if (this.AreAllReferencesHealthy)
       {
         foreach (ProjectReference reference in _references)
         {
-          reference.UnpackageIfNecessary(repository);
+          reference.UnpackageIfNecessary(repositorySet);
         }
       }
       else

@@ -8,6 +8,7 @@ namespace DependencyStore.Commands
   public class AddNewVersionCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
+    private readonly IRepositorySetRepository _repositorySetRepository;
     private readonly IRepositoryRepository _repositoryRepository;
     private string _tags;
 
@@ -17,16 +18,18 @@ namespace DependencyStore.Commands
       set { _tags = value; }
     }
 
-    public AddNewVersionCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
+    public AddNewVersionCommand(ICurrentProjectRepository currentProjectRepository, IRepositorySetRepository repositorySetRepository, IRepositoryRepository repositoryRepository)
     {
       _currentProjectRepository = currentProjectRepository;
       _repositoryRepository = repositoryRepository;
+      _repositorySetRepository = repositorySetRepository;
     }
 
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(true);
-      Repository repository = _repositoryRepository.FindDefaultRepository();
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      Repository repository = repositorySet.DefaultRepository;
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       if (!project.HasBuildDirectory)
       {

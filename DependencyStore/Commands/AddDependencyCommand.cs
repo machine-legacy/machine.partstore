@@ -8,7 +8,7 @@ namespace DependencyStore.Commands
   public class AddDependencyCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
-    private readonly IRepositoryRepository _repositoryRepository;
+    private readonly IRepositorySetRepository _repositorySetRepository;
     private string _projectToAdd;
 
     public string ProjectToAdd
@@ -17,17 +17,17 @@ namespace DependencyStore.Commands
       set { _projectToAdd = value; }
     }
 
-    public AddDependencyCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
+    public AddDependencyCommand(ICurrentProjectRepository currentProjectRepository, IRepositorySetRepository repositorySetRepository)
     {
-      _repositoryRepository = repositoryRepository;
+      _repositorySetRepository = repositorySetRepository;
       _currentProjectRepository = currentProjectRepository;
     }
 
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(false);
-      Repository repository = _repositoryRepository.FindDefaultRepository();
-      ArchivedProject dependency = repository.FindProject(this.ProjectToAdd);
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      ArchivedProject dependency = repositorySet.FindProject(this.ProjectToAdd);
       if (dependency == null)
       {
         Console.WriteLine("Project not found: {0}", this.ProjectToAdd);
@@ -36,7 +36,7 @@ namespace DependencyStore.Commands
       Console.WriteLine("Adding reference to {0} ({1})", dependency.Name, dependency.LatestVersion.CreatedAt);
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.AddReferenceToLatestVersion(dependency);
-      _currentProjectRepository.SaveCurrentProject(project, repository);
+      _currentProjectRepository.SaveCurrentProject(project, repositorySet);
       return CommandStatus.Success;
     }
   }

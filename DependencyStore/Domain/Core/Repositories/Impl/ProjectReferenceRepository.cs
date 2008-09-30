@@ -5,27 +5,27 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
 {
   public class ProjectReferenceRepository : IProjectReferenceRepository
   {
-    private readonly IRepositoryRepository _repositoryRepository;
+    private readonly IRepositorySetRepository _repositorySetRepository;
     private readonly IProjectRepository _projectRepository;
     private readonly IProjectManifestRepository _projectManifestRepository;
 
-    public ProjectReferenceRepository(IRepositoryRepository repositoryRepository, IProjectRepository projectRepository, IProjectManifestRepository projectManifestRepository)
+    public ProjectReferenceRepository(IRepositorySetRepository repositorySetRepository, IProjectRepository projectRepository, IProjectManifestRepository projectManifestRepository)
     {
-      _repositoryRepository = repositoryRepository;
+      _repositorySetRepository = repositorySetRepository;
       _projectRepository = projectRepository;
       _projectManifestRepository = projectManifestRepository;
     }
 
     public IList<ProjectReference> FindAllProjectReferences()
     {
-      Repository repository = _repositoryRepository.FindDefaultRepository();
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
       List<ProjectReference> references = new List<ProjectReference>();
       foreach (Project project in _projectRepository.FindAllProjects())
       {
         ProjectManifestStore manifestStore = _projectManifestRepository.FindProjectManifestStore(project);
         foreach (ProjectManifest manifest in manifestStore)
         {
-          ArchivedProject archivedProject = repository.FindProject(manifest);
+          ArchivedProject archivedProject = repositorySet.FindProject(manifest.ProjectName);
           if (archivedProject == null)
           {
             references.Add(BrokenProjectReference.MissingProject(manifest));

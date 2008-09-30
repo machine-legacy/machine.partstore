@@ -12,6 +12,18 @@ namespace DependencyStore.Domain.Core
       get { return _repositories; }
     }
 
+    public Repository DefaultRepository
+    {
+      get
+      {
+        if (_repositories.Count == 0)
+        {
+          throw new InvalidOperationException("No default repository!");
+        }
+        return _repositories[0];
+      }
+    }
+
     public RepositorySet(IEnumerable<Repository> repositories)
     {
       _repositories = new List<Repository>(repositories);
