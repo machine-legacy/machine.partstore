@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using Machine.Core.Utility;
+
 namespace DependencyStore.Domain.Core
 {
   public class ReferenceCandidate
@@ -8,7 +10,7 @@ namespace DependencyStore.Domain.Core
     private readonly string _projectName;
     private readonly string _repositoryName;
     private readonly Tags _tags;
-    private readonly DateTime _createdAtVersion;
+    private readonly DateTime _createdAt;
 
     public string ProjectName
     {
@@ -20,9 +22,14 @@ namespace DependencyStore.Domain.Core
       get { return _repositoryName; }
     }
 
-    public DateTime CreatedAtVersion
+    public DateTime CreatedAt
     {
-      get { return _createdAtVersion; }
+      get { return _createdAt; }
+    }
+
+    public string PrettyAge
+    {
+      get { return TimeSpanHelper.ToPrettyString(DateTime.Now - this.CreatedAt); }
     }
 
     public Tags Tags
@@ -30,12 +37,12 @@ namespace DependencyStore.Domain.Core
       get { return _tags; }
     }
 
-    public ReferenceCandidate(string repositoryName, string projectName, DateTime createdAtVersion, Tags tags)
+    public ReferenceCandidate(string repositoryName, string projectName, DateTime createdAt, Tags tags)
     {
       _repositoryName = repositoryName;
       _projectName = projectName;
       _tags = tags;
-      _createdAtVersion = createdAtVersion;
+      _createdAt = createdAt;
     }
   }
 }
