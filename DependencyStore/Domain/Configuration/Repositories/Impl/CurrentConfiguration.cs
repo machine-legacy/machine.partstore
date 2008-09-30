@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DependencyStore.Domain.FileSystem;
+
 namespace DependencyStore.Domain.Configuration.Repositories.Impl
 {
   public class CurrentConfiguration : ICurrentConfiguration
@@ -21,6 +23,12 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
         if (_defaultConfiguration == null)
         {
           _defaultConfiguration = _configurationRepository.FindAndRequireProjectConfiguration();
+          if (_defaultConfiguration.ProjectConfigurations.Count == 0)
+          {
+            Purl rootPath = _defaultConfiguration.ConfigurationPath.Parent;
+            ProjectStructure projectStructure = new ProjectStructure(rootPath);
+            _defaultConfiguration.ProjectConfigurations.Add(projectStructure.InferProjectConfiguration());
+          }
         }
         return _defaultConfiguration;
       }

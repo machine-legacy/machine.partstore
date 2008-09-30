@@ -7,12 +7,10 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
 {
   public class ProjectStructure
   {
-    private readonly IFileSystem _fileSystem;
     private readonly Purl _root;
 
-    public ProjectStructure(IFileSystem fileSystem,  Purl root)
+    public ProjectStructure(Purl root)
     {
-      _fileSystem = fileSystem;
       _root = root;
     }
 
@@ -57,7 +55,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       foreach (string candidate in relativeCandidates)
       {
         Purl path = _root.Join(candidate);
-        if (_fileSystem.IsDirectory(path.AsString))
+        if (Infrastructure.FileSystem.IsDirectory(path.AsString))
         {
           return path;
         }

@@ -43,12 +43,6 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       {
         return null;
       }
-      if (configuration.ProjectConfigurations.Count == 0)
-      {
-        Purl rootPath = new Purl(path).Parent;
-        ProjectStructure projectStructure = new ProjectStructure(_fileSystem, rootPath);
-        configuration.ProjectConfigurations.Add(projectStructure.InferProjectConfiguration());
-      }
       return configuration;
     }
 
