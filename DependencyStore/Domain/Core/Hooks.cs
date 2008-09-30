@@ -48,7 +48,7 @@ namespace DependencyStore.Domain.Core
 
     public void RunCommit(ArchivedProject project, ArchivedProjectVersion version)
     {
-      Run(FindRunnableHooks("post-commit"), _path.Parent.AsString, project.Name, version.CreatedAtVersion, version.RepositoryAlias);
+      Run(FindRunnableHooks("post-commit"), _path.Parent.AsString, project.Name, version.Number.AsString, version.RepositoryAlias);
     }
 
     public void RunRefresh()

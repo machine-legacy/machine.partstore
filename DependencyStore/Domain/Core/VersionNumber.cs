@@ -13,6 +13,11 @@ namespace DependencyStore.Domain.Core
       set { _timeStamp = value; }
     }
 
+    public string AsString
+    {
+      get { return _timeStamp.ToString("yyyyMMdd-HHmmssf"); }
+    }
+
     public VersionNumber()
     {
       _timeStamp = DateTime.UtcNow;

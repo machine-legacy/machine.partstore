@@ -45,11 +45,6 @@ namespace DependencyStore.Domain.Core
       set { _fileSet = value; }
     }
 
-    public string CreatedAtVersion
-    {
-      get { return DateTimeToUniqueString(_versionNumber.TimeStamp); }
-    }
-
     protected ArchivedProjectVersion()
     {
     }
@@ -65,13 +60,8 @@ namespace DependencyStore.Domain.Core
     public static ArchivedProjectVersion Create(Repository repository, ArchivedProject project, Tags tags)
     {
       VersionNumber version = new VersionNumber();
-      string repositoryAlias = project.Name + "-" + DateTimeToUniqueString(version.TimeStamp);
+      string repositoryAlias = project.Name + "-" + version.AsString;
       return new ArchivedProjectVersion(version, repositoryAlias, repository.RootPath.Join(repositoryAlias), tags);
-    }
-
-    private static string DateTimeToUniqueString(DateTime when)
-    {
-      return when.ToString("yyyyMMdd-HHmmssf");
     }
 
     public override string ToString()
