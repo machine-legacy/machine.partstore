@@ -43,17 +43,51 @@ namespace DependencyStore.Domain.Configuration
 
     public string FindConfigurationForCurrentProjectPath()
     {
-      string directory = Environment.CurrentDirectory;
-      while (directory != null)
+      foreach (string directory in WalkUpDirectories())
       {
         string wouldBe = Path.Combine(directory, FileName);
         if (_fileSystem.IsFile(wouldBe))
         {
           return wouldBe;
         }
-        directory = Path.GetDirectoryName(directory);
       }
       return null;
+    }
+
+    public string InferProjectRootDirectory()
+    {
+      foreach (string directory in WalkUpDirectories())
+      {
+        if (CouldBeProjectRootDirectory(directory))
+        {
+          return directory;
+        }
+      }
+      return null;
+    }
+
+    private static IEnumerable<string> WalkUpDirectories()
+    {
+      string directory = Environment.CurrentDirectory;
+      while (directory != null)
+      {
+        yield return directory;
+        directory = Path.GetDirectoryName(directory);
+      }
+    }
+
+    private bool CouldBeProjectRootDirectory(string directory)
+    {
+      string[] indicators = new string[] { ".git", ".gitignore", "rakefile.rb", "DependencyStore.config" };
+      foreach (string indicator in indicators)
+      {
+        string wouldBe = Path.Combine(directory, indicator);
+        if (_fileSystem.IsDirectory(wouldBe) || _fileSystem.IsFile(wouldBe))
+        {
+          return true;
+        }
+      }
+      return false;
     }
   }
 }
