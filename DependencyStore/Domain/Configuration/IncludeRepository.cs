@@ -23,6 +23,15 @@ namespace DependencyStore.Domain.Configuration
       get { return BuildDirectory(); }
     }
 
+    private IncludeRepository()
+    {
+    }
+
+    public IncludeRepository(string name)
+    {
+      _name = name;
+    }
+
     public virtual void EnsureValid()
     {
       if (String.IsNullOrEmpty(_name))

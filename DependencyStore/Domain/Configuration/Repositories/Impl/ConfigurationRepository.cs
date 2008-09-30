@@ -37,6 +37,19 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       }
       return configuration;
     }
+
+    public void SaveProjectConfiguration(DependencyStoreConfiguration configuration)
+    {
+      string path = _paths.InferPathToConfigurationForCurrentProject();
+      if (String.IsNullOrEmpty(path))
+      {
+        throw new InvalidOperationException("Unable to infer project root directory.");
+      }
+      using (StreamWriter writer = _fileSystem.CreateText(path))
+      {
+        writer.Write(_serializer.Serialize(configuration));
+      }
+    }
     #endregion
 
     private DependencyStoreConfiguration FindConfiguration(string configurationFile)
