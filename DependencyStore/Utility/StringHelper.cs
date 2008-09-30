@@ -34,6 +34,17 @@ namespace DependencyStore.Utility
       return String.Empty;
     }
 
+    public static IEnumerable<string> RemoveNulls(this IEnumerable<string> values)
+    {
+      foreach (string value in values)
+      {
+        if (value != null)
+        {
+          yield return value;
+        }
+      }
+    }
+
     public static string Join(this IEnumerable<string> values, string separator)
     {
       StringBuilder sb = new StringBuilder();
