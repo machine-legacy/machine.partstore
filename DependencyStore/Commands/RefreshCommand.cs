@@ -7,17 +7,22 @@ namespace DependencyStore.Commands
 {
   public class RefreshCommand : Command
   {
+    private readonly IRepositorySetRepository _repositorySetRepository;
     private readonly IRepositoryRepository _repositoryRepository;
 
-    public RefreshCommand(IRepositoryRepository repositoryRepository)
+    public RefreshCommand(IRepositorySetRepository repositorySetRepository, IRepositoryRepository repositoryRepository)
     {
+      _repositorySetRepository = repositorySetRepository;
       _repositoryRepository = repositoryRepository;
     }
 
     public override CommandStatus Run()
     {
-      Repository repository = _repositoryRepository.FindDefaultRepository();
-      _repositoryRepository.RefreshRepository(repository);
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      foreach (Repository repository in repositorySet.Repositories)
+      {
+        _repositoryRepository.RefreshRepository(repository);
+      }
       return CommandStatus.Success;
     }
   }
