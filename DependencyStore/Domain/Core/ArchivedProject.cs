@@ -28,7 +28,7 @@ namespace DependencyStore.Domain.Core
     {
       get
       {
-        _versions.Sort((x, y) => x.CreatedAtVersion.CompareTo(y.CreatedAtVersion));
+        _versions.Sort((x, y) => x.Number.TimeStamp.CompareTo(y.Number.TimeStamp));
         return _versions[_versions.Count - 1];
       }
     }
@@ -44,14 +44,14 @@ namespace DependencyStore.Domain.Core
 
     public ArchivedProjectVersion FindVersionInManifest(ProjectManifest manifest)
     {
-      return FindVersionByCreatedAt(manifest.VersionCreatedAt);
+      return FindVersionByCreatedAt(manifest.VersionNumber);
     }
 
-    public ArchivedProjectVersion FindVersionByCreatedAt(DateTime createdAt)
+    public ArchivedProjectVersion FindVersionByCreatedAt(VersionNumber number)
     {
       foreach (ArchivedProjectVersion existing in _versions)
       {
-        if (existing.CreatedAt.Equals(createdAt))
+        if (existing.Number.Equals(number))
         {
           return existing;
         }
@@ -61,16 +61,16 @@ namespace DependencyStore.Domain.Core
 
     public void AddVersion(ArchivedProjectVersion version)
     {
-      if (FindVersionByCreatedAt(version.CreatedAt) != null)
+      if (FindVersionByCreatedAt(version.Number) != null)
       {
-        throw new InvalidOperationException("Duplicate project versions: " + this.Name + "-" + version.CreatedAt);
+        throw new InvalidOperationException("Duplicate project versions: " + this.Name + "-" + version.Number.TimeStamp);
       }
       _versions.Add(version);
     }
 
     private ProjectManifest MakeManifest(ArchivedProjectVersion version)
     {
-      return new ProjectManifest(this.Name, version.CreatedAt);
+      return new ProjectManifest(this.Name, version.Number);
     }
 
     public ProjectManifest MakeManifestForLatestVersion()

@@ -94,6 +94,7 @@
     <Compile Include="Domain\Core\Repositories\Impl\RepositorySetRepository.cs" />
     <Compile Include="Domain\Core\Repositories\IRepositorySetRepository.cs" />
     <Compile Include="Domain\Core\RepositorySet.cs" />
+    <Compile Include="Domain\Core\VersionNumber.cs" />
     <Compile Include="Domain\FileSystem\CoreDomainEvents.cs" />
     <Compile Include="Domain\FileSystem\FileSetFactory.cs" />
     <Compile Include="Domain\FileSystem\Repositories\Impl\DataAccessExceptions.cs" />

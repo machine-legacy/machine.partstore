@@ -93,7 +93,7 @@ namespace DependencyStore.Domain.Core
     {
       foreach (ArchivedProject project in _projects)
       {
-        yield return new ReferenceCandidate(this.Name, project.Name, project.LatestVersion.CreatedAt, project.LatestVersion.Tags);
+        yield return new ReferenceCandidate(this.Name, project.Name, project.LatestVersion.Number, project.LatestVersion.Tags);
       }
     }
 

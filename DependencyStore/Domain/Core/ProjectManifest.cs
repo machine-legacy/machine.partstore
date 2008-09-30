@@ -10,7 +10,7 @@ namespace DependencyStore.Domain.Core
     public static readonly string Extension = "projref";
 
     private string _projectName;
-    private DateTime _versionCreatedAt;
+    private VersionNumber _versionNumber;
 
     public string ProjectName
     {
@@ -18,10 +18,10 @@ namespace DependencyStore.Domain.Core
       set { _projectName = value; }
     }
 
-    public DateTime VersionCreatedAt
+    public VersionNumber VersionNumber
     {
-      get { return _versionCreatedAt; }
-      set { _versionCreatedAt = value; }
+      get { return _versionNumber; }
+      set { _versionNumber = value; }
     }
 
     public string FileName
@@ -33,20 +33,20 @@ namespace DependencyStore.Domain.Core
     {
     }
 
-    public ProjectManifest(string name, DateTime versionCreatedAt)
+    public ProjectManifest(string projectName, VersionNumber version)
     {
-      _projectName = name;
-      _versionCreatedAt = versionCreatedAt;
+      _projectName = projectName;
+      _versionNumber = version;
     }
 
     public bool IsOlderThan(ArchivedProjectVersion version)
     {
-      return this.VersionCreatedAt < version.CreatedAt;
+      return this.VersionNumber.TimeStamp < version.Number.TimeStamp;
     }
 
     public bool IsSameVersionAs(ArchivedProjectVersion version)
     {
-      return this.VersionCreatedAt == version.CreatedAt;
+      return this.VersionNumber.Equals(version.Number);
     }
 
     public bool IsAcceptableFileName(Purl path)
@@ -56,7 +56,7 @@ namespace DependencyStore.Domain.Core
 
     public override string ToString()
     {
-      return "ProjectManifest<" + this.ProjectName + ", " + this.VersionCreatedAt + ">";
+      return "ProjectManifest<" + this.ProjectName + ", " + this.VersionNumber + ">";
     }
   }
 }

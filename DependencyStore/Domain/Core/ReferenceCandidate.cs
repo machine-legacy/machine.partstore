@@ -10,7 +10,7 @@ namespace DependencyStore.Domain.Core
     private readonly string _projectName;
     private readonly string _repositoryName;
     private readonly Tags _tags;
-    private readonly DateTime _createdAt;
+    private readonly VersionNumber _versionId;
 
     public string ProjectName
     {
@@ -22,14 +22,14 @@ namespace DependencyStore.Domain.Core
       get { return _repositoryName; }
     }
 
-    public DateTime CreatedAt
+    public VersionNumber VersionNumber
     {
-      get { return _createdAt; }
+      get { return _versionId; }
     }
 
     public string PrettyAge
     {
-      get { return TimeSpanHelper.ToPrettyString(DateTime.UtcNow - this.CreatedAt); }
+      get { return TimeSpanHelper.ToPrettyString(DateTime.UtcNow - _versionId.TimeStamp); }
     }
 
     public Tags Tags
@@ -37,12 +37,12 @@ namespace DependencyStore.Domain.Core
       get { return _tags; }
     }
 
-    public ReferenceCandidate(string repositoryName, string projectName, DateTime createdAt, Tags tags)
+    public ReferenceCandidate(string repositoryName, string projectName, VersionNumber versionId, Tags tags)
     {
       _repositoryName = repositoryName;
       _projectName = projectName;
       _tags = tags;
-      _createdAt = createdAt;
+      _versionId = versionId;
     }
   }
 }

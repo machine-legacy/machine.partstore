@@ -7,16 +7,16 @@ namespace DependencyStore.Domain.Core
 {
   public class ArchivedProjectVersion
   {
-    private DateTime _createdAt;
+    private VersionNumber _versionNumber;
     private string _repositoryAlias;
     private Tags _tags;
     private Purl _pathInRepository;
     private FileSet _fileSet;
 
-    public DateTime CreatedAt
+    public VersionNumber Number
     {
-      get { return _createdAt; }
-      set { _createdAt = value; }
+      get { return _versionNumber; }
+      set { _versionNumber = value; }
     }
 
     public string RepositoryAlias
@@ -47,16 +47,16 @@ namespace DependencyStore.Domain.Core
 
     public string CreatedAtVersion
     {
-      get { return DateTimeToUniqueString(_createdAt); }
+      get { return DateTimeToUniqueString(_versionNumber.TimeStamp); }
     }
 
     protected ArchivedProjectVersion()
     {
     }
 
-    protected ArchivedProjectVersion(DateTime createdAt, string archiveFileName, Purl pathInRepository, Tags tags)
+    protected ArchivedProjectVersion(VersionNumber version, string archiveFileName, Purl pathInRepository, Tags tags)
     {
-      _createdAt = createdAt;
+      _versionNumber = version;
       _repositoryAlias = archiveFileName;
       _pathInRepository = pathInRepository;
       _tags = tags;
@@ -64,9 +64,9 @@ namespace DependencyStore.Domain.Core
 
     public static ArchivedProjectVersion Create(Repository repository, ArchivedProject project, Tags tags)
     {
-      DateTime createdAt = DateTime.UtcNow;
-      string repositoryAlias = project.Name + "-" + DateTimeToUniqueString(createdAt);
-      return new ArchivedProjectVersion(createdAt, repositoryAlias, repository.RootPath.Join(repositoryAlias), tags);
+      VersionNumber version = new VersionNumber();
+      string repositoryAlias = project.Name + "-" + DateTimeToUniqueString(version.TimeStamp);
+      return new ArchivedProjectVersion(version, repositoryAlias, repository.RootPath.Join(repositoryAlias), tags);
     }
 
     private static string DateTimeToUniqueString(DateTime when)

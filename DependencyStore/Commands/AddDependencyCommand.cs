@@ -33,7 +33,7 @@ namespace DependencyStore.Commands
         Console.WriteLine("Project not found: {0}", this.ProjectToAdd);
         return CommandStatus.Failure;
       }
-      Console.WriteLine("Adding reference to {0} ({1})", dependency.Name, dependency.LatestVersion.CreatedAt);
+      Console.WriteLine("Adding reference to {0} ({1})", dependency.Name, dependency.LatestVersion.Number);
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.AddReferenceToLatestVersion(dependency);
       _currentProjectRepository.SaveCurrentProject(project, repositorySet);

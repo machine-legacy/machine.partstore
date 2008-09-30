@@ -5,7 +5,7 @@ namespace DependencyStore.Domain.Core
   public class ReferenceStatus
   {
     private readonly string _dependencyName;
-    private readonly DateTime _referencedVersionCreatedAt;
+    private readonly VersionNumber _referencedVersionNumber;
     private readonly Tags _referencedVersionTags;
     private readonly bool _isProjectMissing;
     private readonly bool _isReferencedVersionMissing;
@@ -19,9 +19,9 @@ namespace DependencyStore.Domain.Core
       get { return _dependencyName; }
     }
 
-    public DateTime ReferencedVersionCreatedAt
+    public VersionNumber ReferencedVersionNumber
     {
-      get { return _referencedVersionCreatedAt; }
+      get { return _referencedVersionNumber; }
     }
 
     public bool IsProjectMissing
@@ -69,19 +69,19 @@ namespace DependencyStore.Domain.Core
       get { return _referencedVersionTags; }
     }
 
-    protected ReferenceStatus(string dependencyName, DateTime referencedVersionCreatedAt, bool isProjectMissing, bool isReferencedVersionMissing)
+    protected ReferenceStatus(string dependencyName, VersionNumber referencedVersionNumber, bool isProjectMissing, bool isReferencedVersionMissing)
     {
       _dependencyName = dependencyName;
-      _referencedVersionCreatedAt = referencedVersionCreatedAt;
+      _referencedVersionNumber = referencedVersionNumber;
       _isProjectMissing = isProjectMissing;
       _isReferencedVersionMissing = isReferencedVersionMissing;
       _referencedVersionTags = Tags.None;
     }
 
-    protected ReferenceStatus(string dependencyName, DateTime referencedVersionCreatedAt, bool isToLatestVersion, bool isAnyVersionInstalled, bool isOlderVersionInstalled, bool isReferencedVersionInstalled, Tags referencedVersionTags)
+    protected ReferenceStatus(string dependencyName, VersionNumber referencedVersionNumber, bool isToLatestVersion, bool isAnyVersionInstalled, bool isOlderVersionInstalled, bool isReferencedVersionInstalled, Tags referencedVersionTags)
     {
       _dependencyName = dependencyName;
-      _referencedVersionCreatedAt = referencedVersionCreatedAt;
+      _referencedVersionNumber = referencedVersionNumber;
       _isToLatestVersion = isToLatestVersion;
       _isAnyVersionInstalled = isAnyVersionInstalled;
       _isOlderVersionInstalled = isOlderVersionInstalled;
@@ -95,17 +95,17 @@ namespace DependencyStore.Domain.Core
       bool isReferencedVersionInstalled = !dependencyDirectory.HasVersionOlderThan(version);
       bool isOlderVersionInstalled = dependencyDirectory.HasVersionOlderThan(version);
       bool isToLatestVersion = dependency.LatestVersion == version;
-      return new ReferenceStatus(dependency.Name, version.CreatedAt, isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled, version.Tags);
+      return new ReferenceStatus(dependency.Name, version.Number, isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled, version.Tags);
     }
 
     public static ReferenceStatus CreateMissingProject(ProjectManifest manifest)
     {
-      return new ReferenceStatus(manifest.ProjectName, manifest.VersionCreatedAt, true, true);
+      return new ReferenceStatus(manifest.ProjectName, manifest.VersionNumber, true, true);
     }
 
     public static ReferenceStatus CreateMissingVersion(ProjectManifest manifest)
     {
-      return new ReferenceStatus(manifest.ProjectName, manifest.VersionCreatedAt, false, true);
+      return new ReferenceStatus(manifest.ProjectName, manifest.VersionNumber, false, true);
     }
   }
 }
