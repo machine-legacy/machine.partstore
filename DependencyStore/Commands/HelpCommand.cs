@@ -14,6 +14,7 @@ namespace DependencyStore.Commands
       Console.WriteLine("  update --all --dry-run");
       Console.WriteLine("  publish --dry-run");
       Console.WriteLine("  search");
+      Console.WriteLine("  config");
       Console.WriteLine("  help");
       return CommandStatus.Success;
     }
