@@ -28,6 +28,11 @@ namespace DependencyStore.Commands
       new ArchiveProgressDisplayer(true);
       Repository repository = _repositoryRepository.FindDefaultRepository();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
+      if (!project.HasBuildDirectory)
+      {
+        Console.WriteLine("Current project has no Build directory configured.");
+        return CommandStatus.Failure;
+      }
       project.AddNewVersion(repository, new Tags(_tags));
       _repositoryRepository.SaveRepository(repository);
       return CommandStatus.Success;
