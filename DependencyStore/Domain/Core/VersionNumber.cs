@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Machine.Core.Utility;
 
 namespace DependencyStore.Domain.Core
 {
@@ -16,6 +17,11 @@ namespace DependencyStore.Domain.Core
     public string AsString
     {
       get { return _timeStamp.ToString("yyyyMMdd-HHmmssf"); }
+    }
+
+    public string PrettyString
+    {
+      get { return TimeSpanHelper.ToPrettyString(DateTime.UtcNow - this.TimeStamp); }
     }
 
     public VersionNumber()
