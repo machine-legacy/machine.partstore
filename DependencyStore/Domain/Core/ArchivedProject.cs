@@ -44,10 +44,10 @@ namespace DependencyStore.Domain.Core
 
     public ArchivedProjectVersion FindVersionInManifest(ProjectManifest manifest)
     {
-      return FindVersionByCreatedAt(manifest.VersionNumber);
+      return FindVersionByNumber(manifest.VersionNumber);
     }
 
-    public ArchivedProjectVersion FindVersionByCreatedAt(VersionNumber number)
+    public ArchivedProjectVersion FindVersionByNumber(VersionNumber number)
     {
       foreach (ArchivedProjectVersion existing in _versions)
       {
@@ -61,7 +61,7 @@ namespace DependencyStore.Domain.Core
 
     public void AddVersion(ArchivedProjectVersion version)
     {
-      if (FindVersionByCreatedAt(version.Number) != null)
+      if (FindVersionByNumber(version.Number) != null)
       {
         throw new InvalidOperationException("Duplicate project versions: " + this.Name + "-" + version.Number.TimeStamp);
       }
