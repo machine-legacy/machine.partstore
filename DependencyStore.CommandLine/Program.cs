@@ -10,7 +10,6 @@ using Machine.Container;
 using Machine.Core.Utility;
 
 using DependencyStore.Domain.Configuration;
-using DependencyStore.Domain.Core;
 using DependencyStore.Commands;
 
 namespace DependencyStore.CommandLine
@@ -50,6 +49,7 @@ namespace DependencyStore.CommandLine
         commandFactory.AddCommand<AddNewVersionCommand>("archive");
         commandFactory.AddCommand<SeachRepositoryCommand>("search");
         commandFactory.AddCommand<RefreshCommand>("refresh");
+        commandFactory.AddCommand<ConfigureCommand>("config");
         commandFactory.AddCommand<HelpCommand>("help");
         ICommand command = commandFactory.CreateCommand(commandName);
         
