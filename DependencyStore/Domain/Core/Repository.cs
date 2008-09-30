@@ -88,5 +88,13 @@ namespace DependencyStore.Domain.Core
       version.FileSet = FileSetFactory.CreateFileSetFrom(project.BuildDirectory);
       archivedProject.AddVersion(version);
     }
+
+    public IEnumerable<ReferenceCandidate> FindAllReferenceCandidates()
+    {
+      foreach (ArchivedProject project in _projects)
+      {
+        yield return new ReferenceCandidate(this.Name, project.Name, project.LatestVersion.CreatedAt, project.LatestVersion.Tags);
+      }
+    }
   }
 }

@@ -29,5 +29,15 @@ namespace DependencyStore.Domain.Core
       }
       return null;
     }
+
+    public IEnumerable<ReferenceCandidate> FindAllReferenceCandidates()
+    {
+      List<ReferenceCandidate> candidates = new List<ReferenceCandidate>();
+      foreach (Repository repository in _repositories)
+      {
+        candidates.AddRange(repository.FindAllReferenceCandidates());
+      }
+      return candidates;
+    }
   }
 }
