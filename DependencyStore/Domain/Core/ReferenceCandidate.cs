@@ -29,7 +29,7 @@ namespace DependencyStore.Domain.Core
 
     public string PrettyAge
     {
-      get { return TimeSpanHelper.ToPrettyString(DateTime.Now - this.CreatedAt); }
+      get { return TimeSpanHelper.ToPrettyString(DateTime.UtcNow - this.CreatedAt); }
     }
 
     public Tags Tags

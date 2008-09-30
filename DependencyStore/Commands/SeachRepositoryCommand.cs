@@ -19,7 +19,7 @@ namespace DependencyStore.Commands
       RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
       foreach (ReferenceCandidate candidate in repositorySet.FindAllReferenceCandidates())
       {
-        Console.WriteLine("{0} {1,-30} {2,-20} {3,-25}", candidate.RepositoryName, candidate.ProjectName, candidate.PrettyAge, candidate.CreatedAt);
+        Console.WriteLine("{0} {1,-30} {2,-20} {3,-25}", candidate.RepositoryName, candidate.ProjectName, candidate.PrettyAge, candidate.CreatedAt.ToLocalTime());
       }
       return CommandStatus.Success;
     }

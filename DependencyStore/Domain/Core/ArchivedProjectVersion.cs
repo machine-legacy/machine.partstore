@@ -64,7 +64,7 @@ namespace DependencyStore.Domain.Core
 
     public static ArchivedProjectVersion Create(Repository repository, ArchivedProject project, Tags tags)
     {
-      DateTime createdAt = DateTime.Now;
+      DateTime createdAt = DateTime.UtcNow;
       string repositoryAlias = project.Name + "-" + DateTimeToUniqueString(createdAt);
       return new ArchivedProjectVersion(createdAt, repositoryAlias, repository.RootPath.Join(repositoryAlias), tags);
     }
