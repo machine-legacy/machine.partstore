@@ -12,7 +12,7 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
 {
   public class RepositoryRepository : IRepositoryRepository
   {
-    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(ProjectRepository));
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(RepositoryRepository));
     private static readonly XmlSerializer<Repository> _serializer = new XmlSerializer<Repository>();
     private readonly ICurrentConfiguration _currentConfiguration;
     private readonly IFileSystem _fileSystem;
