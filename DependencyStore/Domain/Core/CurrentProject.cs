@@ -50,7 +50,7 @@ namespace DependencyStore.Domain.Core
       : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
       _manifests = manifests;
-      _references = Infrastructure.ProjectReferenceRepository.FindAllProjectReferences();
+      _references = Infrastructure.ProjectReferenceRepository.FindProjectReferences(this);
     }
 
     public ProjectReference AddReferenceToLatestVersion(ArchivedProject dependency)

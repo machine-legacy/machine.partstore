@@ -5,6 +5,6 @@ namespace DependencyStore.Domain.Core.Repositories
 {
   public interface IProjectReferenceRepository
   {
-    IList<ProjectReference> FindAllProjectReferences();
+    IList<ProjectReference> FindProjectReferences(Project project);
   }
 }
