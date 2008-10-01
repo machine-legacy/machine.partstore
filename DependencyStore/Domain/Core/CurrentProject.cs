@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using DependencyStore.Domain.FileSystem;
@@ -53,12 +53,19 @@ namespace DependencyStore.Domain.Core
       _references = Infrastructure.ProjectReferenceRepository.FindProjectReferences(this);
     }
 
-    public ProjectReference AddReferenceToLatestVersion(ArchivedProject dependency)
+    public ProjectReference AddReference(ArchivedProject project, ArchivedProjectVersion version)
     {
-      _manifests.AddManifestFor(dependency, dependency.LatestVersion);
-      ProjectReference projectReference = new HealthyProjectReference(this, dependency, dependency.LatestVersion);
+      _manifests.AddManifestFor(project, version);
+      ProjectReference projectReference = new HealthyProjectReference(this, project, version);
       _references.Add(projectReference);
       return projectReference;
+    }
+
+    public ProjectReference AddReference(RepositorySet set, ReferenceCandidate candidate)
+    {
+      ArchivedProject project = set.FindProject(candidate.ProjectName);
+      ArchivedProjectVersion version = project.FindVersionByNumber(candidate.VersionNumber);
+      return AddReference(project, version);
     }
 
     public void UnpackageIfNecessary(RepositorySet repositorySet)
