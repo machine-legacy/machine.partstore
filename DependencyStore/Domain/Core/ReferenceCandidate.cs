@@ -27,7 +27,7 @@ namespace DependencyStore.Domain.Core
 
     public string PrettyAge
     {
-      get { return _versionNumber.PrettyString; }
+      get { return _versionNumber.PrettyAge; }
     }
 
     public Tags Tags

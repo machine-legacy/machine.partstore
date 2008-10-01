@@ -19,9 +19,14 @@ namespace DependencyStore.Domain.Core
       get { return _timeStamp.ToString("yyyyMMdd-HHmmssf"); }
     }
 
+    public string PrettyAge
+    {
+      get { return TimeSpanHelper.ToPrettyString(DateTime.UtcNow - _timeStamp); }
+    }
+
     public string PrettyString
     {
-      get { return TimeSpanHelper.ToPrettyString(DateTime.UtcNow - this.TimeStamp); }
+      get { return this.TimeStamp.ToLocalTime().ToString(); }
     }
 
     public VersionNumber()
@@ -45,7 +50,7 @@ namespace DependencyStore.Domain.Core
 
     public override string ToString()
     {
-      return _timeStamp.ToString();
+      return "VersionNumber<" + _timeStamp + ">";
     }
   }
 }
