@@ -35,12 +35,50 @@ namespace DependencyStore.Domain.Core
       get { return _tags; }
     }
 
+    public ReferenceCandidate(string projectName)
+      : this(null, projectName, null, Tags.None)
+    {
+    }
+
     public ReferenceCandidate(string repositoryName, string projectName, VersionNumber versionNumber, Tags tags)
     {
       _repositoryName = repositoryName;
       _projectName = projectName;
       _tags = tags;
       _versionNumber = versionNumber;
+    }
+
+    public override bool Equals(object obj)
+    {
+      ReferenceCandidate other = obj as ReferenceCandidate;
+      if (other == null)
+      {
+        return false;
+      }
+      if (!EitherIsNullOrTheyAreEqual(this.RepositoryName, other.RepositoryName))
+      {
+        return false;
+      }
+      return this.ProjectName.Equals(other.ProjectName, StringComparison.InvariantCultureIgnoreCase);
+    }
+    
+    private static bool EitherIsNullOrTheyAreEqual(string v1, string v2)
+    {
+      if (v1 != null && v2 != null)
+      {
+        return v1.Equals(v2, StringComparison.InvariantCultureIgnoreCase);
+      }
+      return true;
+    }
+
+    public override int GetHashCode()
+    {
+      Int32 hashCode = _projectName.GetHashCode();
+      if (_repositoryName != null)
+      {
+        hashCode ^=_repositoryName.GetHashCode();
+      }
+      return hashCode;
     }
   }
 }
