@@ -24,18 +24,6 @@ namespace DependencyStore.Domain.Configuration
       get { return _repositories; }
     }
 
-    public IncludeRepository DefaultRepository
-    {
-      get
-      {
-        foreach (IncludeRepository repository in _repositories)
-        {
-          return repository;
-        }
-        throw new InvalidOperationException("No repositories!");
-      }
-    }
-
     [XmlIgnore]
     public FileAndDirectoryRules FileAndDirectoryRules
     {

@@ -6,7 +6,6 @@ using Machine.Core.Services;
 using Machine.Core.Utility;
 
 using DependencyStore.Domain.FileSystem;
-using DependencyStore.Domain.Configuration.Repositories;
 
 namespace DependencyStore.Domain.Core.Repositories.Impl
 {
@@ -14,29 +13,27 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
   {
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(RepositoryRepository));
     private static readonly XmlSerializer<Repository> _serializer = new XmlSerializer<Repository>();
-    private readonly ICurrentConfiguration _currentConfiguration;
     private readonly IFileSystem _fileSystem;
 
-    public RepositoryRepository(ICurrentConfiguration currentConfiguration, IFileSystem fileSystem)
+    public RepositoryRepository(IFileSystem fileSystem)
     {
-      _currentConfiguration = currentConfiguration;
       _fileSystem = fileSystem;
     }
 
     #region IRepositoryRepository Members
-    public Repository FindDefaultRepository()
+    public Repository FindRepository(Purl path)
     {
-      Purl path = _currentConfiguration.DefaultConfiguration.DefaultRepository.RepositoryDirectory.Join("Manifest.xml");
-      if (!_fileSystem.IsFile(path.AsString))
+      Purl manifestPath = path.Join("Manifest.xml");
+      if (!_fileSystem.IsFile(manifestPath.AsString))
       {
         Console.WriteLine("Creating new repository: " + path.AsString);
         _log.Info("Creating new repository: " + path.AsString);
-        return Hydrate(new Repository(), path);
+        return Hydrate(new Repository(), manifestPath);
       }
       _log.Info("Opening: " + path.AsString);
-      using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(path.AsString)))
+      using (StreamReader stream = new StreamReader(_fileSystem.OpenFile(manifestPath.AsString)))
       {
-        return Hydrate(_serializer.DeserializeString(stream.ReadToEnd()), path);
+        return Hydrate(_serializer.DeserializeString(stream.ReadToEnd()), manifestPath);
       }
     }
 
@@ -54,9 +51,9 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
     }
     #endregion
 
-    private static Repository Hydrate(Repository repository, Purl rootPath)
+    private static Repository Hydrate(Repository repository, Purl manifestPath)
     {
-      repository.RootPath = rootPath.Parent;
+      repository.RootPath = manifestPath.Parent;
       foreach (ArchivedProject project in repository.Projects)
       {
         foreach (ArchivedProjectVersion version in project.Versions)
@@ -94,7 +91,7 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
 
     private void SaveRepositoryManifest(Repository repository)
     {
-      Purl path = _currentConfiguration.DefaultConfiguration.DefaultRepository.RepositoryDirectory.Join("Manifest.xml");
+      Purl path = repository.RootPath.Join("Manifest.xml");
       _log.Info("Saving: " + path.AsString);
       using (StreamWriter stream = new StreamWriter(_fileSystem.CreateFile(path.AsString)))
       {
