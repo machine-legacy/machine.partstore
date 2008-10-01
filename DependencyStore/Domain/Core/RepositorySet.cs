@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using Machine.Core;
 
 namespace DependencyStore.Domain.Core
@@ -7,11 +8,6 @@ namespace DependencyStore.Domain.Core
   public class RepositorySet
   {
     private readonly List<Repository> _repositories;
-
-    public IEnumerable<Repository> Repositories
-    {
-      get { return _repositories; }
-    }
 
     public Repository DefaultRepository
     {
