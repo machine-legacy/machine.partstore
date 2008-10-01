@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Core.Repositories;
 
@@ -9,12 +10,19 @@ namespace DependencyStore.Commands
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
     private readonly IRepositorySetRepository _repositorySetRepository;
-    private string _projectToAdd;
+    private string _repositoryName;
+    private string _projectName;
 
-    public string ProjectToAdd
+    public string RepositoryName
     {
-      get { return _projectToAdd; }
-      set { _projectToAdd = value; }
+      get { return _repositoryName; }
+      set { _repositoryName = value; }
+    }
+
+    public string ProjectName
+    {
+      get { return _projectName; }
+      set { _projectName = value; }
     }
 
     public AddDependencyCommand(ICurrentProjectRepository currentProjectRepository, IRepositorySetRepository repositorySetRepository)
@@ -30,7 +38,7 @@ namespace DependencyStore.Commands
       List<ReferenceCandidate> candidates = FindReferenceCandidate(repositorySet);
       if (candidates.Count == 0)
       {
-        Console.WriteLine("Project not found: {0}", this.ProjectToAdd);
+        Console.WriteLine("Project not found: {0}", this.ProjectName);
         return CommandStatus.Failure;
       }
       if (candidates.Count > 1)
@@ -49,7 +57,7 @@ namespace DependencyStore.Commands
     private List<ReferenceCandidate> FindReferenceCandidate(RepositorySet repositorySet)
     {
       List<ReferenceCandidate> found = new List<ReferenceCandidate>();
-      ReferenceCandidate lookingFor = new ReferenceCandidate(this.ProjectToAdd);
+      ReferenceCandidate lookingFor = new ReferenceCandidate(this.ProjectName);
       foreach (ReferenceCandidate candidate in repositorySet.FindAllReferenceCandidates())
       {
         if (candidate.Equals(lookingFor))

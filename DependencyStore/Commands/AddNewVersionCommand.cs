@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Core.Repositories;
@@ -10,7 +11,14 @@ namespace DependencyStore.Commands
     private readonly ICurrentProjectRepository _currentProjectRepository;
     private readonly IRepositorySetRepository _repositorySetRepository;
     private readonly IRepositoryRepository _repositoryRepository;
+    private string _repositoryName;
     private string _tags;
+
+    public string RepositoryName
+    {
+      get { return _repositoryName; }
+      set { _repositoryName = value; }
+    }
 
     public string Tags
     {
@@ -28,14 +36,14 @@ namespace DependencyStore.Commands
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(true);
-      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
-      Repository repository = repositorySet.DefaultRepository;
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       if (!project.HasBuildDirectory)
       {
         Console.WriteLine("Current project has no Build directory configured.");
         return CommandStatus.Failure;
       }
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      Repository repository = repositorySet.DefaultRepository;
       project.AddNewVersion(repository, new Tags(_tags));
       _repositoryRepository.SaveRepository(repository);
       return CommandStatus.Success;

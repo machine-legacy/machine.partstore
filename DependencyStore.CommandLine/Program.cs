@@ -54,7 +54,7 @@ namespace DependencyStore.CommandLine
         ICommand command = commandFactory.CreateCommand(commandName);
         
         CommandLineOptionBinder bind = new CommandLineOptionBinder(parser, command);
-        bind.RequireFirst<AddDependencyCommand>(x => x.ProjectToAdd);
+        bind.RequireFirst<AddDependencyCommand>(x => x.ProjectName);
         bind.OptionalFirst<AddNewVersionCommand>(x => x.Tags);
 
         command.Run();
