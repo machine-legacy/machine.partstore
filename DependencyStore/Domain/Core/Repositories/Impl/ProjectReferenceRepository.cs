@@ -39,7 +39,8 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
           yield return BrokenProjectReference.MissingVersion(manifest);
           continue;
         }
-        yield return new HealthyProjectReference(project, archivedProject, version);
+        ArchivedProjectAndVersion archivedProjectAndVersion = new ArchivedProjectAndVersion(archivedProject, version);
+        yield return new HealthyProjectReference(project, archivedProjectAndVersion);
       }
     }
   }

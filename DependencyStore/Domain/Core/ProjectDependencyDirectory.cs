@@ -35,7 +35,7 @@ namespace DependencyStore.Domain.Core
     public void UpdateInstalledVersion(RepositorySet repositorySet, ArchivedProjectVersion version)
     {
       Repository.AccessStrategy.CheckoutVersionFromRepository(version, _path);
-      _manifests.AddManifestFor(_dependency, version);
+      _manifests.AddManifestFor(new ArchivedProjectAndVersion(_dependency, version));
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(_manifests);
     }
   }

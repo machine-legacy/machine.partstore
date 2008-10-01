@@ -53,19 +53,18 @@ namespace DependencyStore.Domain.Core
       _references = Infrastructure.ProjectReferenceRepository.FindProjectReferences(this);
     }
 
-    public ProjectReference AddReference(ArchivedProject project, ArchivedProjectVersion version)
+    public ProjectReference AddReference(ArchivedProjectAndVersion archivedProjectAndVersion)
     {
-      _manifests.AddManifestFor(project, version);
-      ProjectReference projectReference = new HealthyProjectReference(this, project, version);
+      _manifests.AddManifestFor(archivedProjectAndVersion);
+      ProjectReference projectReference = new HealthyProjectReference(this, archivedProjectAndVersion);
       _references.Add(projectReference);
       return projectReference;
     }
 
     public ProjectReference AddReference(RepositorySet set, ReferenceCandidate candidate)
     {
-      ArchivedProject project = set.FindProject(candidate.ProjectName);
-      ArchivedProjectVersion version = project.FindVersionByNumber(candidate.VersionNumber);
-      return AddReference(project, version);
+      ArchivedProjectAndVersion archivedProjectAndVersion = set.FindArchivedProjectAndVersion(candidate);
+      return AddReference(archivedProjectAndVersion);
     }
 
     public void UnpackageIfNecessary(RepositorySet repositorySet)

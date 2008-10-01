@@ -68,14 +68,9 @@ namespace DependencyStore.Domain.Core
       _versions.Add(version);
     }
 
-    private ProjectManifest MakeManifest(ArchivedProjectVersion version)
+    public ProjectManifest MakeManifestFor(ArchivedProjectAndVersion version)
     {
-      return new ProjectManifest(this.Name, version.Number);
-    }
-
-    public ProjectManifest MakeManifestForLatestVersion()
-    {
-      return MakeManifest(this.LatestVersion);
+      return new ProjectManifest(this.Name, version.Version.Number);
     }
 
     public override string ToString()

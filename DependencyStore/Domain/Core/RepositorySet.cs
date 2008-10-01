@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Machine.Core;
 
 namespace DependencyStore.Domain.Core
 {
@@ -50,6 +51,15 @@ namespace DependencyStore.Domain.Core
         candidates.AddRange(repository.FindAllReferenceCandidates());
       }
       return candidates;
+    }
+
+    public ArchivedProjectAndVersion FindArchivedProjectAndVersion(ReferenceCandidate referenceCandidate)
+    {
+      ArchivedProject project = FindProject(referenceCandidate.ProjectName);
+      if (project == null) throw new YouFoundABugException();
+      ArchivedProjectVersion version = project.FindVersionByNumber(referenceCandidate.VersionNumber);
+      if (version == null) throw new YouFoundABugException();
+      return new ArchivedProjectAndVersion(project, version);
     }
 
     public void Refresh()

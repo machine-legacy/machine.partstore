@@ -89,13 +89,13 @@ namespace DependencyStore.Domain.Core
       _referencedVersionTags = referencedVersionTags;
     }
 
-    public static ReferenceStatus Create(ArchivedProject dependency, ArchivedProjectVersion version, ProjectDependencyDirectory dependencyDirectory)
+    public static ReferenceStatus Create(ArchivedProjectAndVersion archivedProjectAndVersion, ProjectDependencyDirectory dependencyDirectory)
     {
       bool isAnyVersionInstalled = dependencyDirectory.IsAnythingInstalled;
-      bool isReferencedVersionInstalled = !dependencyDirectory.HasVersionOlderThan(version);
-      bool isOlderVersionInstalled = dependencyDirectory.HasVersionOlderThan(version);
-      bool isToLatestVersion = dependency.LatestVersion == version;
-      return new ReferenceStatus(dependency.Name, version.Number, isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled, version.Tags);
+      bool isReferencedVersionInstalled = !dependencyDirectory.HasVersionOlderThan(archivedProjectAndVersion.Version);
+      bool isOlderVersionInstalled = dependencyDirectory.HasVersionOlderThan(archivedProjectAndVersion.Version);
+      bool isToLatestVersion = archivedProjectAndVersion.Project.LatestVersion == archivedProjectAndVersion.Version;
+      return new ReferenceStatus(archivedProjectAndVersion.Project.Name, archivedProjectAndVersion.Version.Number, isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled, archivedProjectAndVersion.Version.Tags);
     }
 
     public static ReferenceStatus CreateMissingProject(ProjectManifest manifest)

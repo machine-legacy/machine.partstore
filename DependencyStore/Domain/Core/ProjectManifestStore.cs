@@ -47,10 +47,9 @@ namespace DependencyStore.Domain.Core
       return null;
     }
 
-    public void AddManifestFor(ArchivedProject project, ArchivedProjectVersion version)
+    public void AddManifestFor(ArchivedProjectAndVersion archivedProjectAndVersion)
     {
-      ProjectManifest manifest = project.MakeManifestForLatestVersion();
-      _manifests.Add(manifest);
+      _manifests.Add(archivedProjectAndVersion.Project.MakeManifestFor(archivedProjectAndVersion));
     }
   }
 }

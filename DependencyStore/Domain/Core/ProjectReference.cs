@@ -19,16 +19,14 @@ namespace DependencyStore.Domain.Core
   public class HealthyProjectReference : ProjectReference
   {
     private readonly Project _parentProject;
-    private readonly ArchivedProject _dependency;
-    private readonly ArchivedProjectVersion _version;
+    private readonly ArchivedProjectAndVersion _archivedProjectAndVersion;
     private readonly ProjectDependencyDirectory _installed;
 
-    public HealthyProjectReference(Project parentProject, ArchivedProject dependency, ArchivedProjectVersion version)
+    public HealthyProjectReference(Project parentProject, ArchivedProjectAndVersion archivedProjectAndVersion)
     {
       _parentProject = parentProject;
-      _dependency = dependency;
-      _version = version;
-      _installed = new ProjectDependencyDirectory(_parentProject, _dependency);
+      _archivedProjectAndVersion = archivedProjectAndVersion;
+      _installed = new ProjectDependencyDirectory(_parentProject, _archivedProjectAndVersion.Project);
     }
 
     private ProjectDependencyDirectory Installed
@@ -40,13 +38,13 @@ namespace DependencyStore.Domain.Core
     {
       if (this.Status.IsOlderVersionInstalled)
       {
-        this.Installed.UpdateInstalledVersion(repositorySet, _version);
+        this.Installed.UpdateInstalledVersion(repositorySet, _archivedProjectAndVersion.Version);
       }
     }
 
     public override ReferenceStatus Status
     {
-      get { return ReferenceStatus.Create(_dependency, _version, _installed); }
+      get { return ReferenceStatus.Create(_archivedProjectAndVersion, _installed); }
     }
   }
   public class BrokenProjectReference : ProjectReference
