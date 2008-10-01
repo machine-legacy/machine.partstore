@@ -39,7 +39,7 @@ namespace DependencyStore.Domain.Core
     {
       foreach (ProjectManifest manifest in _manifests)
       {
-        if (manifest.ProjectName == project.Name)
+        if (manifest.ProjectName.Equals(project.Name, StringComparison.InvariantCultureIgnoreCase))
         {
           return manifest;
         }
