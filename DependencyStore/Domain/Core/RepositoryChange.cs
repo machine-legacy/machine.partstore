@@ -7,23 +7,21 @@ namespace DependencyStore.Domain.Core
   }
   public class ProjectVersionAdded : RepositoryChange
   {
-    private readonly ArchivedProject _project;
-    private readonly ArchivedProjectVersion _version;
+    private readonly ArchivedProjectAndVersion _archivedProjectAndVersion;
 
     public ArchivedProject Project
     {
-      get { return _project; }
+      get { return _archivedProjectAndVersion.Project; }
     }
 
     public ArchivedProjectVersion Version
     {
-      get { return _version; }
+      get { return _archivedProjectAndVersion.Version; }
     }
 
-    public ProjectVersionAdded(ArchivedProject project, ArchivedProjectVersion version)
+    public ProjectVersionAdded(ArchivedProjectAndVersion archivedProjectAndVersion)
     {
-      _project = project;
-      _version = version;
+      _archivedProjectAndVersion = archivedProjectAndVersion;
     }
   }
 }

@@ -77,7 +77,7 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
           if (!Repository.AccessStrategy.IsVersionPresentInRepository(version))
           {
             _log.Info("New version of " + project + " is " + version);
-            changes.Add(new ProjectVersionAdded(project, version));
+            changes.Add(new ProjectVersionAdded(new ArchivedProjectAndVersion(project, version)));
           }
         }
       }
