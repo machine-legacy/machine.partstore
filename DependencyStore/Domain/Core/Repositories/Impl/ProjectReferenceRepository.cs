@@ -17,14 +17,16 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
     public IList<ProjectReference> FindProjectReferences(Project project)
     {
       RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      ProjectManifestStore manifestStore = _projectManifestRepository.FindProjectManifestStore(project);
       List<ProjectReference> references = new List<ProjectReference>();
-      references.AddRange(FindProjectReferences(repositorySet, project));
+      references.AddRange(ProjectReferenceFactory.FindProjectReferences(repositorySet, project, manifestStore));
       return references;
     }
-
-    private IEnumerable<ProjectReference> FindProjectReferences(RepositorySet repositorySet, Project project)
+  }
+  public class ProjectReferenceFactory
+  {
+    public static IEnumerable<ProjectReference> FindProjectReferences(RepositorySet repositorySet, Project project, ProjectManifestStore manifestStore)
     {
-      ProjectManifestStore manifestStore = _projectManifestRepository.FindProjectManifestStore(project);
       foreach (ProjectManifest manifest in manifestStore)
       {
         ArchivedProject archivedProject = repositorySet.FindProject(manifest.ProjectName);
