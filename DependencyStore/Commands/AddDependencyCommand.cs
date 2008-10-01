@@ -41,7 +41,7 @@ namespace DependencyStore.Commands
       ReferenceCandidate candidate = candidates[0];
       Console.WriteLine("Adding reference to {0} ({1})", candidate.ProjectName, candidate.VersionNumber.PrettyString);
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      project.AddReference(repositorySet, candidate);
+      project.AddReference(repositorySet.FindArchivedProjectAndVersion(candidate));
       _currentProjectRepository.SaveCurrentProject(project, repositorySet);
       return CommandStatus.Success;
     }

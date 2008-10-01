@@ -61,12 +61,6 @@ namespace DependencyStore.Domain.Core
       return projectReference;
     }
 
-    public ProjectReference AddReference(RepositorySet set, ReferenceCandidate candidate)
-    {
-      ArchivedProjectAndVersion archivedProjectAndVersion = set.FindArchivedProjectAndVersion(candidate);
-      return AddReference(archivedProjectAndVersion);
-    }
-
     public void UnpackageIfNecessary(RepositorySet repositorySet)
     {
       if (this.AreAllReferencesHealthy)
