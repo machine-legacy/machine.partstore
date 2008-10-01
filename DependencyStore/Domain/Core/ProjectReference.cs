@@ -58,7 +58,7 @@ namespace DependencyStore.Domain.Core
 
     public override void UnpackageIfNecessary(RepositorySet repositorySet)
     {
-      throw new InvalidOperationException("You can't Unpackage an unhealthy reference!");
+      throw new InvalidOperationException("You can't unpackage an unhealthy reference!");
     }
 
     public override ReferenceStatus Status

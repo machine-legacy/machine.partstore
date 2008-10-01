@@ -34,6 +34,11 @@ namespace DependencyStore.Domain.Core
       _timeStamp = DateTime.UtcNow;
     }
 
+    public bool IsOlderThan(VersionNumber versionNumber)
+    {
+      return this.TimeStamp < versionNumber.TimeStamp;
+    }
+
     public override bool Equals(object obj)
     {
       if (obj is VersionNumber)

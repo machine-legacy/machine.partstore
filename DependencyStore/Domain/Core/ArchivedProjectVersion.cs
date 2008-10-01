@@ -49,10 +49,10 @@ namespace DependencyStore.Domain.Core
     {
     }
 
-    protected ArchivedProjectVersion(VersionNumber version, string archiveFileName, Purl pathInRepository, Tags tags)
+    protected ArchivedProjectVersion(VersionNumber version, string repositoryAlias, Purl pathInRepository, Tags tags)
     {
       _versionNumber = version;
-      _repositoryAlias = archiveFileName;
+      _repositoryAlias = repositoryAlias;
       _pathInRepository = pathInRepository;
       _tags = tags;
     }
@@ -61,7 +61,8 @@ namespace DependencyStore.Domain.Core
     {
       VersionNumber version = new VersionNumber();
       string repositoryAlias = project.Name + "-" + version.AsString;
-      return new ArchivedProjectVersion(version, repositoryAlias, repository.RootPath.Join(repositoryAlias), tags);
+      Purl pathInRepository = repository.RootPath.Join(repositoryAlias);
+      return new ArchivedProjectVersion(version, repositoryAlias, pathInRepository, tags);
     }
 
     public override string ToString()

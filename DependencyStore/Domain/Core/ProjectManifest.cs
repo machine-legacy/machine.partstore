@@ -41,7 +41,7 @@ namespace DependencyStore.Domain.Core
 
     public bool IsOlderThan(ArchivedProjectVersion version)
     {
-      return this.VersionNumber.TimeStamp < version.Number.TimeStamp;
+      return this.VersionNumber.IsOlderThan(version.Number);
     }
 
     public bool IsSameVersionAs(ArchivedProjectVersion version)
