@@ -34,15 +34,6 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
       return manifestStore;
     }
 
-    public ProjectManifestStore FindProjectManifestStore(Project project)
-    {
-      if (project.HasLibraryDirectory)
-      {
-        return FindProjectManifestStore(project.LibraryDirectory);
-      }
-      return new ProjectManifestStore(project.LibraryDirectory, new List<ProjectManifest>());
-    }
-
     public void SaveProjectManifestStore(ProjectManifestStore projectManifestStore)
     {
       _log.Info("Saving: " + projectManifestStore.RootDirectory.AsString);
