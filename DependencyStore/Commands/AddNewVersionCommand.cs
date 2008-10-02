@@ -41,7 +41,20 @@ namespace DependencyStore.Commands
         return CommandStatus.Failure;
       }
       RepositorySet repositorySet = project.RepositorySet;
-      Repository repository = repositorySet.DefaultRepository;
+      Repository repository;
+      if (repositorySet.HasMoreThanOneRepository)
+      {
+        if (String.IsNullOrEmpty(this.RepositoryName))
+        {
+          Console.WriteLine("Repository to add new version to is required when you have more than 1 repository.");
+          return CommandStatus.Failure;
+        }
+        repository = repositorySet.FindRepositoryByName(this.RepositoryName);
+      }
+      else
+      {
+        repository = repositorySet.DefaultRepository;
+      }
       project.AddNewVersion(repository, new Tags(_tags));
       _repositoryRepository.SaveRepository(repository);
       return CommandStatus.Success;

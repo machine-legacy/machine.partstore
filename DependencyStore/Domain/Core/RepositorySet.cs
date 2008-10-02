@@ -21,6 +21,11 @@ namespace DependencyStore.Domain.Core
       }
     }
 
+    public bool HasMoreThanOneRepository
+    {
+      get { return _repositories.Count > 1; }
+    }
+
     public RepositorySet(IEnumerable<Repository> repositories)
     {
       _repositories = new List<Repository>(repositories);
@@ -64,6 +69,18 @@ namespace DependencyStore.Domain.Core
       {
         repository.Refresh();
       }
+    }
+
+    public Repository FindRepositoryByName(string name)
+    {
+      foreach (Repository repository in _repositories)
+      {
+        if (String.Equals(repository.Name, name, StringComparison.InvariantCultureIgnoreCase))
+        {
+          return repository;
+        }
+      }
+      throw new InvalidOperationException("No such repository: " + name);
     }
   }
 }
