@@ -70,17 +70,7 @@ namespace DependencyStore.Domain.Core
     {
       return FindProject(manifest.ProjectName);
     }
-    /*
-    public ArchivedProjectVersion FindProjectVersion(ProjectManifest manifest)
-    {
-      ArchivedProject project = FindProject(manifest);
-      if (project == null)
-      {
-        return null;
-      }
-      return project.FindVersionInManifest(manifest);
-    }
-    */
+
     public void AddNewVersion(Project project, Tags tags)
     {
       ArchivedProject archivedProject = FindOrCreateProject(project);
