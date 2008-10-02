@@ -32,8 +32,13 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
       {
         buildDirectory = projectConfiguration.Build.AsPurl;
       }
-      Purl libraryDirectory = projectConfiguration.Library.AsPurl;
-      ProjectManifestStore manifests = _projectManifestRepository.FindProjectManifestStore(libraryDirectory);
+      Purl libraryDirectory = null;
+      ProjectManifestStore manifests = ProjectManifestStore.Null;
+      if (projectConfiguration.Library != null)
+      {
+        libraryDirectory = projectConfiguration.Library.AsPurl;
+        manifests = _projectManifestRepository.FindProjectManifestStore(libraryDirectory);
+      }
       _log.Info("CurrentProject: " + projectConfiguration.Name + " in " + rootDirectory.AsString);
       return new CurrentProject(projectConfiguration.Name, rootDirectory, buildDirectory, libraryDirectory, repositorySet, manifests);
     }
