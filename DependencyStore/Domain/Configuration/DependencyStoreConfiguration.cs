@@ -38,6 +38,12 @@ namespace DependencyStore.Domain.Configuration
       set { _configurationPath = value; }
     }
 
+    [XmlIgnore]
+    public ProjectConfiguration CurrentProjectConfiguration
+    {
+      get { return _projectConfigurations[0]; }
+    }
+
     public virtual void EnsureValid()
     {
       foreach (IncludeRepository repository in _repositories)

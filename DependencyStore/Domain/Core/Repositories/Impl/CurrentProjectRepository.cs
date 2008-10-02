@@ -25,7 +25,7 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
     public CurrentProject FindCurrentProject()
     {
       RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
-      ProjectConfiguration projectConfiguration = _currentConfiguration.DefaultConfiguration.ProjectConfigurations[0];
+      ProjectConfiguration projectConfiguration = _currentConfiguration.DefaultConfiguration.CurrentProjectConfiguration;
       Purl rootDirectory = projectConfiguration.Root.AsPurl;
       Purl buildDirectory = null;
       if (projectConfiguration.Build != null)
