@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.FileSystem;
-
 namespace DependencyStore.Domain.Core
 {
   public class CurrentProject : Project
