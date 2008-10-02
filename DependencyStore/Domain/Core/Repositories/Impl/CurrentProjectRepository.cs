@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Configuration.Repositories;
-using DependencyStore.Domain.FileSystem;
 
 namespace DependencyStore.Domain.Core.Repositories.Impl
 {
@@ -26,17 +25,12 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
     {
       RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
       ProjectConfiguration projectConfiguration = _currentConfiguration.DefaultConfiguration.CurrentProjectConfiguration;
-      ProjectDirectory rootDirectory = new ProjectDirectory(projectConfiguration.Root.AsPurl);
-      ProjectDirectory buildDirectory = ProjectDirectory.Missing;
-      if (projectConfiguration.Build != null)
-      {
-        buildDirectory = new ProjectDirectory(projectConfiguration.Build.AsPurl);
-      }
-      ProjectDirectory libraryDirectory = ProjectDirectory.Missing;
+      ProjectDirectory rootDirectory = projectConfiguration.Root.ToProjectDirectory();
+      ProjectDirectory buildDirectory = projectConfiguration.Build.ToProjectDirectory();
+      ProjectDirectory libraryDirectory = projectConfiguration.Library.ToProjectDirectory();
       ProjectManifestStore manifests = ProjectManifestStore.Null;
-      if (projectConfiguration.Library != null)
+      if (!libraryDirectory.IsMissing)
       {
-        libraryDirectory = new ProjectDirectory(projectConfiguration.Library.AsPurl);
         manifests = _projectManifestRepository.FindProjectManifestStore(libraryDirectory.Path);
       }
       _log.Info("CurrentProject: " + projectConfiguration.Name + " in " + rootDirectory.Path.AsString);
@@ -55,5 +49,16 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(project.Manifests);
     }
     #endregion
+  }
+  public static class Mapping
+  {
+    public static ProjectDirectory ToProjectDirectory(this DirectoryConfiguration directoryConfiguration)
+    {
+      if (directoryConfiguration == null)
+      {
+        return ProjectDirectory.Missing;
+      }
+      return new ProjectDirectory(directoryConfiguration.AsPurl);
+    }
   }
 }
