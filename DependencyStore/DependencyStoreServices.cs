@@ -29,7 +29,6 @@ namespace DependencyStore
       register.Type<CurrentConfiguration>();
       
       register.Type<ProjectManifestRepository>();
-      register.Type<ProjectReferenceRepository>();
       register.Type<CurrentProjectRepository>();
       register.Type<RepositoryRepository>();
       register.Type<RepositorySetRepository>();

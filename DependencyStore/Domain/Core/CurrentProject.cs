@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using DependencyStore.Domain.Core.Repositories.Impl;
 using DependencyStore.Domain.FileSystem;
 
 namespace DependencyStore.Domain.Core
@@ -57,7 +57,7 @@ namespace DependencyStore.Domain.Core
     {
       _repositorySet = repositorySet;
       _manifests = manifests;
-      _references = Infrastructure.ProjectReferenceRepository.FindProjectReferences(this);
+      _references = new List<ProjectReference>(ProjectReferenceFactory.FindProjectReferences(repositorySet, this, manifests));
     }
 
     public ProjectReference AddReference(ArchivedProjectAndVersion archivedProjectAndVersion)

@@ -92,6 +92,7 @@
     <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
     <Compile Include="Domain\Core\ArchivedProjectAndVersion.cs" />
     <Compile Include="Domain\Core\ReferenceCandidate.cs" />
+    <Compile Include="Domain\Core\ProjectReferenceFactory.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\RepositorySetRepository.cs" />
     <Compile Include="Domain\Core\Repositories\IRepositorySetRepository.cs" />
     <Compile Include="Domain\Core\RepositorySet.cs" />
@@ -132,10 +133,8 @@
     <Compile Include="Domain\Configuration\Repositories\Impl\CurrentConfiguration.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\CurrentProjectRepository.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\ProjectManifestRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\Impl\ProjectReferenceRepository.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\RepositoryRepository.cs" />
     <Compile Include="Domain\Core\Repositories\IProjectManifestRepository.cs" />
-    <Compile Include="Domain\Core\Repositories\IProjectReferenceRepository.cs" />
     <Compile Include="Domain\Configuration\ConfigurationPaths.cs" />
     <Compile Include="Domain\Core\Repositories\IRepositoryRepository.cs" />
     <Compile Include="Domain\Core\NewProjectVersion.cs" />

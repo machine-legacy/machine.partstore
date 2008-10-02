@@ -14,11 +14,6 @@ namespace DependencyStore.Domain.Core
       get { return IoC.Container.Resolve.Object<IProjectManifestRepository>(); }
     }
 
-    public static IProjectReferenceRepository ProjectReferenceRepository
-    {
-      get { return IoC.Container.Resolve.Object<IProjectReferenceRepository>(); }
-    }
-
     public static IRepositoryRepository RepositoryRepository
     {
       get { return IoC.Container.Resolve.Object<IRepositoryRepository>(); }
