@@ -24,7 +24,7 @@ namespace DependencyStore.Domain.Core
 
     public bool HasBuildDirectory
     {
-      get { return _buildDirectory != null; }
+      get { return _buildDirectory != null && _buildDirectory != Purl.Null; }
     }
 
     public Purl BuildDirectory
@@ -41,7 +41,7 @@ namespace DependencyStore.Domain.Core
 
     public bool HasLibraryDirectory
     {
-      get { return _libraryDirectory != null; }
+      get { return _libraryDirectory != null && _libraryDirectory != Purl.Null; }
     }
 
     public Purl LibraryDirectory
