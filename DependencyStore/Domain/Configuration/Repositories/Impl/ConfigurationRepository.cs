@@ -53,6 +53,7 @@ namespace DependencyStore.Domain.Configuration.Repositories.Impl
       {
         throw new InvalidOperationException("Unable to infer project root directory.");
       }
+      configuration.ConfigurationPath = new Purl(path);
       using (StreamWriter writer = _fileSystem.CreateText(path))
       {
         writer.Write(_serializer.Serialize(configuration));
