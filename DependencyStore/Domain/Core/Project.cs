@@ -34,7 +34,7 @@ namespace DependencyStore.Domain.Core
 
     public Purl DependencyPackageDirectoryFor(ArchivedProject dependency)
     {
-      return this.LibraryDirectory.Path.Join(dependency.Name);
+      return this.LibraryDirectory.GetRelativeTo(dependency.Name);
     }
 
     public Project(string name, ProjectDirectory rootDirectory, ProjectDirectory buildDirectory, ProjectDirectory libraryDirectory)

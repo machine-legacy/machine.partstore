@@ -27,6 +27,21 @@ namespace DependencyStore.Domain.Core
       }
     }
 
+    public Purl GetRelativeTo(string relative)
+    {
+      return GetRelativeTo(new Purl(relative));
+    }
+
+    public Purl GetRelativeTo(Purl relative)
+    {
+      return this.Path.Join(relative);
+    }
+
+    public FileSet ToFileSet()
+    {
+      return FileSetFactory.CreateFileSetFrom(this.Path);
+    }
+
     public ProjectDirectory(Purl path)
     {
       _path = path;
