@@ -35,7 +35,7 @@ namespace DependencyStore.Commands
     {
       new ArchiveProgressDisplayer(true);
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      if (!project.HasBuildDirectory)
+      if (project.BuildDirectory.IsMissing)
       {
         Console.WriteLine("Current project has no Build directory configured.");
         return CommandStatus.Failure;

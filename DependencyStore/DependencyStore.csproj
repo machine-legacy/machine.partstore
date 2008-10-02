@@ -91,6 +91,7 @@
     <Compile Include="Domain\Configuration\Repositories\Impl\ProjectStructure.cs" />
     <Compile Include="Domain\Configuration\RootDirectoryConfiguration.cs" />
     <Compile Include="Domain\Core\ArchivedProjectAndVersion.cs" />
+    <Compile Include="Domain\Core\ProjectDirectory.cs" />
     <Compile Include="Domain\Core\ReferenceCandidate.cs" />
     <Compile Include="Domain\Core\ProjectReferenceFactory.cs" />
     <Compile Include="Domain\Core\Repositories\Impl\RepositorySetRepository.cs" />

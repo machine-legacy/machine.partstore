@@ -8,60 +8,36 @@ namespace DependencyStore.Domain.Core
   public class Project
   {
     private readonly string _name;
-    private readonly Purl _rootDirectory;
-    private readonly Purl _buildDirectory;
-    private readonly Purl _libraryDirectory;
+    private readonly ProjectDirectory _rootDirectory;
+    private readonly ProjectDirectory _buildDirectory;
+    private readonly ProjectDirectory _libraryDirectory;
 
     public string Name
     {
       get { return _name; }
     }
 
-    public Purl RootDirectory
+    public ProjectDirectory RootDirectory
     {
       get { return _rootDirectory; }
     }
 
-    public bool HasBuildDirectory
+    public ProjectDirectory BuildDirectory
     {
-      get { return _buildDirectory != null && _buildDirectory != Purl.Null; }
+      get { return _buildDirectory; }
     }
 
-    public Purl BuildDirectory
+    public ProjectDirectory LibraryDirectory
     {
-      get
-      {
-        if (!this.HasBuildDirectory)
-        {
-          throw new InvalidOperationException("Project's build directory is missing!");
-        }
-        return _buildDirectory;
-      }
-    }
-
-    public bool HasLibraryDirectory
-    {
-      get { return _libraryDirectory != null && _libraryDirectory != Purl.Null; }
-    }
-
-    public Purl LibraryDirectory
-    {
-      get
-      {
-        if (!this.HasLibraryDirectory)
-        {
-          throw new InvalidOperationException("Project's library directory is missing!");
-        }
-        return _libraryDirectory;
-      }
+      get { return _libraryDirectory; }
     }
 
     public Purl DependencyPackageDirectoryFor(ArchivedProject dependency)
     {
-      return this.LibraryDirectory.Join(dependency.Name);
+      return this.LibraryDirectory.Path.Join(dependency.Name);
     }
 
-    public Project(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory)
+    public Project(string name, ProjectDirectory rootDirectory, ProjectDirectory buildDirectory, ProjectDirectory libraryDirectory)
     {
       _name = name;
       _rootDirectory = rootDirectory;

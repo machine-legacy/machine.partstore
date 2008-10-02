@@ -85,7 +85,7 @@ namespace DependencyStore.Domain.Core
     {
       ArchivedProject archivedProject = FindOrCreateProject(project);
       ArchivedProjectVersion version = ArchivedProjectVersion.Create(this, archivedProject, tags);
-      version.FileSet = FileSetFactory.CreateFileSetFrom(project.BuildDirectory);
+      version.FileSet = FileSetFactory.CreateFileSetFrom(project.BuildDirectory.Path);
       archivedProject.AddVersion(version);
     }
 

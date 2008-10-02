@@ -52,7 +52,7 @@ namespace DependencyStore.Domain.Core
       }
     }
 
-    public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory, RepositorySet repositorySet, ProjectManifestStore manifests)
+    public CurrentProject(string name, ProjectDirectory rootDirectory, ProjectDirectory buildDirectory, ProjectDirectory libraryDirectory, RepositorySet repositorySet, ProjectManifestStore manifests)
       : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
       _repositorySet = repositorySet;
