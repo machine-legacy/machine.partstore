@@ -8,7 +8,13 @@ namespace DependencyStore.Domain.Core
   public class CurrentProject : Project
   {
     private readonly ProjectManifestStore _manifests;
+    private readonly RepositorySet _repositorySet;
     private readonly IList<ProjectReference> _references;
+
+    public RepositorySet RepositorySet
+    {
+      get { return _repositorySet; }
+    }
 
     public ProjectManifestStore Manifests
     {
@@ -46,9 +52,10 @@ namespace DependencyStore.Domain.Core
       }
     }
 
-    public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory, ProjectManifestStore manifests)
+    public CurrentProject(string name, Purl rootDirectory, Purl buildDirectory, Purl libraryDirectory, RepositorySet repositorySet, ProjectManifestStore manifests)
       : base(name, rootDirectory, buildDirectory, libraryDirectory)
     {
+      _repositorySet = repositorySet;
       _manifests = manifests;
       _references = Infrastructure.ProjectReferenceRepository.FindProjectReferences(this);
     }

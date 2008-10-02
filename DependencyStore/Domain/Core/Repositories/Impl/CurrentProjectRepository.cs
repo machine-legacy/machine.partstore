@@ -12,16 +12,19 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(CurrentProjectRepository));
     private readonly ICurrentConfiguration _currentConfiguration;
     private readonly IProjectManifestRepository _projectManifestRepository;
+    private readonly IRepositorySetRepository _repositorySetRepository;
 
-    public CurrentProjectRepository(ICurrentConfiguration currentConfiguration, IProjectManifestRepository projectManifestRepository)
+    public CurrentProjectRepository(ICurrentConfiguration currentConfiguration, IProjectManifestRepository projectManifestRepository, IRepositorySetRepository repositorySetRepository)
     {
       _currentConfiguration = currentConfiguration;
+      _repositorySetRepository = repositorySetRepository;
       _projectManifestRepository = projectManifestRepository;
     }
 
     #region ICurrentProjectRepository Members
     public CurrentProject FindCurrentProject()
     {
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
       ProjectConfiguration projectConfiguration = _currentConfiguration.DefaultConfiguration.ProjectConfigurations[0];
       Purl rootDirectory = projectConfiguration.Root.AsPurl;
       Purl buildDirectory = null;
@@ -32,16 +35,16 @@ namespace DependencyStore.Domain.Core.Repositories.Impl
       Purl libraryDirectory = projectConfiguration.Library.AsPurl;
       ProjectManifestStore manifests = _projectManifestRepository.FindProjectManifestStore(libraryDirectory);
       _log.Info("CurrentProject: " + projectConfiguration.Name + " in " + rootDirectory.AsString);
-      return new CurrentProject(projectConfiguration.Name, rootDirectory, buildDirectory, libraryDirectory, manifests);
+      return new CurrentProject(projectConfiguration.Name, rootDirectory, buildDirectory, libraryDirectory, repositorySet, manifests);
     }
 
-    public void SaveCurrentProject(CurrentProject project, RepositorySet repositorySet)
+    public void SaveCurrentProject(CurrentProject project)
     {
       foreach (ProjectReference projectReference in project.References)
       {
         if (projectReference.Status.IsOlderVersionInstalled)
         {
-          projectReference.UnpackageIfNecessary(repositorySet);
+          projectReference.UnpackageIfNecessary(project.RepositorySet);
         }
       }
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(project.Manifests);

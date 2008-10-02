@@ -9,7 +9,6 @@ namespace DependencyStore.Commands
   public class AddDependencyCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
-    private readonly IRepositorySetRepository _repositorySetRepository;
     private string _repositoryName;
     private string _projectName;
 
@@ -25,16 +24,16 @@ namespace DependencyStore.Commands
       set { _projectName = value; }
     }
 
-    public AddDependencyCommand(ICurrentProjectRepository currentProjectRepository, IRepositorySetRepository repositorySetRepository)
+    public AddDependencyCommand(ICurrentProjectRepository currentProjectRepository)
     {
-      _repositorySetRepository = repositorySetRepository;
       _currentProjectRepository = currentProjectRepository;
     }
 
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(false);
-      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      CurrentProject project = _currentProjectRepository.FindCurrentProject();
+      RepositorySet repositorySet = project.RepositorySet;
       List<ReferenceCandidate> candidates = FindReferenceCandidate(repositorySet);
       if (candidates.Count == 0)
       {
@@ -48,9 +47,8 @@ namespace DependencyStore.Commands
       }
       ReferenceCandidate candidate = candidates[0];
       Console.WriteLine("Adding reference to {0} ({1})", candidate.ProjectName, candidate.VersionNumber.PrettyString);
-      CurrentProject project = _currentProjectRepository.FindCurrentProject();
       project.AddReference(repositorySet.FindArchivedProjectAndVersion(candidate));
-      _currentProjectRepository.SaveCurrentProject(project, repositorySet);
+      _currentProjectRepository.SaveCurrentProject(project);
       return CommandStatus.Success;
     }
 

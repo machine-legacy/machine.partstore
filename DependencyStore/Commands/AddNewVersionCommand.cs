@@ -9,7 +9,6 @@ namespace DependencyStore.Commands
   public class AddNewVersionCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
-    private readonly IRepositorySetRepository _repositorySetRepository;
     private readonly IRepositoryRepository _repositoryRepository;
     private string _repositoryName;
     private string _tags;
@@ -26,11 +25,10 @@ namespace DependencyStore.Commands
       set { _tags = value; }
     }
 
-    public AddNewVersionCommand(ICurrentProjectRepository currentProjectRepository, IRepositorySetRepository repositorySetRepository, IRepositoryRepository repositoryRepository)
+    public AddNewVersionCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
     {
       _currentProjectRepository = currentProjectRepository;
       _repositoryRepository = repositoryRepository;
-      _repositorySetRepository = repositorySetRepository;
     }
 
     public override CommandStatus Run()
@@ -42,7 +40,7 @@ namespace DependencyStore.Commands
         Console.WriteLine("Current project has no Build directory configured.");
         return CommandStatus.Failure;
       }
-      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      RepositorySet repositorySet = project.RepositorySet;
       Repository repository = repositorySet.DefaultRepository;
       project.AddNewVersion(repository, new Tags(_tags));
       _repositoryRepository.SaveRepository(repository);

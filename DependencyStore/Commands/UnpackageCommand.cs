@@ -8,19 +8,17 @@ namespace DependencyStore.Commands
   public class UnpackageCommand : Command
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
-    private readonly IRepositorySetRepository _repositorySetRepository;
 
-    public UnpackageCommand(ICurrentProjectRepository currentProjectRepository, IRepositorySetRepository repositorySetRepository)
+    public UnpackageCommand(ICurrentProjectRepository currentProjectRepository)
     {
       _currentProjectRepository = currentProjectRepository;
-      _repositorySetRepository = repositorySetRepository;
     }
 
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(false);
-      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
+      RepositorySet repositorySet = project.RepositorySet;
       if (!project.AreAllReferencesHealthy)
       {
         Console.WriteLine("Not all project references are healthy!");
