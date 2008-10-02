@@ -18,7 +18,6 @@ namespace DependencyStore.Commands
     {
       new ArchiveProgressDisplayer(false);
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      RepositorySet repositorySet = project.RepositorySet;
       if (!project.AreAllReferencesHealthy)
       {
         Console.WriteLine("Not all project references are healthy!");
@@ -26,7 +25,7 @@ namespace DependencyStore.Commands
         Console.WriteLine("Use 'ds refresh' to download missing versions (maybe)");
         return CommandStatus.Failure;
       }
-      project.UnpackageIfNecessary(repositorySet);
+      project.UnpackageIfNecessary();
       return CommandStatus.Success;
     }
   }
