@@ -7,6 +7,7 @@ namespace DependencyStore.Domain.Core
 {
   public class ProjectManifestStore : IEnumerable<ProjectManifest>
   {
+    public static readonly ProjectManifestStore Null = new ProjectManifestStore(Purl.Null, new List<ProjectManifest>());
     private readonly Purl _path;
     private readonly IList<ProjectManifest> _manifests;
 
@@ -20,20 +21,6 @@ namespace DependencyStore.Domain.Core
       _path = path;
       _manifests = manifests;
     }
-
-    #region IEnumerable<ProjectManifest> Members
-    public IEnumerator<ProjectManifest> GetEnumerator()
-    {
-      return _manifests.GetEnumerator();
-    }
-    #endregion
-
-    #region IEnumerable Members
-    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-    #endregion
 
     public ProjectManifest ManifestFor(ArchivedProject project)
     {
@@ -51,5 +38,19 @@ namespace DependencyStore.Domain.Core
     {
       _manifests.Add(archivedProjectAndVersion.Project.MakeManifestFor(archivedProjectAndVersion));
     }
+
+    #region IEnumerable<ProjectManifest> Members
+    public IEnumerator<ProjectManifest> GetEnumerator()
+    {
+      return _manifests.GetEnumerator();
+    }
+    #endregion
+
+    #region IEnumerable Members
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
+    }
+    #endregion
   }
 }

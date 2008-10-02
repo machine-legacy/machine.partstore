@@ -13,6 +13,7 @@ namespace DependencyStore.Domain.FileSystem
   public class Purl
   {
     private readonly string _path;
+    public static readonly Purl Null = new Purl(String.Empty);
 
     public string AsString
     {
