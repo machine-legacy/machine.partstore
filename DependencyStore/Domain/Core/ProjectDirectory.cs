@@ -17,7 +17,14 @@ namespace DependencyStore.Domain.Core
 
     public Purl Path
     {
-      get { return _path; }
+      get
+      {
+        if (IsMissing)
+        {
+          throw new InvalidOperationException("Directory is missing, unconfigured, or just plain obscure!");
+        }
+        return _path;
+      }
     }
 
     public ProjectDirectory(Purl path)
