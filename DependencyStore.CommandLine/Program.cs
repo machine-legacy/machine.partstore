@@ -54,8 +54,10 @@ namespace DependencyStore.CommandLine
         ICommand command = commandFactory.CreateCommand(commandName);
         
         CommandLineOptionBinder bind = new CommandLineOptionBinder(parser, command);
-        bind.RequireFirst<AddDependencyCommand>(x => x.ProjectName);
-        bind.OptionalFirst<AddNewVersionCommand>(x => x.Tags);
+        bind.Required<AddDependencyCommand>(x => x.ProjectName, bind.Named("project"), bind.Named("p"), bind.First());
+        bind.Optional<AddDependencyCommand>(x => x.RepositoryName, bind.Named("repository"), bind.Named("r"));
+        bind.Optional<AddNewVersionCommand>(x => x.RepositoryName, bind.Named("repository"), bind.Named("r"));
+        bind.Optional<AddNewVersionCommand>(x => x.Tags, bind.Named("tags"), bind.Named("t"));
 
         command.Run();
 

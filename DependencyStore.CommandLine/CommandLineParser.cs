@@ -24,6 +24,18 @@ namespace DependencyStore.CommandLine
       get { return _options; }
     }
 
+    public NamedOption OptionFor(string name)
+    {
+      foreach (NamedOption option in _options)
+      {
+        if (option.Flag.Name == name)
+        {
+          return option;
+        }
+      }
+      return null;
+    }
+
     public void ParseCommandLine(string[] args)
     {
       NamedFlag lastFlag = null;
@@ -36,6 +48,14 @@ namespace DependencyStore.CommandLine
             _flags.Add(lastFlag);
           }
           lastFlag = new NamedFlag(arg.Substring(2));
+        }
+        else if (arg.StartsWith("-"))
+        {
+          if (lastFlag != null)
+          {
+            _flags.Add(lastFlag);
+          }
+          lastFlag = new NamedFlag(arg.Substring(1));
         }
         else
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -6,8 +7,73 @@ using DependencyStore.Commands;
 
 namespace DependencyStore.CommandLine
 {
+  public abstract class Binder
+  {
+    public abstract bool IsPresent();
+
+    public abstract string Value();
+  }
+
+  public class NamedOptionBinder : Binder
+  {
+    private readonly CommandLineParser _parser;
+    private readonly string _name;
+
+    public NamedOptionBinder(CommandLineParser parser, string name)
+    {
+      _parser = parser;
+      _name = name;
+    }
+
+    public override bool IsPresent()
+    {
+      return _parser.OptionFor(_name) != null;
+    }
+
+    public override string Value()
+    {
+      if (!IsPresent())
+      {
+        throw new InvalidOperationException();
+      }
+      return _parser.OptionFor(_name).Argument.Value;
+    }
+
+    public override string ToString()
+    {
+      return "argument named " + _name;
+    }
+  }
+
+  public class NthArgumentBinder : Binder
+  {
+    private readonly CommandLineParser _parser;
+    private readonly short _index = 0;
+
+    public NthArgumentBinder(CommandLineParser parser)
+    {
+      _parser = parser;
+    }
+
+    public override bool IsPresent()
+    {
+      return _index <= _parser.OrphanedArguments.Count - 1;
+    }
+
+    public override string Value()
+    {
+      return _parser.OrphanedArguments[_index].Value;
+    }
+
+    public override string ToString()
+    {
+      return "standard argument at " + _index;
+    }
+  }
+
   public class CommandLineOptionBinder
   {
+    private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(CommandLineOptionBinder));
     private readonly CommandLineParser _parser;
     private readonly ICommand _command;
 
@@ -17,29 +83,43 @@ namespace DependencyStore.CommandLine
       _command = command;
     }
 
-    public void RequireFirst<TTarget>(Expression<Func<TTarget, object>> property)
+    public NamedOptionBinder Named(string name)
     {
-      Nth(0, true, property);
+      return new NamedOptionBinder(_parser, name);
     }
 
-    public void OptionalFirst<TTarget>(Expression<Func<TTarget, object>> property)
+    public NthArgumentBinder First()
     {
-      Nth(0, false, property);
+      return new NthArgumentBinder(_parser);
     }
 
-    public void Nth<TTarget>(short i, bool required, Expression<Func<TTarget, object>> property)
+    public void Optional<TTarget>(Expression<Func<TTarget, object>> property, params Binder[] bindings)
+    {
+      Bind(false, bindings, property);
+    }
+
+    public void Required<TTarget>(Expression<Func<TTarget, object>> property, params Binder[] bindings)
+    {
+      Bind(true, bindings, property);
+    }
+
+    private void Bind<TTarget>(bool required, IEnumerable<Binder> bindings, Expression<Func<TTarget, object>> property)
     {
       if (!DoesBindingApply<TTarget>()) return;
-      if (i >= _parser.OrphanedArguments.Count)
+      foreach (Binder binder in bindings)
       {
-        if (required)
+        if (binder.IsPresent())
         {
-          throw new InvalidOperationException("Missing argument!");
+          _log.InfoFormat("Binding {0} to {1}", binder, property);
+          PropertyInfo info = (PropertyInfo)GetMemberInfo(property);
+          info.GetSetMethod().Invoke(_command, new object[] { binder.Value() });
+          return;
         }
-        return;
       }
-      PropertyInfo info = (PropertyInfo)GetMemberInfo(property);
-      info.GetSetMethod().Invoke(_command, new object[] { _parser.OrphanedArguments[i].Value });
+      if (required)
+      {
+        throw new InvalidOperationException("Missing argument!");
+      }
     }
 
     // Shamelessly ripped from Kzu....
