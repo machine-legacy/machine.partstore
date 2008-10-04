@@ -34,6 +34,7 @@ namespace DependencyStore.CommandLine
 
         CommandLineParser parser = new CommandLineParser();
         parser.ParseCommandLine(args);
+
         string commandName = "help";
         if (parser.OrphanedArguments.Count > 0)
         {

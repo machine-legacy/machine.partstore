@@ -7,6 +7,10 @@ using DependencyStore.Commands;
 
 namespace DependencyStore.CommandLine
 {
+  public interface IAcceptsArgumentBindings
+  {
+  }
+
   public abstract class Binder
   {
     public abstract bool IsPresent();
@@ -76,12 +80,12 @@ namespace DependencyStore.CommandLine
   {
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(CommandLineOptionBinder));
     private readonly CommandLineParser _parser;
-    private readonly ICommand _command;
+    private readonly object _target;
 
-    public CommandLineOptionBinder(CommandLineParser parser, ICommand command)
+    public CommandLineOptionBinder(CommandLineParser parser, object target)
     {
       _parser = parser;
-      _command = command;
+      _target = target;
     }
 
     public NamedOptionBinder Named(string name)
@@ -128,7 +132,7 @@ namespace DependencyStore.CommandLine
         {
           _log.InfoFormat("Binding {0} to {1}", binder, property);
           PropertyInfo info = (PropertyInfo)GetMemberInfo(property);
-          info.GetSetMethod().Invoke(_command, new object[] { binder.Value() });
+          info.GetSetMethod().Invoke(_target, new object[] { binder.Value() });
           return;
         }
       }
@@ -159,7 +163,7 @@ namespace DependencyStore.CommandLine
 
     private bool DoesBindingApply<TTarget>()
     {
-      return typeof(TTarget).IsInstanceOfType(_command);
+      return typeof(TTarget).IsInstanceOfType(_target);
     }
   }
 }
