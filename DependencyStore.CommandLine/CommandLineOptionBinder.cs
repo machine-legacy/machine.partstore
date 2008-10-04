@@ -48,11 +48,12 @@ namespace DependencyStore.CommandLine
   public class NthArgumentBinder : Binder
   {
     private readonly CommandLineParser _parser;
-    private readonly short _index = 0;
+    private readonly short _index;
 
-    public NthArgumentBinder(CommandLineParser parser)
+    public NthArgumentBinder(CommandLineParser parser, short index)
     {
       _parser = parser;
+      _index = index;
     }
 
     public override bool IsPresent()
@@ -90,7 +91,22 @@ namespace DependencyStore.CommandLine
 
     public NthArgumentBinder First()
     {
-      return new NthArgumentBinder(_parser);
+      return Nth(0);
+    }
+
+    public NthArgumentBinder Second()
+    {
+      return Nth(1);
+    }
+
+    public NthArgumentBinder Third()
+    {
+      return Nth(2);
+    }
+
+    public NthArgumentBinder Nth(short index)
+    {
+      return new NthArgumentBinder(_parser, index);
     }
 
     public void Optional<TTarget>(Expression<Func<TTarget, object>> property, params Binder[] bindings)
