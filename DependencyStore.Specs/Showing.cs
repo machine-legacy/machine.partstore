@@ -32,7 +32,7 @@ namespace DependencyStore
   }
 
   [Subject("Showing")]
-  public class when_showing_blank_project : with_configure_command
+  public class when_showing_blank_project : with_show_command
   {
     static CommandStatus status;
 

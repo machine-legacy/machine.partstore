@@ -10,6 +10,7 @@ using DependencyStore.Commands;
 using DependencyStore.Domain.FileSystem.Repositories.Impl;
 using DependencyStore.Domain.Configuration.Repositories.Impl;
 using DependencyStore.Domain.Core.Repositories.Impl;
+using DependencyStore.Application;
 
 namespace DependencyStore
 {
@@ -42,6 +43,8 @@ namespace DependencyStore
       register.Type<RefreshCommand>();
       register.Type<ConfigureCommand>();
       register.Type<HelpCommand>();
+
+      register.Type<ProjectState>();
     }
     #endregion
   }
