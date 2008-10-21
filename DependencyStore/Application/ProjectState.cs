@@ -30,7 +30,7 @@ namespace DependencyStore.Application
       return new CurrentProjectState(project.Name, references);
     }
 
-    public bool Configure(string defaultRepositoryName)
+    public ConfigureResponse Configure(string defaultRepositoryName)
     {
       DependencyStoreConfiguration configuration = _configurationRepository.FindProjectConfiguration();
       if (configuration == null)
@@ -39,7 +39,7 @@ namespace DependencyStore.Application
         configuration.Repositories.Add(new IncludeRepository(defaultRepositoryName));
       }
       _configurationRepository.SaveProjectConfiguration(configuration);
-      return true;
+      return new ConfigureResponse(configuration.ConfigurationPath.AsString);
     }
   }
 }

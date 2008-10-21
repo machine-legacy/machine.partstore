@@ -23,11 +23,12 @@ namespace DependencyStore.Commands
 
     public override CommandStatus Run()
     {
-      if (!_projectState.Configure(_repositoryName))
+      ConfigureResponse response = _projectState.Configure(_repositoryName);
+      if (!response.Success)
       {
         return CommandStatus.Failure;
       }
-      Console.WriteLine("Saved configuration...");
+      Console.WriteLine("Saved configuration: " + response.ConfigurationFile);
       return CommandStatus.Success;
     }
   }

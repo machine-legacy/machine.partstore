@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Application\AddingDependencyResponse.cs" />
     <Compile Include="Application\AddingVersionResponse.cs" />
+    <Compile Include="Application\ConfigureResponse.cs" />
     <Compile Include="Application\CurrentProjectState.cs" />
     <Compile Include="Application\IManipulateProjectDependencies.cs" />
     <Compile Include="Application\IManipulateRepositorySets.cs" />
