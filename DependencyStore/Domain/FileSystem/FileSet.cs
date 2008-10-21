@@ -71,6 +71,10 @@ namespace DependencyStore.Domain.FileSystem
     public Purl FindCommonDirectory()
     {
       List<string> strings = new List<string>();
+      if (_files.Count == 1)
+      {
+        return _files[0].Purl.Parent;
+      }
       foreach (FileAsset file in _files)
       {
         strings.Add(file.Purl.AsString);
