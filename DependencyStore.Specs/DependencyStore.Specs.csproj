@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="TestingProject.cs" />
     <Compile Include="TestingRepository.cs" />
+    <Compile Include="With_mock_repositories.cs" />
     <Compile Include="With_testing_repository.cs">
       <SubType>Code</SubType>
     </Compile>
