@@ -16,9 +16,13 @@ namespace DependencyStore
   }
 
   [Subject("Configuring")]
-  public class when_showing_a_blank_directory : with_show_command
+  public class when_showing_a_blank_directory : with_testing_repository_and_blank_directory
   {
     static CommandStatus status;
+    static ShowCommand command;
+
+    Establish context = () =>
+      command = container.Resolve.Object<ShowCommand>();
 
     Because of = () =>
       status = command.Run();

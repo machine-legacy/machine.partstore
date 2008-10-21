@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DependencyStore.Domain.Configuration.Repositories;
 using DependencyStore.Utility;
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Core.Repositories;
@@ -9,15 +10,22 @@ namespace DependencyStore.Commands
 {
   public class ShowCommand : Command
   {
+    private readonly IConfigurationRepository _configurationRepository;
     private readonly ICurrentProjectRepository _currentProjectRepository;
 
-    public ShowCommand(ICurrentProjectRepository currentProjectRepository)
+    public ShowCommand(ICurrentProjectRepository currentProjectRepository, IConfigurationRepository configurationRepository)
     {
       _currentProjectRepository = currentProjectRepository;
+      _configurationRepository = configurationRepository;
     }
 
     public override CommandStatus Run()
     {
+      if (_configurationRepository.FindProjectConfiguration() == null)
+      {
+        Console.WriteLine("Unable to find configuration!");
+        return CommandStatus.Failure;
+      }
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       Console.WriteLine("Current Project: {0}", project.Name);
       Console.WriteLine("References:");
