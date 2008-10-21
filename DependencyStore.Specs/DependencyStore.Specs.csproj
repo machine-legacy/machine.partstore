@@ -68,6 +68,7 @@
     <Compile Include="Domain\FileSystem\FileSystemDirectorySpecs.cs" />
     <Compile Include="Domain\FileSystem\FileSystemPathSpecs.cs" />
     <Compile Include="Domain\Configuration\IncludeExcludeRulesSpecs.cs" />
+    <Compile Include="Help.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="With_testing_repository.cs">
       <SubType>Code</SubType>
