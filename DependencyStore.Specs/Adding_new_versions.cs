@@ -28,21 +28,6 @@ namespace DependencyStore
   }
 
   [Subject("Adding new versions")]
-  public class when_adding_new_version_with_multiple_repositories_and_none_specified : with_add_new_version_command
-  {
-    static CommandStatus status;
-
-    Establish context = () =>
-      project.AddBuild();
-
-    Because of = () =>
-      status = command.Run();
-
-    It should_fail = () =>
-      status.ShouldEqual(CommandStatus.Failure);
-  }
-
-  [Subject("Adding new versions")]
   public class when_adding_new_version_to_blank_repository : with_add_new_version_command
   {
     static CommandStatus status;
