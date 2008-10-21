@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adding_dependencies.cs" />
     <Compile Include="Adding_new_versions.cs" />
     <Compile Include="Configuring.cs">
       <SubType>Code</SubType>

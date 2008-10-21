@@ -58,9 +58,7 @@ namespace DependencyStore
   {
     Establish context = () =>
     {
-      ConfigureCommand configure = container.Resolve.Object<ConfigureCommand>();
-      configure.RepositoryName = "TestRepository";
-      configure.Run();
+      project.Configure();
     };
   }
 }

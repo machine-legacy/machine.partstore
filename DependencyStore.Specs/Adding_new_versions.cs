@@ -32,6 +32,9 @@ namespace DependencyStore
   {
     static CommandStatus status;
 
+    Establish context = () =>
+      project.AddBuild();
+
     Because of = () =>
       status = command.Run();
 
@@ -52,6 +55,9 @@ namespace DependencyStore
 
     It should_succeed = () =>
       status.ShouldEqual(CommandStatus.Success);
+
+    It should_create_directories_in_the_repository = () =>
+      repository.NumberOfChildDirectories.ShouldEqual(1);
   }
 
   [Subject("Adding new versions")]
@@ -63,9 +69,15 @@ namespace DependencyStore
       project.AddBuild();
 
     Because of = () =>
+    {
       status = command.Run();
+      status = command.Run();
+    };
 
     It should_succeed = () =>
       status.ShouldEqual(CommandStatus.Success);
+
+    It should_create_directories_in_the_repository = () =>
+      repository.NumberOfChildDirectories.ShouldEqual(2);
   }
 }

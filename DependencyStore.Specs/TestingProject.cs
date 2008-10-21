@@ -1,6 +1,10 @@
 using System;
 using System.IO;
 
+using DependencyStore.Commands;
+
+using Machine.Container;
+
 namespace DependencyStore
 {
   public class TestingProject : DirectoryManipulator
@@ -40,6 +44,13 @@ namespace DependencyStore
     public void AddLibraries()
     {
       Directory.CreateDirectory(PathTo("Libraries"));
+    }
+
+    public void Configure()
+    {
+      ConfigureCommand configure = IoC.Container.Resolve.Object<ConfigureCommand>();
+      configure.RepositoryName = "TestRepository";
+      configure.Run();
     }
   }
 }
