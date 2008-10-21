@@ -60,10 +60,16 @@
       <HintPath>..\Libraries\Testing\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuring.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Domain\Configuration\FileAndDirectoryRulesSpecs.cs" />
     <Compile Include="Domain\FileSystem\FileSystemDirectorySpecs.cs" />
     <Compile Include="Domain\FileSystem\FileSystemPathSpecs.cs" />
