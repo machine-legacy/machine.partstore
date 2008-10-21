@@ -9,6 +9,13 @@ namespace DependencyStore.Commands
   public class ConfigureCommand : Command
   {
     private readonly IConfigurationRepository _configurationRepository;
+    private string _repositoryName = "Default";
+
+    public string RepositoryName
+    {
+      get { return _repositoryName; }
+      set { _repositoryName = value; }
+    }
 
     public ConfigureCommand(IConfigurationRepository configurationRepository)
     {
@@ -21,7 +28,7 @@ namespace DependencyStore.Commands
       if (configuration == null)
       {
         configuration = new DependencyStoreConfiguration();
-        configuration.Repositories.Add(new IncludeRepository("Default"));
+        configuration.Repositories.Add(new IncludeRepository(_repositoryName));
       }
       _configurationRepository.SaveProjectConfiguration(configuration);
       Console.WriteLine("Saved configuration " + configuration.ConfigurationPath.AsString);
