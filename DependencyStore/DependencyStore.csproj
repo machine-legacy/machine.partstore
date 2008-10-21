@@ -61,6 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\CurrentProjectState.cs" />
+    <Compile Include="Application\IProjectState.cs" />
+    <Compile Include="Application\ProjectState.cs" />
     <Compile Include="Commands\AddDependencyCommand.cs" />
     <Compile Include="Commands\ArchiveProgressDisplayer.cs" />
     <Compile Include="Commands\CommandFactory.cs" />
