@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Core.Repositories;
+using DependencyStore.Application;
 
 namespace DependencyStore.Commands
 {
   public class AddNewVersionCommand : Command
   {
-    private readonly ICurrentProjectRepository _currentProjectRepository;
-    private readonly IRepositoryRepository _repositoryRepository;
+    private readonly IManipulateRepositories _repositories;
     private string _repositoryName;
     private string _tags;
 
@@ -25,38 +23,25 @@ namespace DependencyStore.Commands
       set { _tags = value; }
     }
 
-    public AddNewVersionCommand(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
+    public AddNewVersionCommand(IManipulateRepositories repositories)
     {
-      _currentProjectRepository = currentProjectRepository;
-      _repositoryRepository = repositoryRepository;
+      _repositories = repositories;
     }
 
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(true);
-      CurrentProject project = _currentProjectRepository.FindCurrentProject();
-      if (project.BuildDirectory.IsMissing)
+      AddingVersionResponse response = _repositories.AddNewVersion(_repositoryName, _tags);
+      if (response.NoBuildDirectory)
       {
         Console.WriteLine("Current project has no Build directory configured.");
         return CommandStatus.Failure;
       }
-      RepositorySet repositorySet = project.RepositorySet;
-      Repository repository;
-      if (repositorySet.HasMoreThanOneRepository)
+      if (response.AmbiguousRepositoryName)
       {
-        if (String.IsNullOrEmpty(this.RepositoryName))
-        {
-          Console.WriteLine("Repository to add new version to is required when you have more than 1 repository.");
-          return CommandStatus.Failure;
-        }
-        repository = repositorySet.FindRepositoryByName(this.RepositoryName);
+        Console.WriteLine("Repository to add new version to is required when you have more than 1 repository.");
+        return CommandStatus.Failure;
       }
-      else
-      {
-        repository = repositorySet.DefaultRepository;
-      }
-      project.AddNewVersion(repository, new Tags(_tags));
-      _repositoryRepository.SaveRepository(repository);
       return CommandStatus.Success;
     }
   }

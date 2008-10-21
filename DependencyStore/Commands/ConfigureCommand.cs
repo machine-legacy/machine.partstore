@@ -7,7 +7,7 @@ namespace DependencyStore.Commands
 {
   public class ConfigureCommand : Command
   {
-    private readonly IProjectState _projectState;
+    private readonly IAmForProjectState _projectState;
     private string _repositoryName = "Default";
 
     public string RepositoryName
@@ -16,7 +16,7 @@ namespace DependencyStore.Commands
       set { _repositoryName = value; }
     }
 
-    public ConfigureCommand(IProjectState projectState)
+    public ConfigureCommand(IAmForProjectState projectState)
     {
       _projectState = projectState;
     }

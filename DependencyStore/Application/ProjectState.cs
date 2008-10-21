@@ -8,7 +8,7 @@ using DependencyStore.Domain.Core.Repositories;
 
 namespace DependencyStore.Application
 {
-  public class ProjectState : IProjectState
+  public class ProjectState : IAmForProjectState
   {
     private readonly IConfigurationRepository _configurationRepository;
     private readonly ICurrentProjectRepository _currentProjectRepository;

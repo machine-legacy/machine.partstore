@@ -61,8 +61,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\AddingDependencyResponse.cs" />
+    <Compile Include="Application\AddingVersionResponse.cs" />
     <Compile Include="Application\CurrentProjectState.cs" />
-    <Compile Include="Application\IProjectState.cs" />
+    <Compile Include="Application\IManipulateProjectDependencies.cs" />
+    <Compile Include="Application\IManipulateRepositories.cs" />
+    <Compile Include="Application\IAmForProjectState.cs" />
+    <Compile Include="Application\ManipulatingProjectDependencies.cs" />
+    <Compile Include="Application\ManipulatingRepositories.cs" />
     <Compile Include="Application\ProjectState.cs" />
     <Compile Include="Commands\AddDependencyCommand.cs" />
     <Compile Include="Commands\ArchiveProgressDisplayer.cs" />

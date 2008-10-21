@@ -9,9 +9,9 @@ namespace DependencyStore.Commands
 {
   public class ShowCommand : Command
   {
-    private readonly IProjectState _projectState;
+    private readonly IAmForProjectState _projectState;
 
-    public ShowCommand(IProjectState projectState)
+    public ShowCommand(IAmForProjectState projectState)
     {
       _projectState = projectState;
     }
