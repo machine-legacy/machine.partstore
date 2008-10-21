@@ -6,11 +6,11 @@ using DependencyStore.Domain.Core.Repositories;
 
 namespace DependencyStore.Application
 {
-  public class ManipulatingProjectDependencies : IManipulateProjectDependencies
+  public class ProjectDependencies : IManipulateProjectDependencies
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
 
-    public ManipulatingProjectDependencies(ICurrentProjectRepository currentProjectRepository)
+    public ProjectDependencies(ICurrentProjectRepository currentProjectRepository)
     {
       _currentProjectRepository = currentProjectRepository;
     }

@@ -7,7 +7,7 @@ namespace DependencyStore.Commands
 {
   public class AddNewVersionCommand : Command
   {
-    private readonly IManipulateRepositories _repositories;
+    private readonly IManipulateRepositorySets _repositorySets;
     private string _repositoryName;
     private string _tags;
 
@@ -23,15 +23,15 @@ namespace DependencyStore.Commands
       set { _tags = value; }
     }
 
-    public AddNewVersionCommand(IManipulateRepositories repositories)
+    public AddNewVersionCommand(IManipulateRepositorySets repositorySets)
     {
-      _repositories = repositories;
+      _repositorySets = repositorySets;
     }
 
     public override CommandStatus Run()
     {
       new ArchiveProgressDisplayer(true);
-      AddingVersionResponse response = _repositories.AddNewVersion(_repositoryName, _tags);
+      AddingVersionResponse response = _repositorySets.AddNewVersion(_repositoryName, _tags);
       if (response.NoBuildDirectory)
       {
         Console.WriteLine("Current project has no Build directory configured.");

@@ -6,13 +6,13 @@ using DependencyStore.Domain.Core.Repositories;
 
 namespace DependencyStore.Application
 {
-  public class ManipulatingRepositories : IManipulateRepositories
+  public class RepositorySets : IManipulateRepositorySets
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
     private readonly IRepositoryRepository _repositoryRepository;
     private readonly IRepositorySetRepository _repositorySetRepository;
 
-    public ManipulatingRepositories(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository, IRepositorySetRepository repositorySetRepository)
+    public RepositorySets(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository, IRepositorySetRepository repositorySetRepository)
     {
       _currentProjectRepository = currentProjectRepository;
       _repositorySetRepository = repositorySetRepository;

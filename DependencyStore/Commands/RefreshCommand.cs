@@ -6,16 +6,16 @@ namespace DependencyStore.Commands
 {
   public class RefreshCommand : Command
   {
-    private readonly IManipulateRepositories _repositories;
+    private readonly IManipulateRepositorySets _repositorySets;
 
-    public RefreshCommand(IManipulateRepositories repositories)
+    public RefreshCommand(IManipulateRepositorySets repositorySets)
     {
-      _repositories = repositories;
+      _repositorySets = repositorySets;
     }
 
     public override CommandStatus Run()
     {
-      if (!_repositories.Refresh())
+      if (!_repositorySets.Refresh())
       {
         return CommandStatus.Failure;
       }

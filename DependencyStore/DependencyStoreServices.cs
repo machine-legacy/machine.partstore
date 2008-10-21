@@ -45,8 +45,8 @@ namespace DependencyStore
       register.Type<HelpCommand>();
 
       register.Type<ProjectState>();
-      register.Type<ManipulatingRepositories>();
-      register.Type<ManipulatingProjectDependencies>();
+      register.Type<RepositorySets>();
+      register.Type<ProjectDependencies>();
     }
     #endregion
   }
