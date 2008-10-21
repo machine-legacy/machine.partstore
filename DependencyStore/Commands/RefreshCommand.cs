@@ -1,23 +1,24 @@
 using System;
 
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Core.Repositories;
+using DependencyStore.Application;
 
 namespace DependencyStore.Commands
 {
   public class RefreshCommand : Command
   {
-    private readonly IRepositorySetRepository _repositorySetRepository;
+    private readonly IManipulateRepositories _repositories;
 
-    public RefreshCommand(IRepositorySetRepository repositorySetRepository)
+    public RefreshCommand(IManipulateRepositories repositories)
     {
-      _repositorySetRepository = repositorySetRepository;
+      _repositories = repositories;
     }
 
     public override CommandStatus Run()
     {
-      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
-      repositorySet.Refresh();
+      if (!_repositories.Refresh())
+      {
+        return CommandStatus.Failure;
+      }
       return CommandStatus.Success;
     }
   }

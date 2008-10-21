@@ -10,10 +10,12 @@ namespace DependencyStore.Application
   {
     private readonly ICurrentProjectRepository _currentProjectRepository;
     private readonly IRepositoryRepository _repositoryRepository;
+    private readonly IRepositorySetRepository _repositorySetRepository;
 
-    public ManipulatingRepositories(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository)
+    public ManipulatingRepositories(ICurrentProjectRepository currentProjectRepository, IRepositoryRepository repositoryRepository, IRepositorySetRepository repositorySetRepository)
     {
       _currentProjectRepository = currentProjectRepository;
+      _repositorySetRepository = repositorySetRepository;
       _repositoryRepository = repositoryRepository;
     }
 
@@ -42,6 +44,13 @@ namespace DependencyStore.Application
       project.AddNewVersion(repository, new Tags(tags));
       _repositoryRepository.SaveRepository(repository);
       return new AddingVersionResponse(false, false);
+    }
+    
+    public bool Refresh()
+    {
+      RepositorySet repositorySet = _repositorySetRepository.FindDefaultRepositorySet();
+      repositorySet.Refresh();
+      return true;
     }
     #endregion
   }
