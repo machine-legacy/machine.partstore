@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Configuration;
-using DependencyStore.Domain.Configuration.Repositories;
+using DependencyStore.Application;
 
 namespace DependencyStore.Commands
 {
   public class ConfigureCommand : Command
   {
-    private readonly IConfigurationRepository _configurationRepository;
+    private readonly IProjectState _projectState;
     private string _repositoryName = "Default";
 
     public string RepositoryName
@@ -17,21 +16,18 @@ namespace DependencyStore.Commands
       set { _repositoryName = value; }
     }
 
-    public ConfigureCommand(IConfigurationRepository configurationRepository)
+    public ConfigureCommand(IProjectState projectState)
     {
-      _configurationRepository = configurationRepository;
+      _projectState = projectState;
     }
 
     public override CommandStatus Run()
     {
-      DependencyStoreConfiguration configuration = _configurationRepository.FindProjectConfiguration();
-      if (configuration == null)
+      if (!_projectState.Configure(_repositoryName))
       {
-        configuration = new DependencyStoreConfiguration();
-        configuration.Repositories.Add(new IncludeRepository(_repositoryName));
+        return CommandStatus.Failure;
       }
-      _configurationRepository.SaveProjectConfiguration(configuration);
-      Console.WriteLine("Saved configuration " + configuration.ConfigurationPath.AsString);
+      Console.WriteLine("Saved configuration...");
       return CommandStatus.Success;
     }
   }

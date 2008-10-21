@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Configuration.Repositories;
 using DependencyStore.Domain.Core;
 using DependencyStore.Domain.Core.Repositories;
@@ -27,6 +28,18 @@ namespace DependencyStore.Application
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       IEnumerable<ReferenceStatus> references = project.ReferenceStatuses;
       return new CurrentProjectState(project.Name, references);
+    }
+
+    public bool Configure(string defaultRepositoryName)
+    {
+      DependencyStoreConfiguration configuration = _configurationRepository.FindProjectConfiguration();
+      if (configuration == null)
+      {
+        configuration = new DependencyStoreConfiguration();
+        configuration.Repositories.Add(new IncludeRepository(defaultRepositoryName));
+      }
+      _configurationRepository.SaveProjectConfiguration(configuration);
+      return true;
     }
   }
 }
