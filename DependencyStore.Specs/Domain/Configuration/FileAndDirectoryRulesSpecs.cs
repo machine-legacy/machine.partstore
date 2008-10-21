@@ -1,33 +1,30 @@
 using System;
 using System.Collections.Generic;
 
-using Machine.Testing;
+using Machine.Specifications;
 
 using NUnit.Framework;
 
 namespace DependencyStore.Domain.Configuration
 {
-  [TestFixture]
-  public class FileAndDirectoryRulesSpecs : TestsFor<FileAndDirectoryRules>
+  [Subject("Tests that became specs")]
+  public class FileAndDirectoryRulesSpecs
   {
-    private FileAndDirectoryRules _target;
+    static FileAndDirectoryRules _target;
 
-    [Test]
-    public void Ctor_always_creates_file_rules_with_default_exclude()
+    Establish context = () =>
+    {
+      _target = new FileAndDirectoryRules();
+    };
+
+    It Ctor_always_creates_file_rules_with_default_exclude = () =>
     {
       Assert.AreEqual(IncludeExclude.Exclude, _target.FileRules.Default);
-    }
+    };
 
-    [Test]
-    public void Ctor_always_creates_directory_rules_with_default_include()
+    It Ctor_always_creates_directory_rules_with_default_include = () =>
     {
-      Assert.AreEqual(IncludeExclude.Include, _target.DirectoryRules.Default);
-    }
-
-    public override void BeforeEachTest()
-    {
-      base.BeforeEachTest();
-      _target = new FileAndDirectoryRules();
-    }
+      Assert.AreEqual(IncludeExclude.Include, _target.DirectoryRules. Default);
+    };
   }
 }
