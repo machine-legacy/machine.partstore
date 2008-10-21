@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+
 using DependencyStore.Commands;
+
 using Machine.Specifications;
 
 namespace DependencyStore
@@ -17,7 +19,6 @@ namespace DependencyStore
   public class when_showing_a_blank_directory : with_show_command
   {
     static CommandStatus status;
-    static Exception error;
 
     Because of = () =>
       status = command.Run();

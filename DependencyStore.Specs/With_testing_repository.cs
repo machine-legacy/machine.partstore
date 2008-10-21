@@ -1,6 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
+
+using DependencyStore.Commands;
+
 using Machine.Container;
 using Machine.Specifications;
 
@@ -37,7 +38,7 @@ namespace DependencyStore
     };
   }
 
-  public class with_testing_repository_and_blank_project : with_testing_repository
+  public class with_testing_repository_and_blank_directory : with_testing_repository
   {
     protected static TestingProject project;
 
@@ -53,76 +54,13 @@ namespace DependencyStore
     };
   }
 
-  public class TestingRepository
+  public class with_testing_repository_and_blank_project : with_testing_repository_and_blank_directory
   {
-    private readonly string _directory;
-
-    public string RootDirectory
+    Establish context = () =>
     {
-      get { return _directory; }
-    }
-
-    public TestingRepository()
-    {
-      _directory = Path.Combine(Path.GetTempPath(), "TestRepository");
-      Directory.CreateDirectory(_directory);
-    }
-
-    public void Cleanup()
-    {
-      Directory.Delete(_directory);
-    }
-  }
-
-  public class TestingProject
-  {
-    private readonly string _directory;
-
-    public string RootDirectory
-    {
-      get { return _directory; }
-    }
-
-    public bool HasConfiguration
-    {
-      get { return File.Exists(PathTo("DependencyStore.config")); }
-    }
-
-    public TestingProject()
-    {
-      _directory = Path.Combine(Path.GetTempPath(), "TestProject");
-    }
-
-    private string PathTo(string path)
-    {
-      return Path.Combine(_directory, path);
-    }
-
-    public void Create()
-    {
-      Environment.CurrentDirectory = Environment.GetFolderPath(Environment.SpecialFolder.System);
-      if (Directory.Exists(_directory))
-      {
-        Directory.Delete(_directory, true);
-      }
-      Directory.CreateDirectory(_directory);
-      Environment.CurrentDirectory = _directory;
-      AddRootClue();
-    }
-
-    public void RemoveRootClue()
-    {
-      File.Delete(PathTo(".gitignore"));
-    }
-
-    public void AddRootClue()
-    {
-      File.WriteAllText(PathTo(".gitignore"), String.Empty);
-    }
-
-    public void Cleanup()
-    {
-      Directory.Delete(_directory);
-    }
+      ConfigureCommand configure = container.Resolve.Object<ConfigureCommand>();
+      configure.RepositoryName = "TestRepository";
+      configure.Run();
+    };
   }
 }

@@ -7,7 +7,7 @@ using Machine.Specifications;
 
 namespace DependencyStore
 {
-  public class with_configure_command : with_testing_repository_and_blank_project
+  public class with_configure_command : with_testing_repository_and_blank_directory
   {
     protected static ConfigureCommand command;
 
@@ -52,7 +52,10 @@ namespace DependencyStore
     static CommandStatus status;
 
     Because of = () =>
+    {
+      command.Run();
       status = command.Run();
+    };
 
     It should_succeed = () =>
       status.ShouldEqual(CommandStatus.Success);
