@@ -15,7 +15,7 @@ namespace DependencyStore
       command = container.Resolve.Object<ShowCommand>();
   }
 
-  [Subject("Configuring")]
+  [Subject("Showing")]
   public class when_showing_a_blank_directory : with_testing_repository_and_blank_directory
   {
     static CommandStatus status;
@@ -31,7 +31,7 @@ namespace DependencyStore
       status.ShouldEqual(CommandStatus.Failure);
   }
 
-  [Subject("Configuring")]
+  [Subject("Showing")]
   public class when_showing_blank_project : with_configure_command
   {
     static CommandStatus status;
