@@ -60,10 +60,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Configuration\FileAndDirectoryRulesTests.cs" />
-    <Compile Include="Domain\FileSystem\FileSystemDirectoryTests.cs" />
-    <Compile Include="Domain\FileSystem\FileSystemPathTests.cs" />
-    <Compile Include="Domain\Configuration\IncludeExcludeRulesTests.cs" />
+    <Compile Include="Domain\Configuration\FileAndDirectoryRulesSpecs.cs" />
+    <Compile Include="Domain\FileSystem\FileSystemDirectorySpecs.cs" />
+    <Compile Include="Domain\FileSystem\FileSystemPathSpecs.cs" />
+    <Compile Include="Domain\Configuration\IncludeExcludeRulesSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

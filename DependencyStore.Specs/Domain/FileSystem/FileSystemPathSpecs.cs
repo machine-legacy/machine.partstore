@@ -8,51 +8,51 @@ using NUnit.Framework;
 namespace DependencyStore.Domain.FileSystem
 {
   [TestFixture]
-  public class FileSystemPathTests : TestsFor<Purl>
+  public class FileSystemPathSpecs : TestsFor<Purl>
   {
     private Purl _target;
 
     [Test]
-    public void GetFull_Always_FullPath()
+    public void GetFull_always_full_path()
     {
       Assert.AreEqual(@"C:\WINDOWS\SYSTEM32\Notepad.exe", _target.AsString);
     }
 
     [Test]
-    public void GetName_Always_JustName()
+    public void GetName_always_just_name()
     {
       Assert.AreEqual(@"Notepad.exe", _target.Name);
     }
 
     [Test]
-    public void GetDirectory_Always_JustDirectory()
+    public void GetDirectory_always_just_directory()
     {
       Assert.AreEqual(@"C:\WINDOWS\SYSTEM32", _target.Directory);
     }
 
     [Test]
-    public void Equals_SamePath_IsTrue()
+    public void Equals_same_path_is_true()
     {
       Purl other = new Purl(_target.AsString);
       Assert.IsTrue(_target.Equals(other));
     }
 
     [Test]
-    public void Equals_DifferentPath_IsFalse()
+    public void Equals_different_path_is_false()
     {
       Purl other = new Purl(@"C:\WINDOWS");
       Assert.IsFalse(_target.Equals(other));
     }
 
     [Test]
-    public void Equals_SamePathDifferentCase_IsTrue()
+    public void Equals_same_path_different_case_is_true()
     {
       Purl other = new Purl(_target.AsString.ToLower());
       Assert.IsTrue(_target.Equals(other));
     }
 
     [Test]
-    public void Equals_SamePathWithVaryingIndirection_IsFalse()
+    public void Equals_same_path_with_varying_indirection_is_false()
     {
       Purl a = new Purl(@"C:\WINDOWS\SYSTEM32");
       Purl b = new Purl(@"C:\WINDOWS\..\WINDOWS\SYSTEM32");

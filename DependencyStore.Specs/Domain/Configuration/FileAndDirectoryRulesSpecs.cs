@@ -8,18 +8,18 @@ using NUnit.Framework;
 namespace DependencyStore.Domain.Configuration
 {
   [TestFixture]
-  public class FileAndDirectoryRulesTests : TestsFor<FileAndDirectoryRules>
+  public class FileAndDirectoryRulesSpecs : TestsFor<FileAndDirectoryRules>
   {
     private FileAndDirectoryRules _target;
 
     [Test]
-    public void Ctor_Always_CreatesFileRulesWithDefaultExclude()
+    public void Ctor_always_creates_file_rules_with_default_exclude()
     {
       Assert.AreEqual(IncludeExclude.Exclude, _target.FileRules.Default);
     }
 
     [Test]
-    public void Ctor_Always_CreatesDirectoryRulesWithDefaultInclude()
+    public void Ctor_always_creates_directory_rules_with_default_include()
     {
       Assert.AreEqual(IncludeExclude.Include, _target.DirectoryRules.Default);
     }
