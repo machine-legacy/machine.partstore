@@ -74,13 +74,12 @@ namespace DependencyStore
   [Subject("Current project state")]
   public class with_no_dependencies : with_configuration
   {
-    static CurrentProject currentProject;
     static ProjectState projectState;
     static CurrentProjectState state;
 
     Establish context = () =>
     {
-      currentProject = New.CurrentProject();
+      CurrentProject currentProject = New.CurrentProject();
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
       mocks.ReplayAll();
@@ -104,15 +103,13 @@ namespace DependencyStore
   [Subject("Current project state")]
   public class with_dependencies_missing_from_repository : with_configuration
   {
-    static CurrentProject currentProject;
-    static RepositorySet repositorySet;
     static ProjectState projectState;
     static CurrentProjectState state;
 
     Establish context = () =>
     {
-      repositorySet = New.RepositorySet();
-      currentProject = New.CurrentProject(New.ManifestStore(New.Manifest("A")), repositorySet);
+      RepositorySet repositorySet = New.RepositorySet();
+      CurrentProject currentProject = New.CurrentProject(New.ManifestStore(New.Manifest("A")), repositorySet);
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
       mocks.ReplayAll();
@@ -151,15 +148,13 @@ namespace DependencyStore
   [Subject("Current project state")]
   public class with_dependencies_missing_versions_in_repository : with_configuration
   {
-    static CurrentProject currentProject;
-    static RepositorySet repositorySet;
     static ProjectState projectState;
     static CurrentProjectState state;
 
     Establish context = () =>
     {
-      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A")));
-      currentProject = New.CurrentProject(New.ManifestStore(New.Manifest("A")), repositorySet);
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A")));
+      CurrentProject currentProject = New.CurrentProject(New.ManifestStore(New.Manifest("A")), repositorySet);
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
       mocks.ReplayAll();
@@ -198,8 +193,6 @@ namespace DependencyStore
   [Subject("Current project state")]
   public class with_dependencies_that_are_in_repository : with_configuration
   {
-    static CurrentProject currentProject;
-    static RepositorySet repositorySet;
     static ProjectState projectState;
     static CurrentProjectState state;
 
@@ -208,8 +201,8 @@ namespace DependencyStore
       VersionNumber version = New.Version();
       Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", version));
-      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
-      currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
+      CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
@@ -248,8 +241,6 @@ namespace DependencyStore
   [Subject("Current project state")]
   public class with_dependencies_that_are_in_repository_and_installed : with_configuration
   {
-    static CurrentProject currentProject;
-    static RepositorySet repositorySet;
     static ProjectState projectState;
     static CurrentProjectState state;
 
@@ -258,8 +249,8 @@ namespace DependencyStore
       VersionNumber version = New.Version();
       Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", version));
-      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
-      currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
+      CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
@@ -301,8 +292,6 @@ namespace DependencyStore
   [Subject("Current project state")]
   public class with_dependencies_that_are_in_repository_and_older_version_is_installed : with_configuration
   {
-    static CurrentProject currentProject;
-    static RepositorySet repositorySet;
     static ProjectState projectState;
     static CurrentProjectState state;
 
@@ -313,8 +302,8 @@ namespace DependencyStore
       Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", newer));
       ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
-      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
-      currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
@@ -359,8 +348,6 @@ namespace DependencyStore
   [Subject("Current project state")]
   public class with_dependencies_that_are_in_repository_and_older_missing_version_installed : with_configuration
   {
-    static CurrentProject currentProject;
-    static RepositorySet repositorySet;
     static ProjectState projectState;
     static CurrentProjectState state;
 
@@ -371,8 +358,8 @@ namespace DependencyStore
       Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", newer));
       ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
-      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
-      currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
@@ -414,8 +401,6 @@ namespace DependencyStore
   [Subject("Current project state")]
   public class with_dependencies_that_is_old : with_configuration
   {
-    static CurrentProject currentProject;
-    static RepositorySet repositorySet;
     static ProjectState projectState;
     static CurrentProjectState state;
 
@@ -426,8 +411,8 @@ namespace DependencyStore
       Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", older));
       ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
-      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
-      currentProject = New.CurrentProject(installed, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      CurrentProject currentProject = New.CurrentProject(installed, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
