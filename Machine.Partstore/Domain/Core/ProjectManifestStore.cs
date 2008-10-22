@@ -36,7 +36,17 @@ namespace Machine.Partstore.Domain.Core
 
     public void AddManifestFor(ArchivedProjectAndVersion archivedProjectAndVersion)
     {
+      RemoveManifestsForProject(archivedProjectAndVersion.Project);
       _manifests.Add(archivedProjectAndVersion.Project.MakeManifestFor(archivedProjectAndVersion));
+    }
+
+    private void RemoveManifestsForProject(ArchivedProject project)
+    {
+      ProjectManifest manifest = ManifestFor(project);
+      if (manifest != null)
+      {
+        _manifests.Remove(manifest);
+      }
     }
 
     #region IEnumerable<ProjectManifest> Members

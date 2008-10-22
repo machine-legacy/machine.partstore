@@ -40,6 +40,11 @@ namespace Machine.Partstore.Domain.Core
     {
     }
 
+    public ReferenceCandidate(string repositoryName, string projectName)
+      : this(repositoryName, projectName, null, Tags.None)
+    {
+    }
+
     public ReferenceCandidate(string repositoryName, string projectName, VersionNumber versionNumber, Tags tags)
     {
       _repositoryName = repositoryName;
@@ -64,14 +69,14 @@ namespace Machine.Partstore.Domain.Core
     
     private static bool EitherIsNullOrTheyAreEqual(string v1, string v2)
     {
-      if (v1 != null && v2 != null)
+      if (!String.IsNullOrEmpty(v1) && !String.IsNullOrEmpty(v2))
       {
         return v1.Equals(v2, StringComparison.InvariantCultureIgnoreCase);
       }
       return true;
     }
 
-    public override int GetHashCode()
+    public override Int32 GetHashCode()
     {
       Int32 hashCode = _projectName.GetHashCode();
       if (_repositoryName != null)

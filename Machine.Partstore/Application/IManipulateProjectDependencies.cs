@@ -5,6 +5,6 @@ namespace Machine.Partstore.Application
 {
   public interface IManipulateProjectDependencies
   {
-    AddingDependencyResponse AddDependency(string fromRepositoryNamed, string projectName);
+    AddingDependencyResponse AddDependency(string repositoryName, string projectName);
   }
 }

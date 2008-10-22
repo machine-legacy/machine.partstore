@@ -16,11 +16,11 @@ namespace Machine.Partstore.Application
     }
 
     #region IManipulateProjectDependencies Members
-    public AddingDependencyResponse AddDependency(string fromRepositoryNamed, string projectName)
+    public AddingDependencyResponse AddDependency(string repositoryName, string projectName)
     {
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       RepositorySet repositorySet = project.RepositorySet;
-      List<ReferenceCandidate> candidates = FindReferenceCandidate(repositorySet, projectName);
+      List<ReferenceCandidate> candidates = FindReferenceCandidate(repositorySet, repositoryName, projectName);
       if (candidates.Count == 0)
       {
         return new AddingDependencyResponse(true, false);
@@ -37,10 +37,10 @@ namespace Machine.Partstore.Application
     }
     #endregion
 
-    private static List<ReferenceCandidate> FindReferenceCandidate(RepositorySet repositorySet, string projectName)
+    private static List<ReferenceCandidate> FindReferenceCandidate(RepositorySet repositorySet, string repositoryName, string projectName)
     {
       List<ReferenceCandidate> found = new List<ReferenceCandidate>();
-      ReferenceCandidate lookingFor = new ReferenceCandidate(projectName);
+      ReferenceCandidate lookingFor = new ReferenceCandidate(repositoryName, projectName);
       foreach (ReferenceCandidate candidate in repositorySet.FindAllReferenceCandidates())
       {
         if (candidate.Equals(lookingFor))

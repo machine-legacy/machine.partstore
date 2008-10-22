@@ -68,7 +68,7 @@ namespace Machine.Partstore.Domain.Core
     {
       _manifests.AddManifestFor(archivedProjectAndVersion);
       ProjectReference projectReference = new HealthyProjectReference(this, archivedProjectAndVersion);
-      this.References.Add(projectReference);
+      _references = null;
       return projectReference;
     }
 
@@ -76,7 +76,7 @@ namespace Machine.Partstore.Domain.Core
     {
       if (this.AreAllReferencesHealthy)
       {
-        foreach (ProjectReference reference in _references)
+        foreach (ProjectReference reference in this.References)
         {
           reference.UnpackageIfNecessary(_repositorySet);
         }
