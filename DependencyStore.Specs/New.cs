@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 using DependencyStore.Domain.Configuration;
 using DependencyStore.Domain.Core;
@@ -70,12 +71,22 @@ namespace DependencyStore
 
     public RepositoryCreator Repository()
     {
-      return new RepositoryCreator(RandomPurl());
+      return Repository("TestRepository");
+    }
+
+    public RepositoryCreator Repository(string name)
+    {
+      return new RepositoryCreator(Purl.For(Path.Combine(ConfigurationPaths.RootDataDirectory, name)));
     }
 
     public RepositorySetCreator RepositorySet()
     {
       return new RepositorySetCreator();
+    }
+
+    public FileSystemEntryCreator Directory()
+    {
+      return new FileSystemEntryCreator();
     }
 
     public Purl RandomPurl()
@@ -286,6 +297,14 @@ namespace DependencyStore
     public override RepositorySet Create()
     {
       return new RepositorySet(_repositories);
+    }
+  }
+
+  public class FileSystemEntryCreator : Creator<FileSystemEntry>
+  {
+    public override FileSystemEntry Create()
+    {
+      return new FileSystemDirectory();
     }
   }
 }

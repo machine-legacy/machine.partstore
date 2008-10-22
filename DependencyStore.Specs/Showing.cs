@@ -412,7 +412,7 @@ namespace DependencyStore
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", older));
       ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
       RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
-      CurrentProject currentProject = New.CurrentProject(installed, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
