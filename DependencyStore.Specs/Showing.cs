@@ -55,7 +55,7 @@ namespace DependencyStore
 
     Establish context = () =>
     {
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(null);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(null);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -80,8 +80,8 @@ namespace DependencyStore
     Establish context = () =>
     {
       CurrentProject currentProject = New.CurrentProject();
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -110,8 +110,8 @@ namespace DependencyStore
     {
       RepositorySet repositorySet = New.RepositorySet();
       CurrentProject currentProject = New.CurrentProject(New.ManifestStore(New.Manifest("A")), repositorySet);
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -155,8 +155,8 @@ namespace DependencyStore
     {
       RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A")));
       CurrentProject currentProject = New.CurrentProject(New.ManifestStore(New.Manifest("A")), repositorySet);
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -204,10 +204,10 @@ namespace DependencyStore
       RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(New.ManifestStore());
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(New.ManifestStore());
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -252,10 +252,10 @@ namespace DependencyStore
       RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(required);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(required);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -305,10 +305,10 @@ namespace DependencyStore
       RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -361,10 +361,10 @@ namespace DependencyStore
       RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -414,10 +414,10 @@ namespace DependencyStore
       RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      services.ProjectManifestRepository.Stub(x => x.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();

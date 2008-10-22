@@ -69,12 +69,12 @@ namespace DependencyStore
     public MockRepositoriesServices(MockRepository mocks)
     {
       _mocks = mocks;
-      _projectManifestRepository = _mocks.DynamicMock<IProjectManifestRepository>();
-      _fileSystemEntryRepository = _mocks.DynamicMock<IFileSystemEntryRepository>();
-      _currentProjectRepository = _mocks.DynamicMock<ICurrentProjectRepository>();
-      _repositorySetRepository = _mocks.DynamicMock<IRepositorySetRepository>();
-      _repositoryRepository = _mocks.DynamicMock<IRepositoryRepository>();
-      _configurationRepository = _mocks.DynamicMock<IConfigurationRepository>();
+      _projectManifestRepository = MockRepository.GenerateStub<IProjectManifestRepository>();
+      _fileSystemEntryRepository = MockRepository.GenerateStub<IFileSystemEntryRepository>();
+      _currentProjectRepository = MockRepository.GenerateStub<ICurrentProjectRepository>();
+      _repositorySetRepository = MockRepository.GenerateStub<IRepositorySetRepository>();
+      _repositoryRepository = MockRepository.GenerateStub<IRepositoryRepository>();
+      _configurationRepository = MockRepository.GenerateStub<IConfigurationRepository>();
     }
 
     #region IServiceCollection Members
@@ -149,8 +149,7 @@ namespace DependencyStore
 
     Establish context = () =>
     {
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      services.ConfigurationRepository.SaveProjectConfiguration(configuration);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
       mocks.ReplayAll();
 
       projectState = container.Resolve.Object<ProjectState>();
@@ -161,5 +160,8 @@ namespace DependencyStore
 
     It should_return_configuration_file_path = () =>
       response.ConfigurationFile.ShouldNotBeNull();
+
+    It should_save_the_configuration = () =>
+      services.ConfigurationRepository.AssertWasCalled(x => x.SaveProjectConfiguration(configuration));
   }
 }

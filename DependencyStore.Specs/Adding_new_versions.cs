@@ -82,8 +82,8 @@ namespace DependencyStore
     {
       CurrentProject currentProject = New.CurrentProject(New.ManifestStore(), New.RepositorySet());
       
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
       mocks.ReplayAll();
 
       repositorySets = container.Resolve.Object<RepositorySets>();
@@ -101,14 +101,15 @@ namespace DependencyStore
   {
     static RepositorySets repositorySets;
     static AddingVersionResponse response;
+    static CurrentProject currentProject;
 
     Establish context = () =>
     {
       RepositorySet repositorySet = New.RepositorySet().With(New.Repository("Test1")).With(New.Repository("Test2"));
-      CurrentProject currentProject = New.CurrentProject(New.ManifestStore(), repositorySet).WithBuild(@"C:\Temp\Build");
+      currentProject = New.CurrentProject(New.ManifestStore(), repositorySet).WithBuild(@"C:\Temp\Build");
       
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
       mocks.ReplayAll();
 
       repositorySets = container.Resolve.Object<RepositorySets>();
@@ -122,23 +123,27 @@ namespace DependencyStore
 
     It should_respond_ambiguous_repositories = () => 
       response.AmbiguousRepositoryName.ShouldBeTrue();
+
+    It should_never_save_current_project = () =>
+      services.CurrentProjectRepository.AssertWasNotCalled(x => x.SaveCurrentProject(currentProject));
   }
 
   [Subject("Adding new versions")]
   public class when_adding_new_version : with_configuration
   {
+    static CurrentProject currentProject;
+    static Repository repository;
     static RepositorySets repositorySets;
     static AddingVersionResponse response;
 
     Establish context = () =>
     {
-      RepositorySet repositorySet = New.RepositorySet().With(New.Repository("Test1"));
-      CurrentProject currentProject = New.CurrentProject(New.ManifestStore(), repositorySet).WithBuild(@"C:\Temp\Build");
+      RepositorySet repositorySet = New.RepositorySet().With(repository = New.Repository("Test1"));
+      currentProject = New.CurrentProject(New.ManifestStore(), repositorySet).WithBuild(@"C:\Temp\Build");
       
-      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
-      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
-      SetupResult.For(services.FileSystemEntryRepository.FindEntry(Purl.For(@"C:\Temp\Build"))).Return(New.Directory());
-      services.CurrentProjectRepository.SaveCurrentProject(currentProject);
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.FileSystemEntryRepository.Stub(x => x.FindEntry(Purl.For(@"C:\Temp\Build"))).Return(New.Directory());
       mocks.ReplayAll();
 
       repositorySets = container.Resolve.Object<RepositorySets>();
@@ -152,5 +157,8 @@ namespace DependencyStore
 
     It should_respond_ambiguous_repositories = () => 
       response.AmbiguousRepositoryName.ShouldBeFalse();
+
+    It should_save_current_project = () =>
+      services.RepositoryRepository.AssertWasCalled(x => x.SaveRepository(repository));
   }
 }
