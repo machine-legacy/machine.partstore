@@ -7,7 +7,7 @@ namespace DependencyStore.Domain.Core
   {
     private readonly ProjectManifestStore _manifests;
     private readonly RepositorySet _repositorySet;
-    private readonly IList<ProjectReference> _references;
+    private IList<ProjectReference> _references;
 
     public RepositorySet RepositorySet
     {
@@ -19,16 +19,23 @@ namespace DependencyStore.Domain.Core
       get { return _manifests; }
     }
 
-    public IEnumerable<ProjectReference> References
+    public ICollection<ProjectReference> References
     {
-      get { return _references; }
+      get
+      {
+        if (_references == null)
+        {
+          _references = new List<ProjectReference>(ProjectReferenceFactory.FindProjectReferences(_repositorySet, this, _manifests));
+        }
+        return _references;
+      }
     }
 
     public IEnumerable<ReferenceStatus> ReferenceStatuses
     {
       get
       {
-        foreach (ProjectReference reference in _references)
+        foreach (ProjectReference reference in this.References)
         {
           yield return reference.Status;
         }
@@ -55,14 +62,13 @@ namespace DependencyStore.Domain.Core
     {
       _repositorySet = repositorySet;
       _manifests = manifests;
-      _references = new List<ProjectReference>(ProjectReferenceFactory.FindProjectReferences(repositorySet, this, manifests));
     }
 
     public ProjectReference AddReference(ArchivedProjectAndVersion archivedProjectAndVersion)
     {
       _manifests.AddManifestFor(archivedProjectAndVersion);
       ProjectReference projectReference = new HealthyProjectReference(this, archivedProjectAndVersion);
-      _references.Add(projectReference);
+      this.References.Add(projectReference);
       return projectReference;
     }
 

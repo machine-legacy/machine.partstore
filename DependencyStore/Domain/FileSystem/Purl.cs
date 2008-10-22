@@ -113,5 +113,10 @@ namespace DependencyStore.Domain.FileSystem
       }
       return new Purl(PathHelper.NormalizeDirectorySlashes(common));
     }
+
+    public static Purl For(string path)
+    {
+      return new Purl(path);
+    }
   }
 }

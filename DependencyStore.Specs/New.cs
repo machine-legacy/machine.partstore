@@ -30,7 +30,12 @@ namespace DependencyStore
 
     public ProjectManifestCreator Manifest(string name)
     {
-      return new ProjectManifestCreator(name, Version());
+      return Manifest(name, Version());
+    }
+
+    public ProjectManifestCreator Manifest(string name, VersionNumber version)
+    {
+      return new ProjectManifestCreator(name, version);
     }
 
     public VersionNumber Version()
@@ -58,9 +63,9 @@ namespace DependencyStore
       return new ArchivedProjectCreator(name);
     }
 
-    public ArchivedProjectVersionCreator ArchivedProjectVersion(Purl repositoryRoot, string name)
+    public ArchivedProjectVersionCreator ArchivedProjectVersion(Purl repositoryRoot, string name, VersionNumber version)
     {
-      return new ArchivedProjectVersionCreator(repositoryRoot, name);
+      return new ArchivedProjectVersionCreator(repositoryRoot, name, version);
     }
 
     public RepositoryCreator Repository()
@@ -146,7 +151,28 @@ namespace DependencyStore
   {
     private readonly ProjectManifestStore _projectManifestStore;
     private readonly RepositorySet _repositorySet;
-    private string _name = "TestProject";
+    private readonly string _name = "TestProject";
+    private ProjectDirectory _rootDirectory = ProjectDirectory.Missing;
+    private ProjectDirectory _buildDirectory = ProjectDirectory.Missing;
+    private ProjectDirectory _libraryDirectory = ProjectDirectory.Missing;
+
+    public CurrentProjectCreator WithRoot(string path)
+    {
+      _rootDirectory = new ProjectDirectory(new Purl(path));
+      return this;
+    }
+
+    public CurrentProjectCreator WithBuild(string path)
+    {
+      _buildDirectory = new ProjectDirectory(new Purl(path));
+      return this;
+    }
+
+    public CurrentProjectCreator WithLibrary(string path)
+    {
+      _libraryDirectory = new ProjectDirectory(new Purl(path));
+      return this;
+    }
 
     public CurrentProjectCreator(ProjectManifestStore projectManifestStore, RepositorySet repositorySet)
     {
@@ -156,7 +182,7 @@ namespace DependencyStore
 
     public override CurrentProject Create()
     {
-      return new CurrentProject(_name, null, null, null, _repositorySet, _projectManifestStore);
+      return new CurrentProject(_name, _rootDirectory, _buildDirectory, _libraryDirectory, _repositorySet, _projectManifestStore);
     }
   }
 
@@ -202,21 +228,26 @@ namespace DependencyStore
   {
     private readonly Purl _repositoryRoot;
     private readonly string _projectName;
+    private readonly VersionNumber _version;
 
-    public ArchivedProjectVersionCreator(Purl repositoryRoot, string projectName)
+    public ArchivedProjectVersionCreator(Purl repositoryRoot, string projectName, VersionNumber version)
     {
       _repositoryRoot = repositoryRoot;
+      _version = version;
       _projectName = projectName;
     }
 
     public override ArchivedProjectVersion Create()
     {
-      return ArchivedProjectVersion.Create(_repositoryRoot, _projectName, Tags.None);
+      ArchivedProjectVersion version = ArchivedProjectVersion.Create(_repositoryRoot, _projectName, Tags.None);
+      version.Number = _version;
+      return version;
     }
   }
 
   public class RepositoryCreator : Creator<Repository>
   {
+    private readonly List<ArchivedProject> _projects = new List<ArchivedProject>();
     private readonly Purl _path;
 
     public RepositoryCreator(Purl path)
@@ -224,10 +255,17 @@ namespace DependencyStore
       _path = path;
     }
 
+    public RepositoryCreator With(ArchivedProject project)
+    {
+      _projects.Add(project);
+      return this;
+    }
+
     public override Repository Create()
     {
       Repository repository = new Repository();
       repository.RootPath = _path;
+      repository.Projects.AddRange(_projects);
       return repository;
     }
   }
