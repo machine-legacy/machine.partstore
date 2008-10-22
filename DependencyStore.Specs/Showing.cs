@@ -46,6 +46,30 @@ namespace DependencyStore
   }
 
   [Subject("Current project state")]
+  public class with_no_configuration : with_configuration
+  {
+    static ProjectState projectState;
+    static CurrentProjectState state;
+
+    Establish context = () =>
+    {
+      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(null);
+      mocks.ReplayAll();
+
+      projectState = container.Resolve.Object<ProjectState>();
+    };
+
+    Because of = () =>
+      state = projectState.GetCurrentProjectState();
+
+    It should_have_missing_configuration = () => 
+      state.MissingConfiguration.ShouldBeTrue();
+
+    It should_have_no_references = () => 
+      state.References.ShouldBeEmpty();
+  }
+
+  [Subject("Current project state")]
   public class with_no_projects : with_configuration
   {
     static ProjectState projectState;
@@ -65,7 +89,13 @@ namespace DependencyStore
     Because of = () =>
       state = projectState.GetCurrentProjectState();
 
-    It should_return_state = () =>
-      state.ShouldNotBeNull();
+    It should_have_configuration = () => 
+      state.MissingConfiguration.ShouldBeFalse();
+
+    It should_have_no_references = () => 
+      state.References.ShouldBeEmpty();
+
+    It should_have_project_name = () =>
+      state.ProjectName.ShouldEqual("TestProject");
   }
 }

@@ -23,27 +23,14 @@ namespace DependencyStore
     };
   }
 
-  public class with_testing_repository : with_container
+  public class with_testing_repository_and_blank_directory : with_container
   {
     protected static TestingRepository repository;
-
-    Establish context = () =>
-    {
-      repository = new TestingRepository();
-    };
-
-    Cleanup after = () =>
-    {
-      repository.Cleanup();
-    };
-  }
-
-  public class with_testing_repository_and_blank_directory : with_testing_repository
-  {
     protected static TestingProject project;
 
     Establish context = () =>
     {
+      repository = new TestingRepository();
       project = new TestingProject();
       project.Create();
     };
@@ -51,6 +38,7 @@ namespace DependencyStore
     Cleanup after = () =>
     {
       project.Cleanup();
+      repository.Cleanup();
     };
   }
 
