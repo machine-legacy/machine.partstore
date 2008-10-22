@@ -56,6 +56,7 @@ namespace DependencyStore
     Because of = () =>
     {
       status = command.Run();
+      System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1.0));
       status = command.Run();
     };
 
