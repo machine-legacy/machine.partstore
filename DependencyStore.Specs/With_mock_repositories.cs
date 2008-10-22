@@ -116,6 +116,7 @@ namespace DependencyStore
     protected static MachineContainer container;
     protected static MockRepository mocks;
     protected static MockRepositoriesServices services;
+    protected static NewCreators New = new NewCreators();
 
     Establish context = () =>
     {
@@ -137,8 +138,7 @@ namespace DependencyStore
 
     Establish context = () =>
     {
-      configuration = new DependencyStoreConfiguration();
-      configuration.ConfigurationPath = new Purl(String.Empty);
+      configuration = New.Configuration();
     };
   }
   

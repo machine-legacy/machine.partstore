@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 
+using DependencyStore.Application;
 using DependencyStore.Commands;
-
+using DependencyStore.Domain.Core;
 using Machine.Specifications;
+using Rhino.Mocks;
 
 namespace DependencyStore
 {
@@ -41,5 +43,29 @@ namespace DependencyStore
 
     It should_succeed = () =>
       status.ShouldEqual(CommandStatus.Success);
+  }
+
+  [Subject("Current project state")]
+  public class with_no_projects : with_configuration
+  {
+    static ProjectState projectState;
+    static CurrentProject currentProject;
+    static CurrentProjectState state;
+
+    Establish context = () =>
+    {
+      currentProject = New.CurrentProject(New.ManifestStore());
+      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
+      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      mocks.ReplayAll();
+
+      projectState = container.Resolve.Object<ProjectState>();
+    };
+
+    Because of = () =>
+      state = projectState.GetCurrentProjectState();
+
+    It should_return_state = () =>
+      state.ShouldNotBeNull();
   }
 }
