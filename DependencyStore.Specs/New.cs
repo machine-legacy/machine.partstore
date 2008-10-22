@@ -206,9 +206,12 @@ namespace DependencyStore
       _name = name;
     }
 
-    public ArchivedProjectCreator With(ArchivedProjectVersion version)
+    public ArchivedProjectCreator With(params ArchivedProjectVersion[] versions)
     {
-      _versions.Add(version);
+      foreach (ArchivedProjectVersion version in versions)
+      {
+        _versions.Add(version);
+      }
       return this;
     }
 

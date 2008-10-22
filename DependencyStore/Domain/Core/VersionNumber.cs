@@ -54,6 +54,16 @@ namespace DependencyStore.Domain.Core
       return false;
     }
 
+    public static bool operator ==(VersionNumber v1, VersionNumber v2)
+    {
+      return Equals(v1, v2);
+    }
+
+    public static bool operator !=(VersionNumber v1, VersionNumber v2)
+    {
+      return !Equals(v1, v2);
+    }
+
     public override Int32 GetHashCode()
     {
       return _timeStamp.GetHashCode();

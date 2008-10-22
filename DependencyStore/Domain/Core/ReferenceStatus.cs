@@ -94,7 +94,7 @@ namespace DependencyStore.Domain.Core
       bool isAnyVersionInstalled = dependencyDirectory.IsAnythingInstalled;
       bool isReferencedVersionInstalled = !dependencyDirectory.HasVersionOlderThan(archivedProjectAndVersion.Version);
       bool isOlderVersionInstalled = dependencyDirectory.HasVersionOlderThan(archivedProjectAndVersion.Version);
-      bool isToLatestVersion = archivedProjectAndVersion.Project.LatestVersion == archivedProjectAndVersion.Version;
+      bool isToLatestVersion = archivedProjectAndVersion.Project.LatestVersion.Number == archivedProjectAndVersion.Version.Number;
       return new ReferenceStatus(archivedProjectAndVersion.Project.Name, archivedProjectAndVersion.Version.Number, isToLatestVersion, isAnyVersionInstalled, isOlderVersionInstalled, isReferencedVersionInstalled, archivedProjectAndVersion.Version.Tags);
     }
 

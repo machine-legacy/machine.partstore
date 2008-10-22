@@ -205,15 +205,15 @@ namespace DependencyStore
 
     Establish context = () =>
     {
-      ProjectManifestStore installed = New.ManifestStore();
       VersionNumber version = New.Version();
       Purl repositoryPath = New.RandomPurl();
+      ProjectManifestStore required = New.ManifestStore(New.Manifest("A", version));
       repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
-      currentProject = New.CurrentProject(New.ManifestStore(New.Manifest("A", version)), repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
       SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
-      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(installed);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
       SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(New.ManifestStore());
       mocks.ReplayAll();
 
@@ -240,6 +240,230 @@ namespace DependencyStore
 
     It should_have_reference_with_no_versions_installed = () =>
       state.References.First().IsAnyVersionInstalled.ShouldBeFalse();
+
+    It should_have_project_name = () =>
+      state.ProjectName.ShouldEqual("TestProject");
+  }
+
+  [Subject("Current project state")]
+  public class with_dependencies_that_are_in_repository_and_installed : with_configuration
+  {
+    static CurrentProject currentProject;
+    static RepositorySet repositorySet;
+    static ProjectState projectState;
+    static CurrentProjectState state;
+
+    Establish context = () =>
+    {
+      VersionNumber version = New.Version();
+      Purl repositoryPath = New.RandomPurl();
+      ProjectManifestStore required = New.ManifestStore(New.Manifest("A", version));
+      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
+      currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      
+      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
+      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(required);
+      mocks.ReplayAll();
+
+      projectState = container.Resolve.Object<ProjectState>();
+    };
+
+    Because of = () =>
+      state = projectState.GetCurrentProjectState();
+
+    It should_have_configuration = () => 
+      state.MissingConfiguration.ShouldBeFalse();
+
+    It should_have_references = () => 
+      state.References.Count.ShouldEqual(1);
+
+    It should_have_reference_to_dependency = () =>
+      state.References.First().DependencyName.ShouldEqual("A");
+
+    It should_have_reference_that_is_healthy = () =>
+      state.References.First().IsHealthy.ShouldBeTrue();
+
+    It should_have_reference_that_is_up_to_date = () =>
+      state.References.First().IsToLatestVersion.ShouldBeTrue();
+
+    It should_have_reference_with_no_versions_installed = () =>
+      state.References.First().IsAnyVersionInstalled.ShouldBeTrue();
+
+    It should_have_reference_with_desired_version_installed = () =>
+      state.References.First().IsReferencedVersionInstalled.ShouldBeTrue();
+
+    It should_have_project_name = () =>
+      state.ProjectName.ShouldEqual("TestProject");
+  }
+
+  [Subject("Current project state")]
+  public class with_dependencies_that_are_in_repository_and_older_version_is_installed : with_configuration
+  {
+    static CurrentProject currentProject;
+    static RepositorySet repositorySet;
+    static ProjectState projectState;
+    static CurrentProjectState state;
+
+    Establish context = () =>
+    {
+      VersionNumber older = New.Version();
+      VersionNumber newer = New.Version();
+      Purl repositoryPath = New.RandomPurl();
+      ProjectManifestStore required = New.ManifestStore(New.Manifest("A", newer));
+      ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
+      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      
+      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
+      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
+      mocks.ReplayAll();
+
+      projectState = container.Resolve.Object<ProjectState>();
+    };
+
+    Because of = () =>
+      state = projectState.GetCurrentProjectState();
+
+    It should_have_configuration = () => 
+      state.MissingConfiguration.ShouldBeFalse();
+
+    It should_have_references = () => 
+      state.References.Count.ShouldEqual(1);
+
+    It should_have_reference_to_dependency = () =>
+      state.References.First().DependencyName.ShouldEqual("A");
+
+    It should_have_reference_that_is_healthy = () =>
+      state.References.First().IsHealthy.ShouldBeTrue();
+
+    It should_have_reference_that_is_to_older_version = () =>
+      state.References.First().IsToLatestVersion.ShouldBeTrue();
+
+    It should_have_reference_with_is_up_to_date_because_newer_is_required_older_is_installed = () =>
+      state.References.First().IsOutdated.ShouldBeFalse();
+
+    It should_have_reference_with_older_version_installed = () =>
+      state.References.First().IsOlderVersionInstalled.ShouldBeTrue();
+
+    It should_have_reference_with_any_version_installed = () =>
+      state.References.First().IsAnyVersionInstalled.ShouldBeTrue();
+
+    It should_have_project_name = () =>
+      state.ProjectName.ShouldEqual("TestProject");
+  }
+
+  [Subject("Current project state")]
+  public class with_dependencies_that_are_in_repository_and_older_missing_version_installed : with_configuration
+  {
+    static CurrentProject currentProject;
+    static RepositorySet repositorySet;
+    static ProjectState projectState;
+    static CurrentProjectState state;
+
+    Establish context = () =>
+    {
+      VersionNumber older = New.Version();
+      VersionNumber newer = New.Version();
+      Purl repositoryPath = New.RandomPurl();
+      ProjectManifestStore required = New.ManifestStore(New.Manifest("A", newer));
+      ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
+      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      
+      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
+      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
+      mocks.ReplayAll();
+
+      projectState = container.Resolve.Object<ProjectState>();
+    };
+
+    Because of = () =>
+      state = projectState.GetCurrentProjectState();
+
+    It should_have_configuration = () => 
+      state.MissingConfiguration.ShouldBeFalse();
+
+    It should_have_references = () => 
+      state.References.Count.ShouldEqual(1);
+
+    It should_have_reference_to_dependency = () =>
+      state.References.First().DependencyName.ShouldEqual("A");
+
+    It should_have_reference_that_is_healthy = () =>
+      state.References.First().IsHealthy.ShouldBeTrue();
+
+    It should_have_reference_that_is_to_older_version = () =>
+      state.References.First().IsToLatestVersion.ShouldBeTrue();
+
+    It should_have_reference_with_older_version_installed = () =>
+      state.References.First().IsOlderVersionInstalled.ShouldBeTrue();
+
+    It should_have_reference_with_any_version_installed = () =>
+      state.References.First().IsAnyVersionInstalled.ShouldBeTrue();
+
+    It should_have_project_name = () =>
+      state.ProjectName.ShouldEqual("TestProject");
+  }
+
+  [Subject("Current project state")]
+  public class with_dependencies_that_is_old : with_configuration
+  {
+    static CurrentProject currentProject;
+    static RepositorySet repositorySet;
+    static ProjectState projectState;
+    static CurrentProjectState state;
+
+    Establish context = () =>
+    {
+      VersionNumber older = New.Version();
+      VersionNumber newer = New.Version();
+      Purl repositoryPath = New.RandomPurl();
+      ProjectManifestStore required = New.ManifestStore(New.Manifest("A", older));
+      ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
+      repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      currentProject = New.CurrentProject(installed, repositorySet).WithLibrary(@"C:\Temp\Libraries");
+      
+      SetupResult.For(services.ConfigurationRepository.FindProjectConfiguration()).Return(configuration);
+      SetupResult.For(services.CurrentProjectRepository.FindCurrentProject()).Return(currentProject);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries"))).Return(required);
+      SetupResult.For(services.ProjectManifestRepository.FindProjectManifestStore(Purl.For(@"C:\Temp\Libraries\A"))).Return(installed);
+      mocks.ReplayAll();
+
+      projectState = container.Resolve.Object<ProjectState>();
+    };
+
+    Because of = () =>
+      state = projectState.GetCurrentProjectState();
+
+    It should_have_configuration = () => 
+      state.MissingConfiguration.ShouldBeFalse();
+
+    It should_have_references = () => 
+      state.References.Count.ShouldEqual(1);
+
+    It should_have_reference_to_dependency = () =>
+      state.References.First().DependencyName.ShouldEqual("A");
+
+    It should_have_reference_that_is_healthy = () =>
+      state.References.First().IsHealthy.ShouldBeTrue();
+
+    It should_have_reference_that_is_to_older_version = () =>
+      state.References.First().IsToLatestVersion.ShouldBeFalse();
+
+    It should_have_reference_with_is_outdated = () =>
+      state.References.First().IsOutdated.ShouldBeTrue();
+
+    It should_have_reference_with_older_version_installed = () =>
+      state.References.First().IsOlderVersionInstalled.ShouldBeFalse();
+
+    It should_have_reference_with_any_version_installed = () =>
+      state.References.First().IsAnyVersionInstalled.ShouldBeTrue();
 
     It should_have_project_name = () =>
       state.ProjectName.ShouldEqual("TestProject");
