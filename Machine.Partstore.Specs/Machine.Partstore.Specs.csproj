@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DependencyStore</RootNamespace>
-    <AssemblyName>DependencyStore.Specs</AssemblyName>
+    <AssemblyName>Machine.Partstore.Specs</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -91,9 +91,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DependencyStore\DependencyStore.csproj">
+    <ProjectReference Include="..\Machine.Partstore\Machine.Partstore.csproj">
       <Project>{8D6BE035-80BC-40DA-8534-8DA0EFF55724}</Project>
-      <Name>DependencyStore</Name>
+      <Name>Machine.Partstore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

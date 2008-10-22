@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DependencyStore.CommandLine</RootNamespace>
-    <AssemblyName>DependencyStore.CommandLine</AssemblyName>
+    <AssemblyName>Machine.Partstore.CommandLine</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -57,9 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DependencyStore\DependencyStore.csproj">
+    <ProjectReference Include="..\Machine.Partstore\Machine.Partstore.csproj">
       <Project>{8D6BE035-80BC-40DA-8534-8DA0EFF55724}</Project>
-      <Name>DependencyStore</Name>
+      <Name>Machine.Partstore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +74,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>COPY $(TargetPath) $(TargetDir)Ds.exe</PostBuildEvent>
+    <PostBuildEvent>COPY $(TargetPath) $(TargetDir)Parts.exe
+COPY $(TargetPath) $(TargetDir)PS.exe</PostBuildEvent>
   </PropertyGroup>
 </Project>
