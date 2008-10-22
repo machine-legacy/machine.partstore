@@ -31,8 +31,13 @@ namespace DependencyStore.Domain.Core
     }
 
     public VersionNumber()
+      : this(DateTime.UtcNow)
     {
-      _timeStamp = DateTime.UtcNow;
+    }
+
+    public VersionNumber(DateTime timeStamp)
+    {
+      _timeStamp = timeStamp;
     }
 
     public bool IsOlderThan(VersionNumber versionNumber)

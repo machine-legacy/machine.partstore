@@ -57,12 +57,17 @@ namespace DependencyStore.Domain.Core
       _tags = tags;
     }
 
-    public static ArchivedProjectVersion Create(Repository repository, ArchivedProject project, Tags tags)
+    public static ArchivedProjectVersion Create(Purl repositoryRoot, string projectName, Tags tags)
     {
       VersionNumber version = new VersionNumber();
-      string repositoryAlias = project.Name + "-" + version.AsString;
-      Purl pathInRepository = repository.RootPath.Join(repositoryAlias);
+      string repositoryAlias = projectName + "-" + version.AsString;
+      Purl pathInRepository = repositoryRoot.Join(repositoryAlias);
       return new ArchivedProjectVersion(version, repositoryAlias, pathInRepository, tags);
+    }
+
+    public static ArchivedProjectVersion Create(Repository repository, ArchivedProject project, Tags tags)
+    {
+      return Create(repository.RootPath, project.Name, tags);
     }
 
     public override string ToString()
