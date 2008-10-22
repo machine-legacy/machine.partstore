@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-using DependencyStore.Domain.FileSystem;
-using DependencyStore.Utility;
+using Machine.Partstore.Domain.FileSystem;
+using Machine.Partstore.Utility;
 
-namespace DependencyStore.Domain.Core
+namespace Machine.Partstore.Domain.Core
 {
   public class HookType
   {

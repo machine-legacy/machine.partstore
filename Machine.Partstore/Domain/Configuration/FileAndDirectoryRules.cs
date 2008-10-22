@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Configuration
+namespace Machine.Partstore.Domain.Configuration
 {
   public class FileAndDirectoryRules
   {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.CommandLine
+namespace Machine.Partstore.CommandLine
 {
   public class CommandLineParser
   {

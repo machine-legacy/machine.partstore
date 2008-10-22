@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.Domain.Core.Repositories
+namespace Machine.Partstore.Domain.Core.Repositories
 {
   public interface IRepositorySetRepository
   {

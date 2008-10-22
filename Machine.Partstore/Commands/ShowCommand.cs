@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Application;
-using DependencyStore.Utility;
-using DependencyStore.Domain.Core;
+using Machine.Partstore.Application;
+using Machine.Partstore.Utility;
+using Machine.Partstore.Domain.Core;
 
-namespace DependencyStore.Commands
+namespace Machine.Partstore.Commands
 {
   public class ShowCommand : Command
   {

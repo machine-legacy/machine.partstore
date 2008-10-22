@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 using Machine.Specifications;
 using NUnit.Framework;
 
-namespace DependencyStore.Domain.Configuration
+namespace Machine.Partstore.Domain.Configuration
 {
   [Subject("Tests that became specs")]
   public class IncludeExcludeRulesSpecs

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Commands;
+using Machine.Partstore.Commands;
 
 using Machine.Specifications;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   public class with_add_dependency_command : with_testing_repository_and_blank_project
   {

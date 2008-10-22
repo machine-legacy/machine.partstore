@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Archiving
+namespace Machine.Partstore.Domain.Archiving
 {
   public class ArchivingDomainEvents
   {

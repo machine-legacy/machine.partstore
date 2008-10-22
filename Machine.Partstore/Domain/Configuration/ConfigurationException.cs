@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace DependencyStore.Domain.Configuration
+namespace Machine.Partstore.Domain.Configuration
 {
   public class ConfigurationException : Exception
   {

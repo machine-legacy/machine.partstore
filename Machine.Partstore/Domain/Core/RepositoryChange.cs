@@ -1,6 +1,6 @@
 using System;
 
-namespace DependencyStore.Domain.Core
+namespace Machine.Partstore.Domain.Core
 {
   public class RepositoryChange
   {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Machine.Container.Services;
 
-namespace DependencyStore.Commands
+namespace Machine.Partstore.Commands
 {
   public class CommandFactory
   {

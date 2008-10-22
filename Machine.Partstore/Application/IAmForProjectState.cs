@@ -1,6 +1,6 @@
 using System;
 
-namespace DependencyStore.Application
+namespace Machine.Partstore.Application
 {
   public interface IAmForProjectState
   {

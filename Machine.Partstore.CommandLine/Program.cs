@@ -9,10 +9,10 @@ using log4net.Layout;
 using Machine.Container;
 using Machine.Core.Utility;
 
-using DependencyStore.Domain.Configuration;
-using DependencyStore.Commands;
+using Machine.Partstore.Domain.Configuration;
+using Machine.Partstore.Commands;
 
-namespace DependencyStore.CommandLine
+namespace Machine.Partstore.CommandLine
 {
   public class Program
   {

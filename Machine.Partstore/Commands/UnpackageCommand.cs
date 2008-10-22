@@ -1,9 +1,9 @@
 using System;
 
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Core.Repositories;
+using Machine.Partstore.Domain.Core;
+using Machine.Partstore.Domain.Core.Repositories;
 
-namespace DependencyStore.Commands
+namespace Machine.Partstore.Commands
 {
   public class UnpackageCommand : Command
   {

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.Core.Repositories;
+using Machine.Partstore.Domain.Core;
+using Machine.Partstore.Domain.Core.Repositories;
 
-namespace DependencyStore.Application
+namespace Machine.Partstore.Application
 {
   public class ProjectDependencies : IManipulateProjectDependencies
   {

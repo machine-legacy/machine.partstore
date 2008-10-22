@@ -1,6 +1,6 @@
 using System;
 
-namespace DependencyStore.Commands
+namespace Machine.Partstore.Commands
 {
   public enum CommandStatus
   {

@@ -5,7 +5,7 @@ using Machine.Specifications;
 
 using NUnit.Framework;
 
-namespace DependencyStore.Domain.FileSystem
+namespace Machine.Partstore.Domain.FileSystem
 {
   [Subject("Tests that became specs")]
   public class FileSystemPathSpecs

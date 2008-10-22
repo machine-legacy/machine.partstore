@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.Domain.Configuration.Repositories
+namespace Machine.Partstore.Domain.Configuration.Repositories
 {
   public interface ICurrentConfiguration
   {

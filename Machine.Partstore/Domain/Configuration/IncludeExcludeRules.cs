@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Configuration
+namespace Machine.Partstore.Domain.Configuration
 {
   public enum IncludeExclude
   {

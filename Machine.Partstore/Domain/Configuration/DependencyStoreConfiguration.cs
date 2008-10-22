@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Configuration
+namespace Machine.Partstore.Domain.Configuration
 {
   [XmlRoot("DependencyStore")]
   public class DependencyStoreConfiguration

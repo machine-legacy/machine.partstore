@@ -1,9 +1,9 @@
 using System;
 
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 using Machine.Core.Services;
 
-namespace DependencyStore.Domain.Configuration.Repositories.Impl
+namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
 {
   public class ProjectStructure
   {

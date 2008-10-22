@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Configuration.Repositories.Impl
+namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
 {
   public class CurrentConfiguration : ICurrentConfiguration
   {

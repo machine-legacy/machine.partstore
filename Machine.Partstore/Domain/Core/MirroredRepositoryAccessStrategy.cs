@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Archiving;
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.Archiving;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Core
+namespace Machine.Partstore.Domain.Core
 {
   public class MirroredRepositoryAccessStrategy : IRepositoryAccessStrategy
   {

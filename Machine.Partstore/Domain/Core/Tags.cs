@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace DependencyStore.Domain.Core
+namespace Machine.Partstore.Domain.Core
 {
   public class Tags
   {

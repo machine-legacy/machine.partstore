@@ -5,10 +5,10 @@ using System.IO;
 using Machine.Core.Services;
 using Machine.Core.Utility;
 
-using DependencyStore.Domain.FileSystem;
-using DependencyStore.Domain.FileSystem.Repositories;
+using Machine.Partstore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem.Repositories;
 
-namespace DependencyStore.Domain.Configuration.Repositories.Impl
+namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
 {
   public class ConfigurationRepository : IConfigurationRepository
   {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace DependencyStore.Utility
+namespace Machine.Partstore.Utility
 {
   public static class StreamHelper
   {

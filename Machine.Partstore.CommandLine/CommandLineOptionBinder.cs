@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using DependencyStore.Commands;
+using Machine.Partstore.Commands;
 
-namespace DependencyStore.CommandLine
+namespace Machine.Partstore.CommandLine
 {
   public interface IAcceptsArgumentBindings
   {

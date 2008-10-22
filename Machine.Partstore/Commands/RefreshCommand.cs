@@ -1,8 +1,8 @@
 using System;
 
-using DependencyStore.Application;
+using Machine.Partstore.Application;
 
-namespace DependencyStore.Commands
+namespace Machine.Partstore.Commands
 {
   public class RefreshCommand : Command
   {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 using Machine.Core.Services;
 
-using DependencyStore.Domain.Configuration;
+using Machine.Partstore.Domain.Configuration;
 
-namespace DependencyStore.Domain.FileSystem.Repositories.Impl
+namespace Machine.Partstore.Domain.FileSystem.Repositories.Impl
 {
   public class FileSystemEntryRepository : IFileSystemEntryRepository
   {

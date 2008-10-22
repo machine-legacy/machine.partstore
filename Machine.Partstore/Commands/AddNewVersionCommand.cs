@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Application;
+using Machine.Partstore.Application;
 
-namespace DependencyStore.Commands
+namespace Machine.Partstore.Commands
 {
   public class AddNewVersionCommand : Command
   {

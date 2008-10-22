@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Commands;
+using Machine.Partstore.Commands;
 
 using Machine.Specifications;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   [Subject("Help")]
   public class when_getting_help : with_testing_repository_and_blank_project

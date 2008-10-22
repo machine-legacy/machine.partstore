@@ -5,7 +5,7 @@ using Machine.Specifications;
 
 using NUnit.Framework;
 
-namespace DependencyStore.Domain.Configuration
+namespace Machine.Partstore.Domain.Configuration
 {
   [Subject("Tests that became specs")]
   public class FileAndDirectoryRulesSpecs

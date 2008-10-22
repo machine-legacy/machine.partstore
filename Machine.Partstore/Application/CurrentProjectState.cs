@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-using DependencyStore.Domain.Core;
+using Machine.Partstore.Domain.Core;
 
-namespace DependencyStore.Application
+namespace Machine.Partstore.Application
 {
   public class CurrentProjectState
   {

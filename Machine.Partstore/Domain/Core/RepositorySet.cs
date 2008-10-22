@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Machine.Core;
 
-namespace DependencyStore.Domain.Core
+namespace Machine.Partstore.Domain.Core
 {
   public class RepositorySet
   {

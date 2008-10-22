@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Machine.Container;
 using Machine.Core.Services;
 
-using DependencyStore.Domain.FileSystem.Repositories;
+using Machine.Partstore.Domain.FileSystem.Repositories;
 
-namespace DependencyStore.Domain.FileSystem
+namespace Machine.Partstore.Domain.FileSystem
 {
   public class Infrastructure
   {

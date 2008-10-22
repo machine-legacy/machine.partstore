@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 
-using DependencyStore.Utility;
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Utility;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Archiving
+namespace Machine.Partstore.Domain.Archiving
 {
   public class ZipUnpackager
   {

@@ -5,9 +5,9 @@ using System.IO;
 using Machine.Core.Services;
 using Machine.Core.Utility;
 
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Core.Repositories.Impl
+namespace Machine.Partstore.Domain.Core.Repositories.Impl
 {
   public class RepositoryRepository : IRepositoryRepository
   {

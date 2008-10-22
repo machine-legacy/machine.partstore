@@ -4,7 +4,7 @@ using System.Text;
 
 using Machine.Core;
 
-namespace DependencyStore.Utility
+namespace Machine.Partstore.Utility
 {
   public static class StringHelper
   {

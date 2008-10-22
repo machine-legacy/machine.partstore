@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using DependencyStore.Application;
-using DependencyStore.Commands;
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Application;
+using Machine.Partstore.Commands;
+using Machine.Partstore.Domain.Core;
+using Machine.Partstore.Domain.FileSystem;
 
 using Machine.Specifications;
 using Rhino.Mocks;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   public class with_add_new_version_command : with_testing_repository_and_blank_project
   {

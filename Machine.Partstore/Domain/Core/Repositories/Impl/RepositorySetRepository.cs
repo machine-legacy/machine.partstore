@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Configuration;
-using DependencyStore.Domain.Configuration.Repositories;
+using Machine.Partstore.Domain.Configuration;
+using Machine.Partstore.Domain.Configuration.Repositories;
 
-namespace DependencyStore.Domain.Core.Repositories.Impl
+namespace Machine.Partstore.Domain.Core.Repositories.Impl
 {
   public class RepositorySetRepository : IRepositorySetRepository
   {

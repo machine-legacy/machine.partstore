@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 using Machine.Container;
 
-using DependencyStore.Domain.Core.Repositories;
+using Machine.Partstore.Domain.Core.Repositories;
 
-namespace DependencyStore.Domain.Core
+namespace Machine.Partstore.Domain.Core
 {
-  public class Infrastructure : DependencyStore.Domain.FileSystem.Infrastructure
+  public class Infrastructure : Machine.Partstore.Domain.FileSystem.Infrastructure
   {
     public static IProjectManifestRepository ProjectManifestRepository
     {

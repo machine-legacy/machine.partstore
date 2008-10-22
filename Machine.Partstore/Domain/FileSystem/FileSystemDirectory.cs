@@ -4,7 +4,7 @@ using System.IO;
 
 using Machine.Core;
 
-namespace DependencyStore.Domain.FileSystem
+namespace Machine.Partstore.Domain.FileSystem
 {
   public class FileSystemDirectory : FileSystemEntry
   {

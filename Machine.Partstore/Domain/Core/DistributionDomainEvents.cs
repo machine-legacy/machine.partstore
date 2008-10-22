@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Domain.Archiving;
+using Machine.Partstore.Domain.Archiving;
 
-namespace DependencyStore.Domain.Core
+namespace Machine.Partstore.Domain.Core
 {
   public class DistributionDomainEvents
   {

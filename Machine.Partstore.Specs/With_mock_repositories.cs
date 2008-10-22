@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 
-using DependencyStore.Application;
-using DependencyStore.Commands;
-using DependencyStore.Domain.Configuration;
-using DependencyStore.Domain.Configuration.Repositories;
-using DependencyStore.Domain.Configuration.Repositories.Impl;
-using DependencyStore.Domain.Core.Repositories;
-using DependencyStore.Domain.Core.Repositories.Impl;
-using DependencyStore.Domain.FileSystem;
-using DependencyStore.Domain.FileSystem.Repositories;
-using DependencyStore.Domain.FileSystem.Repositories.Impl;
+using Machine.Partstore.Application;
+using Machine.Partstore.Commands;
+using Machine.Partstore.Domain.Configuration;
+using Machine.Partstore.Domain.Configuration.Repositories;
+using Machine.Partstore.Domain.Configuration.Repositories.Impl;
+using Machine.Partstore.Domain.Core.Repositories;
+using Machine.Partstore.Domain.Core.Repositories.Impl;
+using Machine.Partstore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem.Repositories;
+using Machine.Partstore.Domain.FileSystem.Repositories.Impl;
 
 using Machine.Container;
 using Machine.Container.Plugins;
@@ -19,7 +19,7 @@ using Machine.Specifications;
 
 using Rhino.Mocks;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   public class MockRepositoriesServices : IServiceCollection
   {

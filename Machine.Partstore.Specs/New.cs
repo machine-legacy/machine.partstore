@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using DependencyStore.Domain.Configuration;
-using DependencyStore.Domain.Core;
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.Configuration;
+using Machine.Partstore.Domain.Core;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   public static class Ager
   {

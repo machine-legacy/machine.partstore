@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using DependencyStore.Utility;
+using Machine.Partstore.Utility;
 
-namespace DependencyStore.Domain.FileSystem
+namespace Machine.Partstore.Domain.FileSystem
 {
   /**
    * file:///c/Source/Project/File.cs

@@ -1,11 +1,11 @@
 using System;
 
-using DependencyStore.Commands;
+using Machine.Partstore.Commands;
 
 using Machine.Container;
 using Machine.Specifications;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   public class with_container
   {

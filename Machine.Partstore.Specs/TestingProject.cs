@@ -1,11 +1,11 @@
 using System;
 using System.IO;
 
-using DependencyStore.Commands;
+using Machine.Partstore.Commands;
 
 using Machine.Container;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   public class TestingProject : DirectoryManipulator
   {

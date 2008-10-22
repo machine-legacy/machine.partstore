@@ -1,11 +1,11 @@
 using System;
 using System.IO;
 
-using DependencyStore.Commands;
-using DependencyStore.Domain.Configuration;
+using Machine.Partstore.Commands;
+using Machine.Partstore.Domain.Configuration;
 using Machine.Container;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   public class TestingRepository : DirectoryManipulator
   {

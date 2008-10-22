@@ -4,11 +4,11 @@ using System.IO;
 
 using ICSharpCode.SharpZipLib.Zip;
 
-using DependencyStore.Domain.FileSystem;
-using DependencyStore.Domain.FileSystem.Repositories.Impl;
-using DependencyStore.Utility;
+using Machine.Partstore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem.Repositories.Impl;
+using Machine.Partstore.Utility;
 
-namespace DependencyStore.Domain.Archiving
+namespace Machine.Partstore.Domain.Archiving
 {
   public class ZipPackager
   {

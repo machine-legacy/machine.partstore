@@ -8,7 +8,7 @@
     <ProjectGuid>{E11F7937-010C-4D69-B5F5-A91A2A051D70}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DependencyStore.CommandLine</RootNamespace>
+    <RootNamespace>Machine.Partstore.CommandLine</RootNamespace>
     <AssemblyName>Machine.Partstore.CommandLine</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

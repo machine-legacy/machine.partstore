@@ -1,9 +1,9 @@
 using System;
 
-using DependencyStore.Domain.Archiving;
-using DependencyStore.Domain.Core;
+using Machine.Partstore.Domain.Archiving;
+using Machine.Partstore.Domain.Core;
 
-namespace DependencyStore.Commands
+namespace Machine.Partstore.Commands
 {
   public class ArchiveProgressDisplayer
   {

@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace DependencyStore.Domain.Configuration.Repositories.Impl
+namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
 {
   public class InvalidConfigurationException : ApplicationException
   {

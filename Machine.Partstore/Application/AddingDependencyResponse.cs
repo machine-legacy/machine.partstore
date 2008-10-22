@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DependencyStore.Application
+namespace Machine.Partstore.Application
 {
   public class AddingDependencyResponse
   {

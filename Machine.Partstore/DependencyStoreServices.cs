@@ -5,14 +5,14 @@ using Machine.Container;
 using Machine.Container.Plugins;
 using Machine.Core.Services.Impl;
 
-using DependencyStore.Domain.Configuration;
-using DependencyStore.Commands;
-using DependencyStore.Domain.FileSystem.Repositories.Impl;
-using DependencyStore.Domain.Configuration.Repositories.Impl;
-using DependencyStore.Domain.Core.Repositories.Impl;
-using DependencyStore.Application;
+using Machine.Partstore.Domain.Configuration;
+using Machine.Partstore.Commands;
+using Machine.Partstore.Domain.FileSystem.Repositories.Impl;
+using Machine.Partstore.Domain.Configuration.Repositories.Impl;
+using Machine.Partstore.Domain.Core.Repositories.Impl;
+using Machine.Partstore.Application;
 
-namespace DependencyStore
+namespace Machine.Partstore
 {
   public class DependencyStoreServices : IServiceCollection
   {

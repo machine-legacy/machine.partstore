@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 using ICSharpCode.SharpZipLib.Zip;
 
-using DependencyStore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem;
 
-namespace DependencyStore.Domain.Archiving
+namespace Machine.Partstore.Domain.Archiving
 {
   public class ArchiveFactory
   {

@@ -8,7 +8,7 @@
     <ProjectGuid>{4043D05C-949E-485D-82B7-C738B27CEC5D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DependencyStore</RootNamespace>
+    <RootNamespace>Machine.Partstore</RootNamespace>
     <AssemblyName>Machine.Partstore.Specs</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-using DependencyStore.Utility;
+using Machine.Partstore.Utility;
 
-namespace DependencyStore.Domain.FileSystem
+namespace Machine.Partstore.Domain.FileSystem
 {
   public class FileSet
   {
