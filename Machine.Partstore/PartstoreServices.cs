@@ -14,7 +14,7 @@ using Machine.Partstore.Application;
 
 namespace Machine.Partstore
 {
-  public class DependencyStoreServices : IServiceCollection
+  public class PartstoreServices : IServiceCollection
   {
     #region IServiceCollection Members
     public void RegisterServices(ContainerRegisterer register)

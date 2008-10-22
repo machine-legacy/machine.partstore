@@ -6,7 +6,7 @@ namespace Machine.Partstore.Commands
   {
     public override CommandStatus Run()
     {
-      Console.WriteLine("{0} <command> [options]", "DependencyStore.exe");
+      Console.WriteLine("{0} <command> [options]", "Parts.exe");
       Console.WriteLine("Commands:");
       Console.WriteLine("  show");
       Console.WriteLine("  unpackage --dry-run");

@@ -32,10 +32,10 @@ namespace Machine.Partstore.Application
 
     public ConfigureResponse Configure(string defaultRepositoryName)
     {
-      DependencyStoreConfiguration configuration = _configurationRepository.FindProjectConfiguration();
+      PartstoreConfiguration configuration = _configurationRepository.FindProjectConfiguration();
       if (configuration == null)
       {
-        configuration = new DependencyStoreConfiguration();
+        configuration = new PartstoreConfiguration();
         configuration.Repositories.Add(new IncludeRepository(defaultRepositoryName));
       }
       _configurationRepository.SaveProjectConfiguration(configuration);

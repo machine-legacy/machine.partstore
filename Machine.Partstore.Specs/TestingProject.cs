@@ -11,7 +11,7 @@ namespace Machine.Partstore
   {
     public bool HasConfiguration
     {
-      get { return File.Exists(PathTo("DependencyStore.config")); }
+      get { return File.Exists(PathTo("Partstore.config")); }
     }
 
     public TestingProject()

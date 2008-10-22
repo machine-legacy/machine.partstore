@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using Machine.Partstore.Domain.FileSystem;
@@ -8,7 +8,7 @@ namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
   public class CurrentConfiguration : ICurrentConfiguration
   {
     private readonly IConfigurationRepository _configurationRepository;
-    private DependencyStoreConfiguration _defaultConfiguration;
+    private PartstoreConfiguration _defaultConfiguration;
 
     public CurrentConfiguration(IConfigurationRepository configurationRepository)
     {
@@ -16,7 +16,7 @@ namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
     }
 
     #region ICurrentConfiguration Members
-    public DependencyStoreConfiguration DefaultConfiguration
+    public PartstoreConfiguration DefaultConfiguration
     {
       get
       {

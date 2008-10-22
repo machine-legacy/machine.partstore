@@ -5,7 +5,7 @@
   <property name="build.debug" value="true" />
   <property name="source.dir" value="${project::get-base-directory()}" />
   <property name="lib.dir" value="Libraries" />
-  <property name="project.assembly.name" value="DependencyStore" />
+  <property name="project.assembly.name" value="Machine.Partstore" />
 
   <target name="clean">
     <delete dir="${build.clean.dir}" />
@@ -17,9 +17,9 @@
   </target>
 
   <target name="build-application">
-    <csc target="library" output="${build.dir}/DependencyStore.dll" debug="${build.debug}">
+    <csc target="library" output="${build.dir}/Machine.Partstore.dll" debug="${build.debug}">
       <sources>
-        <include name="${source.dir}/DependencyStore/**/*.cs" />
+        <include name="${source.dir}/Machine.Partstore/**/*.cs" />
       </sources>
       <references>
         <include name="System.dll" />
@@ -31,9 +31,9 @@
       </references>
     </csc>
 
-    <csc target="exe" output="${build.dir}/DependencyStore.CommandLine.exe" debug="${build.debug}">
+    <csc target="exe" output="${build.dir}/Machine.Partstore.CommandLine.exe" debug="${build.debug}">
       <sources>
-        <include name="${source.dir}/DependencyStore.CommandLine/**/*.cs" />
+        <include name="${source.dir}/Machine.Partstore.CommandLine/**/*.cs" />
       </sources>
       <references>
         <include name="System.dll" />
@@ -42,7 +42,7 @@
         <include name="${lib.dir}/Machine/Machine.Core.dll" />
         <include name="${lib.dir}/Machine/Machine.Container.dll" />
         <include name="${lib.dir}/ICSharpCode/ICSharpCode.SharpZipLib.dll" />
-        <include name="${build.dir}/DependencyStore.dll" />
+        <include name="${build.dir}/Machine.Partstore.dll" />
       </references>
     </csc>
   </target>

@@ -12,7 +12,7 @@ namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
 {
   public class ConfigurationRepository : IConfigurationRepository
   {
-    private static readonly XmlSerializer<DependencyStoreConfiguration> _serializer = new XmlSerializer<DependencyStoreConfiguration>();
+    private static readonly XmlSerializer<PartstoreConfiguration> _serializer = new XmlSerializer<PartstoreConfiguration>();
     private readonly IFileSystem _fileSystem;
     private readonly IFileAndDirectoryRulesRepository _fileAndDirectoryRulesRepository;
     private readonly ConfigurationPaths _paths;
@@ -25,9 +25,9 @@ namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
     }
 
     #region IConfigurationRepository Members
-    public DependencyStoreConfiguration FindAndRequireProjectConfiguration()
+    public PartstoreConfiguration FindAndRequireProjectConfiguration()
     {
-      DependencyStoreConfiguration configuration = FindProjectConfiguration();
+      PartstoreConfiguration configuration = FindProjectConfiguration();
       if (configuration == null)
       {
         throw new InvalidOperationException("Missing configuration!");
@@ -35,10 +35,10 @@ namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
       return configuration;
     }
 
-    public DependencyStoreConfiguration FindProjectConfiguration()
+    public PartstoreConfiguration FindProjectConfiguration()
     {
       string path = _paths.FindConfigurationForCurrentProjectPath();
-      DependencyStoreConfiguration configuration = ReadConfiguration(path);
+      PartstoreConfiguration configuration = ReadConfiguration(path);
       if (configuration == null)
       {
         return null;
@@ -46,7 +46,7 @@ namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
       return configuration;
     }
 
-    public void SaveProjectConfiguration(DependencyStoreConfiguration configuration)
+    public void SaveProjectConfiguration(PartstoreConfiguration configuration)
     {
       string path = _paths.InferPathToConfigurationForCurrentProject();
       if (String.IsNullOrEmpty(path))
@@ -61,7 +61,7 @@ namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
     }
     #endregion
 
-    private DependencyStoreConfiguration ReadConfiguration(string path)
+    private PartstoreConfiguration ReadConfiguration(string path)
     {
       if (path == null || !_fileSystem.IsFile(path))
       {
@@ -71,7 +71,7 @@ namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
       {
         using (StreamReader reader = _fileSystem.OpenText(path))
         {
-          DependencyStoreConfiguration configuration = _serializer.DeserializeString(reader.ReadToEnd());
+          PartstoreConfiguration configuration = _serializer.DeserializeString(reader.ReadToEnd());
           configuration.FileAndDirectoryRules = _fileAndDirectoryRulesRepository.FindDefault();
           configuration.ConfigurationPath = new Purl(path);
           configuration.EnsureValid();

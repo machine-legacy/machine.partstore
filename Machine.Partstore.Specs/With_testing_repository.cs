@@ -17,7 +17,7 @@ namespace Machine.Partstore
       container.Initialize();
       container.PrepareForServices();
       ContainerRegistrationHelper helper = new ContainerRegistrationHelper(container);
-      helper.AddServiceCollectionsFrom(typeof(DependencyStoreServices).Assembly);
+      helper.AddServiceCollectionsFrom(typeof(PartstoreServices).Assembly);
       container.Start();
       IoC.Container = container;
     };

@@ -6,8 +6,8 @@ using Machine.Partstore.Domain.FileSystem;
 
 namespace Machine.Partstore.Domain.Configuration
 {
-  [XmlRoot("DependencyStore")]
-  public class DependencyStoreConfiguration
+  [XmlRoot("Partstore")]
+  public class PartstoreConfiguration
   {
     private readonly List<ProjectConfiguration> _projectConfigurations = new List<ProjectConfiguration>();
     private readonly List<IncludeRepository> _repositories = new List<IncludeRepository>();

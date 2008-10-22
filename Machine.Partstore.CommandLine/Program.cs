@@ -28,7 +28,7 @@ namespace Machine.Partstore.CommandLine
         container.Initialize();
         container.PrepareForServices();
         ContainerRegistrationHelper helper = new ContainerRegistrationHelper(container);
-        helper.AddServiceCollectionsFrom(typeof(DependencyStoreServices).Assembly);
+        helper.AddServiceCollectionsFrom(typeof(PartstoreServices).Assembly);
         container.Start();
         IoC.Container = container;
 
@@ -69,7 +69,7 @@ namespace Machine.Partstore.CommandLine
     private static void WriteVanityBanner()
     {
       Version version = typeof(Program).Assembly.GetName().Version;
-      string banner = String.Format("DependencyStore {0} (C) Jacob Lewallen 2008", version);
+      string banner = String.Format("Machine.Partstore {0} (C) Jacob Lewallen 2008", version);
       Console.WriteLine(banner);
       Console.WriteLine();
       _log.Info(banner);
@@ -80,7 +80,7 @@ namespace Machine.Partstore.CommandLine
       FileAppender appender = new FileAppender();
       appender.Layout = new PatternLayout("%d %-5p %c %m%n");
       
-      appender.File = System.IO.Path.Combine(ConfigurationPaths.RootDataDirectory, "Ds.log");
+      appender.File = System.IO.Path.Combine(ConfigurationPaths.RootDataDirectory, "Parts.log");
       appender.AppendToFile = true;
       appender.ActivateOptions();
       BasicConfigurator.Configure(appender);

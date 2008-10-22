@@ -197,11 +197,11 @@ namespace Machine.Partstore
     }
   }
 
-  public class ConfigurationCreator : Creator<DependencyStoreConfiguration>
+  public class ConfigurationCreator : Creator<PartstoreConfiguration>
   {
-    public override DependencyStoreConfiguration Create()
+    public override PartstoreConfiguration Create()
     {
-      DependencyStoreConfiguration configuration = new DependencyStoreConfiguration();
+      PartstoreConfiguration configuration = new PartstoreConfiguration();
       configuration.ConfigurationPath = new Purl(String.Empty);
       return configuration;
     }

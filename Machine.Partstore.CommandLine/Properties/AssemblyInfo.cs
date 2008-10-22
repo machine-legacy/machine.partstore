@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DependencyStore.CommandLine")]
+[assembly: AssemblyTitle("Machine.Partstore.CommandLine")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("N/A")]
-[assembly: AssemblyProduct("DependencyStore.CommandLine")]
+[assembly: AssemblyProduct("Machine.Partstore.CommandLine")]
 [assembly: AssemblyCopyright("Copyright © N/A 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

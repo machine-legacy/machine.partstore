@@ -82,7 +82,7 @@
     <Compile Include="Commands\SeachRepositoryCommand.cs" />
     <Compile Include="Commands\ShowCommand.cs" />
     <Compile Include="Commands\UnpackageCommand.cs" />
-    <Compile Include="DependencyStoreServices.cs" />
+    <Compile Include="PartstoreServices.cs" />
     <Compile Include="Domain\Archiving\Archive.cs" />
     <Compile Include="Domain\Archiving\ArchivedFile.cs" />
     <Compile Include="Domain\Archiving\ArchivedFileInZip.cs" />
@@ -131,7 +131,7 @@
     <Compile Include="Domain\FileSystem\FileSet.cs" />
     <Compile Include="Domain\Core\Project.cs" />
     <Compile Include="Domain\Core\RepositoryChange.cs" />
-    <Compile Include="Domain\Configuration\DependencyStoreConfiguration.cs" />
+    <Compile Include="Domain\Configuration\PartstoreConfiguration.cs" />
     <Compile Include="Domain\Configuration\FileAndDirectoryRules.cs" />
     <Compile Include="Domain\Configuration\IncludeExcludeRules.cs" />
     <Compile Include="Domain\FileSystem\FileSystemDirectory.cs" />

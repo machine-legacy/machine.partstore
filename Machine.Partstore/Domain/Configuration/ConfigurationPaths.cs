@@ -9,11 +9,11 @@ namespace Machine.Partstore.Domain.Configuration
   public class ConfigurationPaths
   {
     private readonly IFileSystem _fileSystem;
-    private const string FileName = @"DependencyStore.config";
+    private const string FileName = @"Partstore.config";
 
     public static string RootDataDirectory
     {
-      get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "DependencyStore"); }
+      get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Partstore"); }
     }
 
     public ConfigurationPaths(IFileSystem fileSystem)
@@ -88,7 +88,7 @@ namespace Machine.Partstore.Domain.Configuration
 
     private bool CouldBeProjectRootDirectory(string directory)
     {
-      string[] indicators = new string[] { ".git", ".gitignore", "rakefile.rb", "DependencyStore.config" };
+      string[] indicators = new string[] { ".git", ".gitignore", "rakefile.rb", "Partstore.config" };
       foreach (string indicator in indicators)
       {
         string wouldBe = Path.Combine(directory, indicator);

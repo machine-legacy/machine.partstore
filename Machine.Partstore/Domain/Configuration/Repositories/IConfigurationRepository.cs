@@ -5,8 +5,8 @@ namespace Machine.Partstore.Domain.Configuration.Repositories
 {
   public interface IConfigurationRepository
   {
-    DependencyStoreConfiguration FindAndRequireProjectConfiguration();
-    DependencyStoreConfiguration FindProjectConfiguration();
-    void SaveProjectConfiguration(DependencyStoreConfiguration configuration);
+    PartstoreConfiguration FindAndRequireProjectConfiguration();
+    PartstoreConfiguration FindProjectConfiguration();
+    void SaveProjectConfiguration(PartstoreConfiguration configuration);
   }
 }

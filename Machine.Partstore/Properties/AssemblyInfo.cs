@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DependencyStore")]
+[assembly: AssemblyTitle("Machine.Partstore")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NA")]
-[assembly: AssemblyProduct("DependencyStore")]
+[assembly: AssemblyProduct("Machine.Partstore")]
 [assembly: AssemblyCopyright("Copyright © NA 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

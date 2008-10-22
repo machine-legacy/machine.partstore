@@ -7,8 +7,6 @@ using Machine.Partstore.Domain.Configuration;
 using Machine.Partstore.Domain.Configuration.Repositories;
 using Machine.Partstore.Domain.Configuration.Repositories.Impl;
 using Machine.Partstore.Domain.Core.Repositories;
-using Machine.Partstore.Domain.Core.Repositories.Impl;
-using Machine.Partstore.Domain.FileSystem;
 using Machine.Partstore.Domain.FileSystem.Repositories;
 using Machine.Partstore.Domain.FileSystem.Repositories.Impl;
 
@@ -21,7 +19,7 @@ using Rhino.Mocks;
 
 namespace Machine.Partstore
 {
-  public class MockRepositoriesServices : IServiceCollection
+  public class MockServices : IServiceCollection
   {
     private readonly MockRepository _mocks;
     private readonly IProjectManifestRepository _projectManifestRepository;
@@ -66,7 +64,7 @@ namespace Machine.Partstore
       get { return _configurationRepository; }
     }
 
-    public MockRepositoriesServices(MockRepository mocks)
+    public MockServices(MockRepository mocks)
     {
       _mocks = mocks;
       _projectManifestRepository = MockRepository.GenerateStub<IProjectManifestRepository>();
@@ -115,13 +113,13 @@ namespace Machine.Partstore
   {
     protected static MachineContainer container;
     protected static MockRepository mocks;
-    protected static MockRepositoriesServices services;
+    protected static MockServices services;
     protected static NewCreators New = new NewCreators();
 
     Establish context = () =>
     {
       mocks = new MockRepository();
-      services = new MockRepositoriesServices(mocks);
+      services = new MockServices(mocks);
       container = new MachineContainer();
       container.Initialize();
       container.PrepareForServices();
@@ -134,7 +132,7 @@ namespace Machine.Partstore
 
   public class with_configuration : with_mock_repositories
   {
-    protected static DependencyStoreConfiguration configuration;
+    protected static PartstoreConfiguration configuration;
 
     Establish context = () =>
     {
