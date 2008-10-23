@@ -28,10 +28,16 @@ namespace Machine.Partstore
     private readonly IRepositoryRepository _repositoryRepository;
     private readonly IRepositorySetRepository _repositorySetRepository;
     private readonly IConfigurationRepository _configurationRepository;
+    private readonly IHooksRepository _hooksRepository;
 
     public MockRepository Mocks
     {
       get { return _mocks; }
+    }
+
+    public IHooksRepository HooksRepository
+    {
+      get { return _hooksRepository; }
     }
 
     public IProjectManifestRepository ProjectManifestRepository
@@ -67,6 +73,7 @@ namespace Machine.Partstore
     public MockServices(MockRepository mocks)
     {
       _mocks = mocks;
+      _hooksRepository = MockRepository.GenerateStub<IHooksRepository>();
       _projectManifestRepository = MockRepository.GenerateStub<IProjectManifestRepository>();
       _fileSystemEntryRepository = MockRepository.GenerateStub<IFileSystemEntryRepository>();
       _currentProjectRepository = MockRepository.GenerateStub<ICurrentProjectRepository>();

@@ -8,7 +8,7 @@ namespace Machine.Partstore.Domain.Core
 {
   public class Repository
   {
-    public static readonly IRepositoryAccessStrategy AccessStrategy = new MirroredRepositoryAccessStrategy();
+    public static readonly IRepositoryAccessStrategy AccessStrategy = new MirroredRepositoryAccessStrategy(Infrastructure.FileSystem);
     private readonly List<ArchivedProject> _projects = new List<ArchivedProject>();
     private Purl _rootPath;
 

@@ -33,6 +33,7 @@ namespace Machine.Partstore
       register.Type<CurrentProjectRepository>();
       register.Type<RepositoryRepository>();
       register.Type<RepositorySetRepository>();
+      register.Type<HooksRepository>();
 
       register.Type<SeachRepositoryCommand>();
       register.Type<CommandFactory>();

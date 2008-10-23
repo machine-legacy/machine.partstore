@@ -9,6 +9,11 @@ namespace Machine.Partstore.Domain.Core
 {
   public class Infrastructure : Machine.Partstore.Domain.FileSystem.Infrastructure
   {
+    public static IHooksRepository HooksRepository
+    {
+      get { return IoC.Container.Resolve.Object<IHooksRepository>(); }
+    }
+
     public static IProjectManifestRepository ProjectManifestRepository
     {
       get { return IoC.Container.Resolve.Object<IProjectManifestRepository>(); }

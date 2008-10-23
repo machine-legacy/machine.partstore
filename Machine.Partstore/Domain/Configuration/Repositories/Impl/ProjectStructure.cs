@@ -1,7 +1,6 @@
 using System;
 
 using Machine.Partstore.Domain.FileSystem;
-using Machine.Core.Services;
 
 namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
 {

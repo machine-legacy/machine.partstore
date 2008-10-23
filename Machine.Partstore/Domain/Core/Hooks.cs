@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+using Machine.Core.Services;
 using Machine.Partstore.Domain.FileSystem;
 using Machine.Partstore.Utility;
 
@@ -31,19 +31,16 @@ namespace Machine.Partstore.Domain.Core
   public class Hooks
   {
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(Hooks));
+    private readonly IFileSystem _fileSystem;
     private readonly Purl _path;
     private readonly List<HookType> _hookTypes = new List<HookType>();
     
-    protected Hooks(Purl path)
+    public Hooks(IFileSystem fileSystem, Purl path)
     {
       _path = path;
+      _fileSystem = fileSystem;
       _hookTypes.Add(new HookType("cmd", typeof(CmdExecHook)));
       _hookTypes.Add(new HookType("ps1", typeof(PowershellHook)));
-    }
-
-    public static Hooks Create(Repository repository)
-    {
-      return new Hooks(repository.RootPath.Join("Hooks"));
     }
 
     public void RunCommit(ArchivedProject project, ArchivedProjectVersion version)
@@ -58,11 +55,11 @@ namespace Machine.Partstore.Domain.Core
 
     private IEnumerable<RunnableHook> FindRunnableHooks(string name)
     {
-      if (Infrastructure.FileSystem.IsDirectory(_path.AsString))
+      if (_fileSystem.IsDirectory(_path.AsString))
       {
         foreach (HookType hookType in _hookTypes)
         {
-          foreach (string file in Infrastructure.FileSystem.GetFiles(_path.AsString, name + "." + hookType.FileExtension))
+          foreach (string file in _fileSystem.GetFiles(_path.AsString, name + "." + hookType.FileExtension))
           {
             _log.Info("Found: " + file);
             yield return (RunnableHook)Activator.CreateInstance(hookType.Type, new Purl(file));

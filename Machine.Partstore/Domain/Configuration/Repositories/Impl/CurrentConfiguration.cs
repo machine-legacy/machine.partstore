@@ -2,17 +2,20 @@ using System;
 using System.Collections.Generic;
 
 using Machine.Partstore.Domain.FileSystem;
+using Machine.Partstore.Domain.FileSystem.Repositories;
 
 namespace Machine.Partstore.Domain.Configuration.Repositories.Impl
 {
   public class CurrentConfiguration : ICurrentConfiguration
   {
     private readonly IConfigurationRepository _configurationRepository;
+    private readonly IFileSystemEntryRepository _fileSystemEntryRepository;
     private PartstoreConfiguration _defaultConfiguration;
 
-    public CurrentConfiguration(IConfigurationRepository configurationRepository)
+    public CurrentConfiguration(IConfigurationRepository configurationRepository, IFileSystemEntryRepository fileSystemEntryRepository)
     {
       _configurationRepository = configurationRepository;
+      _fileSystemEntryRepository = fileSystemEntryRepository;
     }
 
     #region ICurrentConfiguration Members

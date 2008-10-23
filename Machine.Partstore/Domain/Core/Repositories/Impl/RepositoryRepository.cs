@@ -47,7 +47,7 @@ namespace Machine.Partstore.Domain.Core.Repositories.Impl
 
     public void RefreshRepository(Repository repository)
     {
-      Hooks.Create(repository).RunRefresh();
+      Infrastructure.HooksRepository.CreateHooks(repository).RunRefresh();
     }
     #endregion
 
@@ -101,9 +101,10 @@ namespace Machine.Partstore.Domain.Core.Repositories.Impl
 
     private static void RunChangeHooks(Repository repository, IEnumerable<ProjectVersionAdded> changes)
     {
+      Hooks hooks = Infrastructure.HooksRepository.CreateHooks(repository);
       foreach (ProjectVersionAdded change in changes)
       {
-        Hooks.Create(repository).RunCommit(change.Project, change.Version);
+        hooks.RunCommit(change.Project, change.Version);
       }
     }
   }

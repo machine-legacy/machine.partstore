@@ -82,6 +82,8 @@
     <Compile Include="Commands\SeachRepositoryCommand.cs" />
     <Compile Include="Commands\ShowCommand.cs" />
     <Compile Include="Commands\UnpackageCommand.cs" />
+    <Compile Include="Domain\Core\Repositories\IHooksRepository.cs" />
+    <Compile Include="Domain\Core\Repositories\Impl\HooksRepository.cs" />
     <Compile Include="PartstoreServices.cs" />
     <Compile Include="Domain\Archiving\Archive.cs" />
     <Compile Include="Domain\Archiving\ArchivedFile.cs" />

@@ -1,4 +1,5 @@
 using System;
+using Machine.Core.Services;
 
 using Machine.Partstore.Domain.Archiving;
 using Machine.Partstore.Domain.FileSystem;
@@ -8,6 +9,13 @@ namespace Machine.Partstore.Domain.Core
   public class ArchiveRepositoryAccessStrategy : IRepositoryAccessStrategy
   {
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(ArchiveRepositoryAccessStrategy));
+
+    private readonly IFileSystem _fileSystem;
+
+    public ArchiveRepositoryAccessStrategy(IFileSystem fileSystem)
+    {
+      _fileSystem = fileSystem;
+    }
 
     #region IRepositoryAdditionStrategy Members
     public void CommitVersionToRepository(NewProjectVersion newProjectVersion)
@@ -30,7 +38,7 @@ namespace Machine.Partstore.Domain.Core
 
     public bool IsVersionPresentInRepository(ArchivedProjectVersion version)
     {
-      return Infrastructure.FileSystem.IsFile(version.PathInRepository.AsString + ZipPackager.ZipExtension);
+      return _fileSystem.IsFile(version.PathInRepository.AsString + ZipPackager.ZipExtension);
     }
     #endregion
 
