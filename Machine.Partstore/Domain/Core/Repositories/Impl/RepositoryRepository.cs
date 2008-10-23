@@ -74,7 +74,7 @@ namespace Machine.Partstore.Domain.Core.Repositories.Impl
           if (!Repository.AccessStrategy.IsVersionPresentInRepository(version))
           {
             _log.Info("New version of " + project + " is " + version);
-            changes.Add(new ProjectVersionAdded(new ArchivedProjectAndVersion(project, version)));
+            changes.Add(new ProjectVersionAdded(new ArchivedProjectAndVersion(new ProjectFromRepository(repository, project), version)));
           }
         }
       }

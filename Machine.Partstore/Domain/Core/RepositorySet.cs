@@ -31,14 +31,14 @@ namespace Machine.Partstore.Domain.Core
       _repositories = new List<Repository>(repositories);
     }
 
-    public ArchivedProject FindProject(string name)
+    public ProjectFromRepository FindProject(string name)
     {
       foreach (Repository repository in _repositories)
       {
         ArchivedProject project = repository.FindProject(name);
         if (project != null)
         {
-          return project;
+          return new ProjectFromRepository(repository, project);
         }
       }
       return null;
@@ -56,11 +56,11 @@ namespace Machine.Partstore.Domain.Core
 
     public ArchivedProjectAndVersion FindArchivedProjectAndVersion(ReferenceCandidate referenceCandidate)
     {
-      ArchivedProject project = FindProject(referenceCandidate.ProjectName);
-      if (project == null) throw new YouFoundABugException();
-      ArchivedProjectVersion version = project.FindVersionByNumber(referenceCandidate.VersionNumber);
+      ProjectFromRepository projectFromRepository = FindProject(referenceCandidate.ProjectName);
+      if (projectFromRepository == null) throw new YouFoundABugException();
+      ArchivedProjectVersion version = projectFromRepository.Project.FindVersionByNumber(referenceCandidate.VersionNumber);
       if (version == null) throw new YouFoundABugException();
-      return new ArchivedProjectAndVersion(project, version);
+      return new ArchivedProjectAndVersion(projectFromRepository, version);
     }
 
     public void Refresh()

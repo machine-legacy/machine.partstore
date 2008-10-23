@@ -32,10 +32,10 @@ namespace Machine.Partstore.Domain.Core
       return manifest.IsOlderThan(version);
     }
 
-    public void UpdateInstalledVersion(RepositorySet repositorySet, ArchivedProjectVersion version)
+    public void UpdateInstalledVersion(ArchivedProjectAndVersion archivedProjectAndVersion)
     {
-      Repository.AccessStrategy.CheckoutVersionFromRepository(version, _path);
-      _manifests.AddManifestFor(new ArchivedProjectAndVersion(_dependency, version));
+      Repository.AccessStrategy.CheckoutVersionFromRepository(archivedProjectAndVersion.Version, _path);
+      _manifests.AddManifestFor(archivedProjectAndVersion);
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(_manifests);
     }
   }

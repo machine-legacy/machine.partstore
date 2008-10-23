@@ -3,10 +3,42 @@ using System.Collections.Generic;
 
 namespace Machine.Partstore.Domain.Core
 {
+  public class ProjectFromRepository
+  {
+    private readonly Repository _repository;
+    private readonly ArchivedProject _project;
+
+    public ProjectFromRepository(Repository repository, ArchivedProject project)
+    {
+      _repository = repository;
+      _project = project;
+    }
+
+    public Repository Repository
+    {
+      get { return _repository; }
+    }
+
+    public ArchivedProject Project
+    {
+      get { return _project; }
+    }
+
+    public override string ToString()
+    {
+      return "ProjectFromRepository<" + this.Repository + ", " + this.Project + ">";
+    }
+  }
   public class ArchivedProjectAndVersion
   {
+    private readonly Repository _repository;
     private readonly ArchivedProject _project;
     private readonly ArchivedProjectVersion _version;
+
+    public Repository Repository
+    {
+      get { return _repository; }
+    }
 
     public ArchivedProject Project
     {
@@ -18,8 +50,14 @@ namespace Machine.Partstore.Domain.Core
       get { return _version; }
     }
 
-    public ArchivedProjectAndVersion(ArchivedProject project, ArchivedProjectVersion version)
+    public ArchivedProjectAndVersion(ProjectFromRepository projectFromRepository, ArchivedProjectVersion version)
+      : this(projectFromRepository.Repository, projectFromRepository.Project, version)
     {
+    }
+
+    public ArchivedProjectAndVersion(Repository repository, ArchivedProject project, ArchivedProjectVersion version)
+    {
+      _repository = repository;
       _project = project;
       _version = version;
     }
@@ -41,7 +79,7 @@ namespace Machine.Partstore.Domain.Core
 
     public override string ToString()
     {
-      return "ArchivedProjectAndVersion<" + this.Project + ", " + this.Version + ">";
+      return "ArchivedProjectAndVersion<" + this.Repository + ", " + this.Project + ", " + this.Version + ">";
     }
   }
 }

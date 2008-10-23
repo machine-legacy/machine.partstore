@@ -38,7 +38,7 @@ namespace Machine.Partstore.Domain.Core
     {
       if (this.Status.IsOlderVersionInstalled)
       {
-        this.Installed.UpdateInstalledVersion(repositorySet, _archivedProjectAndVersion.Version);
+        this.Installed.UpdateInstalledVersion(_archivedProjectAndVersion);
       }
     }
 
