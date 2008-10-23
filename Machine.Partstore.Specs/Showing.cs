@@ -199,9 +199,8 @@ namespace Machine.Partstore
     Establish context = () =>
     {
       VersionNumber version = New.Version();
-      Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", version));
-      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", version))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
@@ -247,9 +246,8 @@ namespace Machine.Partstore
     Establish context = () =>
     {
       VersionNumber version = New.Version();
-      Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", version));
-      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", version))));
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", version))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
@@ -299,10 +297,9 @@ namespace Machine.Partstore
     {
       VersionNumber older = New.Version();
       VersionNumber newer = New.Version();
-      Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", newer));
       ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
-      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", older), New.ArchivedProjectVersion("A", newer))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
@@ -355,10 +352,9 @@ namespace Machine.Partstore
     {
       VersionNumber older = New.Version();
       VersionNumber newer = New.Version();
-      Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", newer));
       ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
-      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", older), New.ArchivedProjectVersion("A", newer))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
@@ -408,10 +404,9 @@ namespace Machine.Partstore
     {
       VersionNumber older = New.Version();
       VersionNumber newer = New.Version();
-      Purl repositoryPath = New.RandomPurl();
       ProjectManifestStore required = New.ManifestStore(New.Manifest("A", older));
       ProjectManifestStore installed = New.ManifestStore(New.Manifest("A", older));
-      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository().With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", older), New.ArchivedProjectVersion("A", newer))));
       CurrentProject currentProject = New.CurrentProject(required, repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);

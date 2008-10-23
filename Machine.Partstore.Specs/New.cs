@@ -64,9 +64,9 @@ namespace Machine.Partstore
       return new ArchivedProjectCreator(name);
     }
 
-    public ArchivedProjectVersionCreator ArchivedProjectVersion(Purl repositoryRoot, string name, VersionNumber version)
+    public ArchivedProjectVersionCreator ArchivedProjectVersion(string name, VersionNumber version)
     {
-      return new ArchivedProjectVersionCreator(repositoryRoot, name, version);
+      return new ArchivedProjectVersionCreator(name, version);
     }
 
     public RepositoryCreator Repository()
@@ -240,20 +240,18 @@ namespace Machine.Partstore
 
   public class ArchivedProjectVersionCreator : Creator<ArchivedProjectVersion>
   {
-    private readonly Purl _repositoryRoot;
     private readonly string _projectName;
     private readonly VersionNumber _version;
 
-    public ArchivedProjectVersionCreator(Purl repositoryRoot, string projectName, VersionNumber version)
+    public ArchivedProjectVersionCreator(string projectName, VersionNumber version)
     {
-      _repositoryRoot = repositoryRoot;
       _version = version;
       _projectName = projectName;
     }
 
     public override ArchivedProjectVersion Create()
     {
-      ArchivedProjectVersion version = ArchivedProjectVersion.Create(_repositoryRoot, _projectName, Tags.None);
+      ArchivedProjectVersion version = ArchivedProjectVersion.Create(_projectName, Tags.None);
       version.Number = _version;
       return version;
     }

@@ -71,14 +71,6 @@ namespace Machine.Partstore.Domain.Core
       return FindProject(manifest.ProjectName);
     }
 
-    public void AddNewVersion(Project project, Tags tags)
-    {
-      ArchivedProject archivedProject = FindOrCreateProject(project);
-      ArchivedProjectVersion version = ArchivedProjectVersion.Create(this, archivedProject, tags);
-      version.FileSet = project.BuildDirectory.ToFileSet();
-      archivedProject.AddVersion(version);
-    }
-
     public IEnumerable<ReferenceCandidate> FindAllReferenceCandidates()
     {
       foreach (ArchivedProject project in _projects)

@@ -89,7 +89,10 @@ namespace Machine.Partstore.Domain.Core
 
     public void AddNewVersion(Repository repository, Tags tags)
     {
-      repository.AddNewVersion(this, tags);
+      ArchivedProject archivedProject = repository.FindOrCreateProject(this);
+      ArchivedProjectVersion version = ArchivedProjectVersion.Create(archivedProject, tags);
+      version.FileSet = this.BuildDirectory.ToFileSet();
+      archivedProject.AddVersion(version);
     }
   }
 }

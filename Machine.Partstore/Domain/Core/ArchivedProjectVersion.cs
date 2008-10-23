@@ -48,16 +48,16 @@ namespace Machine.Partstore.Domain.Core
       _tags = tags;
     }
 
-    public static ArchivedProjectVersion Create(Purl repositoryRoot, string projectName, Tags tags)
+    public static ArchivedProjectVersion Create(string projectName, Tags tags)
     {
       VersionNumber version = new VersionNumber();
       string repositoryAlias = projectName + "-" + version.AsString;
       return new ArchivedProjectVersion(version, repositoryAlias, tags);
     }
 
-    public static ArchivedProjectVersion Create(Repository repository, ArchivedProject project, Tags tags)
+    public static ArchivedProjectVersion Create(ArchivedProject project, Tags tags)
     {
-      return Create(repository.RootPath, project.Name, tags);
+      return Create(project.Name, tags);
     }
 
     public override string ToString()

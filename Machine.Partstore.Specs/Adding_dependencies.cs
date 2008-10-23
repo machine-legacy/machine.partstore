@@ -111,8 +111,7 @@ namespace Machine.Partstore
 
     Establish context = () =>
     {
-      Purl repositoryPath = New.RandomPurl();
-      RepositorySet repositorySet = New.RepositorySet().With(New.Repository("Test1").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", New.Version()))));
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository("Test1").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", New.Version()))));
       currentProject = New.CurrentProject(New.ManifestStore(), repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
@@ -146,9 +145,8 @@ namespace Machine.Partstore
 
     Establish context = () =>
     {
-      Purl repositoryPath = New.RandomPurl();
-      Repository first = New.Repository("Test1").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", New.Version())));
-      Repository second = New.Repository("Test2").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", New.Version())));
+      Repository first = New.Repository("Test1").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", New.Version())));
+      Repository second = New.Repository("Test2").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", New.Version())));
       RepositorySet repositorySet = New.RepositorySet().With(first).With(second);
       currentProject = New.CurrentProject(New.ManifestStore(), repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
@@ -180,9 +178,8 @@ namespace Machine.Partstore
 
     Establish context = () =>
     {
-      Purl repositoryPath = New.RandomPurl();
-      Repository first = New.Repository("Test1").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", New.Version())));
-      Repository second = New.Repository("Test2").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", New.Version())));
+      Repository first = New.Repository("Test1").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", New.Version())));
+      Repository second = New.Repository("Test2").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", New.Version())));
       RepositorySet repositorySet = New.RepositorySet().With(first).With(second);
       currentProject = New.CurrentProject(New.ManifestStore(), repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
@@ -216,8 +213,7 @@ namespace Machine.Partstore
     {
       VersionNumber older = New.Version();
       VersionNumber newer = New.Version();
-      Purl repositoryPath = New.RandomPurl();
-      RepositorySet repositorySet = New.RepositorySet().With(New.Repository("Test1").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion(repositoryPath, "A", older), New.ArchivedProjectVersion(repositoryPath, "A", newer))));
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository("Test1").With(New.ArchivedProject("A").With(New.ArchivedProjectVersion("A", older), New.ArchivedProjectVersion("A", newer))));
       currentProject = New.CurrentProject(New.ManifestStore(New.Manifest("A", older)), repositorySet).WithLibrary(@"C:\Temp\Libraries");
       
       services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
