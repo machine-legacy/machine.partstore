@@ -9,6 +9,7 @@ namespace Machine.Partstore.Domain.Core
   {
     public static readonly ProjectDirectory Missing = new ProjectDirectory(Purl.Null);
     private readonly Purl _path;
+    private FileSet _fileSet;
 
     public bool IsMissing
     {
@@ -27,6 +28,11 @@ namespace Machine.Partstore.Domain.Core
       }
     }
 
+    public bool IsEmpty
+    {
+      get { return ToFileSet().IsEmpty; }
+    }
+
     public Purl GetRelativeTo(string relative)
     {
       return GetRelativeTo(new Purl(relative));
@@ -39,7 +45,13 @@ namespace Machine.Partstore.Domain.Core
 
     public FileSet ToFileSet()
     {
-      return FileSetFactory.CreateFileSetFrom(this.Path);
+      {
+        if (_fileSet == null)
+        {
+          _fileSet = FileSetFactory.CreateFileSetFrom(this.Path);
+        }
+        return _fileSet;
+      }
     }
 
     public ProjectDirectory(Purl path)
