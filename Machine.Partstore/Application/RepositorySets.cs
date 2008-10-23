@@ -41,6 +41,9 @@ namespace Machine.Partstore.Application
       {
         repository = repositorySet.DefaultRepository;
       }
+
+      // ArchivedProjectAndVersion version = project.CreateNewVersion();
+
       project.AddNewVersion(repository, new Tags(tags));
       _repositoryRepository.SaveRepository(repository);
       return new AddingVersionResponse(false, false);

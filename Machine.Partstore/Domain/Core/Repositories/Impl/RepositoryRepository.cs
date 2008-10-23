@@ -54,13 +54,6 @@ namespace Machine.Partstore.Domain.Core.Repositories.Impl
     private static Repository Hydrate(Repository repository, Purl manifestPath)
     {
       repository.RootPath = manifestPath.Parent;
-      foreach (ArchivedProject project in repository.Projects)
-      {
-        foreach (ArchivedProjectVersion version in project.Versions)
-        {
-          version.PathInRepository = repository.RootPath.Join(version.RepositoryAlias);
-        }
-      }
       return repository;
     }
 

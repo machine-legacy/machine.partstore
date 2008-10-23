@@ -22,14 +22,14 @@ namespace Machine.Partstore.Domain.Core
     public void CommitVersionToRepository(Repository repository, NewProjectVersion newProjectVersion)
     {
       _log.Info("Committing: " + newProjectVersion);
-      Purl destiny = newProjectVersion.PathInRepository;
+      Purl destiny = repository.PathFor(newProjectVersion);
       CopyFiles(newProjectVersion.FileSet, destiny, false);
     }
 
     public void CheckoutVersionFromRepository(Repository repository, ArchivedProjectVersion version, Purl directory)
     {
       _log.Info("Checking out: " + version + " into " + directory);
-      FileSystemEntry entry = Infrastructure.FileSystemEntryRepository.FindEntry(version.PathInRepository);
+      FileSystemEntry entry = Infrastructure.FileSystemEntryRepository.FindEntry(repository.PathFor(version));
       FileSet fileSet = new FileSet();
       fileSet.AddAll(entry.BreadthFirstFiles);
       CopyFiles(fileSet, directory, true);
@@ -37,7 +37,7 @@ namespace Machine.Partstore.Domain.Core
 
     public bool IsVersionPresentInRepository(Repository repository, ArchivedProjectVersion version)
     {
-      return _fileSystem.IsDirectory(version.PathInRepository.AsString);
+      return _fileSystem.IsDirectory(repository.PathFor(version).AsString);
     }
     #endregion
 

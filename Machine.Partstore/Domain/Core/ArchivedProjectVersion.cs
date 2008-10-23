@@ -10,7 +10,6 @@ namespace Machine.Partstore.Domain.Core
     private VersionNumber _versionNumber;
     private string _repositoryAlias;
     private Tags _tags;
-    private Purl _pathInRepository;
     private FileSet _fileSet;
 
     public VersionNumber Number
@@ -32,13 +31,6 @@ namespace Machine.Partstore.Domain.Core
     }
 
     [XmlIgnore]
-    public Purl PathInRepository
-    {
-      get { return _pathInRepository; }
-      set { _pathInRepository = value; }
-    }
-
-    [XmlIgnore]
     public FileSet FileSet
     {
       get { return _fileSet; }
@@ -49,11 +41,10 @@ namespace Machine.Partstore.Domain.Core
     {
     }
 
-    protected ArchivedProjectVersion(VersionNumber version, string repositoryAlias, Purl pathInRepository, Tags tags)
+    protected ArchivedProjectVersion(VersionNumber version, string repositoryAlias, Tags tags)
     {
       _versionNumber = version;
       _repositoryAlias = repositoryAlias;
-      _pathInRepository = pathInRepository;
       _tags = tags;
     }
 
@@ -61,8 +52,7 @@ namespace Machine.Partstore.Domain.Core
     {
       VersionNumber version = new VersionNumber();
       string repositoryAlias = projectName + "-" + version.AsString;
-      Purl pathInRepository = repositoryRoot.Join(repositoryAlias);
-      return new ArchivedProjectVersion(version, repositoryAlias, pathInRepository, tags);
+      return new ArchivedProjectVersion(version, repositoryAlias, tags);
     }
 
     public static ArchivedProjectVersion Create(Repository repository, ArchivedProject project, Tags tags)

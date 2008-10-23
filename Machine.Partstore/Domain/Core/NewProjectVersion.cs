@@ -14,11 +14,6 @@ namespace Machine.Partstore.Domain.Core
       get { return _projectVersionAdded.Project.Name; }
     }
 
-    public Purl PathInRepository
-    {
-      get { return _projectVersionAdded.Version.PathInRepository; }
-    }
-
     public string RepositoryAlias
     {
       get { return _projectVersionAdded.Version.RepositoryAlias; }

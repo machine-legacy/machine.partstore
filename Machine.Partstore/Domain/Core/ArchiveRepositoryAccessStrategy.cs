@@ -24,21 +24,21 @@ namespace Machine.Partstore.Domain.Core
       using (Archive archive = MakeArchiveFor(newProjectVersion))
       {
         ZipPackager writer = new ZipPackager(archive);
-        writer.WriteZip(new Purl(newProjectVersion.PathInRepository.AsString + ZipPackager.ZipExtension));
+        writer.WriteZip(new Purl(repository.PathFor(newProjectVersion).AsString + ZipPackager.ZipExtension));
       }
     }
 
     public void CheckoutVersionFromRepository(Repository repository, ArchivedProjectVersion version, Purl directory)
     {
       _log.Info("Checking out: " + version + " into " + directory);
-      Archive archive = ArchiveFactory.ReadZip(new Purl(version.PathInRepository.AsString + ZipPackager.ZipExtension));
+      Archive archive = ArchiveFactory.ReadZip(new Purl(repository.PathFor(version).AsString + ZipPackager.ZipExtension));
       ZipUnpackager unpackager = new ZipUnpackager(archive);
       unpackager.UnpackageZip(directory);
     }
 
     public bool IsVersionPresentInRepository(Repository repository, ArchivedProjectVersion version)
     {
-      return _fileSystem.IsFile(version.PathInRepository.AsString + ZipPackager.ZipExtension);
+      return _fileSystem.IsFile(repository.PathFor(version).AsString + ZipPackager.ZipExtension);
     }
     #endregion
 
@@ -51,6 +51,17 @@ namespace Machine.Partstore.Domain.Core
         archive.Add(file.Path.ChangeRoot(commonRootDirectory), file);
       }
       return archive;
+    }
+  }
+  public static class Mapping
+  {
+    public static Purl PathFor(this Repository repository, ArchivedProjectVersion version)
+    {
+      return repository.RootPath.Join(version.RepositoryAlias);
+    }
+    public static Purl PathFor(this Repository repository, NewProjectVersion version)
+    {
+      return repository.RootPath.Join(version.RepositoryAlias);
     }
   }
 }
