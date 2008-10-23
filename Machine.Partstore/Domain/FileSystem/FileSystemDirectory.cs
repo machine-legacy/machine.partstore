@@ -31,21 +31,6 @@ namespace Machine.Partstore.Domain.FileSystem
       }
     }
 
-    public override IEnumerable<FileSystemEntry> BreadthFirstTree
-    {
-      get
-      {
-        yield return this;
-        foreach (FileSystemEntry entry in this.Children)
-        {
-          foreach (FileSystemEntry child in entry.BreadthFirstTree)
-          {
-            yield return child;
-          }
-        }
-      }
-    }
-
     public override IEnumerable<FileSystemFile> BreadthFirstFiles
     {
       get

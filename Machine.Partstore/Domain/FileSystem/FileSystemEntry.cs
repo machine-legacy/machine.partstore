@@ -23,11 +23,6 @@ namespace Machine.Partstore.Domain.FileSystem
       get { yield break; }
     }
 
-    public virtual IEnumerable<FileSystemEntry> BreadthFirstTree
-    {
-      get { yield return this; }
-    }
-
     public virtual IEnumerable<FileSystemFile> BreadthFirstFiles
     {
       get { yield break; }
