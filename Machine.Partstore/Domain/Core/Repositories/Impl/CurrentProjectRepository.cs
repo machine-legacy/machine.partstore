@@ -43,7 +43,7 @@ namespace Machine.Partstore.Domain.Core.Repositories.Impl
       {
         if (projectReference.Status.IsOlderVersionInstalled)
         {
-          projectReference.UnpackageIfNecessary(project.RepositorySet);
+          projectReference.UnpackageIfNecessary();
         }
       }
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(project.Manifests);

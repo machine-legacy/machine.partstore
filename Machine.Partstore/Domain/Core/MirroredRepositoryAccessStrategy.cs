@@ -19,14 +19,14 @@ namespace Machine.Partstore.Domain.Core
     }
 
     #region IRepositoryAccessStrategy Members
-    public void CommitVersionToRepository(NewProjectVersion newProjectVersion)
+    public void CommitVersionToRepository(Repository repository, NewProjectVersion newProjectVersion)
     {
       _log.Info("Committing: " + newProjectVersion);
       Purl destiny = newProjectVersion.PathInRepository;
       CopyFiles(newProjectVersion.FileSet, destiny, false);
     }
 
-    public void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory)
+    public void CheckoutVersionFromRepository(Repository repository, ArchivedProjectVersion version, Purl directory)
     {
       _log.Info("Checking out: " + version + " into " + directory);
       FileSystemEntry entry = Infrastructure.FileSystemEntryRepository.FindEntry(version.PathInRepository);
@@ -35,7 +35,7 @@ namespace Machine.Partstore.Domain.Core
       CopyFiles(fileSet, directory, true);
     }
 
-    public bool IsVersionPresentInRepository(ArchivedProjectVersion version)
+    public bool IsVersionPresentInRepository(Repository repository, ArchivedProjectVersion version)
     {
       return _fileSystem.IsDirectory(version.PathInRepository.AsString);
     }

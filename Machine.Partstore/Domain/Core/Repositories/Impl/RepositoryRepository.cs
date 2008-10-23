@@ -40,7 +40,7 @@ namespace Machine.Partstore.Domain.Core.Repositories.Impl
     public void SaveRepository(Repository repository)
     {
       IEnumerable<ProjectVersionAdded> changes = FindAllChanges(repository);
-      CommitChanges(changes);
+      CommitChanges(repository, changes);
       SaveRepositoryManifest(repository);
       RunChangeHooks(repository, changes);
     }
@@ -71,7 +71,7 @@ namespace Machine.Partstore.Domain.Core.Repositories.Impl
       {
         foreach (ArchivedProjectVersion version in project.Versions)
         {
-          if (!Repository.AccessStrategy.IsVersionPresentInRepository(version))
+          if (!Repository.AccessStrategy.IsVersionPresentInRepository(repository, version))
           {
             _log.Info("New version of " + project + " is " + version);
             changes.Add(new ProjectVersionAdded(new ArchivedProjectAndVersion(new ProjectFromRepository(repository, project), version)));
@@ -81,11 +81,11 @@ namespace Machine.Partstore.Domain.Core.Repositories.Impl
       return changes;
     }
 
-    private static void CommitChanges(IEnumerable<ProjectVersionAdded> changes)
+    private static void CommitChanges(Repository repository, IEnumerable<ProjectVersionAdded> changes)
     {
       foreach (ProjectVersionAdded change in changes)
       {
-        Repository.AccessStrategy.CommitVersionToRepository(new NewProjectVersion(change));
+        Repository.AccessStrategy.CommitVersionToRepository(repository, new NewProjectVersion(change));
       }
     }
 

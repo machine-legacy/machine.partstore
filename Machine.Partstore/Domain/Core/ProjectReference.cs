@@ -9,7 +9,7 @@ namespace Machine.Partstore.Domain.Core
     {
     }
 
-    public abstract void UnpackageIfNecessary(RepositorySet repositorySet);
+    public abstract void UnpackageIfNecessary();
 
     public abstract ReferenceStatus Status
     {
@@ -34,7 +34,7 @@ namespace Machine.Partstore.Domain.Core
       get { return _installed; }
     }
 
-    public override void UnpackageIfNecessary(RepositorySet repositorySet)
+    public override void UnpackageIfNecessary()
     {
       if (this.Status.IsOlderVersionInstalled)
       {
@@ -56,7 +56,7 @@ namespace Machine.Partstore.Domain.Core
       _status = status;
     }
 
-    public override void UnpackageIfNecessary(RepositorySet repositorySet)
+    public override void UnpackageIfNecessary()
     {
       throw new InvalidOperationException("You can't unpackage an unhealthy reference!");
     }

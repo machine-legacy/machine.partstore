@@ -18,7 +18,7 @@ namespace Machine.Partstore.Domain.Core
     }
 
     #region IRepositoryAdditionStrategy Members
-    public void CommitVersionToRepository(NewProjectVersion newProjectVersion)
+    public void CommitVersionToRepository(Repository repository, NewProjectVersion newProjectVersion)
     {
       _log.Info("Committing: " + newProjectVersion);
       using (Archive archive = MakeArchiveFor(newProjectVersion))
@@ -28,7 +28,7 @@ namespace Machine.Partstore.Domain.Core
       }
     }
 
-    public void CheckoutVersionFromRepository(ArchivedProjectVersion version, Purl directory)
+    public void CheckoutVersionFromRepository(Repository repository, ArchivedProjectVersion version, Purl directory)
     {
       _log.Info("Checking out: " + version + " into " + directory);
       Archive archive = ArchiveFactory.ReadZip(new Purl(version.PathInRepository.AsString + ZipPackager.ZipExtension));
@@ -36,7 +36,7 @@ namespace Machine.Partstore.Domain.Core
       unpackager.UnpackageZip(directory);
     }
 
-    public bool IsVersionPresentInRepository(ArchivedProjectVersion version)
+    public bool IsVersionPresentInRepository(Repository repository, ArchivedProjectVersion version)
     {
       return _fileSystem.IsFile(version.PathInRepository.AsString + ZipPackager.ZipExtension);
     }

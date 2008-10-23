@@ -34,8 +34,8 @@ namespace Machine.Partstore.Domain.Core
 
     public void UpdateInstalledVersion(ArchivedProjectAndVersion archivedProjectAndVersion)
     {
-      Repository.AccessStrategy.CheckoutVersionFromRepository(archivedProjectAndVersion.Version, _path);
       _manifests.AddManifestFor(archivedProjectAndVersion);
+      Repository.AccessStrategy.CheckoutVersionFromRepository(archivedProjectAndVersion.Repository, archivedProjectAndVersion.Version, _path);
       Infrastructure.ProjectManifestRepository.SaveProjectManifestStore(_manifests);
     }
   }

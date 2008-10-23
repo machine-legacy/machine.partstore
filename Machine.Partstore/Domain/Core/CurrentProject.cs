@@ -78,7 +78,7 @@ namespace Machine.Partstore.Domain.Core
       {
         foreach (ProjectReference reference in this.References)
         {
-          reference.UnpackageIfNecessary(_repositorySet);
+          reference.UnpackageIfNecessary();
         }
       }
       else
