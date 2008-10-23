@@ -5,35 +5,39 @@ namespace Machine.Partstore.Application
 {
   public class AddingVersionResponse
   {
-    private readonly bool _noBuildDirectory;
-    private readonly bool _buildDirectoryEmpty;
-    private readonly bool _ambiguousRepositoryName;
+    public enum Status
+    {
+      Success,
+      NoBuildDirectory,
+      BuildDirectoryEmpty,
+      AmbiguousRepositoryName
+    }
+
+    private readonly Status _status;
 
     public bool NoBuildDirectory
     {
-      get { return _noBuildDirectory; }
+      get { return _status == Status.NoBuildDirectory; }
     }
 
     public bool BuildDirectoryEmpty
     {
-      get { return _buildDirectoryEmpty; }
+      get { return _status == Status.BuildDirectoryEmpty; }
     }
 
     public bool AmbiguousRepositoryName
     {
-      get { return _ambiguousRepositoryName; }
+      get { return _status == Status.AmbiguousRepositoryName; }
     }
 
     public bool Success
     {
-      get { return !_noBuildDirectory && !_ambiguousRepositoryName; }
+      get { return _status == Status.Success; }
     }
 
-    public AddingVersionResponse(bool noBuildDirectory, bool buildDirectoryEmpty, bool ambiguousRepositoryName)
+    public AddingVersionResponse(Status status)
     {
-      _noBuildDirectory = noBuildDirectory;
-      _buildDirectoryEmpty = buildDirectoryEmpty;
-      _ambiguousRepositoryName = ambiguousRepositoryName;
+      _status = status;
     }
   }
 }

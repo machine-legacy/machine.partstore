@@ -25,11 +25,11 @@ namespace Machine.Partstore.Application
       CurrentProject project = _currentProjectRepository.FindCurrentProject();
       if (project.BuildDirectory.IsMissing)
       {
-        return new AddingVersionResponse(true, false, false);
+        return new AddingVersionResponse(AddingVersionResponse.Status.NoBuildDirectory);
       }
       if (project.BuildDirectory.IsEmpty)
       {
-        return new AddingVersionResponse(false, true, false);
+        return new AddingVersionResponse(AddingVersionResponse.Status.BuildDirectoryEmpty);
       }
       RepositorySet repositorySet = project.RepositorySet;
       Repository repository;
@@ -37,7 +37,7 @@ namespace Machine.Partstore.Application
       {
         if (String.IsNullOrEmpty(repositoryName))
         {
-          return new AddingVersionResponse(false, false, true);
+          return new AddingVersionResponse(AddingVersionResponse.Status.AmbiguousRepositoryName);
         }
         repository = repositorySet.FindRepositoryByName(repositoryName);
       }
@@ -50,7 +50,7 @@ namespace Machine.Partstore.Application
 
       project.AddNewVersion(repository, new Tags(tags));
       _repositoryRepository.SaveRepository(repository);
-      return new AddingVersionResponse(false, false, false);
+      return new AddingVersionResponse(AddingVersionResponse.Status.Success);
     }
     
     public bool Refresh()
