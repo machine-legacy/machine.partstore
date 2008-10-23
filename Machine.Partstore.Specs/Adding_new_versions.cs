@@ -84,6 +84,7 @@ namespace Machine.Partstore
       
       services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
       services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.FileSystemEntryRepository.Stub(x => x.FindEntry(Purl.For(@"C:\Temp\Build"))).Return(New.Directory().WithSomeFiles());
       mocks.ReplayAll();
 
       repositorySets = container.Resolve.Object<RepositorySets>();
@@ -94,6 +95,42 @@ namespace Machine.Partstore
 
     It should_respond_no_build_directory = () => 
       response.NoBuildDirectory.ShouldBeTrue();
+  }
+
+  [Subject("Adding new versions")]
+  public class when_adding_new_version_with_empty_build_directory : with_configuration
+  {
+    static RepositorySets repositorySets;
+    static AddingVersionResponse response;
+    static CurrentProject currentProject;
+
+    Establish context = () =>
+    {
+      RepositorySet repositorySet = New.RepositorySet().With(New.Repository("Test1"));
+      currentProject = New.CurrentProject(New.ManifestStore(), repositorySet).WithBuild(@"C:\Temp\Build");
+      
+      services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
+      services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.FileSystemEntryRepository.Stub(x => x.FindEntry(Purl.For(@"C:\Temp\Build"))).Return(New.Directory());
+      mocks.ReplayAll();
+
+      repositorySets = container.Resolve.Object<RepositorySets>();
+    };
+
+    Because of = () =>
+      response = repositorySets.AddNewVersion(String.Empty, String.Empty);
+
+    It should_have_build_directory = () => 
+      response.NoBuildDirectory.ShouldBeFalse();
+
+    It should_have_empty_build_directory = () => 
+      response.BuildDirectoryEmpty.ShouldBeTrue();
+
+    It should_not_have_ambiguous_repositories = () => 
+      response.AmbiguousRepositoryName.ShouldBeFalse();
+
+    It should_never_save_current_project = () =>
+      services.CurrentProjectRepository.AssertWasNotCalled(x => x.SaveCurrentProject(currentProject));
   }
 
   [Subject("Adding new versions")]
@@ -110,6 +147,7 @@ namespace Machine.Partstore
       
       services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
       services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
+      services.FileSystemEntryRepository.Stub(x => x.FindEntry(Purl.For(@"C:\Temp\Build"))).Return(New.Directory().WithSomeFiles());
       mocks.ReplayAll();
 
       repositorySets = container.Resolve.Object<RepositorySets>();
@@ -118,10 +156,13 @@ namespace Machine.Partstore
     Because of = () =>
       response = repositorySets.AddNewVersion(String.Empty, String.Empty);
 
-    It should_respond_has_build_directory = () => 
+    It should_have_build_directory = () => 
       response.NoBuildDirectory.ShouldBeFalse();
 
-    It should_respond_ambiguous_repositories = () => 
+    It should_not_have_empty_build_directory = () => 
+      response.BuildDirectoryEmpty.ShouldBeFalse();
+
+    It should_have_ambiguous_repositories = () => 
       response.AmbiguousRepositoryName.ShouldBeTrue();
 
     It should_never_save_current_project = () =>
@@ -143,7 +184,7 @@ namespace Machine.Partstore
       
       services.ConfigurationRepository.Stub(x => x.FindProjectConfiguration()).Return(configuration);
       services.CurrentProjectRepository.Stub(x => x.FindCurrentProject()).Return(currentProject);
-      services.FileSystemEntryRepository.Stub(x => x.FindEntry(Purl.For(@"C:\Temp\Build"))).Return(New.Directory());
+      services.FileSystemEntryRepository.Stub(x => x.FindEntry(Purl.For(@"C:\Temp\Build"))).Return(New.Directory().WithSomeFiles());
       mocks.ReplayAll();
 
       repositorySets = container.Resolve.Object<RepositorySets>();
@@ -152,10 +193,13 @@ namespace Machine.Partstore
     Because of = () =>
       response = repositorySets.AddNewVersion(String.Empty, String.Empty);
 
-    It should_respond_has_build_directory = () => 
+    It should_have_build_directory = () => 
       response.NoBuildDirectory.ShouldBeFalse();
 
-    It should_respond_ambiguous_repositories = () => 
+    It should_have_non_empty_build_directory = () => 
+      response.BuildDirectoryEmpty.ShouldBeFalse();
+
+    It should_not_have_ambiguous_repositories = () => 
       response.AmbiguousRepositoryName.ShouldBeFalse();
 
     It should_save_current_project = () =>

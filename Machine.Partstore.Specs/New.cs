@@ -300,9 +300,20 @@ namespace Machine.Partstore
 
   public class FileSystemEntryCreator : Creator<FileSystemEntry>
   {
+    private readonly List<FileSystemEntry> _entries = new List<FileSystemEntry>();
+
+    public FileSystemEntryCreator WithSomeFiles()
+    {
+      _entries.Add(new FileSystemFile(Purl.For("TempA"), 0, DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow));
+      _entries.Add(new FileSystemFile(Purl.For("TempB"), 0, DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow));
+      return this;
+    }
+
     public override FileSystemEntry Create()
     {
-      return new FileSystemDirectory();
+      FileSystemDirectory directory = new FileSystemDirectory(Purl.For(@"C:\TemporaryDirectory"));
+      directory.Entries.AddRange(_entries);
+      return directory;
     }
   }
 }
