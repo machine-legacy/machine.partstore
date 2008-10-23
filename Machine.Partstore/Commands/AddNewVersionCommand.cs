@@ -37,6 +37,11 @@ namespace Machine.Partstore.Commands
         Console.WriteLine("Current project has no Build directory configured.");
         return CommandStatus.Failure;
       }
+      if (response.BuildDirectoryEmpty)
+      {
+        Console.WriteLine("Current project has nothing in its build directory.");
+        return CommandStatus.Failure;
+      }
       if (response.AmbiguousRepositoryName)
       {
         Console.WriteLine("Repository to add new version to is required when you have more than 1 repository.");

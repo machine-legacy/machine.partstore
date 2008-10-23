@@ -6,11 +6,17 @@ namespace Machine.Partstore.Application
   public class AddingVersionResponse
   {
     private readonly bool _noBuildDirectory;
+    private readonly bool _buildDirectoryEmpty;
     private readonly bool _ambiguousRepositoryName;
 
     public bool NoBuildDirectory
     {
       get { return _noBuildDirectory; }
+    }
+
+    public bool BuildDirectoryEmpty
+    {
+      get { return _buildDirectoryEmpty; }
     }
 
     public bool AmbiguousRepositoryName
@@ -23,9 +29,10 @@ namespace Machine.Partstore.Application
       get { return !_noBuildDirectory && !_ambiguousRepositoryName; }
     }
 
-    public AddingVersionResponse(bool noBuildDirectory, bool ambiguousRepositoryName)
+    public AddingVersionResponse(bool noBuildDirectory, bool buildDirectoryEmpty, bool ambiguousRepositoryName)
     {
       _noBuildDirectory = noBuildDirectory;
+      _buildDirectoryEmpty = buildDirectoryEmpty;
       _ambiguousRepositoryName = ambiguousRepositoryName;
     }
   }
