@@ -9,7 +9,7 @@ function Git
         [string]$command = $(throw "Command is required."))
 
   $startInfo = New-Object Diagnostics.ProcessStartInfo
-  $startInfo.Filename = "C:\Program Files (x86)\Git\Bin\git.exe"
+  $startInfo.Filename = "C:\Program Files (x86)\Git\Cmd\git.cmd"
   $startInfo.Arguments = $command
   $startInfo.WorkingDirectory = $directory
   $startInfo.UseShellExecute = $false
