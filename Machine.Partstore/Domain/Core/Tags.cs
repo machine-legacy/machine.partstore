@@ -27,6 +27,11 @@ namespace Machine.Partstore.Domain.Core
       }
     }
 
+    public bool Empty
+    {
+      get { return _value == null || _value.Trim().Length == 0; }
+    }
+
     protected Tags()
     {
     }

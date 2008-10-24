@@ -71,7 +71,17 @@ namespace Machine.Partstore.Commands
           flags.Add("OlderVersionInstalled");
         }
       }
-      Console.WriteLine("  {0} ({1}) ({2})", status.DependencyName, status.ReferencedVersionTags, flags.Join(", "));
+      List<string> parts = new List<string>();
+      parts.Add("  " + status.DependencyName);
+      if (!status.ReferencedVersionTags.Empty)
+      {
+        parts.Add("(" + status.ReferencedVersionTags + ")");
+      }
+      if (flags.Count > 0)
+      {
+        parts.Add("(" + flags.Join(", ") + ")");
+      }
+      Console.WriteLine(parts.ToArray().Join(" "));
       return !status.IsHealthy;
     }
   }
