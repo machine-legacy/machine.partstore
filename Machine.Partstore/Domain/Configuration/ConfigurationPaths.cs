@@ -63,7 +63,7 @@ namespace Machine.Partstore.Domain.Configuration
           return directory;
         }
       }
-      return null;
+      return Environment.CurrentDirectory;
     }
 
     public string InferPathToConfigurationForCurrentProject()

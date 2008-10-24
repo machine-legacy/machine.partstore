@@ -19,16 +19,18 @@ namespace Machine.Partstore
   public class when_configuring_a_new_project_with_no_root_directory_clue : with_configure_command
   {
     static CommandStatus status;
-    static Exception error;
 
     Establish context = () =>
       project.RemoveRootClue();
 
     Because of = () =>
-      error = Catch.Exception(() => status = command.Run());
+      status = command.Run();
 
-    It should_fail = () =>
-      error.ShouldBeOfType<InvalidOperationException>();
+    It should_succeed = () =>
+      status.ShouldEqual(CommandStatus.Success);
+
+    It should_write_configuration_file = () =>
+      project.HasConfiguration.ShouldBeTrue();
   }
 
   [Subject("Configuring")]
