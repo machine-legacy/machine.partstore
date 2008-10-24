@@ -107,17 +107,21 @@ namespace Machine.Partstore.Domain.Core
       {
         throw new InvalidOperationException("Error executing hook: " + _path);
       }
+      _log.Info("Reading STDOUT...");
       string standardOut = process.StandardOutput.ReadToEnd();
       if (!String.IsNullOrEmpty(standardOut))
       {
         Console.WriteLine(standardOut);
       }
+      _log.Info("Reading STDERR...");
       string standardError = process.StandardError.ReadToEnd();
       if (!String.IsNullOrEmpty(standardError))
       {
         Console.WriteLine(standardError);
       }
+      _log.Info("WaitForExit");
       process.WaitForExit();
+      _log.Info("Done");
     }
 
     protected virtual string CreateCommand()

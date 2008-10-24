@@ -11,13 +11,5 @@ param([string]$repository = $(throw "Repository is required."),
 
 Git $repository "add ." | OutputOnly
 Git $repository "commit -v -m ""Adding new version of $project ($version) as $alias.""" | OutputOnly
-if (DoWeHaveOriginRemote)
-{
-  Git $repository "push" | OutputOnly
-}
-else
-{
-  "Git repository has no origin remote."
-}
 
 # EOF
