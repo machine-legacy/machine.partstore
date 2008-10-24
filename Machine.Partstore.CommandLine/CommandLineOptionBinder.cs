@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-
-using Machine.Partstore.Commands;
+using System.Text;
 
 namespace Machine.Partstore.CommandLine
 {
@@ -80,7 +79,18 @@ namespace Machine.Partstore.CommandLine
   {
     private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(CommandLineOptionBinder));
     private readonly CommandLineParser _parser;
+    private readonly List<BindingError> _errors = new List<BindingError>();
     private readonly object _target;
+
+    public bool HasErrors
+    {
+      get { return _errors.Count > 0; }
+    }
+
+    public IEnumerable<BindingError> Errors
+    {
+      get { return _errors; }
+    }
 
     public CommandLineOptionBinder(CommandLineParser parser, object target)
     {
@@ -138,7 +148,7 @@ namespace Machine.Partstore.CommandLine
       }
       if (required)
       {
-        throw new InvalidOperationException("Missing argument!");
+        _errors.Add(new BindingError("Missing: " + bindings.Describe() + " for " + property));
       }
     }
 
@@ -164,6 +174,36 @@ namespace Machine.Partstore.CommandLine
     private bool DoesBindingApply<TTarget>()
     {
       return typeof(TTarget).IsInstanceOfType(_target);
+    }
+  }
+  public class BindingError
+  {
+    readonly string _message;
+
+    public BindingError(string message)
+    {
+      _message = message;
+    }
+
+    public override string ToString()
+    {
+      return _message;
+    }
+  }
+  public static class Helpers
+  {
+    public static string Describe(this IEnumerable<Binder> binders)
+    {
+      StringBuilder sb = new StringBuilder();
+      foreach (Binder binder in binders)
+      {
+        if (sb.Length != 0)
+        {
+          sb.Append(" or ");
+        }
+        sb.Append(binder);
+      }
+      return sb.ToString();
     }
   }
 }

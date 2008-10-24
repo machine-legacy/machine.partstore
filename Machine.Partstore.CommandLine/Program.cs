@@ -60,6 +60,15 @@ namespace Machine.Partstore.CommandLine
         bind.Optional<AddNewVersionCommand>(x => x.RepositoryName, bind.Named("repository"), bind.Named("r"));
         bind.Optional<AddNewVersionCommand>(x => x.Tags, bind.Named("tags"), bind.Named("t"));
 
+        if (bind.HasErrors)
+        {
+          foreach (BindingError error in bind.Errors)
+          {
+            Console.WriteLine(error);
+          }
+          return;
+        }
+
         command.Run();
 
         Console.WriteLine();
