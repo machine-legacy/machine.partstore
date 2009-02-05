@@ -28,3 +28,20 @@ Help
 -----------
 
 Yeah, probably...
+
+Todo
+-----------
+
+* Parstore.config includes url and/or hook type
+
+* Make hook installation easier/automatic
+
+* Get rid of psh dependency
+
+* Auto upgrade
+
+* Configuration on library directory
+
+* Publish should push
+
+
